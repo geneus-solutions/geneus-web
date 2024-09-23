@@ -159,4 +159,6 @@ function NavbarComponent({ onSearch }) {
         </>
     );
 }
+
+
 export default NavbarComponent;
