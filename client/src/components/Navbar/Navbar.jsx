@@ -15,7 +15,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { set, selectCount } from "../../redux/slices/cartCount";
 import { userInfo, removeUserDetails } from "../../redux/slices/userDetails";
 import { useNavigate } from "react-router-dom";
-
 import { backendUrl } from "../../config";
 
 axios.defaults.withCredentials = true;
@@ -145,8 +144,29 @@ function NavbarComponent({ onSearch }) {
                     <li>
                         <Link to="/courses">Courses</Link>
                     </li>
-                    <li>
-                        <Link to="/services">Services</Link>
+                    <li className="dropdown">
+                        <Link
+                            to="#"
+                            className="dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                        >
+                            Services
+                        </Link>
+                        <ul className="dropdown-menu">
+                            <li>
+                                <Link to="/course" className="dropdown-item">
+                                    Course
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/nutrifit"
+                                    className="dropdown-item"
+                                >
+                                    NutriFit
+                                </Link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <Link to="/nutritional">Nutritional</Link>
@@ -159,9 +179,5 @@ function NavbarComponent({ onSearch }) {
         </>
     );
 }
-
-
-
-
 
 export default NavbarComponent;

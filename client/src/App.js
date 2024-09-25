@@ -7,16 +7,15 @@ import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/Banner/Banner";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import Course from "./components/Course/Course";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
-import CourseDescription from "./components/CourseDescription/CourseDescription";
 import Cart from "./components/Cart/Cart";
-import { set } from "./redux/slices/cartCount";
+import { counterSlice, set } from "./redux/slices/cartCount";
 import { useSelector, useDispatch } from "react-redux";
 import { addUserDetails, userInfo } from "./redux/slices/userDetails";
 import NutritionalAndCalorieCalculator from "./components/Nutritional/NutritionalAndCalorieCalculator";
-
+import Services from './components/Services/Services';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
@@ -28,7 +27,7 @@ const App = () => {
     const dispatch = useDispatch();
     const userDetail = useSelector(userInfo);
     useEffect(() => {
-        fetchCourses();
+        // fetchCourses();
         userDetails();
     }, []);
 
@@ -74,7 +73,7 @@ const App = () => {
     };
 
     const handleSearch = (query) => {
-        const filteredCourses = courses.filter((course) =>
+        const filteredCourses = filteredCourses.filter((course) =>
             course.title.toLowerCase().includes(query.toLowerCase())
         );
         setSearchResults(filteredCourses);
@@ -89,6 +88,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/Services" element={<Services/>}/>
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/learning" element={<Learning />} />
                 <Route path="/nutritional" element={<NutritionalAndCalorieCalculator />} />
