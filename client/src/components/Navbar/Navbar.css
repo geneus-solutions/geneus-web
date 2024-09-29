@@ -106,7 +106,7 @@
 }
 .about_pages ul {
   list-style-type: none;
-  margin-left: 20vw;
+  margin-left: 12vw;
   padding-top: 12px;
 }
 .about_pages li {
@@ -121,3 +121,51 @@
 .about_pages li a:hover {
   color: #4285F4;
 }
+.dropdown:hover .dropdown-menu {
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+  min-width: 200px;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu .dropdown-item {
+  padding: 10px;
+  color: #343a40;
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.dropdown-menu .dropdown-item .dropdown-menu {
+  left: 100%;
+  top: 0;
+  margin-left: 1px;
+  display: none;
+}
+
+.dropdown-item:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item .dropdown-menu .dropdown-item {
+  padding: 10px;
+  color: #343a40;
+}
+
+
+
