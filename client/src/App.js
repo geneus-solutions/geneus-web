@@ -3,23 +3,23 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/Banner/Banner";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import Course from "./components/Course/Course";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
-import CourseDescription from "./components/CourseDescription/CourseDescription";
 import Cart from "./components/Cart/Cart";
-import { set } from "./redux/slices/cartCount";
+import {  set } from "./redux/slices/cartCount";
 import { useSelector, useDispatch } from "react-redux";
 import { addUserDetails, userInfo } from "./redux/slices/userDetails";
 import NutritionalAndCalorieCalculator from "./components/Nutritional/NutritionalAndCalorieCalculator";
-
-
+import Services from './components/Services/Services';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Courses from "./components/Courses/Courses";  
+import NutriFit from "./components/Nutrifit/Nutrifit"; 
 import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
+import Header from "./components/Header/Header";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -28,9 +28,9 @@ const App = () => {
     const dispatch = useDispatch();
     const userDetail = useSelector(userInfo);
     useEffect(() => {
-        fetchCourses();
+        // fetchCourses();
         userDetails();
-    }, []);
+    }, [useDispatch]);
 
     useEffect(() => {
         if (userDetail.isLoggedIn) {
@@ -74,7 +74,7 @@ const App = () => {
     };
 
     const handleSearch = (query) => {
-        const filteredCourses = courses.filter((course) =>
+        const filteredCourses = filteredCourses.filter((course) =>
             course.title.toLowerCase().includes(query.toLowerCase())
         );
         setSearchResults(filteredCourses);
@@ -83,15 +83,21 @@ const App = () => {
     return (
         <Router>
             <ToastContainer theme="colored" position="top-center" />
-            <Navbar onSearch={handleSearch} />
+            {/* <Navbar onSearch={handleSearch} /> */}
+           
+            <Header  onSearch={handleSearch}/>
+          
             <Routes>
                 <Route path="/" element={<Banner />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/Services" element={<Services/>}/>
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/learning" element={<Learning />} />
-                <Route path="/nutritional" element={<NutritionalAndCalorieCalculator />} />
+                <Route path="/nutriapp" element={<NutritionalAndCalorieCalculator />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/nutrifit" element={<NutriFit />} />
             </Routes>
             <Footer />
         </Router>
