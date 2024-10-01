@@ -1,5 +1,5 @@
 import React from 'react';
-import NutriFitImage from '../../assets/Nutrifit.jpeg'; 
+import NutriFitImage from '../../assets/nutrifit.jpeg'; 
 const NutriFit = () => {
   return (
     <div>

@@ -3,14 +3,13 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/Banner/Banner";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Cart from "./components/Cart/Cart";
-import { counterSlice, set } from "./redux/slices/cartCount";
+import {  set } from "./redux/slices/cartCount";
 import { useSelector, useDispatch } from "react-redux";
 import { addUserDetails, userInfo } from "./redux/slices/userDetails";
 import NutritionalAndCalorieCalculator from "./components/Nutritional/NutritionalAndCalorieCalculator";
@@ -20,6 +19,7 @@ import Courses from "./components/Courses/Courses";
 import NutriFit from "./components/Nutrifit/Nutrifit"; 
 import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
+import Header from "./components/Header/Header";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
     useEffect(() => {
         // fetchCourses();
         userDetails();
-    }, []);
+    }, [useDispatch]);
 
     useEffect(() => {
         if (userDetail.isLoggedIn) {
@@ -83,7 +83,10 @@ const App = () => {
     return (
         <Router>
             <ToastContainer theme="colored" position="top-center" />
-            <Navbar onSearch={handleSearch} />
+            {/* <Navbar onSearch={handleSearch} /> */}
+           
+            <Header  onSearch={handleSearch}/>
+          
             <Routes>
                 <Route path="/" element={<Banner />} />
                 <Route path="/login" element={<Login />} />
@@ -92,7 +95,7 @@ const App = () => {
                 <Route path="/Services" element={<Services/>}/>
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/learning" element={<Learning />} />
-                <Route path="/nutritional" element={<NutritionalAndCalorieCalculator />} />
+                <Route path="/nutriapp" element={<NutritionalAndCalorieCalculator />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/nutrifit" element={<NutriFit />} />
             </Routes>
