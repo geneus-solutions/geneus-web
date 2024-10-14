@@ -10,6 +10,9 @@ const MenuItems = () => {
                 <Link to="/">Home</Link>
             </li>
             <li>
+                <Link to="about/">About</Link>
+            </li>
+            <li>
                 <Link to="/courses">Courses</Link>
             </li>
             <li className="dropdown">
@@ -30,9 +33,7 @@ const MenuItems = () => {
                    
                 </ul>
             </li>
-            <li>
-                <Link to="/nutriapp">Nutritional</Link>
-            </li>
+          
             <li>
                 <Link to="/contact">Contact Us</Link>
             </li>

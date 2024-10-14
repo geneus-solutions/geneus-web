@@ -13,13 +13,12 @@ import {  set } from "./redux/slices/cartCount";
 import { useSelector, useDispatch } from "react-redux";
 import { addUserDetails, userInfo } from "./redux/slices/userDetails";
 import NutritionalAndCalorieCalculator from "./components/Nutritional/NutritionalAndCalorieCalculator";
-import Services from './components/Services/Services';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Courses from "./components/Courses/Courses";  
-import NutriFit from "./components/Nutrifit/Nutrifit"; 
 import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
 import Header from "./components/Header/Header";
+import About from "./components/About/About";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -83,7 +82,6 @@ const App = () => {
     return (
         <Router>
             <ToastContainer theme="colored" position="top-center" />
-            {/* <Navbar onSearch={handleSearch} /> */}
            
             <Header  onSearch={handleSearch}/>
           
@@ -92,12 +90,11 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/Services" element={<Services/>}/>
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/learning" element={<Learning />} />
                 <Route path="/nutriapp" element={<NutritionalAndCalorieCalculator />} />
                 <Route path="/courses" element={<Courses />} />
-                <Route path="/nutrifit" element={<NutriFit />} />
+                <Route path="/about" element={<About/>}/>
             </Routes>
             <Footer />
         </Router>
