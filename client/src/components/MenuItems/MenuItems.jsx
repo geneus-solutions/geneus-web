@@ -21,7 +21,7 @@ const MenuItems = () => {
                 </Link>
                 <ul className="dropdown-menu">
                     <li>
-                        <Link to="/courses" className="dropdown-item">
+                        <Link to="https://www.geneussolutions.in/courses" className="dropdown-item">
                             Courses
                         </Link>
                     </li>
