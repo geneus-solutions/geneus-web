@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Banner from "./components/Banner/Banner";
 import Login from "./components/Login/Login";
@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUserDetails, userInfo } from "./redux/slices/userDetails";
 import NutritionalAndCalorieCalculator from "./components/Nutritional/NutritionalAndCalorieCalculator";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import Courses from "./components/Courses/Courses";  
+import Courses from "./components/Courses/Courses";
 import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
 import Header from "./components/Header/Header";
@@ -23,13 +23,26 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
     const [searchResults, setSearchResults] = useState([]);
-
     const dispatch = useDispatch();
     const userDetail = useSelector(userInfo);
+
     useEffect(() => {
-        // fetchCourses();
-        userDetails();
-    }, [useDispatch]);
+        const fetchUserDetails = async () => {
+            try {
+                const response = await axios.post(`${backendUrl}/userAuth`);
+                if (response.data.authorized) {
+                    setUserDetailsData(response.data);
+                } else {
+                    console.log("User not authorized");
+                }
+            } catch (error) {
+                console.error("User not logged in:", error);
+              //  toast.error("Failed to authenticate user.");
+            }
+        };
+
+        fetchUserDetails();
+    }, []);
 
     useEffect(() => {
         if (userDetail.isLoggedIn) {
@@ -39,26 +52,11 @@ const App = () => {
 
     const fetchCartDetails = async () => {
         try {
-            const response = await axios.get(
-                `${backendUrl}/cart?user_id=${userDetail.userId}`
-            );
+            const response = await axios.get(`${backendUrl}/cart?user_id=${userDetail.userId}`);
             dispatch(set(response.data.cart_items.length));
         } catch (error) {
-            console.error("Failed to fetch course data:", error);
-        }
-    };
-
-    const userDetails = async () => {
-        try {
-            const response = await axios.post(`${backendUrl}/userAuth`);
-            if (!response.data.authorized) {
-                console.log(response.data.authorized);
-            } else {
-                console.log(response.data.authorized);
-                setUserDetailsData(response.data);
-            }
-        } catch (error) {
-            console.log("user not logged in :", error);
+            console.error("Failed to fetch cart details:", error);
+            toast.error("Failed to fetch cart details.");
         }
     };
 
@@ -73,7 +71,8 @@ const App = () => {
     };
 
     const handleSearch = (query) => {
-        const filteredCourses = filteredCourses.filter((course) =>
+        // Assuming you have a list of courses to filter from
+        const filteredCourses = searchResults.filter((course) =>
             course.title.toLowerCase().includes(query.toLowerCase())
         );
         setSearchResults(filteredCourses);
@@ -82,9 +81,7 @@ const App = () => {
     return (
         <Router>
             <ToastContainer theme="colored" position="top-center" />
-           
-            <Header  onSearch={handleSearch}/>
-          
+            <Header onSearch={handleSearch} />
             <Routes>
                 <Route path="/" element={<Banner />} />
                 <Route path="/login" element={<Login />} />
@@ -94,7 +91,7 @@ const App = () => {
                 <Route path="/learning" element={<Learning />} />
                 <Route path="/nutriapp" element={<NutritionalAndCalorieCalculator />} />
                 <Route path="/courses" element={<Courses />} />
-                <Route path="/about" element={<About/>}/>
+                <Route path="/about" element={<About />} />
             </Routes>
             <Footer />
         </Router>
