@@ -1,48 +1,35 @@
 import React, { useEffect, useState } from "react";
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBInput,
-    MDBCheckbox,
-} from "mdb-react-ui-kit";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbreact/dist/css/mdb.css";
-import "./Login.css";
+import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCheckbox } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addUserDetails } from "../../redux/slices/userDetails";
-import { gid } from "../../config";
-import { backendUrl } from "../../config";
-import { jwtDecode } from "jwt-decode";
+//import { gid } from "../../config";
+//import { REACT_APP_BACKEND_URL } from "../../config";
+import {jwtDecode} from "jwt-decode";
 
 const Login = () => {
     async function handleCredentialResponse(response) {
         const decoded = jwtDecode(response.credential);
         const email = decoded.email;
         try {
-            const { data } = await axios.post(`${backendUrl}/glogin`, {
+            const { data } = await axios.post(process.env.REACT_APP_BACKEND_URL+'/login', {
                 email,
             });
             console.log(data);
-            toast.success("Login successful!");
-            navigate("/");
+            //toast.success("Login successful!");
+            navigate("/courseDes/64e0c36eec5d32490e9f22d7");
             setUserDetails(data);
         } catch (err) {
             toast.error(
                 "Email id  is not found, Please provide registered email id."
             );
+
         }
     }
    /* useEffect(() => {
-         global google 
+         global google
         google.accounts.id.initialize({
             client_id: gid,
             callback: handleCredentialResponse,
@@ -81,18 +68,17 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let data;
         try {
-            data = await axios.post(`${backendUrl}/login`, {
+            const { data } = await axios.post(process.env.REACT_APP_BACKEND_URL+'/login', {
                 email,
                 password,
             });
-            console.log(data.data);
-            toast.success("Login successful!");
-            await setUserDetails(data.data);
+            await setUserDetails(data);
             navigate("/");
         } catch (err) {
-            toast.error("Either email id or password is incorrect.");
+            console.log("ERROR -----"+err);
+            toast.error(err);
+            alert("Invalid credentials. Please provide registered EmailId and password");
         }
     };
 
@@ -108,10 +94,7 @@ const Login = () => {
                             <h6 className="fw-bold mb-2 text-center text-dark">
                                 Log in to your Geneus Solutions account
                             </h6>
-                            <div
-                                id="g_id_onload"
-                                className="flex flex-center"
-                            ></div>
+                           <div id="g_id_onload" className="flex flex-center"></div>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -135,16 +118,13 @@ const Login = () => {
                                 />
                                 <MDBInput
                                     wrapperClass="mb-4 w-100"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
+                                    onChange={(e) => setPassword(e.target.value)}
                                     name="password"
                                     label="Password"
                                     id="pwd"
                                     type="password"
                                     size="lg"
                                 />
-
                                 <div className="d-flex justify-content-between text-dark mb-4">
                                     <MDBCheckbox
                                         name="flexCheck"
@@ -152,9 +132,8 @@ const Login = () => {
                                         id="flexCheckDefault"
                                         label="Remember me"
                                     />
-                                    <a href="!#">Forgot password?</a>
+                                    <a href="/forgot-pwd">Forgot password?</a>
                                 </div>
-
                                 <MDBBtn
                                     className="mb-2 w-150 fw-bold text-capitalize"
                                     size="lg"
@@ -162,15 +141,10 @@ const Login = () => {
                                 >
                                     Log in
                                 </MDBBtn>
-
                                 <hr className="my-3 text-muted" />
                                 <p className="text-center text-body pb-0">
                                     Don't have an account?
-                                    <Link
-                                        as={Link}
-                                        to="/signup"
-                                        className="sign_up"
-                                    >
+                                    <Link as={Link} to="/signup" className="sign_up">
                                         Sign up
                                     </Link>
                                 </p>
