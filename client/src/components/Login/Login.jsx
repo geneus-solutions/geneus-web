@@ -74,7 +74,7 @@ const Login = () => {
                 password,
             });
             await setUserDetails(data);
-            navigate("/courseDes/64e0c36eec5d32490e9f22d7");
+            navigate("/");
         } catch (err) {
             console.log("ERROR -----"+err);
             toast.error(err);
