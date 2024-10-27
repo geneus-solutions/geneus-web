@@ -1,83 +1,80 @@
 import React from 'react';
-import "./About.css";
+import  "./About.css";
 import AbImg from '../../assets/Ab-4.jpg'; 
 import Faq from '../../assets/Ab-2.jpg'; 
+import Ab_0 from '../../assets/info.jpeg';
+import startup from'../../assets/startup.jpg';
 import conImg from '../../assets/Ab-1.jpg'; 
 import group from '../../assets/group_icon1.jpg';
 import study_icon from '../../assets/study-icon.png';
 import finance from '../../assets/finance.png';
 import gene from '../../assets/gene.jpg';
+import mission from '../../assets/mission.png';
 
 function About() {
   return (
     <div className="row">
-      <section className="about-us-section">
-        <div className="about-us-container">
-          <div className="about-us-column">
-            <div className="about-us-widget-wrap">
-              <div className="about-us-heading">
-                <div className="about-us-widget-container">
-                  <h2 className="about-us-title">
-                    About <span className="highlight-texts">Us</span>
-                  </h2>
-                </div>
-              </div>
-              <div className="about-us-subheading">
-                <div className="about-us-widget-container">
-                  <p className="about-us-description">
-                    <span className="highlight-text-large">
-                      Welcome to Geneus Solutions! We are an integrated technology and e-learning firm specializing in website design, development, and e-learning courses. Based in Bangalore, India, we empower individuals to become proficient developers in the ever-evolving tech landscape.
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="about-us-info">
-                <div className="about-us-widget-container">
-                  <p className="about-us-details">
-                    <span className="highlight-text-small">
-                    At Geneus Solutions, we offer cutting-edge e-learning courses in full-stack development, with a hands-on approach that equips learners with practical skills. We also developed NutriGeneus, a web and Android app that helps users make informed dietary choices by calculating calorie intake and tracking macronutrients. <br />
-                    </span>
-                  </p>
-                </div>
-              </div>
+<div className='ho'>
+<section class="profile-section">
+        <div class="profile-container">
+            <div class="profile-images">
+                <img src={Ab_0} alt="Profile Picture"/>
             </div>
-          </div>
+            <div class="profile-info">
+                <h1>About <span class="highlight">Us</span></h1>
+                <h2>Welcome to Geneus Solutions, an integrated technology and e-learning firm specializing in website design, development, and comprehensive e-learning courses. Based in Bangalore, India, we are dedicated to empowering individuals to become proficient and versatile developers in the ever-evolving field of technology.
+                </h2>
+                <p>At Geneus Solutions, we offer a wide range of cutting-edge e-learning courses in full-stack development, including ReactJS, HTML/CSS/JavaScript, Java, Angular, and the complete MERN stack. Our dynamic, hands-on approach ensures that students not only understand theoretical concepts but also acquire practical skills essential for real-world scenarios.
+                  In addition to our educational offerings, we are proud to introduce NutriGeneus, our innovative web and Android app designed to calculate calorie intake and highlight macronutrients based on food selections. This tool aims to empower users to make informed dietary choices.</p>
+            </div>
         </div>
-      </section>
-
-      <div className="container">
-        <section className="abrow">
-          <div className="col-md-12 offset-right-md-6">
-            <h2 className="aboutus-widget-heading-title">Our Global Reach</h2>
-            <p className="aboutus-heading-title">
-            At Geneus Solutions, we are a global leader in e-learning and innovative applications, specializing in full-stack development courses and health-tech solutions. We connect thousands of learners and users worldwide to the skills and tools they need to thrive in today’s technology-driven world.
-            </p>
-          </div>
-        </section>
-
-        <section className="row aboutus-stats">
-          <div className="col-md-3 col-6">
-            <div className="aboutus-card-body">
-              <h2 className="highlight-text">10k+</h2>
-              <p className="aboutus-text-muted">Learners</p>
+    </section>
+    <section class="profile-sections">
+        <div class="profile-container">
+            <div class="profile-image">
+            <img src={startup} alt="Profile Picture"/>
             </div>
-          </div>
-          <div className="col-md-3 col-6">
-            <div className="aboutus-card-body">
-              <h2 className="highlight-text">3+</h2>
-              <p className="aboutus-text-muted">Expert Instructors</p>
+            <div class="profile-infos">
+            <h1>Vision <span class="highlights"></span></h1>
+            <h2>To be a global leader in providing accessible, high-quality e-learning courses in full-stack development and innovative solutions like NutriGeneus, fostering a community of skilled and health-conscious individuals.</h2>
+            </div> 
+        </div>
+    </section>
+    <section class="profile-sections">
+        <div class="profile-container">
+            <div class="profile-image">
+            <img src={mission} alt="Profile Picture"/>
             </div>
-          </div>
-  
-          <div className="col-md-3 col-6">
-            <div className="aboutus-card-body">
-              <h2 className="highlight-text">2</h2>
-              <p className="aboutus-text-muted">Innovative Products</p>
+            <div class="profile-infos">
+            <h1>Mission <span class="highlights"></span></h1>
+            <h2>Our mission is to empower individuals worldwide by delivering exceptional e-learning experiences in full-stack development and to provide practical tools like NutriGeneus that enhance everyday decision-making. We strive to bridge the gap between aspiring developers and industry demands, fostering a culture of continuous learning, collaboration, and excellence.</h2>
+            </div> 
+        </div>
+    </section>
+<div class="container">
+  <section class="abrow">
+    <div class="col-md-6 offset-right-md-6">
+      <h2 class="aboutus-widget-heading-title">Our Global Reach</h2>
+      <p class="aboutus-heading-title">At Geneus Solutions, we are a global leader in e-learning and innovative applications, specializing in full-stack development courses and health-tech solutions. We connect thousands of learners and users worldwide to the skills and tools they need to thrive in today’s technology-driven world.</p>
+    </div>
+  </section>
+  <section class="key-facts">
+        <div class="facts-container">
+            <div class="fact">
+                <h2>10k</h2>
+                <p> Learners</p>
             </div>
-          </div>
-        </section>
-
-        <section className="row aboutus-values">
+            <div class="fact">
+                <h2>3+</h2>
+                <p>Expert Instructors </p>
+            </div>
+            <div class="fact">
+                <h2>2</h2>
+                <p>Innovative Products</p>
+            </div>
+        </div>
+    </section>
+  <section className="row aboutus-values">
           <div className="col-md-4 col-12">
             <div className="aboutus-card-body">
               <img src={study_icon} alt="Innovation Icon" className="aboutus-icon" />
@@ -100,23 +97,7 @@ function About() {
             </div>
           </div>
         </section>
-
-        <section className="abrow">
-          <div className="col-md-12 offset-right-md-6">
-            <h2 className="aboutus-widget-heading-title">Vision</h2>
-            <p className="aboutus-heading-title">
-            To be a global leader in providing accessible, high-quality e-learning courses in full-stack development and innovative solutions like NutriGeneus, fostering a community of skilled and health-conscious individuals.
-            </p>
-          </div>
-        </section>
-        <section className="abrow">
-          <div className="col-md-12 offset-right-md-6">
-            <h2 className="aboutus-widget-heading-title">Mission</h2>
-            <p className="aboutus-heading-title">
-            Our mission is to empower individuals worldwide by delivering exceptional e-learning experiences in full-stack development and to provide practical tools like NutriGeneus that enhance everyday decision-making. We strive to bridge the gap between aspiring developers and industry demands, fostering a culture of continuous learning, collaboration, and excellence.
-            </p>
-          </div>
-        </section>
+      </div>
       </div>
 
       <section className="aboutus-contact pt-120 pb-150">
@@ -128,7 +109,6 @@ function About() {
               </div>
               <div className="aboutus-contact-box">
               <p>Contact Us for a <span>Free Learning</span> or <span>Nutrition</span> Consulting Evaluation</p>
-
                 <ul>
                   <li>
                     <img src={conImg} alt="Phone Icon" />
@@ -189,7 +169,6 @@ function About() {
           </div>
         </div>
       </section>
-
       <footer className="container">
         <div className="footer-widgets row pt-lg-10 pt-5 mb-6">
           <div className="footer-widget-1 mb-4 mb-0-last-child col-lg-4 col-md-6 col-12">
@@ -198,7 +177,7 @@ function About() {
                 <img src={gene} alt="Geneus Solutions" />
               </a>
               <div className="mt-4">
-                <p className="widget-site-info-desc">We are an integrated technology and e-learning firm specializing in website design, development, and e-learning courses.</p>
+                <p className="widget-site-info-desc">We are integrated Technology and Elearning Firm specialized in providing Website design and Elearning courses and Nutritional App.</p>
                 <ul className="social-menu list-unstyled d-flex align-items-center fs-4 mt-4 flex-row">
                   <li><a className="text-muted me-2 p-0 fs-4 lh-1 pe-1" href="https://madrasthemes.com/" aria-label="Facebook"><i className="mdi mdi-facebook"></i></a></li>
                   <li><a className="text-muted me-2 p-0 fs-4 lh-1 pe-1" href="https://themeforest.net/user/madrasthemes/portfolio" aria-label="Twitter"><i className="mdi mdi-twitter"></i></a></li>
@@ -212,7 +191,6 @@ function About() {
               <h3 className="widget-title fw-bold mb-3">Company</h3>
               <ul className="menu">
                 <li><a href="https://www.geneussolutions.in/About/">About</a></li>
-               {/* <li><a href="https://www.geneussolutions.in/courses">Careers</a></li>*/}
                 <li><a href="https://www.geneussolutions.in/contact">Contact</a></li>
               </ul>
             </div>
@@ -231,7 +209,7 @@ function About() {
             <div className="widget widget_text">
               <h3 className="widget-title fw-bold mb-3">Get in Touch</h3>
               <div className="textwidget">
-               
+
                 <p className="mb-1">Email: <a href="mailto:support@geneussolutions.in">support@geneussolutions.in</a></p>
                 <p>Phone: <span className="text-dark fw-semi-bold">+91 9148950239</span></p>
               </div>
@@ -239,7 +217,8 @@ function About() {
           </div>
         </div> 
       </footer>
-    </div>
+
+</div>
   );
 }
 
