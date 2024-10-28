@@ -17,8 +17,7 @@ import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-import { backendUrl, gid } from "../../config";
+//import { REACT_APP_BACKEND_URL, gid } from "../../config";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { addUserDetails } from "../../redux/slices/userDetails";
@@ -27,9 +26,11 @@ const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [mobile, setMobile] = useState(""); // Add mobile state
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
-   
+
    /* const setUserDetails = async (data) => {
         const newUserDetails = {
             isLoggedIn: true,
@@ -47,7 +48,7 @@ const Signup = () => {
         const name = decoded.name;
         const password = "12345678";
         try {
-            const { data } = await axios.post(`${backendUrl}/gsignup`, {
+            const { data } = await axios.post(process.env.REACT_APP_BACKEND_URL+'/gsignup', {
                 name,
                 email,
                 password,
@@ -61,7 +62,7 @@ const Signup = () => {
         }
     }*/
       /* useEffect(() => {
-      global google 
+      global google
         google.accounts.id.initialize({
             client_id: gid,
             callback: handleCredentialResponse,
@@ -85,22 +86,100 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post(`${backendUrl}/signup`, {
-                name,
-                email,
-                password,
-            }).catch(err => {
-                console.error(err); // Log the error for debugging
-                alert(err.response.data);
-            });
+            if (!name || !email || !password || !mobile) {
+                throw new Error("Please fill in all fields.");
+            }
+
+            const sanitizedEmail = email.trim();
+            const sanitizedName = name.trim();
+            const sanitizedPassword = password.trim();
+            const sanitizedMobile = mobile.trim();
+
+
+            const response = await axios.post(process.env.REACT_APP_BACKEND_URL+'/signup', {
+                            name: sanitizedName,
+                            email: sanitizedEmail,
+                            password: sanitizedPassword,
+                            mobile: sanitizedMobile,
+                        });
+
+            // Check if response has error
+            if (response.data.error) {
+                throw new Error(response.data.error);
+            }
 
             toast.success("Signup Successful, Please login");
             navigate("/");
-        } catch (err) {
-            toast.error(err.response);
-        }
-    };
+        } catch (error) {
 
+            if(error.response){
+                console.log(error.response.data.error);
+                toast.error(error.response.data.error);
+            }else{
+             //   console.log(error);
+                alert(error);
+            }
+
+        }
+    }
+    /*
+    useEffect(() => {
+        const initializeGoogleSignIn = async () => {
+            try {
+                const { default: gapi } = await import("gapi-script");
+                gapi.load("auth2", () => {
+                    gapi.auth2.init({
+                        client_id: gid,
+                    });
+                    gapi.signin2.render("g_id_onload", {
+                        scope: "profile email",
+                        width: 350,
+                        height: 250,
+                        longtitle: true,
+                        theme: "filled_blue",
+                        onsuccess: async (googleUser) => {
+                            const id_token = googleUser.getAuthResponse()
+                                .id_token;
+                            const decoded = jwtDecode(id_token);
+                            const email = decoded.email;
+                            const name = decoded.name;
+                            const password = "12345678";
+                            try {
+                                const { data } = await axios.post(
+                                    `${REACT_APP_BACKEND_URL}/gsignup`,
+                                    {
+                                        name,
+                                        email,
+                                        password,
+                                    }
+                                );
+                                if (data.error) {
+                                    throw new Error(data.error);
+                                }
+                                toast.success("Signup successful!");
+                                navigate("/");
+                                const newUserDetails = {
+                                    isLoggedIn: true,
+                                    username: data.name,
+                                    useremail: data.email,
+                                    userId: data.id,
+                                };
+                                dispatch(
+                                    addUserDetails(newUserDetails)
+                                );
+                            } catch (err) {
+                                toast.error("Sign up failed");
+                            }
+                        },
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        initializeGoogleSignIn();
+    }, [dispatch, navigate]);
+*/
     return (
         <MDBContainer fluid className="box">
             <MDBRow className="d-flex justify-content-center align-items-center h-75">
@@ -162,6 +241,7 @@ const Signup = () => {
                                     type="password"
                                     size="lg"
                                 />
+                                <MDBInput wrapperClass="mb-4 w-100" onChange={(e) => setMobile(e.target.value)} name="mobile" label="Mobile" id="mobile" type="text" size="lg" />
 
                                 <div className="d-flex justify-content-between text-dark mb-2 fs-500 fw-lighter">
                                     <MDBCheckbox
@@ -171,14 +251,12 @@ const Signup = () => {
                                         label="Send me special offers, personalized recommendations, and learning tips"
                                     />
                                 </div>
-
                                 <MDBBtn
                                     className="mb-2 w-120 fw-bold text-capitalize"
                                     size="lg"
                                 >
                                     Sign up
                                 </MDBBtn>
-
                                 <hr className="my-3 text-muted" />
                                 <p className="text-center text-body">
                                     Already have an account?{" "}
