@@ -69,7 +69,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post(process.env.REACT_APP_BACKEND_URL+'/login', {
+            const { data } = await axios.post(/*'https://geneus-api.onrender.com'*/'http://localhost:5000'+'/api/user/login', {
                 email,
                 password,
             });

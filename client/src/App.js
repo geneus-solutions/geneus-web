@@ -19,9 +19,15 @@ import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
 import Header from "./components/Header/Header";
 import About from "./components/About/About";
+import DiatPlan from "./Pages/DiatPlan";
+import CalorieCalculator from "./Pages/CalorieCalculator";
+import AddFood from "./Pages/AddFood";
+import ProtectedRoute from "./ProtectedRoute/protectedRoute";
+
 axios.defaults.withCredentials = true;
 
 const App = () => {
+
     const [searchResults, setSearchResults] = useState([]);
     const dispatch = useDispatch();
     const userDetail = useSelector(userInfo);
@@ -92,6 +98,13 @@ const App = () => {
                 <Route path="/nutriapp" element={<NutritionalAndCalorieCalculator />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/about" element={<About />} />
+                <Route element={<ProtectedRoute allowedRole={['user']} />} >
+                        <Route path="/plan-diat" element={<AddFood />} />
+                        {/* <Route path="/plan-diat" element={<NutritionalAndCalorieCalculator />} /> */}
+                        {/* <Route path="add-food" element={<AddFood />} /> */}
+                        <Route path="diat-plan" element={<DiatPlan />} />
+                        <Route path='calculate-diat' element={<CalorieCalculator />} />
+                    </Route>
             </Routes>
             <Footer />
         </Router>
