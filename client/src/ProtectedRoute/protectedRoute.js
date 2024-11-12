@@ -18,7 +18,7 @@ const ProtectedRoute = ({allowedRole}) => {
 
     const {user} = useSelector((state) => state.user);
     console.log('user',user);
-
+console.log('accessToken',user?.accessToken);
     useEffect(() => {
       let isMounted = true;
   
@@ -32,10 +32,19 @@ const ProtectedRoute = ({allowedRole}) => {
               "Authorization": `Bearer ${user?.accessToken}`,
             },
           });
-  
-          if (isMounted) {
 
-            dispatch(addUserDetails(response.data.data));
+          
+          if (isMounted) {
+              const newUserDetails = {
+                isLoggedIn: true,
+                username: response.data.data.name,
+                useremail: response.data.data.email,
+                userId: response.data.data.id,
+                role: response.data.data.role,
+                accessToken:user?.accessToken
+            };
+            console.log('response',response.data.data);
+            dispatch(addUserDetails({...newUserDetails}));
             setLoading(false);
 
           }

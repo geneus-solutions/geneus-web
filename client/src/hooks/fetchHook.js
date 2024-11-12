@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 // import useAxiosPrivate from "./useAxiosPrivate";
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
+// axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
+import defaultAxios from "../customAxios/defaultAxios";
+
 const useFetch = (path, options = {}) => {
 
 //   const privateAxios = useAxiosPrivate();
@@ -23,10 +25,10 @@ const useFetch = (path, options = {}) => {
 
     const fetchData = async () => {
       try {
-        console.log('called...')
+        console.log('called...',`${process.env.REACT_APP_BACKEND_URL}/${path}`)
         setData((prev) => ({ ...prev, isLoading: true }));
 
-        const { data, status } = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/${path}`, {
+        const { data, status } = await defaultAxios.get(`/${path}`, {
           params: Params,
           withCredentials: true,
           headers: {

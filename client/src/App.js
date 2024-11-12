@@ -24,9 +24,11 @@ import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import ProtectedRoute from "./ProtectedRoute/protectedRoute";
 
-axios.defaults.withCredentials = true;
+import useAxiosPrivate from "./hooks/useAxiosPrivate";
 
 const App = () => {
+
+    const privateAxios = useAxiosPrivate();
 
     const [searchResults, setSearchResults] = useState([]);
     const dispatch = useDispatch();
@@ -35,7 +37,7 @@ const App = () => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.post(`${backendUrl}/userAuth`);
+                const response = await privateAxios.post(`/userAuth`);
                 if (response.data.authorized) {
                     setUserDetailsData(response.data);
                 } else {
@@ -58,7 +60,7 @@ const App = () => {
 
     const fetchCartDetails = async () => {
         try {
-            const response = await axios.get(`${backendUrl}/cart?user_id=${userDetail.userId}`);
+            const response = await privateAxios.get(`/cart?user_id=${userDetail.userId}`);
             dispatch(set(response.data.cart_items.length));
         } catch (error) {
             console.error("Failed to fetch cart details:", error);
@@ -69,7 +71,7 @@ const App = () => {
     const setUserDetailsData = (data) => {
         const newUserDetails = {
             isLoggedIn: data.authorized,
-            username: data.username,
+            username: data.username, 
             useremail: data.useremail,
             userId: data.userId,
         };
@@ -100,8 +102,6 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route element={<ProtectedRoute allowedRole={['user']} />} >
                         <Route path="/plan-diat" element={<AddFood />} />
-                        {/* <Route path="/plan-diat" element={<NutritionalAndCalorieCalculator />} /> */}
-                        {/* <Route path="add-food" element={<AddFood />} /> */}
                         <Route path="diat-plan" element={<DiatPlan />} />
                         <Route path='calculate-diat' element={<CalorieCalculator />} />
                     </Route>

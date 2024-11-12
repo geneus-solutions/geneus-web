@@ -14,7 +14,8 @@ export const userDetailsSlice = createSlice({
   initialState,
   reducers: {
     addUserDetails: (state, action) => {
-      state.user = {...state, ...action.payload};
+      console.log('action.payload',action.payload);
+      state.user = action.payload;
     },
     removeUserDetails: (state) => {
       state.user = initialState

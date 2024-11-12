@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
   Grid, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, Divider, Dialog,List, ListItem, ListItemText,DialogTitle,Chip, DialogContent,DialogActions, IconButton, TextField, Button
+  Paper, Divider, Dialog,DialogTitle, DialogContent,DialogActions, IconButton, TextField, Button
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
 import useFetch from '../hooks/fetchHook';
 import { useSelector } from 'react-redux';
 import { toast } from "react-toastify";
-// import { useNavigate } from 'react-router-dom';
 import defaultAxios from '../customAxios/defaultAxios';
 import FooterTable from '../components/FooterTable/FooterTable';
 import AddFoodToLunch from './AddFood';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 const useStyles = makeStyles((theme) => ({
   sectionBox: {
@@ -85,7 +82,7 @@ const DietPlan = () => {
   const [meals, setMeals] = useState([]);
   const [mealName, setMealName] = useState('');
   const {user} = useSelector((state) => state.user);
-  const [{apiData},,setParams] = useFetch(`api/food/${user?.id}`,{skip:!user?.id});
+  const [{apiData},,setParams] = useFetch(`api/getFoodById/${user?.userId}`,{skip:!user?.userId});
   console.log(apiData);
 
   useEffect(() => {
@@ -166,6 +163,7 @@ const DietPlan = () => {
 };
 
 const MealSection = ({ tableNumber, meal, classes, recall, handleOpen }) => {
+  const privateAxios = useAxiosPrivate();
   const { user } = useSelector((state) => state.user);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
@@ -186,12 +184,9 @@ const MealSection = ({ tableNumber, meal, classes, recall, handleOpen }) => {
 
   const deleteFood = async (id) => {
     try {
-      const { data } = await defaultAxios.delete(`/api/food/`, {
-        headers: {
-          'Content-Type': 'application/json',
-          withCredentials: true
-        },
-        data: { id, userId: user?.id }
+      console.log('data to delete : ', { id, userId: user?.userId })
+      const { data } = await privateAxios.delete(`/api/removeFood`, {
+        data: { id, userId: user?.userId }
       });
       recall({});
       toast.success(data?.message);
@@ -202,16 +197,10 @@ const MealSection = ({ tableNumber, meal, classes, recall, handleOpen }) => {
   
   const updateQuantity = async () => {
     try {
-      const { data } = await defaultAxios.put(`/api/food`, {
+      const { data } = await privateAxios.put(`/api/updateFood`, {
         id: selectedFood._id,
         meal: mealName,
         quantity
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          withCredentials: true,
-          'Authorization':'Bearer '+localStorage.getItem('token')
-        }
       });
       recall({});
       setOpenDialog(false);

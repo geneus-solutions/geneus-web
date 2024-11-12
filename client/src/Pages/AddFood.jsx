@@ -22,26 +22,25 @@ import {
   Checkbox,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-// import AddIcon from "@mui/icons-material/Add";
-// import RemoveIcon from "@mui/icons-material/Remove";
-import authAxios from "../customAxios/authAxios";
+// import authAxios from "../customAxios/authAxios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useFetch from '../hooks/fetchHook'
-// import { useLocation } from "react-router-dom";
 
 const AddFoodToLunch = ({mealName,recall}) => {
   
+  const privateAxios = useAxiosPrivate();
   const {user} = useSelector((state) => state.user);
+  console.log(user)
   const navigate = useNavigate();
-  // const location = useLocation();
  
-  const [{ apiData: foodData }] = useFetch("api/item");
+  const [{ apiData: foodData }] = useFetch("getFoodItems");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFoods, setFilteredFoods] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(mealName||"Lunch");
 
-  console.log(user)
+  console.log(foodData)
   const handleSearchChange = (event) => {
     const value = event.target.value.toLowerCase();
     setSearchTerm(value);
@@ -80,8 +79,8 @@ const AddFoodToLunch = ({mealName,recall}) => {
         const food = selectedFoods.map((food) => {
             return food._id
         });
-        const data = await authAxios.post(`/api/food`, {
-            user:user?.id,
+        const data = await privateAxios.post(`/api/addFood`, {
+            user:user?.userId,
             [selectedMeal.toLowerCase()]: food
         });
         toast.success("food added successfully!");
@@ -128,7 +127,6 @@ const AddFoodToLunch = ({mealName,recall}) => {
           Quick add calories
         </Typography>
       </Box>
-      {/* Search bar and dropdown in one container */}
       {/* Search bar and dropdown in one container */}
       <Box sx={{ position: "relative", width: 600, margin: "10px 0" }}>
         {" "}
