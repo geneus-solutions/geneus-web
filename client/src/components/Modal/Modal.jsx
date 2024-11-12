@@ -253,7 +253,7 @@ export default function MyModal() {
                         <p>
                             <em>Comprehensive Courses:</em> Dive into a rich
                             library of coding courses catering to beginners,
-                            intermediate learners, and coding aficionados.
+                            intermeDiete learners, and coding aficionados.
                             Whether you dream of developing apps, websites, or
                             mastering data science, our courses cover it all.
                         </p>

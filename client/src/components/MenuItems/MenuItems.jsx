@@ -35,7 +35,7 @@ const MenuItems = () => {
                 </ul>
             </li>
             <li>
-                <Link to="/calculate-diat">Nutritional</Link>
+                <Link to="/calculate-diet">Nutritional</Link>
             </li>
             <li>
                 <Link to="/contact">Contact Us</Link>

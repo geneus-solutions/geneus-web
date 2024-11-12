@@ -85,7 +85,7 @@ const AddFoodToLunch = ({mealName,recall}) => {
         });
         toast.success("food added successfully!");
         recall&&recall({})
-        navigate("/diat-plan");
+        navigate("/diet-plan");
     } catch (err) { 
       console.log(err)
         toast.error("Either email id or password is incorrect.");

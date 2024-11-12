@@ -19,7 +19,7 @@ import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
 import Header from "./components/Header/Header";
 import About from "./components/About/About";
-import DiatPlan from "./Pages/DiatPlan";
+import DietPlan from "./Pages/DietPlan";
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import ProtectedRoute from "./ProtectedRoute/protectedRoute";
@@ -101,9 +101,9 @@ const App = () => {
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/about" element={<About />} />
                 <Route element={<ProtectedRoute allowedRole={['user']} />} >
-                        <Route path="/plan-diat" element={<AddFood />} />
-                        <Route path="diat-plan" element={<DiatPlan />} />
-                        <Route path='calculate-diat' element={<CalorieCalculator />} />
+                        <Route path="/plan-diet" element={<AddFood />} />
+                        <Route path="diet-plan" element={<DietPlan />} />
+                        <Route path='calculate-diet' element={<CalorieCalculator />} />
                     </Route>
             </Routes>
             <Footer />

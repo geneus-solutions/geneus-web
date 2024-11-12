@@ -53,8 +53,8 @@ const Learning = () => {
     const filteredCourses = courses.filter((course) => {
         if (selectedOption === "beginner") {
             return course.level === "beginner";
-        } else if (selectedOption === "intermediate") {
-            return course.level === "intermediate";
+        } else if (selectedOption === "intermeDiete") {
+            return course.level === "intermeDiete";
         } else if (selectedOption === "advanced") {
             return course.level === "advanced";
         }
@@ -64,8 +64,8 @@ const Learning = () => {
     const beginnerCourses = filteredCourses.filter(
         (course) => course.level === "beginner"
     );
-    const intermediateCourses = filteredCourses.filter(
-        (course) => course.level === "intermediate"
+    const intermeDieteCourses = filteredCourses.filter(
+        (course) => course.level === "intermeDiete"
     );
     const advancedCourses = filteredCourses.filter(
         (course) => course.level === "advanced"
@@ -95,11 +95,11 @@ const Learning = () => {
                             childTag="button"
                             onClick={() =>
                                 handleDropdownChange({
-                                    target: { value: "intermediate" },
+                                    target: { value: "intermeDiete" },
                                 })
                             }
                         >
-                            Intermediate
+                            IntermeDiete
                         </MDBDropdownItem>
                         <MDBDropdownItem
                             link
@@ -121,8 +121,8 @@ const Learning = () => {
                     ? searchResults
                     : selectedOption === "beginner"
                     ? beginnerCourses
-                    : selectedOption === "intermediate"
-                    ? intermediateCourses
+                    : selectedOption === "intermeDiete"
+                    ? intermeDieteCourses
                     : selectedOption === "advanced"
                     ? advancedCourses
                     : courses

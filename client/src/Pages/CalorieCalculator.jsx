@@ -257,7 +257,7 @@ const CalorieCalculator = () => {
                     You need approximately {calories} calories/day.
                   </Typography>
                   <Link 
-                    to='/plan-diat'
+                    to='/plan-diet'
                     state={{caloriesRequired: calories }}
                     style={{
                       border: "none",
@@ -266,7 +266,7 @@ const CalorieCalculator = () => {
                       color: "#1976d2",
                     }}
                   >
-                      Plan Your Diat Today  <EastIcon/>
+                      Plan Your Diet Today  <EastIcon/>
                   </Link >
                 </Grid>
               )}
