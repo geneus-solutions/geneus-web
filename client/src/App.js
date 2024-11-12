@@ -19,9 +19,17 @@ import { backendUrl } from "./config";
 import Learning from "./components/Learning/Learning";
 import Header from "./components/Header/Header";
 import About from "./components/About/About";
-axios.defaults.withCredentials = true;
+import DietPlan from "./Pages/DietPlan";
+import CalorieCalculator from "./Pages/CalorieCalculator";
+import AddFood from "./Pages/AddFood";
+import ProtectedRoute from "./ProtectedRoute/protectedRoute";
+
+import useAxiosPrivate from "./hooks/useAxiosPrivate";
 
 const App = () => {
+
+    const privateAxios = useAxiosPrivate();
+
     const [searchResults, setSearchResults] = useState([]);
     const dispatch = useDispatch();
     const userDetail = useSelector(userInfo);
@@ -29,7 +37,7 @@ const App = () => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.post(`${backendUrl}/userAuth`);
+                const response = await privateAxios.post(`/userAuth`);
                 if (response.data.authorized) {
                     setUserDetailsData(response.data);
                 } else {
@@ -52,7 +60,7 @@ const App = () => {
 
     const fetchCartDetails = async () => {
         try {
-            const response = await axios.get(`${backendUrl}/cart?user_id=${userDetail.userId}`);
+            const response = await privateAxios.get(`/cart?user_id=${userDetail.userId}`);
             dispatch(set(response.data.cart_items.length));
         } catch (error) {
             console.error("Failed to fetch cart details:", error);
@@ -63,7 +71,7 @@ const App = () => {
     const setUserDetailsData = (data) => {
         const newUserDetails = {
             isLoggedIn: data.authorized,
-            username: data.username,
+            username: data.username, 
             useremail: data.useremail,
             userId: data.userId,
         };
@@ -92,6 +100,11 @@ const App = () => {
                 <Route path="/nutriapp" element={<NutritionalAndCalorieCalculator />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/about" element={<About />} />
+                <Route element={<ProtectedRoute allowedRole={['user']} />} >
+                        <Route path="/plan-diet" element={<AddFood />} />
+                        <Route path="diet-plan" element={<DietPlan />} />
+                        <Route path='calculate-diet' element={<CalorieCalculator />} />
+                    </Route>
             </Routes>
             <Footer />
         </Router>

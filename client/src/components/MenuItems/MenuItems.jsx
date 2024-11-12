@@ -25,6 +25,7 @@ const MenuItems = () => {
                             Courses
                         </Link>
                     </li>
+                    
                     <li>
                         <Link to="/nutriapp" className="dropdown-item">
                             Nutrifit
@@ -33,7 +34,9 @@ const MenuItems = () => {
                    
                 </ul>
             </li>
-          
+            <li>
+                <Link to="/calculate-diet">Nutritional</Link>
+            </li>
             <li>
                 <Link to="/contact">Contact Us</Link>
             </li>

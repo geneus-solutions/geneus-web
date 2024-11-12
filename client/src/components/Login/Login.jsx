@@ -5,16 +5,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addUserDetails } from "../../redux/slices/userDetails";
-//import { gid } from "../../config";
-//import { REACT_APP_BACKEND_URL } from "../../config";
 import {jwtDecode} from "jwt-decode";
+import defaultAxios from '../../customAxios/defaultAxios'
 
 const Login = () => {
     async function handleCredentialResponse(response) {
         const decoded = jwtDecode(response.credential);
         const email = decoded.email;
         try {
-            const { data } = await axios.post(process.env.REACT_APP_BACKEND_URL+'/login', {
+            const { data } = await defaultAxios.post('/login', {
                 email,
             });
             console.log(data);
@@ -60,6 +59,8 @@ const Login = () => {
             username: data.name,
             useremail: data.email,
             userId: data.id,
+            role: data.role,
+            accessToken:data?.accessToken
         };
         dispatch(addUserDetails(newUserDetails));
     };
@@ -69,11 +70,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post(process.env.REACT_APP_BACKEND_URL+'/login', {
+            const { data } = await defaultAxios.post('/api/user/login', {
                 email,
                 password,
             });
-            await setUserDetails(data);
+            console.log('login data : ', data);
+            console.log('login data access token : ', data?.accessToken);
+            await setUserDetails({...data?.user, accessToken:data?.accessToken});
             navigate("/");
         } catch (err) {
             console.log("ERROR -----"+err);
