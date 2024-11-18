@@ -1,147 +1,96 @@
-import React, { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbreact/dist/css/mdb.css";
-import Logo from "../../assets/g.png";
+import React from 'react';
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { MDBIcon } from "mdbreact";
-import { Link } from "react-router-dom";
-import { MDBBadge } from "mdbreact";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { set, selectCount } from "../../redux/slices/cartCount";
-import { userInfo, removeUserDetails } from "../../redux/slices/userDetails";
-import { useNavigate } from "react-router-dom";
-import { backendUrl } from "../../config";
-import MenuItems from "../MenuItems/MenuItems"
-axios.defaults.withCredentials = true;
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
-function NavbarComponent({ onSearch }) {
-    const [searchQuery, setSearchQuery] = useState("");
+function Navbar() {
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div className="container-fluid">
+        {/* Logo Section */}
+        <NavLink to="/" className="navbar-brand">
+          <img 
+            src="https://www.geneussolutions.in/static/media/GSMainLogo.e373ff51a56528f216e6.png" 
+            alt="Logo" 
+            className="logo-img"
+          />
+        </NavLink>
 
-    const count = useSelector(selectCount);
-    const userDetail = useSelector(userInfo);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+        {/* Toggler Button for Mobile View */}
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarNav" 
+          aria-controls="navbarNav" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-    const handleLogout = () => {
-        axios
-            .post(`${backendUrl}/logout`)
-            .then((response) => {
-                console.log(response.data);
-                if (!response.data) {
-                    dispatch(removeUserDetails());
-                }
-                navigate("/login");
-                dispatch(set(0));
-            })
-            .catch((err) => console.log("error: ", err));
-    };
+        {/* Navbar Links */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <NavLink 
+                to="/" 
+                className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink 
+                to="/about" 
+                className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              >
+                About
+              </NavLink>
+            </li>
 
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
-    };
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
-        onSearch(searchQuery);
-    };
+            {/* Services Dropdown */}
+            <li className="nav-item dropdown">
+              <span className="nav-link dropdown-toggle" id="servicesDropdown">
+                Services
+              </span>
+              <div className="dropdown-menu" aria-labelledby="servicesDropdown">
+                <NavLink 
+                  to="/course" 
+                  className="dropdown-item"
+                >
+                  Course
+                </NavLink>
+                <NavLink 
+                  to="/nutri-app" 
+                  className="dropdown-item"
+                >
+                  Nutri App
+                </NavLink>
+              </div>
+            </li>
 
-    return (
-        <>
-            <Navbar expand="lg" className="bg-body-tertiary">
-                <Container fluid>
-                    <Navbar.Brand href="/">
-                        <img
-                            src={Logo}
-                            height="60"
-                            width="150"
-                            alt="Logo"
-                            id="img"
-                            loading="lazy"
-                        />
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
-                        <form
-                            className="search-bar"
-                            onSubmit={handleSearchSubmit}
-                        >
-                            <div className="search-box">
-                                <MDBIcon
-                                    className="search-icon ml-2"
-                                    icon="search"
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Search for anything"
-                                    value={searchQuery}
-                                    onChange={handleSearchChange}
-                                />
-                                <button type="submit">Search</button>
-                            </div>
-                        </form>
-
-                        <Nav>
-                            {userDetail.isLoggedIn ? (
-                                <>
-                                    <Nav.Link as={Link} to={`/learning`}>
-                                        <h4 className="linkText1">
-                                            My Learning
-                                        </h4>
-                                    </Nav.Link>
-                                    <Nav.Link className="text-primary fw-bold">
-                                        Hello {userDetail.username}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        onClick={handleLogout}
-                                        className="logout"
-                                    >
-                                        <h4 className="linkText">Logout</h4>
-                                    </Nav.Link>
-                                </>
-                            ) : (
-                                <>
-                                    <Nav.Link
-                                        as={Link}
-                                        to="/login"
-                                        className="login"
-                                    >
-                                        <h4 className="linkText1">Log in</h4>
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={Link}
-                                        to="/signup"
-                                        className="signup"
-                                    >
-                                        <h4 className="linkText2">Sign up</h4>
-                                    </Nav.Link>
-                                </>
-                            )}
-                            <Nav.Link as={Link} to="/cart">
-                                <h4 className="linkText3">
-                                    <MDBIcon icon="shopping-cart" size="x" />
-                                    <MDBBadge
-                                        color="primary"
-                                        className="rounded-pill badge-notification"
-                                    >
-                                        {count}
-                                    </MDBBadge>
-                                </h4>
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-
-            <nav>
-            <MenuItems />
-        </nav>
-
-        </>
-    );
+            <li className="nav-item">
+              <NavLink 
+                to="/contact" 
+                className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              >
+                Contact
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to='/login'>
+              <div className="login-button">
+                <p>Login</p>
+              </div>
+              </NavLink>
+             
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
-export default NavbarComponent;
+export default Navbar;
