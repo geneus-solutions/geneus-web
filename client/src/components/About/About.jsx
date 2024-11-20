@@ -1,178 +1,409 @@
-import React from 'react';
-import  "./About.css";
-import AbImg from '../../assets/Ab-4.jpg'; 
-import Faq from '../../assets/Ab-2.jpg'; 
-import Ab_0 from '../../assets/info.jpeg';
-import startup from'../../assets/startup.jpg';
-import conImg from '../../assets/Ab-1.jpg'; 
-import group from '../../assets/group_icon1.jpg';
-import study_icon from '../../assets/study-icon.png';
-import finance from '../../assets/finance.png';
-import gene from '../../assets/gene.jpg';
-import mission from '../../assets/mission.png';
-
+import React from 'react'
+import img1 from '../../assets/banner.jpeg'
+import img2 from '../../assets/Fitness.jpeg'
+import './About.css'
+import AboutUs from '../HomeComponents/AboutUs'
+import { styled } from '@mui/material/styles';
+import { Box, Typography } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
 function About() {
+  const ServiceCard = styled(Box)(({ theme }) => ({
+    position: 'relative',
+    width: '300px',
+    height: '250px',
+    overflow: 'hidden',
+    borderRadius: theme.shape.borderRadius,
+    cursor: 'pointer',
+    '&:hover .overlay': {
+      opacity: 1,
+    },
+    '&:hover img': {
+      transform: 'scale(1.1)',
+    }
+  }));
+  
+  const ServiceImage = styled('img')({
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    transition: 'transform 0.3s ease-in-out',
+  });
+  
+  const Overlay = styled(Box)({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0,0 , 0.85)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0,
+    transition: 'opacity 0.3s ease-in-out',
+    className: 'overlay',
+  });
+  
+  const ServicesContainer = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    gap: theme.spacing(4),
+    marginTop: theme.spacing(4),
+    justifyContent: 'center',  // Center the service cards
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  }));
   return (
-    <div className="row">
-<div className='ho'>
-<section class="profile-section">
-        <div class="profile-container">
-            <div class="profile-images">
-                <img src={Ab_0} alt="Profile Picture"/>
-            </div>
-            <div class="profile-info">
-                <h1>About <span class="highlight">Us</span></h1>
-                <h2>Welcome to Geneus Solutions, an integrated technology and e-learning firm specializing in website design, development, and comprehensive e-learning courses. Based in Bangalore, India, we are dedicated to empowering individuals to become proficient and versatile developers in the ever-evolving field of technology.
-                </h2>
-                <p>At Geneus Solutions, we offer a wide range of cutting-edge e-learning courses in full-stack development, including ReactJS, HTML/CSS/JavaScript, Java, Angular, and the complete MERN stack. Our dynamic, hands-on approach ensures that students not only understand theoretical concepts but also acquire practical skills essential for real-world scenarios.
-                  In addition to our educational offerings, we are proud to introduce NutriGeneus, our innovative web and Android app designed to calculate calorie intake and highlight macronutrients based on food selections. This tool aims to empower users to make informed dietary choices.</p>
-            </div>
-        </div>
-    </section>
-    <section class="profile-sections">
-        <div class="profile-container">
-            <div class="profile-image">
-            <img src={startup} alt="Profile Picture"/>
-            </div>
-            <div class="profile-infos">
-            <h1>Vision <span class="highlights"></span></h1>
-            <h2>To be a global leader in providing accessible, high-quality e-learning courses in full-stack development and innovative solutions like NutriGeneus, fostering a community of skilled and health-conscious individuals.</h2>
-            </div> 
-        </div>
-    </section>
-    <section class="profile-sections">
-        <div class="profile-container">
-            <div class="profile-image">
-            <img src={mission} alt="Profile Picture"/>
-            </div>
-            <div class="profile-infos">
-            <h1>Mission <span class="highlights"></span></h1>
-            <h2>Our mission is to empower individuals worldwide by delivering exceptional e-learning experiences in full-stack development and to provide practical tools like NutriGeneus that enhance everyday decision-making. We strive to bridge the gap between aspiring developers and industry demands, fostering a culture of continuous learning, collaboration, and excellence.</h2>
-            </div> 
-        </div>
-    </section>
-<div class="container">
-  <section class="abrow">
-    <div class="col-md-6 offset-right-md-6">
-      <h2 class="aboutus-widget-heading-title">Our Global Reach</h2>
-      <p class="aboutus-heading-title">At Geneus Solutions, we are a global leader in e-learning and innovative applications, specializing in full-stack development courses and health-tech solutions. We connect thousands of learners and users worldwide to the skills and tools they need to thrive in today’s technology-driven world.</p>
-    </div>
-  </section>
-  <section class="key-facts">
-        <div class="facts-container">
-            <div class="fact">
-                <h2>10k</h2>
-                <p> Learners</p>
-            </div>
-            <div class="fact">
-                <h2>3+</h2>
-                <p>Expert Instructors </p>
-            </div>
-            <div class="fact">
-                <h2>2</h2>
-                <p>Innovative Products</p>
-            </div>
-        </div>
-    </section>
-  <section className="row aboutus-values">
-          <div className="col-md-4 col-12">
-            <div className="aboutus-card-body">
-              <img src={study_icon} alt="Innovation Icon" className="aboutus-icon" />
-              <h3>Revolutionize Learning & Health</h3>
-              <p>We combine cutting-edge technology with education to offer full-stack development courses and NutriGeneus, empowering learners to excel in tech and users to make informed dietary choices.</p>
-            </div>
-          </div>
-          <div className="col-md-4 col-12">
-            <div className="aboutus-card-body">
-              <img src={group} alt="Grow Icon" className="aboutus-icon" />
-              <h3>Learn, Grow, and Thrive</h3>
-              <p>Our courses provide hands-on experience in technologies like ReactJS and the MERN stack, while NutriGeneus helps users achieve their nutritional goals with personalized insights.</p>
-            </div>
-          </div>
-          <div className="col-md-4 col-12">
-            <div className="aboutus-card-body">
-              <img src={finance} alt="Innovation Icon" className="aboutus-icon" />
-              <h3>Drive Innovation in Tech and Wellness</h3>
-              <p>Through innovative e-learning and health-tech solutions, we drive the future of education and wellness by equipping individuals with the tools to succeed in both fields.</p>
-            </div>
-          </div>
-        </section>
-      </div>
-      </div>
+    <div style = {{position : "relative"}}>
+<div style={{ position: 'relative', width: '100vw', height: '60vh' }}>
+     <img
+       src={img1}
+       style={{
+         width: '100%',
+         height: '100%',
+         objectFit: 'cover',
+       }}
+       alt="about Banner"
+     />
+   
+     <div
+       style={{
+         position: 'absolute',
+         top: 0,
+         left: 0,
+         width: '100%',
+         height: '100%',
+         backgroundColor: 'rgba(124, 166, 255, 0.5)',
+         display: 'flex',
+         justifyContent: 'center',
+         alignItems: 'center',
+       }}
+     >
+       <h1 style={{ color: 'white', fontSize: '3rem' }}>About</h1>
+     </div>
+   </div>
+<AboutUs/>
+<div className='what-we-do'>
+<Box sx={{ py: 6, px: 4 }}>
+      {/* Title Section */}
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+      }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'center' 
+        }}>
+          <Box sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'end'
+          }}>
+            <Box sx={{
+              width: '150px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+              marginBottom: '5px',
+            }} />
+            <Box sx={{
+              width: '100px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+            }} />
+          </Box>
+          
+          <Typography variant="h4" sx={{ mx: 2, fontWeight: 'bold' }}>
+          What we do
+          </Typography>
+          
+          <Box sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            <Box sx={{
+              width: '150px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+              marginBottom: '5px',
+            }} />
+            <Box sx={{
+              width: '100px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+            }} />
+          </Box>
+        </Box>
+      </Box>
 
-      <section className="aboutus-contact pt-120 pb-150">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6">
-              <div className="aboutus-contact-image">
-                <img src={AbImg} alt="Contact Us" className="image" />
-              </div>
-              <div className="aboutus-contact-box">
-              <p>Contact Us for a <span>Free Learning</span> or <span>Nutrition</span> Consulting Evaluation</p>
-                <ul>
-                  <li>
-                    <img src={conImg} alt="Phone Icon" />
-                    <a href="tel:+919148950239">+91 9148950239</a>
-                  </li>
-                </ul>
-              </div>
+      {/* Services Cards */}
+      <ServicesContainer>
+        {/* Nutrition App Card */}
+        <ServiceCard>
+          <ServiceImage
+            src={img1}
+            alt="Nutrition App"
+          />
+          <Overlay className="overlay">
+            <Typography 
+              variant="h5" 
+              color="white"
+              sx={{ 
+                fontWeight: 'bold',
+                textAlign: 'center',
+                px: 2
+              }}
+            >
+         Course<br/>
+        <p style={{fontSize : '15px'}}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          </p> 
+            </Typography>
+          </Overlay>
+        </ServiceCard>
+
+        {/* Community Card */}
+        <ServiceCard>
+          <ServiceImage
+            src={img2}
+            alt="Community"
+          />
+          <Overlay className="overlay">
+            <Typography 
+              variant="h5" 
+              color="white"
+              sx={{ 
+                fontWeight: 'bold',
+                textAlign: 'center',
+                px: 2
+              }}
+            >
+             Nutrition App
+             <p style={{fontSize : '15px'}}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          </p> 
+            </Typography>
+          </Overlay>
+        </ServiceCard>
+      </ServicesContainer>
+    </Box>
+</div>
+
+<div className='why-choose-us'>
+<Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+      }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'center' 
+        }}>
+          <Box sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'end'
+          }}>
+            <Box sx={{
+              width: '150px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+              marginBottom: '5px',
+            }} />
+            <Box sx={{
+              width: '100px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+            }} />
+          </Box>
+          
+          <Typography variant="h4" sx={{ mx: 2, fontWeight: 'bold' }}>
+          Why choose us
+          </Typography>
+          
+          <Box sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            <Box sx={{
+              width: '150px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+              marginBottom: '5px',
+            }} />
+            <Box sx={{
+              width: '100px',
+              height: '5px',
+              backgroundColor: '#00b0ff',
+              marginRight: '10px',
+            }} />
+          </Box>
+        </Box>
+      </Box>
+
+      <div className='circle-container'>
+          <div className='center-circle'>
+            <img src={img2} alt="profile" />
+          </div>
+
+          <div className='feature-card top'>
+            <div className='icon-circle green'>
+              <SettingsIcon style={{ color: 'white' }} />
             </div>
-            <div className="col-lg-6">
-              <div className="faq__right">
-                <div className="title-wrapper">
-                  <h2 className="sec-subtitle"><img src={Faq} alt="FAQ" /> FAQ</h2>
-                  <h3 className="sec-title">Frequently Asked Questions</h3>
-                  <p>Architect client-centered total linkage for intuitive benefits. Dynamically restore convergence before real-time restore.</p>
-                </div>
-                <div className="aboutus-faq">
-                  <div className="accordion" id="accordionExample">
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="heading_1">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">
-                          1. Why choose us for your education?
-                        </button>
-                      </h2>
-                      <div id="collapse_1" className="accordion-collapse collapse" aria-labelledby="heading_1" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                          <p>We care about safety big time — and so do your site's visitors. With a Shared Hosting account, you get an SSL certificate for free to add to your site.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="heading_2">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_2" aria-expanded="false" aria-controls="collapse_2">
-                          2. What do we offer to you?
-                        </button>
-                      </h2>
-                      <div id="collapse_2" className="accordion-collapse collapse" aria-labelledby="heading_2" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                          <p>We provide a comprehensive range of courses, expert instructors, and a supportive learning environment to help you succeed.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="heading_3">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_3" aria-expanded="false" aria-controls="collapse_3">
-                          3. How do we provide services for you?
-                        </button>
-                      </h2>
-                      <div id="collapse_3" className="accordion-collapse collapse" aria-labelledby="heading_3" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                          <p>Our services are designed to be user-friendly, accessible, and tailored to meet your learning needs.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <Typography variant="h6" style={{ color: '#00E676', marginTop: '10px' }}>
+              Lorem ipsum dolor
+            </Typography>
+            <Typography variant="body2" style={{ marginTop: '5px' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Typography>
+          </div>
+
+          <div className='feature-card right'>
+            <div className='icon-circle blue'>
+              <SettingsIcon style={{ color: 'white' }} />
             </div>
+            <Typography variant="h6" style={{ color: '#00b0ff', marginTop: '10px' }}>
+              Lorem ipsum dolor
+            </Typography>
+            <Typography variant="body2" style={{ marginTop: '5px' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Typography>
+          </div>
+
+          <div className='feature-card bottom'>
+            <div className='icon-circle purple'>
+              <SettingsIcon style={{ color: 'white' }} />
+            </div>
+            <Typography variant="h6" style={{ color: '#E040FB', marginTop: '10px' }}>
+              Lorem ipsum dolor
+            </Typography>
+            <Typography variant="body2" style={{ marginTop: '5px' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Typography>
+          </div>
+
+          <div className='feature-card left'>
+            <div className='icon-circle red'>
+              <SettingsIcon style={{ color: 'white' }} />
+            </div>
+            <Typography variant="h6" style={{ color: '#FF5252', marginTop: '10px' }}>
+              Lorem ipsum dolor
+            </Typography>
+            <Typography variant="body2" style={{ marginTop: '5px' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Typography>
           </div>
         </div>
-      </section>
+</div>
+
+<div className='mission-vision-value'>
+<Box sx={{ py: 6, px: 4 }}>
+  {/* Title Section - Reusing your existing style */}
+  <Box sx={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    mb: 6
+  }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'row', 
+      alignItems: 'center' 
+    }}>
+      <Box sx={{ 
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'end'
+      }}>
+        <Box sx={{
+          width: '150px',
+          height: '5px',
+          backgroundColor: '#00b0ff',
+          marginRight: '10px',
+          marginBottom: '5px',
+        }} />
+        <Box sx={{
+          width: '100px',
+          height: '5px',
+          backgroundColor: '#00b0ff',
+          marginRight: '10px',
+        }} />
+      </Box>
       
+      <Typography variant="h4" sx={{ mx: 2, fontWeight: 'bold' }}>
+        Our Core Values
+      </Typography>
+      
+      <Box sx={{ 
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
+        <Box sx={{
+          width: '150px',
+          height: '5px',
+          backgroundColor: '#00b0ff',
+          marginRight: '10px',
+          marginBottom: '5px',
+        }} />
+        <Box sx={{
+          width: '100px',
+          height: '5px',
+          backgroundColor: '#00b0ff',
+          marginRight: '10px',
+        }} />
+      </Box>
+    </Box>
+  </Box>
+
+  <div className="mvv-container">
+    <div className="mvv-card mission">
+      <div className="mvv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2"/>
+        </svg>
+      </div>
+      <h3>Mission</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+    </div>
+
+    <div className="mvv-card value">
+      <div className="mvv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 2L2 12h4v8h16v-8h4L12 2z"/>
+        </svg>
+      </div>
+      <h3>Value</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+    </div>
+
+    <div className="mvv-card vision">
+      <div className="mvv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <h3>Vision</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+    </div>
+  </div>
+</Box>
 
 </div>
-  );
+    </div>
+  )
 }
 
-export default About;
+export default About
