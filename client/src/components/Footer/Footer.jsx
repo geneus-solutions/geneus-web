@@ -1,54 +1,38 @@
-import React from 'react'
-import {
-    MDBFooter,
-    MDBContainer,
-    MDBCol,
-    MDBRow
-  } from 'mdb-react-ui-kit';
+import React from 'react';
+import './Footer.css'; // Import the CSS for styling
+import { FaInstagram, FaWhatsapp, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <MDBFooter className='bg-dark bg-gradient text-center text-white text-lg-left mb-0'>
-      <MDBContainer className='p-2'>
-        <MDBRow>
-          <MDBCol lg='3' md='6' className='mb-1 mb-md-0'>
-            <h5 className='text-white fs-5'>Geneus Solutions</h5>
-
-            <ul className='list-unstyled mb-0 fs-12 fw-lighter ml-0'>
-              <li>
-                Provides the best contents for learning in an affordable price.
-              </li>
-            </ul>
-          </MDBCol>
-
-          <MDBCol lg='3' md='6' className='mb-1 mb-md-0 mt-2'>
-            <ul className='list-unstyled mb-0'>
-              <li>
-                <a href='#!' className='text-white fs-6'>
-                  Terms
-                </a>
-              </li>
-            </ul>
-          </MDBCol>
-
-          <MDBCol lg='3' md='6' className='mb-1 mb-md-0 mt-2'>
-            <ul className='list-unstyled mb-0'>
-              <li>
-                <a href='#!' className='text-white fs-6'>
-                  Privacy Policy
-                </a>
-              </li>
-            </ul>
-          </MDBCol>
-
-          <MDBCol lg='3' md='6' className='mb-1 mb-md-0 mt-2'>
-            <h6 className='mb-0 fs-6'>&copy;2023 Geneus Solutions</h6> 
-          </MDBCol>
-
-        </MDBRow>
-      </MDBContainer>
-    </MDBFooter>
-  )
-}
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-section company-info">
+          <h2>Geneus Solutions</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <div className="social-icons">
+            <FaInstagram className="social-icon instagram" />
+            <FaWhatsapp className="social-icon whatsapp" />
+          </div>
+        </div>
+        <div className="footer-section quick-links">
+          <h3>Quick Link</h3>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#nutri-app">Nutri App</a></li>
+          </ul>
+        </div>
+        <div className="footer-section contact-info">
+          <h3>Contact us</h3>
+          <ul>
+            <li><FaMapMarkerAlt /> 123 Street, New York, USA</li>
+            <li><FaEnvelope /> xyz@gmail.com</li>
+            <li><FaPhoneAlt /> +1234567890</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;
