@@ -7,11 +7,11 @@ import Heilight from '../components/HomeComponents/Heilight'
 function Home() {
   return (
   <div>
-<Carousel/>
-<AboutUs/>
-<OurServices/>
-<PopularCourse/>
-<Heilight/>
+  <Carousel/>
+  <AboutUs/>
+  <OurServices/>
+  <PopularCourse/>
+  <Heilight/>
   </div>
   )
 }

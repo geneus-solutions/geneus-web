@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, IconButton, Typography, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
@@ -52,23 +53,30 @@ const carouselData = [
     title: "Get educated online from your home",
     subtitle: "Best Online Course",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-    image: img1
+    image: img1,
+    buttonName:'signup',
+    path:'/signup'
   },
   {
     title: "Learn at your own pace",
     subtitle: "Flexible Learning",
     description: "Discover thousands of courses from expert instructors worldwide",
-    image: img1
+    image: img1,
+    buttonName:'course',
+    path:'/courses'
   },
   {
     title: "Advance your career",
     subtitle: "Professional Development",
     description: "Gain new skills and certifications to boost your career prospects",
-    image: img1
+    image: img1,
+    buttonName:'nutri app',
+    parth:'/nutriapp'
   }
 ];
 
 const Carousel = () => {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -140,6 +148,7 @@ const Carousel = () => {
               variant="contained"
               color="info"
               size="large"
+              onClick={()=>navigate(slide.path)}
               sx={{
                 width: 'fit-content',
                 px: 4,
@@ -147,7 +156,7 @@ const Carousel = () => {
                 fontSize: '1.1rem',
               }}
             >
-              Sign up
+              {slide.buttonName}
             </Button>
           </Box>
         </SlideContainer>

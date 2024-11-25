@@ -7,17 +7,19 @@ import Courses from './components/Courses/Courses'
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
+import Cource from './components/Courses/Course'
 function App() {
   return (
   <Router>
     <Routes>
-<Route path='/login' element={<Login/>}/>
-<Route path='/signup' element={<Signup/>}/>
-        <Route path='/' element={<Layout/>}>
-          <Route path = ''element={<Home/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/signup' element={<Signup/>}/>
+        <Route element={<Layout/>}>
+          <Route path='/' element={<Home/>}/>
           <Route path='about' element={<About/>}/>
           <Route path='contact' element={<Contact/>}/>
-          <Route path='course' element={<Courses/>}/>
+          <Route path='/courses' element={<Courses/>} />
+            <Route path='/course/:id' element={<Cource/>}/>
         </Route>
 
     </Routes>

@@ -3,7 +3,15 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
+import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
+import { useSelector } from 'react-redux';
+
 function Navbar() {
+
+  const { data } = useAuthenticateQuery();
+  console.log('data', data);
+  const user = useSelector(state => state.auth.user);
+  console.log('user', user);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div className="container-fluid">
@@ -51,15 +59,15 @@ function Navbar() {
 
             {/* Services Dropdown */}
             <li className="nav-item dropdown">
-              <span className="nav-link dropdown-toggle" id="servicesDropdown">
+              <div className="nav-link dropdown-toggle" id="servicesDropdown">
                 Services
-              </span>
+              </div>
               <div className="dropdown-menu" aria-labelledby="servicesDropdown">
                 <NavLink 
-                  to="/course" 
+                  to="/courses" 
                   className="dropdown-item"
                 >
-                  Course
+                  Courses
                 </NavLink>
                 <NavLink 
                   to="/nutri-app" 
@@ -80,9 +88,12 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink to='/login'>
-              <div className="login-button">
+              {user?.id ? <div>
+                <p>{user?.name}</p>
+              </div>:
+              <div className="login-button" >
                 <p>Login</p>
-              </div>
+              </div>}
               </NavLink>
              
             </li>
