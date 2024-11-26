@@ -7,7 +7,7 @@ const baseQuery = fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
 
         const token = getState()?.auth?.token;
-
+       
         if (token) {
             headers.set("authorization", `Bearer ${token}`);
         }
@@ -18,17 +18,18 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-
-    let result = await baseQuery(args, api, extraOptions);
    
+    let result = await baseQuery(args, api, extraOptions);
+
     if (result.error?.status === 403) {
         // send refresh token request to get new access token
-        const refreshResult = await baseQuery({ url: "/api/user/refresh" }, api, extraOptions);
-
+        const refreshResult = await baseQuery({ url: "/refresh_token" }, api, extraOptions);
+       console.log('refreshResult : ',refreshResult);
         if (refreshResult?.data) {
-            const user = api.getState()?.auth?.user;
+            // const user = api.getState()?.auth?.user;
+            const { accessToken,...rest } = refreshResult?.data;
             // store new access token in redux store
-            api.dispatch(setCredentials({ user:user, ...refreshResult?.data?.Data }));
+            api.dispatch(setCredentials({ user:rest, accessToken:refreshResult?.data?.accessToken }));
             // retry the original request with the new access token
             result = await baseQuery(args, api, extraOptions);
         }else{

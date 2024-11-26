@@ -34,7 +34,7 @@ function Login() {
           }
 
           const userData = await login({ email, password }).unwrap();
-          console.log(userData);
+          console.log('userData : ',userData);
           dispatch(setCredentials({ ...userData }));
           setEmail('');
           setPassword('');

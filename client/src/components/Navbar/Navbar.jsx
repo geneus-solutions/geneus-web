@@ -3,15 +3,24 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
-import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
+// import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
 import { useSelector } from 'react-redux';
+import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
 
 function Navbar() {
 
-  const { data } = useAuthenticateQuery();
-  console.log('data', data);
-  const user = useSelector(state => state.auth.user);
-  console.log('user', user);
+  // const { data } = useAuthenticateQuery();
+  // console.log('data', data);
+  // const user = useSelector(state => state.auth.user);
+  // console.log('user2580 : ', user);
+  // console.log('user', user);
+
+  const {data,isError,error} = useAuthenticateQuery();
+  // if(isError){
+  //   console.log('error2580 : ', error);
+  // }
+  // console.log('data2580 : ', data);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div className="container-fluid">
@@ -88,8 +97,8 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink to='/login'>
-              {user?.id ? <div>
-                <p>{user?.name}</p>
+              {data?.data?.id ? <div>
+                <p>{data?.data?.name}</p>
               </div>:
               <div className="login-button" >
                 <p>Login</p>
