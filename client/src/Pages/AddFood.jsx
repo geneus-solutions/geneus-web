@@ -24,16 +24,20 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 // import authAxios from "../customAxios/authAxios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import useFetch from '../hooks/fetchHook'
+
+import { useGetFoodItemsQuery,useAddFoodMutation } from "../features/Food/foodApiSlice";
 
 const AddFoodToLunch = ({mealName,recall}) => {
   
   const privateAxios = useAxiosPrivate();
-  const {user} = useSelector((state) => state.user);
+  const {user} = useSelector((state) => state.auth);
   console.log(user)
   const navigate = useNavigate();
  
-  const [{ apiData: foodData }] = useFetch("getFoodItems");
+  // const [{ apiData: foodData }] = useFetch("getFoodItems");
+  const { data:foodData } = useGetFoodItemsQuery();
+  const [addFood,{isLoading}] = useAddFoodMutation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFoods, setFilteredFoods] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -79,10 +83,11 @@ const AddFoodToLunch = ({mealName,recall}) => {
         const food = selectedFoods.map((food) => {
             return food._id
         });
-        const data = await privateAxios.post(`/api/addFood`, {
-            user:user?.userId,
-            [selectedMeal.toLowerCase()]: food
-        });
+        const data = await addFood({user:user?.id,[selectedMeal.toLowerCase()]:food}).unwrap();
+        // const data = await privateAxios.post(`/api/addFood`, {
+        //     user:user?.userId,
+        //     [selectedMeal.toLowerCase()]: food
+        // });
         toast.success("food added successfully!");
         recall&&recall({})
         navigate("/diet-plan");

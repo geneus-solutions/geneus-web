@@ -105,7 +105,7 @@ const CalorieCalculator = () => {
     }
   };
   return (
-    <div style={{ backgroundColor: "white", width: "100%", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "white", width: "100%", minHeight: "100vh",marginTop:'20px' }}>
       <h4 style={{ textAlign: 'center' }}>Nutritional and Calorie Calculators</h4>
       {!openCalculator&&<Grid container spacing={4} justifyContent="center" alignItems="center">
         <Grid item xs={12} md={4}>

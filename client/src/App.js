@@ -12,6 +12,10 @@ import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 import Cource from './components/Courses/Course'
 
+import CalorieCalculator from './Pages/CalorieCalculator'
+import AddFood from './Pages/AddFood'
+import DietPlan from './Pages/DietPlan'
+
 function App() {
   return (
   <Router>
@@ -23,9 +27,12 @@ function App() {
           <Route path='about' element={<About/>}/>
           <Route path='contact' element={<Contact/>}/>
           <Route element={<RequireAuth allowedRole={['user','admin']} />} >
-            <Route path='/courses' element={<Courses/>} />
-            <Route path='/course/:id' element={<Cource/>}/>
+            <Route path="/nutri-app" element={<CalorieCalculator />} />
+            <Route path='/plan-diet' element={<AddFood />} />
+            <Route path='/diet-plan' element={<DietPlan />} />
           </Route>
+          <Route path='/courses' element={<Courses/>} />
+          <Route path='/course/:id' element={<Cource/>}/>
         </Route>
 
     </Routes>

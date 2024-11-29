@@ -17,12 +17,15 @@ import reactStringReplace from "react-string-replace";
 import { Link } from "react-router-dom";
 // import { userInfo } from "../../redux/slices/userDetails";
 import { useSelector, useDispatch } from "react-redux";
-import { increment } from "../../redux/slices/cartCount";
+// import { increment } from "../../redux/slices/cartCount";
+import { Cart } from "../../features/Cart/cartSlice";
 import { AddToCart } from "../Cart/addToCart";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 //import { REACT_APP_BACKEND_URL } from "../../config";
+
+import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
 
 const CourseDescription = ({courseDetails}) => {
     // const [courseDetails, setCourseDetails] = useState({});
@@ -224,18 +227,22 @@ const CourseDescription = ({courseDetails}) => {
         }
     }, [courseDetails]);
 
-    console.log('courseDetails : ',courseDetails)
 
+    
+    const navigate = useNavigate();
+    const [addToCart,{isLoading}] = useAddToCartMutation();
     const dispatch = useDispatch();
-    // const userDetail = useSelector(userInfo);
     const {user:userDetail} = useSelector((state) => state.auth);
 
     const handleAddToCart = async () => {
-        if (userDetail?.userId === -1) {
+        console.log('I am being called',userDetail)
+        if (userDetail.id === undefined) {
             //toast.error("User is not logged in. Please Signup to add to cart");
-            console.log("user is not logged in");
-            window.location.href = "/enroll1";
-         } else {
+            // console.log("user is not logged in");
+            // window.location.href = "/enroll1";
+            navigate('/login');
+         }
+          if(userDetail.id) {
             //dispatch(increment()); // not required when getting data from backend
             const course = {
                 course_id: courseDetails.id,
@@ -246,11 +253,11 @@ const CourseDescription = ({courseDetails}) => {
                 course_discountPrice: courseDetails.discount_price,
             };
             try{
-                const ans = await AddToCart(userDetail?.userId, course);
+                const ans = await addToCart({userId:userDetail?.id, courseItem:course});
                 console.log(ans);
-                if (ans === 1) {
-                    dispatch(increment());
-                }
+                // if (ans) {
+                //     // dispatch(increment());
+                // }
             } catch (error) {
                 console.error(error);
                 toast.error("User is not logged in. Please Log in to add to cart");

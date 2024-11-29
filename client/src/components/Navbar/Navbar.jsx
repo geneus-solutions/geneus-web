@@ -4,8 +4,11 @@ import "./Navbar.css";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 // import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
+import { MDBIcon } from "mdbreact";
+import { MDBBadge } from "mdbreact";
 import { useSelector } from 'react-redux';
 import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
+import { useCartQuery } from '../../features/Cart/cartApiSlice';
 
 function Navbar() {
 
@@ -16,6 +19,9 @@ function Navbar() {
   // console.log('user', user);
 
   const {data,isError,error} = useAuthenticateQuery();
+  console.log('data2580 : ', data);
+  const {data:cartData,isError:cartIsError,cartError} = useCartQuery(data?.data?.id,{skip:!data?.data?.id});
+  console.log('cartData', cartData);
   // if(isError){
   //   console.log('error2580 : ', error);
   // }
@@ -105,6 +111,19 @@ function Navbar() {
               </div>}
               </NavLink>
              
+            </li>
+            <li className="nav-item" style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px'}}>
+              <h4 className="linkText3">
+                <MDBIcon icon="shopping-cart" size="x" />
+                <MDBBadge
+                    // color="primary"
+                    style={{color:'black'}}
+                    className="rounded-pill badge-notification"
+                >
+                  {cartData?.cart_items?.length}
+                      {/* {count} */}
+                  </MDBBadge>
+              </h4>
             </li>
           </ul>
         </div>

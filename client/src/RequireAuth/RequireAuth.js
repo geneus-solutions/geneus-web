@@ -12,7 +12,9 @@ const RequireAuth = ({allowedRole}) => {
     const [loading,setLoading] = useState(true);
 
     const token = useSelector(selectCurrentToken);
+
     const user = useSelector(state => state.auth.user);
+    
     const { data, isError, error, isSuccess } = useAuthenticateQuery();
     
     useEffect(() => {
