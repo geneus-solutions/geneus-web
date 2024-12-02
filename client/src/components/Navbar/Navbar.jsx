@@ -20,7 +20,7 @@ function Navbar() {
 
   const {data,isError,error} = useAuthenticateQuery();
   console.log('data2580 : ', data);
-  const {data:cartData,isError:cartIsError,cartError} = useCartQuery(data?.data?.id,{skip:!data?.data?.id});
+  const {data:cartData} = useCartQuery(data?.data?.id,{skip:!data?.data?.id});
   console.log('cartData', cartData);
   // if(isError){
   //   console.log('error2580 : ', error);

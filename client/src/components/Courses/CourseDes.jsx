@@ -18,8 +18,8 @@ import { Link } from "react-router-dom";
 // import { userInfo } from "../../redux/slices/userDetails";
 import { useSelector, useDispatch } from "react-redux";
 // import { increment } from "../../redux/slices/cartCount";
-import { Cart } from "../../features/Cart/cartSlice";
-import { AddToCart } from "../Cart/addToCart";
+// import { Cart } from "../../features/Cart/cartSlice";
+// import { AddToCart } from "../Cart/addToCart";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

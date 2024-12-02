@@ -9,8 +9,8 @@ export const foodApiSlice = apiSlice.injectEndpoints({
                 return {
                 url: `/cart?user_id=${params}`,
                 method: 'GET',
-            }
-            },
+            }},
+            providesTags: (result, error, id) => [{ type: 'cart', id }],
         }),
         addToCart: builder.mutation({
             query: (body) => ({
@@ -18,6 +18,7 @@ export const foodApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body,
             }),
+            invalidatesTags: (result, error, body) => [{ type: 'cart', id: body.id }],
         }),
     }),
 });

@@ -27,7 +27,6 @@ function Login() {
   const handleLogin = async (e) => {
       try {
           e.preventDefault();
-          console.log({ email, password });
           if (!email || !password) {
               setErrMsg('all fields are required');
               return;
