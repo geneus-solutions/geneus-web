@@ -109,7 +109,7 @@ function Navbar() {
               </NavLink>
              
             </li>
-            <li className="nav-item" style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px'}}>
+            <li className="nav-item" onClick={()=>navigate('/cart')} style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px',cursor:'pointer'}}>
               <h4 className="linkText3">
                 <MDBIcon icon="shopping-cart" size="x" />
                 <MDBBadge
