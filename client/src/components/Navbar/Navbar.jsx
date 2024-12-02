@@ -74,7 +74,7 @@ function Navbar() {
 
             {/* Services Dropdown */}
             <li className="nav-item dropdown">
-              <div className="nav-link dropdown-toggle" id="servicesDropdown">
+              <div className="nav-link dropdown-toggle" id="servicesDropdown" >
                 Services
               </div>
               <div className="dropdown-menu" aria-labelledby="servicesDropdown">
@@ -104,21 +104,21 @@ function Navbar() {
             <li className="nav-item">
               <NavLink to='/login'>
               {data?.data?.id ? <div>
-                <p>{data?.data?.name}</p>
+                <p style={{marginTop: "10px"}}>{data?.data?.name}</p>
               </div>:
               <div className="login-button" >
-                <p>Login</p>
+                <p style={{marginTop: '10px'}}>Login</p>
               </div>}
               </NavLink>
              
             </li>
-            <li className="nav-item" style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px'}}>
+            <li className="nav-item cart-icon">
               <h4 className="linkText3">
                 <MDBIcon icon="shopping-cart" size="x" />
                 <MDBBadge
                     // color="primary"
                     style={{color:'black'}}
-                    className="rounded-pill badge-notification"
+                    className="badge-notification"
                 >
                   {cartData?.cart_items?.length}
                       {/* {count} */}
