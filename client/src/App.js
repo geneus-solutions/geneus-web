@@ -15,6 +15,7 @@ import Cource from './components/Courses/Course'
 import CalorieCalculator from './Pages/CalorieCalculator'
 import AddFood from './Pages/AddFood'
 import DietPlan from './Pages/DietPlan'
+import Cart from './components/Cart/Cart'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           </Route>
           <Route path='/courses' element={<Courses/>} />
           <Route path='/course/:id' element={<Cource/>}/>
+          <Route path='/cart' element={<Cart />}/>
         </Route>
 
     </Routes>

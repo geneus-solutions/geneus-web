@@ -5,7 +5,6 @@ export const foodApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         cart: builder.query({
             query: (params) => {
-                console.log('params : ',params);
                 return {
                 url: `/cart?user_id=${params}`,
                 method: 'GET',
@@ -20,7 +19,18 @@ export const foodApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: (result, error, body) => [{ type: 'cart', id: body.id }],
         }),
+        deleteCart: builder.mutation({
+            query: (body) => {
+                console.log("body", body)
+                return {
+                    url: `/cartdelete?user_id=${body?.user_id}&course_id=${body?.course_id}`,
+                    method: 'DELETE',
+                    body,
+                }
+            },
+            invalidatesTags: (result, error, body) => [{ type: 'cart', id: body.id }],
+        }),
     }),
 });
 
-export const {useAddToCartMutation,useCartQuery } = foodApiSlice;
+export const {useAddToCartMutation,useDeleteCartMutation,useCartQuery } = foodApiSlice;

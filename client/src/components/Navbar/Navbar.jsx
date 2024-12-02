@@ -1,31 +1,28 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 // import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
 import { MDBIcon } from "mdbreact";
 import { MDBBadge } from "mdbreact";
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
 import { useCartQuery } from '../../features/Cart/cartApiSlice';
+import { Cart } from '../../features/Cart/cartSlice';
 
 function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const { data } = useAuthenticateQuery();
-  // console.log('data', data);
-  // const user = useSelector(state => state.auth.user);
-  // console.log('user2580 : ', user);
-  // console.log('user', user);
-
-  const {data,isError,error} = useAuthenticateQuery();
-  console.log('data2580 : ', data);
+  const {data} = useAuthenticateQuery();
   const {data:cartData} = useCartQuery(data?.data?.id,{skip:!data?.data?.id});
-  console.log('cartData', cartData);
-  // if(isError){
-  //   console.log('error2580 : ', error);
-  // }
-  // console.log('data2580 : ', data);
+  
+  useEffect(() => {
+    if(cartData){
+      dispatch(Cart({cart:cartData}));
+    }
+  }, [cartData])
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -112,7 +109,7 @@ function Navbar() {
               </NavLink>
              
             </li>
-            <li className="nav-item" style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px'}}>
+            <li className="nav-item" onClick={()=>navigate('/cart')} style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px',cursor:'pointer'}}>
               <h4 className="linkText3">
                 <MDBIcon icon="shopping-cart" size="x" />
                 <MDBBadge
@@ -120,7 +117,7 @@ function Navbar() {
                     style={{color:'black'}}
                     className="rounded-pill badge-notification"
                 >
-                  {cartData?.cart_items?.length}
+                  {cartData?.cart_items?.length ? cartData?.cart_items?.length : 0}
                       {/* {count} */}
                   </MDBBadge>
               </h4>

@@ -25,6 +25,6 @@ export const userDetailsSlice = createSlice({
 
 export const { addUserDetails, removeUserDetails } = userDetailsSlice.actions
 
-export const userInfo = (state) => state.user.user
+export const userInfo = (state) => state?.user?.user
 
 export default userDetailsSlice.reducer

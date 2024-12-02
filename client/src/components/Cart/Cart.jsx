@@ -21,20 +21,20 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { emptyCart, removeFromCart } from "./removeFromCart";
+import { emptyCart } from "./removeFromCart";
 import { backendUrl, RAZORPAY_ID } from "../../config";
 import { razorpayScript } from "../../config";
 import { toast } from "react-toastify";
+import { useDeleteCartMutation } from "../../features/Cart/cartApiSlice";
 
 const Cart = () => {
-    const [cartDetails, setCartDetails] = useState({});
-    const [isAvailable, setIsAvailable] = useState(false);
-    const [count, setcount] = useState(useSelector(selectCount));
-    const user = useSelector(userInfo);
+    
+    const {user} = useSelector((state) => state?.auth);
+    const {cartCount:count,cart:cartDetails} = useSelector((state) => state?.cartData);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const loginInfo = user.isLoggedIn;
-    const user_id = user.userId;
+
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -48,6 +48,7 @@ const Cart = () => {
             document.body.appendChild(script);
         });
     };
+
     const makePayment = async (amount) => {
         const res = await initializeRazorpay();
         if (!res) {
@@ -96,7 +97,7 @@ const Cart = () => {
                         if (verify.data.success === true) {
                             toast.success("Payment Successfull");
                             emptyCart(cartDetails._id);
-                            setcount(0);
+                            // setcount(0);
                             dispatch(reset());
                             navigate("/");
                         } else {
@@ -115,26 +116,25 @@ const Cart = () => {
                 console.log(error);
             });
     };
-    const fetchCartDetails = async () => {
-        try {
-            const response = await axios.get(
-                `${backendUrl}/cart?user_id=${user_id}`
-            );
 
-            const data = await response.data;
-            console.log(data);
-            setCartDetails(data);
-            setIsAvailable(true);
-            setcount(data.cart_items.length);
+    const [deleteCart] = useDeleteCartMutation();
+
+    const removeFromCart = async (userId, courseId) => {
+
+        try {
+           
+            const cartDetails = await deleteCart({ user_id: userId, course_id: courseId }).unwrap();
+           
+            if (!cartDetails) {
+                console.log("item not deleted");
+            } else {
+                toast.success("Course deleted from cart");
+            }
         } catch (error) {
-            console.error("Failed to fetch course data:", error);
+            console.log("error", error);
+            toast.error(error);
         }
     };
-    useEffect(() => {
-        if (loginInfo) {
-            fetchCartDetails();
-        }
-    }, [count]);
 
     return (
         <MDBContainer>
@@ -143,7 +143,7 @@ const Cart = () => {
             <MDBRow>
                 <MDBCol md="12">
                     <div className="text-start fs-1 fw-bold">Shopping Cart</div>
-                    {!isAvailable ? (
+                    {!(cartDetails?.cart_items?.length > 0) ? (
                         <div></div>
                     ) : (
                         <div className="fst-normal fs-6 mt-2 ml-2">
@@ -156,7 +156,7 @@ const Cart = () => {
             <hr className="hr" />
             <MDBRow>
                 <MDBCol md="9">
-                    {!isAvailable ? (
+                    {!(cartDetails?.cart_items?.length > 0) ? (
                         <MDBRow>
                             <MDBCol md="12">
                                 <div className="card">
@@ -189,7 +189,7 @@ const Cart = () => {
                     ) : (
                         <MDBRow>
                             {cartDetails &&
-                                cartDetails?.cart_items.map((cart_item) => (
+                                cartDetails?.cart_items?.map((cart_item) => (
                                     <div className="d-flex flex-start mt-2">
                                         <MDBCol md="3">
                                             <img
@@ -222,8 +222,6 @@ const Cart = () => {
                                                             cartDetails._id,
                                                             cart_item._id
                                                         );
-                                                        setcount(count - 1);
-                                                        dispatch(decrement());
                                                     }}
                                                     type="button"
                                                     class="btn btn-tertiary"
@@ -268,7 +266,7 @@ const Cart = () => {
                     )}
                 </MDBCol>
 
-                {!isAvailable ? (
+                {!(cartDetails?.cart_items?.length > 0) ? (
                     <div></div>
                 ) : (
                     <MDBCol md="3">
