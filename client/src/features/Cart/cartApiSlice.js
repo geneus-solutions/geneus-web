@@ -20,14 +20,11 @@ export const foodApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: (result, error, body) => [{ type: 'cart', id: body.id }],
         }),
         deleteCart: builder.mutation({
-            query: (body) => {
-                console.log("body", body)
-                return {
-                    url: `/cartdelete?user_id=${body?.user_id}&course_id=${body?.course_id}`,
-                    method: 'DELETE',
-                    body,
-                }
-            },
+            query: (body) =>({
+                url: `/cartdelete`,
+                method: 'POST',
+                body,
+            }),
             invalidatesTags: (result, error, body) => [{ type: 'cart', id: body.id }],
         }),
     }),

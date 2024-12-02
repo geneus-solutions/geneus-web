@@ -31,7 +31,7 @@ const Cart = () => {
     
     const {user} = useSelector((state) => state?.auth);
     const {cartCount:count,cart:cartDetails} = useSelector((state) => state?.cartData);
-
+    console.log('user : ',user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -122,9 +122,8 @@ const Cart = () => {
     const removeFromCart = async (userId, courseId) => {
 
         try {
-           
-            const cartDetails = await deleteCart({ user_id: userId, course_id: courseId }).unwrap();
-           
+            const cartDetails = await deleteCart({ user_id: user?.id, course_id: courseId }).unwrap();
+
             if (!cartDetails) {
                 console.log("item not deleted");
             } else {

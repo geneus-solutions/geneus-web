@@ -114,12 +114,10 @@ function Navbar() {
                 <MDBIcon icon="shopping-cart" size="x" />
                 <MDBBadge
                     // color="primary"
-                    style={{color:'black'}}
                     className="badge-notification"
                 >
                   {cartData?.cart_items?.length ? cartData?.cart_items?.length : 0}
-                      {/* {count} */}
-                  </MDBBadge>
+                </MDBBadge>
               </h4>
             </li>
           </ul>
