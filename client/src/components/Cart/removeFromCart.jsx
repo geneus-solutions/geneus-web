@@ -18,6 +18,7 @@ const removeFromCart = async (userId, courseId) => {
             toast.success("Course deleted from cart");
         }
     } catch (error) {
+        console.log("error", error);
         toast.error(error);
     }
 };

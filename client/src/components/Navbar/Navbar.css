@@ -1,14 +1,16 @@
+/* Navbar Styling */
 .navbar {
   position: sticky;
   top: 0;
   background-color: white;  /* Set a background color */
-  z-index: 1000;             /* Make sure it stays above other elements */
+  z-index: 1000;             /* Ensure it stays above other elements */
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+  padding: 0 1rem;
 }
+
 /* Logo Styling */
 .logo-img {
   width: 45px;
@@ -16,10 +18,11 @@
 }
 
 /* Nav Links Styling */
-.nav-links {
+.navbar-nav {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-link {
@@ -53,25 +56,7 @@
   width: 0;
 }
 
-/* Login Button Styling */
-.login-button {
-  background-color: #31B9EB;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  width: 100px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.login-button:hover {
-  background-color: #333;
-}
-/* Navbar.css */
-
-/* Styles for the dropdown */
+/* Dropdown Styling */
 .nav-item.dropdown {
   position: relative;
 }
@@ -101,4 +86,40 @@
 .dropdown-item:hover {
   background-color: #7CA6FF; /* Highlight color on hover */
   color: white;
+}
+
+/* Login Button Styling */
+.login-button {
+  background-color: #31B9EB;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #333;
+}
+
+/* Badge Styling */
+.badge-notification {
+  position: relative;
+  top: -20px;
+  right: 5px;
+  font-size: 0.75rem;
+  background-color: blue;
+  color: white;
+  border-radius: 100%;
+  padding: 5px;
+}
+
+.nav-item.cart-icon { 
+  display: flex; 
+  align-items: center; 
+  margin-left: 20px; 
+  position: relative; /* Added to position badge correctly */
 }

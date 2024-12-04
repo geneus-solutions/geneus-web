@@ -1,9 +1,29 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
+// import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
+import { MDBIcon } from "mdbreact";
+import { MDBBadge } from "mdbreact";
+import { useDispatch } from 'react-redux';
+import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
+import { useCartQuery } from '../../features/Cart/cartApiSlice';
+import { Cart } from '../../features/Cart/cartSlice';
+
 function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {data} = useAuthenticateQuery();
+  const {data:cartData} = useCartQuery(data?.data?.id,{skip:!data?.data?.id});
+  
+  useEffect(() => {
+    if(cartData){
+      dispatch(Cart({cart:cartData}));
+    }
+  }, [cartData])
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div className="container-fluid">
@@ -51,15 +71,15 @@ function Navbar() {
 
             {/* Services Dropdown */}
             <li className="nav-item dropdown">
-              <span className="nav-link dropdown-toggle" id="servicesDropdown">
+              <div className="nav-link dropdown-toggle" id="servicesDropdown" >
                 Services
-              </span>
+              </div>
               <div className="dropdown-menu" aria-labelledby="servicesDropdown">
                 <NavLink 
-                  to="/course" 
+                  to="/courses" 
                   className="dropdown-item"
                 >
-                  Course
+                  Courses
                 </NavLink>
                 <NavLink 
                   to="/nutri-app" 
@@ -80,11 +100,25 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink to='/login'>
-              <div className="login-button">
-                <p>Login</p>
-              </div>
+              {data?.data?.id ? <div>
+                <p style={{marginTop: "10px"}}>{data?.data?.name}</p>
+              </div>:
+              <div className="login-button" >
+                <p style={{marginTop: '10px'}}>Login</p>
+              </div>}
               </NavLink>
              
+            </li>
+            <li className="nav-item" onClick={()=>navigate('/cart')} style={{display:'flex',justifyContent:'center',alignItems:'center',marginLeft:'20px',cursor:'pointer'}}>
+              <h4 className="linkText3">
+                <MDBIcon icon="shopping-cart" size="x" />
+                <MDBBadge
+                    // color="primary"
+                    className="badge-notification"
+                >
+                  {cartData?.cart_items?.length ? cartData?.cart_items?.length : 0}
+                </MDBBadge>
+              </h4>
             </li>
           </ul>
         </div>

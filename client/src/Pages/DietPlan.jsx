@@ -13,6 +13,7 @@ import defaultAxios from '../customAxios/defaultAxios';
 import FooterTable from '../components/FooterTable/FooterTable';
 import AddFoodToLunch from './AddFood';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { AttractionsOutlined } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
   sectionBox: {
@@ -81,9 +82,10 @@ const useStyles = makeStyles((theme) => ({
 const DietPlan = () => {
   const [meals, setMeals] = useState([]);
   const [mealName, setMealName] = useState('');
-  const {user} = useSelector((state) => state.user);
-  const [{apiData},,setParams] = useFetch(`api/getFoodById/${user?.userId}`,{skip:!user?.userId});
-  console.log(apiData);
+  const {user} = useSelector((state) => state.auth);
+  // console.log('user : ',user)
+  const [{apiData},,setParams] = useFetch(`api/getFoodById/${user?.id}`,{skip:!user?.id});
+  // console.log(apiData);
 
   useEffect(() => {
     if(apiData){
@@ -164,7 +166,7 @@ const DietPlan = () => {
 
 const MealSection = ({ tableNumber, meal, classes, recall, handleOpen }) => {
   const privateAxios = useAxiosPrivate();
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
   const [mealName, setMealName] = useState('');
