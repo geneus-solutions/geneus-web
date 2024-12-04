@@ -303,7 +303,17 @@ const Cart = () => {
                                     }
                                     className="text-center btn-block"
                                     size="lg"
-                                    style={{ backgroundColor: "#333333" }}
+                                    style={{  backgroundColor: "#333333",
+                                        color: "#fff",
+                                        width: "100%", // Set a fixed width (adjust if necessary)
+                                        height: "50px", // Set a fixed height
+                                        padding: "10px 20px", // Explicit padding
+                                        transition: "none", // No transitions
+                                        boxShadow: "none", // Remove shadows
+                                        transform: "none", // Prevent scaling
+                                        border: "1px solid #333333",}}
+                                         data-mdb-ripple="false"
+                                    
                                 >
                                     {" "}
                                     CHECKOUT{" "}
