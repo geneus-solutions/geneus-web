@@ -49,73 +49,73 @@ const Cart = () => {
         });
     };
 
-    const makePayment = async (amount) => {
-        const res = await initializeRazorpay();
-        if (!res) {
-            alert("Razorpay SDK Failed to load");
-            return;
-        }
-        let data = JSON.stringify({
-            amount: amount.toString(),
-            currecy: "INR",
-        });
-        let config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: `${backendUrl}/razorpay`,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            data: data,
-        };
-        axios
-            .request(config)
-            .then((response) => {
-                console.log(JSON.stringify(response.data));
-                var options = {
-                    key: RAZORPAY_ID,
-                    name: "Geneus Solutions",
-                    currency: "INR",
-                    amount: response.data.amount,
-                    order_id: response.data.id,
-                    description: "Happy Learning",
-                    image: Logo,
-                    handler: async function (response) {
-                        const data = {
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_signature: response.razorpay_signature,
-                            user_id: user.userId,
-                            cart_details: cartDetails.cart_items,
-                        };
-                        const verify = await axios.post(
-                            `${backendUrl}/paymentverification`,
-                            {
-                                data: data,
-                            }
-                        );
-                        if (verify.data.success === true) {
-                            toast.success("Payment Successfull");
-                            emptyCart(cartDetails._id);
-                            // setcount(0);
-                            dispatch(reset());
-                            navigate("/");
-                        } else {
-                            toast.error("Payment Failed");
-                        }
-                    },
-                    prefill: {
-                        name: user.username,
-                        email: user.useremail,
-                    },
-                };
-                const paymentObject = new window.Razorpay(options);
-                paymentObject.open();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+    // const makePayment = async (amount) => {
+    //     const res = await initializeRazorpay();
+    //     if (!res) {
+    //         alert("Razorpay SDK Failed to load");
+    //         return;
+    //     }
+    //     let data = JSON.stringify({
+    //         amount: amount.toString(),
+    //         currecy: "INR",
+    //     });
+    //     let config = {
+    //         method: "post",
+    //         maxBodyLength: Infinity,
+    //         url: `${backendUrl}/razorpay`,
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         data: data,
+    //     };
+    //     axios
+    //         .request(config)
+    //         .then((response) => {
+    //             console.log(JSON.stringify(response.data));
+    //             var options = {
+    //                 key: RAZORPAY_ID,
+    //                 name: "Geneus Solutions",
+    //                 currency: "INR",
+    //                 amount: response.data.amount,
+    //                 order_id: response.data.id,
+    //                 description: "Happy Learning",
+    //                 image: Logo,
+    //                 handler: async function (response) {
+    //                     const data = {
+    //                         razorpay_order_id: response.razorpay_order_id,
+    //                         razorpay_payment_id: response.razorpay_payment_id,
+    //                         razorpay_signature: response.razorpay_signature,
+    //                         user_id: user.userId,
+    //                         cart_details: cartDetails.cart_items,
+    //                     };
+    //                     const verify = await axios.post(
+    //                         `${backendUrl}/paymentverification`,
+    //                         {
+    //                             data: data,
+    //                         }
+    //                     );
+    //                     if (verify.data.success === true) {
+    //                         toast.success("Payment Successfull");
+    //                         emptyCart(cartDetails._id);
+    //                         // setcount(0);
+    //                         dispatch(reset());
+    //                         navigate("/");
+    //                     } else {
+    //                         toast.error("Payment Failed");
+    //                     }
+    //                 },
+    //                 prefill: {
+    //                     name: user.username,
+    //                     email: user.useremail,
+    //                 },
+    //             };
+    //             const paymentObject = new window.Razorpay(options);
+    //             paymentObject.open();
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // };
 
     const [deleteCart] = useDeleteCartMutation();
 
@@ -132,6 +132,19 @@ const Cart = () => {
         } catch (error) {
             console.log("error", error);
             toast.error(error);
+        }
+    };
+
+    //handle but now funtion:-
+
+    const handleBuyNow = () => {
+        if (cartDetails?.cart_items?.length > 0) {
+            const totalPrice = cartDetails?.discount;
+            navigate('/course-details', {
+                state: { cartDetails, totalPrice }
+            });
+        } else {
+            toast.error("Your cart is empty!");
         }
     };
 
@@ -296,11 +309,7 @@ const Cart = () => {
                                     </div>
                                 </MDBCardText>
                                 <MDBBtn
-                                    onClick={() =>
-                                        makePayment(
-                                            cartDetails && cartDetails?.discount
-                                        )
-                                    }
+                                    onClick={handleBuyNow}
                                     className="text-center btn-block"
                                     size="lg"
                                     style={{  backgroundColor: "#333333",
@@ -312,11 +321,10 @@ const Cart = () => {
                                         boxShadow: "none", // Remove shadows
                                         transform: "none", // Prevent scaling
                                         border: "1px solid #333333",}}
-                                         data-mdb-ripple="false"
-                                    
+                                        data-mdb-ripple="false"  
                                 >
                                     {" "}
-                                    CHECKOUT{" "}
+                                    Buy Now
                                 </MDBBtn>
                             </MDBCardBody>
                         </MDBCard>

@@ -16,6 +16,7 @@ import CalorieCalculator from './Pages/CalorieCalculator'
 import AddFood from './Pages/AddFood'
 import DietPlan from './Pages/DietPlan'
 import Cart from './components/Cart/Cart'
+import BuyCourseDetails from './components/Cart/BuyCourseDetails'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='/courses' element={<Courses/>} />
           <Route path='/course/:id' element={<Cource/>}/>
           <Route path='/cart' element={<Cart />}/>
+          <Route path='/course-details' element={<BuyCourseDetails/>}/>
         </Route>
 
     </Routes>
