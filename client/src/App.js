@@ -11,6 +11,8 @@ import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 import Cource from './components/Courses/Course'
+import Product from "./components/Product/Product"
+
 
 import CalorieCalculator from './Pages/CalorieCalculator'
 import AddFood from './Pages/AddFood'
@@ -27,10 +29,12 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='about' element={<About/>}/>
           <Route path='contact' element={<Contact/>}/>
+          <Route path="/Product" element={<Product />} />
           <Route element={<RequireAuth allowedRole={['user','admin']} />} >
             <Route path="/nutri-app" element={<CalorieCalculator />} />
             <Route path='/plan-diet' element={<AddFood />} />
             <Route path='/diet-plan' element={<DietPlan />} />
+
           </Route>
           <Route path='/courses' element={<Courses/>} />
           <Route path='/course/:id' element={<Cource/>}/>
