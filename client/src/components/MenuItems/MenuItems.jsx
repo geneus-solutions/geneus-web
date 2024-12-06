@@ -39,7 +39,6 @@ const MenuItems = () => {
             <li>
                 <Link to="/product">Product</Link>
             </li>
-             
             <li>
                 <Link to="/contact">Contact Us</Link>
             </li>
