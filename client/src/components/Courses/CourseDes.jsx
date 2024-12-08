@@ -327,7 +327,7 @@ const CourseDescription = ({ courseDetails }) => {
                   </button>
                 </Link>
               </div>
-              {/* Display Mentor Image  by rahul*/}
+              {/* Display Mentor Image*/}
               {courseDetails && courseDetails?.mentorImage && (
                 <img
                   src={courseDetails?.mentorImage}

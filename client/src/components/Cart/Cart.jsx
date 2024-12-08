@@ -9,113 +9,18 @@ import {
     MDBBtn,
     MDBIcon,
 } from "mdb-react-ui-kit";
-import React, { useState, useEffect } from "react";
-import Logo from "../../assets/g.png";
-import { userInfo } from "../../redux/slices/userDetails";
-import {
-    set,
-    selectCount,
-    decrement,
-    reset,
-} from "../../redux/slices/cartCount";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { emptyCart } from "./removeFromCart";
-import { backendUrl, RAZORPAY_ID } from "../../config";
-import { razorpayScript } from "../../config";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useDeleteCartMutation } from "../../features/Cart/cartApiSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
     
     const {user} = useSelector((state) => state?.auth);
     const {cartCount:count,cart:cartDetails} = useSelector((state) => state?.cartData);
     console.log('user : ',user);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const initializeRazorpay = () => {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = `${razorpayScript}`;
-            script.onload = () => {
-                resolve(true);
-            };
-            script.onerror = () => {
-                resolve(false);
-            };
-            document.body.appendChild(script);
-        });
-    };
-
-    // const makePayment = async (amount) => {
-    //     const res = await initializeRazorpay();
-    //     if (!res) {
-    //         alert("Razorpay SDK Failed to load");
-    //         return;
-    //     }
-    //     let data = JSON.stringify({
-    //         amount: amount.toString(),
-    //         currecy: "INR",
-    //     });
-    //     let config = {
-    //         method: "post",
-    //         maxBodyLength: Infinity,
-    //         url: `${backendUrl}/razorpay`,
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         data: data,
-    //     };
-    //     axios
-    //         .request(config)
-    //         .then((response) => {
-    //             console.log(JSON.stringify(response.data));
-    //             var options = {
-    //                 key: RAZORPAY_ID,
-    //                 name: "Geneus Solutions",
-    //                 currency: "INR",
-    //                 amount: response.data.amount,
-    //                 order_id: response.data.id,
-    //                 description: "Happy Learning",
-    //                 image: Logo,
-    //                 handler: async function (response) {
-    //                     const data = {
-    //                         razorpay_order_id: response.razorpay_order_id,
-    //                         razorpay_payment_id: response.razorpay_payment_id,
-    //                         razorpay_signature: response.razorpay_signature,
-    //                         user_id: user.userId,
-    //                         cart_details: cartDetails.cart_items,
-    //                     };
-    //                     const verify = await axios.post(
-    //                         `${backendUrl}/paymentverification`,
-    //                         {
-    //                             data: data,
-    //                         }
-    //                     );
-    //                     if (verify.data.success === true) {
-    //                         toast.success("Payment Successfull");
-    //                         emptyCart(cartDetails._id);
-    //                         // setcount(0);
-    //                         dispatch(reset());
-    //                         navigate("/");
-    //                     } else {
-    //                         toast.error("Payment Failed");
-    //                     }
-    //                 },
-    //                 prefill: {
-    //                     name: user.username,
-    //                     email: user.useremail,
-    //                 },
-    //             };
-    //             const paymentObject = new window.Razorpay(options);
-    //             paymentObject.open();
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // };
 
     const [deleteCart] = useDeleteCartMutation();
 
