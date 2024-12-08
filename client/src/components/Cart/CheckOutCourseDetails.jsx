@@ -4,7 +4,7 @@ import { MDBContainer, MDBCardBody, MDBTypography, MDBTable, MDBTableHead, MDBTa
 import SummarySection from "./SummarySection"; // Import SummarySection
 import CouponSection from "./CouponSection"; // Import CouponSection
 
-const CourseDetails = () => {
+const CheckOutCourseDetails = () => {
   const location = useLocation();
   const { cartDetails, totalPrice } = location.state || {};
   const [couponCode, setCouponCode] = useState("");
@@ -118,10 +118,6 @@ const CourseDetails = () => {
         {/* Coupon Section */}
         <CouponSection
           validCoupons={validCoupons}
-        //   couponCode={couponCode}
-        //   setCouponCode={setCouponCode}
-        //   applyCoupon={applyCoupon}
-        //   message={message}
         />
 
         {/* Summary Section */}
@@ -141,4 +137,4 @@ const CourseDetails = () => {
   );
 };
 
-export default CourseDetails;
+export default CheckOutCourseDetails;
