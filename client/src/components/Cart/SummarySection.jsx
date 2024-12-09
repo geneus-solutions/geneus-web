@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MDBCol,
   MDBCard,
@@ -7,6 +8,12 @@ import {
   MDBInput,
   MDBBtn,
 } from "mdb-react-ui-kit";
+
+import axios from "axios";
+import { backendUrl, RAZORPAY_ID } from "../../config";
+import { razorpayScript } from "../../config";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const SummarySection = ({
   cartDetails,
@@ -20,6 +27,89 @@ const SummarySection = ({
   applyCouponMessage,
 }) => {
   console.log("tis is couponCOde", couponCode);
+
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.auth);
+
+  const initializeRazorpay = () => {
+      return new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = `${razorpayScript}`;
+          script.onload = () => {
+              resolve(true);
+          };
+          script.onerror = () => {
+              resolve(false);
+          };
+          document.body.appendChild(script);
+      });
+  };
+
+  const makePayment = async (amount) => {
+      const res = await initializeRazorpay();
+      if (!res) {
+          alert("Razorpay SDK Failed to load");
+          return;
+      }
+      let data = JSON.stringify({
+          amount: amount.toString(),
+          currecy: "INR",
+      });
+      let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: `${backendUrl}/razorpay`,
+          headers: {
+              "Content-Type": "application/json",
+          },
+          data: data,
+      };
+      axios
+          .request(config)
+          .then((response) => {
+              console.log(JSON.stringify(response.data));
+              var options = {
+                  key: RAZORPAY_ID,
+                  name: "Geneus Solutions",
+                  currency: "INR",
+                  amount: response.data.amount,
+                  order_id: response.data.id,
+                  description: "Happy Learning",
+                  image: Logo,
+                  handler: async function (response) {
+                      const data = {
+                          razorpay_order_id: response.razorpay_order_id,
+                          razorpay_payment_id: response.razorpay_payment_id,
+                          razorpay_signature: response.razorpay_signature,
+                          user_id: user.userId,
+                          cart_details: cartDetails.cart_items,
+                      };
+                      const verify = await axios.post(
+                          `${backendUrl}/paymentverification`,
+                          {
+                              data: data,
+                          }
+                      );
+                      if (verify.data.success === true) {
+                          toast.success("Payment Successfull");
+                          navigate("/");
+                      } else {
+                          toast.error("Payment Failed");
+                      }
+                  },
+                  prefill: {
+                      name: user.name,
+                      email: user.email,
+                  },
+              };
+              const paymentObject = new window.Razorpay(options);
+              paymentObject.open();
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  };
   return (
     <MDBCol md="6">
       <MDBCard>
