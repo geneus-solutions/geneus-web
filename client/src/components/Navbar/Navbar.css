@@ -88,6 +88,10 @@
   color: white;
 }
 
+.dropdown-icon { 
+  font-size: 1.25em; /* Adjust size as needed */ 
+  transition: transform 0.3s ease-in-out; /* Smooth transition */ 
+}
 /* Login Button Styling */
 .login-button {
   background-color: #31B9EB;
