@@ -26,6 +26,11 @@ import { toast } from "react-toastify";
 //import { REACT_APP_BACKEND_URL } from "../../config";
 
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
+import LearningPoints from "./LearningPoints";
+import CourseContent from "./CourseContent";
+import CourseOtherDetails from "./CourseOtherDetails";
+import Description from "./Description";
+import CourseSection from "./CourseSection";
 
 const CourseDescription = ({ courseDetails }) => {
   // const [courseDetails, setCourseDetails] = useState({});
@@ -230,7 +235,6 @@ const CourseDescription = ({ courseDetails }) => {
 
   const navigate = useNavigate();
   const [addToCart, { isLoading }] = useAddToCartMutation();
-  const dispatch = useDispatch();
   const { user: userDetail } = useSelector((state) => state.auth);
 
   const handleAddToCart = async () => {
@@ -339,112 +343,18 @@ const CourseDescription = ({ courseDetails }) => {
           </MDBCardBody>
         </MDBCol>
       </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12">
-          {/* What you'll learn */}
-          <MDBCardBody>
-            <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-              What you'll learn
-            </MDBCardTitle>
-            <MDBCardText className="fs-6 fw-normal">
-              <div className="div-margin">
-                <div className="div1">
-                  <ul className="ticks">
-                    {courseDetails &&
-                      courseDetails?.learnings
-                        ?.slice(0, len && len)
-                        .map((learning, index) => (
-                          <li key={index}>{learning}</li>
-                        ))}
-                  </ul>
-                </div>
-                <div className="div2">
-                  <ul className="ticks">
-                    {courseDetails &&
-                      courseDetails?.learnings
-                        ?.slice(len && len)
-                        .map((learning, index) => (
-                          <li key={index}>{learning}</li>
-                        ))}
-                  </ul>
-                </div>
-              </div>
-            </MDBCardText>
-          </MDBCardBody>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12" lg="4">
-          <div className="content-list">
-            <h2>
-              <strong>Course Contents</strong>
-            </h2>
-            <ul className="content-ul">
-              {courseContents &&
-                courseContents?.map((content, index) => (
-                  <li
-                    key={index}
-                    onClick={
-                      content.contentTitle === courseContents[0].contentTitle
-                        ? () => handleVideoClick(content)
-                        : undefined
-                    }
-                    className={
-                      content.contentTitle === courseContents[0].contentTitle
-                        ? "content-li2"
-                        : "content-li1"
-                    }
-                  >
-                    <div
-                      className="content-title"
-                      style={
-                        content.contentTitle === courseContents[0].contentTitle
-                          ? {
-                              textDecoration: "underline",
-                              color: "blue",
-                              cursor: "pointer",
-                            }
-                          : {}
-                      }
-                    >
-                      <strong>{content.contentTitle}</strong>
-                    </div>
+      {/* What you will Learn  */}
+      <LearningPoints
+        title="What you will learn?"
+        points={courseDetails?.learnings}
+      />
+      {/* Course Content */}
+      <CourseContent content={courseContents} />
 
-                    <div className="content-time">{content.time}</div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </MDBCol>
-        <MDBCol>
-          <div className="video-player">
-            <h3 className="video-title">{selectedVideoTitle}</h3>
-            {selectedVideoUrl ? (
-              <>
-                <div className="ratio ratio-16x9">
-                  <iframe
-                    className="shadow-1-strong rounded"
-                    src={selectedVideoUrl}
-                    title="YouTube video"
-                    allowFullScreen
-                    data-gtm-yt-inspected-2340190_699="true"
-                    id="388567449"
-                    controls={0}
-                  ></iframe>
-                </div>
-              </>
-            ) : (
-              <div className="start-learning-p">
-                <p>Select a video to start learning!</p>
-              </div>
-            )}
-          </div>
-        </MDBCol>
-      </MDBRow>
+      {/* Course notes */}
       <MDBRow className="g-2">
         <MDBCol md="12" lg="6">
-          {/* Course notes */}
-          <MDBCard style={{ maxWidth: "100%" }}>
+          <MDBCard style={{ maxWidth: "100%", margin: "20px" }}>
             <MDBRow className="g-0">
               <MDBCol md="12">
                 <MDBCardBody>
@@ -457,7 +367,6 @@ const CourseDescription = ({ courseDetails }) => {
                         <div className="div1-note">
                           <div className="content-note">
                             <h2>Download Notes</h2>
-
                             {
                               <a
                                 href={courseNotes?.notesUrl}
@@ -484,106 +393,29 @@ const CourseDescription = ({ courseDetails }) => {
           </MDBCard>
         </MDBCol>
       </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12" lg="6">
-          {/* Requirements */}
-          <MDBCardBody>
-            <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-              Requirements
-            </MDBCardTitle>
-          </MDBCardBody>
-          <MDBCardText className="fs-6 fw-normal requirements-text">
-            <div className="div-margin">
-              <ul>
-                {courseDetails &&
-                  courseDetails?.requirements?.map((requirement, index) => (
-                    <li key={index}>{requirement}</li>
-                  ))}
-              </ul>
-            </div>
-          </MDBCardText>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12">
-          {/* Description */}
-          <MDBCardBody>
-            <MDBCardTitle className=" mt-2 text-dark fs-4 fw-bold">
-              Description
-            </MDBCardTitle>
-          </MDBCardBody>
-          <MDBCardText className="fs-6 fw-normal">
-            <div style={{ margin: "3px" }}>
-              <div className="div-margin">
-                <h5>
-                  <b>What's this course about?</b>
-                </h5>
-                <p>{formattedCourseIntro && formattedCourseIntro}</p>
-              </div>
-              <div className="div-margin">
-                <ul>
-                  {formattedAboutCourse &&
-                    formattedAboutCourse?.map((detail, index) => (
-                      <li key={index}>{detail}</li>
-                    ))}
-                </ul>
-              </div>
-            </div>
-            <div>
-              <div className="div-margin">
-                <h5>
-                  <b>
-                    Why {courseDetails && courseDetails?.whythisCourse?.title}?
-                  </b>
-                </h5>
-                <p>{formattedCourseIntro2 && formattedCourseIntro2}</p>
-              </div>
-              <div className="div-margin">
-                <ul>
-                  {formattedWhyCourse &&
-                    formattedWhyCourse.map((detail, index) => (
-                      <li key={index}>{detail}</li>
-                    ))}
-                </ul>
-              </div>
-            </div>
-          </MDBCardText>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12">
-          {/* Who this course is for */}
-          <MDBCardBody>
-            <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-              Who this course is for:
-            </MDBCardTitle>
-          </MDBCardBody>
-          <MDBCardText className="fs-6 fw-normal">
-            <div className="div-margin">
-              <ul>
-                {courseDetails &&
-                  courseDetails?.whoitsfor?.map((detail, index) => (
-                    <li key={index}>{detail}</li>
-                  ))}
-              </ul>
-            </div>
 
-            <div className="div-margin">
-              <p>
-                {formattedCourseOutro && formattedCourseOutro}
-                <br />
-                <b>
-                  Enroll now!!
-                  <br />
-                  Happy Learning
-                  <br />
-                  Team Geneus
-                </b>
-              </p>
-            </div>
-          </MDBCardText>
-        </MDBCol>
-      </MDBRow>
+      {/* Course Requirements */}
+      <CourseOtherDetails
+        title="Requirements"
+        requirements={courseDetails?.requirements}
+      />
+
+      {/* Course Description */}
+      <Description
+        courseIntro={formattedCourseIntro}
+        aboutCourse={formattedAboutCourse}
+        whyCourseTitle={courseDetails?.whythisCourse?.title}
+        whyCourseIntro={formattedCourseIntro2}
+        whyCourseDetails={formattedWhyCourse}
+      />
+      {/* For who this is course for */}
+      <CourseOtherDetails
+        title="Who this course is for"
+        requirements={courseDetails?.whoitsfor}
+      />
+
+      {/* ending section */}
+      <CourseSection title={formattedCourseOutro} />
     </MDBContainer>
   );
 };

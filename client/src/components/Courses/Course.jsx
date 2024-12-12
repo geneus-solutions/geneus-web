@@ -6,7 +6,7 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 import img1 from "../../assets/banner.jpeg";
 
 import { useCourceQuery } from "../../features/cources/courceApiSlice";
-import CourseDescription from "./CourseDes";
+import CourseDescription from "./CourseDescription";
 
 const SectionContainer = styled(Box)(({ theme }) => ({
   display: "flex",

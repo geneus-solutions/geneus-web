@@ -12,8 +12,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Cource from "./components/Courses/Course";
 
-import Product from "./components/Product/Product"
-
+import Product from "./components/Product/Product";
 
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
@@ -23,31 +22,31 @@ import CheckOutCourseDetails from "./components/Cart/CheckOutCourseDetails";
 
 function App() {
   return (
- 
-  <Router>
-    <Routes>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route element={<Layout/>}>
-          <Route path='/' element={<Home/>}/>
-          <Route path='about' element={<About/>}/>
-          <Route path='contact' element={<Contact/>}/>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="/Product" element={<Product />} />
-          <Route element={<RequireAuth allowedRole={['user','admin']} />} >
+          <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
-            <Route path='/plan-diet' element={<AddFood />} />
-            <Route path='/diet-plan' element={<DietPlan />} />
+            <Route path="/plan-diet" element={<AddFood />} />
+            <Route path="/diet-plan" element={<DietPlan />} />
 
-          {/* Admin-specific routes */}
-          <Route element={<RequireAuth allowedRole={["admin"]} />}>
-          {/* Add here your admin specific route */}
-            {/* <Route path="/add-course" element={<AddCourse />} /> */}
-            {/* <Route path="/add-product" element={<AddProduct />} /> */}
+            {/* Admin-specific routes */}
+            <Route element={<RequireAuth allowedRole={["admin"]} />}>
+              {/* Add here your admin specific route */}
+              {/* <Route path="/add-course" element={<AddCourse />} /> */}
+              {/* <Route path="/add-product" element={<AddProduct />} /> */}
+            </Route>
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/course/:id" element={<Cource />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/course-details" element={<CheckOutCourseDetails />} />
           </Route>
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/course/:id" element={<Cource />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/course-details" element={<CheckOutCourseDetails />} />
         </Route>
       </Routes>
     </Router>
