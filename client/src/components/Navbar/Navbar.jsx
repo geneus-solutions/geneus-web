@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { IoMdArrowDropdown } from "react-icons/io";
 
 // import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
-import { MDBIcon } from "mdbreact";
 import { MDBBadge } from "mdbreact";
+import { CgProfile } from "react-icons/cg";
+import { FaCartArrowDown } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useAuthenticateQuery } from "../../features/authenticate/authenticateApiSlice";
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
@@ -15,7 +17,7 @@ import { Cart } from "../../features/Cart/cartSlice";
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { data } = useAuthenticateQuery();
   console.log("this is user", data);
   const { data: cartData } = useCartQuery(data?.data?.id, {
@@ -29,7 +31,7 @@ function Navbar() {
   }, [cartData, dispatch]);
 
   // for admin role
-  const isAdmin = data?.data?.role === "admin"; //We can change from here like if you want to change 
+  const isAdmin = data?.data?.role === "admin"; //We can change from here like if you want to change
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -82,8 +84,8 @@ function Navbar() {
 
             {/* Services Dropdown */}
             <li className="nav-item dropdown">
-              <div className="nav-link" id="servicesDropdown" >
-                Services <IoMdArrowDropdown className="dropdown-icon"/>
+              <div className="nav-link" id="servicesDropdown">
+                Services <IoMdArrowDropdown className="dropdown-icon" />
               </div>
               <div className="dropdown-menu" aria-labelledby="servicesDropdown">
                 <NavLink to="/courses" className="dropdown-item">
@@ -99,7 +101,7 @@ function Navbar() {
             {isAdmin && (
               <li className="nav-item dropdown">
                 <div className="nav-link" id="adminDropdown">
-                  Admin Menu <IoMdArrowDropdown className="dropdown-icon"/>
+                  Admin Menu <IoMdArrowDropdown className="dropdown-icon" />
                 </div>
                 <div className="dropdown-menu" aria-labelledby="adminDropdown">
                   <NavLink to="/add-course" className="dropdown-item">
@@ -123,40 +125,44 @@ function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/login">
-                {data?.data?.id ? (
-                  <div>
-                    <p style={{ marginTop: "10px" }}>{data?.data?.name}</p>
+              {data?.data?.id ? (
+                <div className="user-info dropdown">
+                  <div
+                    className="avatar"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    {data?.data?.name.charAt(0).toUpperCase()}
                   </div>
-                ) : (
+                  {isDropdownOpen && (
+                    <div className="avatar-dropdown-menu">
+                      <NavLink to="/profile" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                          <CgProfile />
+                          Profile
+                      </NavLink>
+                      <NavLink to="/cart" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                        <FaCartArrowDown />
+                        <MDBBadge className="badge-notification">
+                          {cartData?.cart_items?.length
+                            ? cartData?.cart_items?.length
+                            : 0}
+                        </MDBBadge>
+                        Cart
+                      </NavLink>
+                      <NavLink to="/logout" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                        <AiOutlineLogout /> Logout
+                      </NavLink>
+                    </div>
+                  )}
+                  {/* If you still want to show the name next to the avatar, you can uncomment the next line */}{" "}
+                  {/* <p style={{ marginTop: "10px" }}>{data?.data?.name}</p> */}{" "}
+                </div>
+              ) : (
+                <NavLink to="/login">
                   <div className="login-button">
                     <p style={{ marginTop: "10px" }}>Login</p>
                   </div>
-                )}
-              </NavLink>
-            </li>
-            <li
-              className="nav-item"
-              onClick={() => navigate("/cart")}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "20px",
-                cursor: "pointer",
-              }}
-            >
-              <h4 className="linkText3">
-                <MDBIcon icon="shopping-cart" size="x" />
-                <MDBBadge
-                  // color="primary"
-                  className="badge-notification"
-                >
-                  {cartData?.cart_items?.length
-                    ? cartData?.cart_items?.length
-                    : 0}
-                </MDBBadge>
-              </h4>
+                </NavLink>
+              )}
             </li>
           </ul>
         </div>

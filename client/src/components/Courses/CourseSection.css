@@ -1,0 +1,34 @@
+/* CourseSection.css */
+.course-section {
+    margin-bottom: 20px;
+  }
+  
+  .course-section h5 {
+    font-size: 18px;
+  }
+  
+  .paragraph{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    text-decoration: underline;
+  }
+
+  .paragraph p:first-child:hover{
+    color: blue;
+  }
+  .paragraph p:nth-child(2):hover{
+    color: green;
+  }
+  .paragraph p:last-child:hover{
+    color: rgb(103, 103, 4);
+  }
+  .course-section p, .course-section li {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .course-section ul {
+    padding-left: 20px;
+  }
+  
