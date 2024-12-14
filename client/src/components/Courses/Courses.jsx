@@ -4,6 +4,7 @@ import "./Course.css";
 import { useCourcesQuery } from "../../features/cources/courceApiSlice";
 import CourseCard from "./CourseCard";
 import CourseBanner from "./CourseBanner";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const Course = ({ searchResults }) => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -15,60 +16,62 @@ const Course = ({ searchResults }) => {
   };
 
   const filteredCourses = courses?.filter((course) => {
-    if (selectedOption === "beginner") {
-      return course.level === "beginner";
-    } else if (selectedOption === "intermediate") {
-      return course.level === "intermediate";
-    } else if (selectedOption === "advanced") {
-      return course.level === "advanced";
+    if (selectedOption.toUpperCase() === "BEGINNER") {
+      return course.level.toUpperCase() === "BEGINNER";
+    } else if (selectedOption.toUpperCase() === "INTERMEDIATE") {
+      return course.level.toUpperCase() === "INTERMEDIATE";
+    } else if (selectedOption.toUpperCase() === "ADVANCED") {
+      return course.level.toUpperCase() === "ADVANCED";
     }
     return true;
   });
 
   const beginnerCourses = filteredCourses?.filter(
-    (course) => course.level === "beginner" && course.enabled === true
+    (course) =>
+      course.level.toUpperCase() === "BEGINNER" && course.enabled === true
   );
   const intermediateCourses = filteredCourses?.filter(
-    (course) => course.level === "intermediate" && course.enabled === true
+    (course) =>
+      course.level.toUpperCase() === "INTERMEDIATE" && course.enabled === true
   );
   const advancedCourses = filteredCourses?.filter(
-    (course) => course.level === "advanced" && course.enabled === true
+    (course) =>
+      course.level.toUpperCase() === "ADVANCED" && course.enabled === true
   );
 
   const displayedCourses =
     searchResults?.length > 0
       ? searchResults
-      : selectedOption === "beginner"
+      : selectedOption === "BEGINNER"
       ? beginnerCourses
-      : selectedOption === "intermediate"
+      : selectedOption === "INTERMEDIATE"
       ? intermediateCourses
-      : selectedOption === "advanced"
+      : selectedOption === "ADVANCED"
       ? advancedCourses
       : courses?.filter((course) => course?.enabled === true);
 
-      const course = {
-        title: "Course",
-        description: "There are many course Listed here select the course as your choice"
-      }
+  const course = {
+    title: "Course",
+    description:
+      "There are many course Listed here select the course as your choice",
+  };
 
   return (
-
     <div>
-      <CourseBanner
-      imgSrc={img1}
-      course={course}
-      />
+      <CourseBanner imgSrc={img1} course={course} />
+
+      {/* course drop down */}
       <div className="dropdown">
-        <button className="dropbtn">
-          {selectedOption || "Categories"}
-          <span className="arrow-down"></span>
-        </button>
+          <button className="dropbtn">
+            {selectedOption || "All Courses"}
+            <IoMdArrowDropdown className="arrow-down" />
+          </button>
         <div className="dropdown-content">
-          <span onClick={() => handleDropdownChange("beginner")}>Beginner</span>
-          <span onClick={() => handleDropdownChange("intermediate")}>
-            Intermediate
+          <span onClick={() => handleDropdownChange("BEGINNER")}>BEGINNER</span>
+          <span onClick={() => handleDropdownChange("INTERMEDIATE")}>
+            INTERMEDIATE
           </span>
-          <span onClick={() => handleDropdownChange("advanced")}>Advanced</span>
+          <span onClick={() => handleDropdownChange("ADVANCED")}>ADVANCED</span>
         </div>
       </div>
 

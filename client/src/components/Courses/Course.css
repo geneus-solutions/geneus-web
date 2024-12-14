@@ -1,101 +1,61 @@
 /* Course.css */
-
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-}
-
-/* Banner Image */
-.banner-container {
-  position: relative;
-  width: 100vw;
-  height: 60vh;
-  overflow: hidden;
-}
-
-.banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(124, 166, 255, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.banner-text {
-  color: white;
-  font-size: 3rem;
-}
-
-/* Dropdown Styles */
 .dropdown {
-  margin: 20px;
   position: relative;
   display: inline-block;
+  margin: 20px;
 }
 
 .dropbtn {
-  background-color: #31b9eb;
+  background-color: #00b0ff;
   color: white;
-  padding: 10px;
+  padding: 10px 10px;
   font-size: 16px;
   border: none;
-  cursor: pointer;
+  text-align: left;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
+  cursor: pointer;
   justify-content: space-between;
-  width: 200px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 .dropbtn:hover {
-  background-color: #29a1d8;
+  background-color: #00b0ff;
 }
 
 .arrow-down {
-  margin-left: 10px;
-  border: solid white;
-  border-width: 0 4px 4px 0;
-  display: inline-block;
-  padding: 4px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  margin-left: 40px;
+  font-size: 20px;
+
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-}
-
-.dropdown-content span {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.dropdown-content span:hover {
-  background-color: #7ca6ff;
-  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  max-height: 0;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
+  max-height: 200px;
 }
 
-/* Course Card Styles */
+.dropdown-content span {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-content span:hover {
+  background-color: #3fbbf5;
+  color: white;
+}
