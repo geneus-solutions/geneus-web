@@ -1,0 +1,69 @@
+/* InstructorCard.css */
+
+.main-instructor-card {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.instructor-card {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid #ccc; */
+  padding: 20px 10px;
+  /* border-radius: 10px; */
+  max-width: 1000px;
+  margin: 20px auto;
+  /* background-color: #fff; */
+}
+
+.instructor-heading{
+    font-size: 24px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #00b0ff;
+    padding-bottom: 5px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.instructor-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.instructor-photo img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.instructor-details {
+  text-align: center;
+}
+
+.instructor-details h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.instructor-details p {
+  margin: 5px 0 0;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.instructor-description {
+  flex: 1;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.instructor-description img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
