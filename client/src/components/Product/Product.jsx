@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import useAxiosPrivate from "../../customAxios/authAxios";
-import './Product.css';
+import "./Product.css";
 
 const Product = () => {
   const privateAxios = useAxiosPrivate();
   const [product, setProduct] = useState({
-    name: '',
-    protein: '',
-    fat: '',
-    carbs: '',
-    calories: '',
-    servingSize: '',
+    name: "",
+    protein: "",
+    fat: "",
+    carbs: "",
+    calories: "",
+    servingSize: "",
   });
 
   const [foodItems, setFoodItems] = useState([]);
@@ -22,10 +22,10 @@ const Product = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await privateAxios.get('/addFoodItem');
+      const response = await privateAxios.get("/addFoodItem");
       setFoodItems(response.data);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to fetch food items');
+      setError(err.response?.data?.message || "Failed to fetch food items");
     } finally {
       setIsLoading(false);
     }
@@ -39,19 +39,19 @@ const Product = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await privateAxios.post('/addFoodItem', product);
-      alert('Product added successfully');
+      await privateAxios.post("/addFoodItem", product);
+      alert("Product added successfully");
       setProduct({
-        name: '',
-        protein: '',
-        fat: '',
-        carbs: '',
-        calories: '',
-        servingSize: '',
+        name: "",
+        protein: "",
+        fat: "",
+        carbs: "",
+        calories: "",
+        servingSize: "",
       });
       fetchFoodItems();
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to add product');
+      setError(err.response?.data?.message || "Failed to add product");
     }
   };
 
@@ -63,18 +63,27 @@ const Product = () => {
     <div className="product-container">
       <h2>Add Food Product</h2>
       <form onSubmit={handleSubmit} className="product-form">
-        {['name', 'calories', 'protein', 'carbs', 'fat', 'servingSize'].map((field) => (
-          <label key={field}>
-            {field.charAt(0).toUpperCase() + field.slice(1)}:
-            <input
-              type={field === 'calories' || field === 'protein' || field === 'carbs' || field === 'fat' ? 'number' : 'text'}
-              name={field}
-              value={product[field]}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        ))}
+        {["name", "calories", "protein", "carbs", "fat", "servingSize"].map(
+          (field) => (
+            <label key={field}>
+              {field.charAt(0).toUpperCase() + field.slice(1)}:
+              <input
+                type={
+                  field === "calories" ||
+                  field === "protein" ||
+                  field === "carbs" ||
+                  field === "fat"
+                    ? "number"
+                    : "text"
+                }
+                name={field}
+                value={product[field]}
+                onChange={handleChange}
+                required
+              />
+            </label>
+          )
+        )}
         <button type="submit">Add Product</button>
       </form>
 
@@ -90,7 +99,7 @@ const Product = () => {
           <ul>
             {foodItems.map((item) => (
               <li key={item._id}>
-                <strong>{item.name}</strong>: {item.calories} cal,{' '}
+                <strong>{item.name}</strong>: {item.calories} cal,{" "}
                 {item.protein}g protein, {item.carbs}g carbs, {item.fat}g fat,
                 Serving Size: {item.servingSize}
               </li>
@@ -102,4 +111,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Product;

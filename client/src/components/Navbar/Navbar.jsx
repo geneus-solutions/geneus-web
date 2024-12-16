@@ -15,11 +15,9 @@ import { useCartQuery } from "../../features/Cart/cartApiSlice";
 import { Cart } from "../../features/Cart/cartSlice";
 
 function Navbar() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { data } = useAuthenticateQuery();
-  console.log("this is user", data);
   const { data: cartData } = useCartQuery(data?.data?.id, {
     skip: !data?.data?.id,
   });
@@ -148,7 +146,7 @@ function Navbar() {
                         </MDBBadge>
                         Cart
                       </NavLink>
-                      <NavLink to="/logout" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                      <NavLink to="/login" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                         <AiOutlineLogout /> Logout
                       </NavLink>
                     </div>

@@ -35,18 +35,18 @@ function App() {
             <Route path="/nutri-app" element={<CalorieCalculator />} />
             <Route path="/plan-diet" element={<AddFood />} />
             <Route path="/diet-plan" element={<DietPlan />} />
-
-            {/* Admin-specific routes */}
-            <Route element={<RequireAuth allowedRole={["admin"]} />}>
-              {/* Add here your admin specific route */}
-              {/* <Route path="/add-course" element={<AddCourse />} /> */}
-              {/* <Route path="/add-product" element={<AddProduct />} /> */}
-            </Route>
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/course/:id" element={<Cource />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/course-details" element={<CheckOutCourseDetails />} />
           </Route>
+
+          {/* Admin-specific routes */}
+          <Route element={<RequireAuth allowedRole={["admin"]} />}>
+            {/* Add here your admin specific route */}
+            {/* <Route path="/add-course" element={<AddCourse />} /> */}
+            {/* <Route path="/add-product" element={<AddProduct />} /> */}
+          </Route>
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/course/:id" element={<Cource />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/course-details" element={<CheckOutCourseDetails />} />
         </Route>
       </Routes>
     </Router>

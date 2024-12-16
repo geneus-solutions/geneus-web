@@ -9,7 +9,7 @@ const CourseOtherDetails= ({ title, requirements }) => {
       <ul className="requirements-list">
         {requirements?.map((requirement, index) => (
           <li key={index} className="requirements-item">
-            <span className="checkmark">✔️</span>
+            <span className="checkmark">👉</span>
             <span className="requirement-text">{requirement}</span>
           </li>
         ))}

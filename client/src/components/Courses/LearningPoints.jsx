@@ -9,7 +9,7 @@ const LearningPoints = ({ title, points }) => {
       <ul className="points-list">
         {points?.map((point, index) => (
           <li key={index} className="point-item">
-            <span className="checkmark">✔️</span>
+            <span className="checkmark">👉</span>
             <span className="point-text">{point}</span>
           </li>
         ))}
