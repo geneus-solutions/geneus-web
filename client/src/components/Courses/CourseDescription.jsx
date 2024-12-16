@@ -8,27 +8,25 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBBtn,
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import "./CourseDescription.css";
 import { useState, useEffect } from "react";
 import reactStringReplace from "react-string-replace";
 import { Link } from "react-router-dom";
-// import { userInfo } from "../../redux/slices/userDetails";
-import { useSelector, useDispatch } from "react-redux";
-// import { increment } from "../../redux/slices/cartCount";
-// import { Cart } from "../../features/Cart/cartSlice";
-// import { AddToCart } from "../Cart/addToCart";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
-//import { REACT_APP_BACKEND_URL } from "../../config";
-
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
+import LearningPoints from "./LearningPoints";
+import CourseContent from "./CourseContent";
+import CourseOtherDetails from "./CourseOtherDetails";
+import Description from "./Description";
+import CourseSection from "./CourseSection";
+import InstructorCard from "./InstructorCard";
+import CourseCard from "./DescriptionCourseCard";
+import DescriptionCourseCard from "./DescriptionCourseCard";
 
 const CourseDescription = ({ courseDetails }) => {
-  // const [courseDetails, setCourseDetails] = useState({});
   const [discount, setDiscount] = useState(0);
   const [len, setLen] = useState(0);
 
@@ -40,16 +38,6 @@ const CourseDescription = ({ courseDetails }) => {
 
   // state for fetching all course contents
   const [courseContents, setcourseContents] = useState([]);
-
-  // state for course contents
-  const [selectedVideoUrl, setSelectedVideoUrl] = useState(null);
-  const [selectedVideoTitle, setSelectedVideoTitle] = useState("");
-
-  // to select content url video
-  const handleVideoClick = (content) => {
-    setSelectedVideoUrl(content?.url);
-    setSelectedVideoTitle(content?.contentTitle);
-  };
 
   // state for course notes
   const [courseNotes, setCourseNotes] = useState(null);
@@ -228,51 +216,43 @@ const CourseDescription = ({ courseDetails }) => {
     }
   }, [courseDetails]);
 
-  const navigate = useNavigate();
   const [addToCart, { isLoading }] = useAddToCartMutation();
-  const dispatch = useDispatch();
   const { user: userDetail } = useSelector((state) => state.auth);
 
   const handleAddToCart = async () => {
-    console.log("I am being called", userDetail);
-    if (userDetail.id === undefined) {
-      //toast.error("User is not logged in. Please Signup to add to cart");
-      // console.log("user is not logged in");
-      // window.location.href = "/enroll1";
-      navigate("/login");
-    }
-    if (userDetail.id) {
-      //dispatch(increment()); // not required when getting data from backend
-      const course = {
-        course_id: courseDetails.id,
-        course_title: courseDetails.title,
-        course_description: courseDetails.description,
-        course_image: courseDetails.img,
-        course_price: courseDetails.price,
-        course_discountPrice: courseDetails.discount_price,
-      };
-      try {
+    try {
+      if (userDetail?.id) {
+        const course = {
+          course_id: courseDetails.id,
+          course_title: courseDetails.title,
+          course_description: courseDetails.description,
+          course_image: courseDetails.img,
+          course_price: courseDetails.price,
+          course_discountPrice: courseDetails.discount_price,
+        };
         const ans = await addToCart({
           userId: userDetail?.id,
           courseItem: course,
         });
-        console.log(ans);
-        // if (ans) {
-        //     // dispatch(increment());
-        // }
-      } catch (error) {
-        console.error(error);
-        toast.error("User is not logged in. Please Log in to add to cart");
-        alert("Error while adding item to Cart " + error);
+        toast.info(ans?.data?.message);
+      } else {
+        toast.info("Please Logged in to add course in cart.");
       }
+    } catch (error) {
+      console.error(error);
+      toast.error("User is not logged in. Please Log in to add to cart");
+      alert("Error while adding item to Cart " + error);
     }
   };
 
   return (
     <MDBContainer>
-      <MDBRow className="g-2">
+      <DescriptionCourseCard
+      courseDetails={courseDetails}
+      discount={discount} 
+      handleAddToCart={handleAddToCart} />
+      {/* <MDBRow className="g-2">
         <MDBCol md="12" lg="6">
-          {/* Course image and details */}
           <MDBCardImage
             src={courseDetails && courseDetails?.img}
             alt="..."
@@ -283,7 +263,6 @@ const CourseDescription = ({ courseDetails }) => {
           />
         </MDBCol>
         <MDBCol md="12" lg="6">
-          {/* Add to Cart button */}
           <MDBCardBody className="pb-2">
             <MDBCardTitle className="mt-2 text-dark fs-2 fw-bold colorful-title">
               {courseDetails && courseDetails?.title}
@@ -317,134 +296,31 @@ const CourseDescription = ({ courseDetails }) => {
                       lineHeight: "1.5",
                       borderRadius: "0.25rem",
                       color: "#fff",
-                      backgroundColor: "#007bff",
+                      backgroundColor: "#00b0ff",
                       borderColor: "#007bff",
                     }}
                     onClick={() => handleAddToCart(courseDetails)}
                   >
-                    {" "}
-                    Add to Cart{" "}
+                    Add to Cart
                   </button>
                 </Link>
               </div>
-              {/* Display Mentor Image*/}
-              {courseDetails && courseDetails?.mentorImage && (
-                <img
-                  src={courseDetails?.mentorImage}
-                  alt="Mentor"
-                  className="mentor-image"
-                />
-              )}
             </div>
           </MDBCardBody>
         </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12">
-          {/* What you'll learn */}
-          <MDBCardBody>
-            <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-              What you'll learn
-            </MDBCardTitle>
-            <MDBCardText className="fs-6 fw-normal">
-              <div className="div-margin">
-                <div className="div1">
-                  <ul className="ticks">
-                    {courseDetails &&
-                      courseDetails?.learnings
-                        ?.slice(0, len && len)
-                        .map((learning, index) => (
-                          <li key={index}>{learning}</li>
-                        ))}
-                  </ul>
-                </div>
-                <div className="div2">
-                  <ul className="ticks">
-                    {courseDetails &&
-                      courseDetails?.learnings
-                        ?.slice(len && len)
-                        .map((learning, index) => (
-                          <li key={index}>{learning}</li>
-                        ))}
-                  </ul>
-                </div>
-              </div>
-            </MDBCardText>
-          </MDBCardBody>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12" lg="4">
-          <div className="content-list">
-            <h2>
-              <strong>Course Contents</strong>
-            </h2>
-            <ul className="content-ul">
-              {courseContents &&
-                courseContents?.map((content, index) => (
-                  <li
-                    key={index}
-                    onClick={
-                      content.contentTitle === courseContents[0].contentTitle
-                        ? () => handleVideoClick(content)
-                        : undefined
-                    }
-                    className={
-                      content.contentTitle === courseContents[0].contentTitle
-                        ? "content-li2"
-                        : "content-li1"
-                    }
-                  >
-                    <div
-                      className="content-title"
-                      style={
-                        content.contentTitle === courseContents[0].contentTitle
-                          ? {
-                              textDecoration: "underline",
-                              color: "blue",
-                              cursor: "pointer",
-                            }
-                          : {}
-                      }
-                    >
-                      <strong>{content.contentTitle}</strong>
-                    </div>
+      </MDBRow> */}
+      {/* What you will Learn  */}
+      <LearningPoints
+        title="What you will learn?"
+        points={courseDetails?.learnings}
+      />
+      {/* Course Content */}
+      <CourseContent content={courseContents} />
 
-                    <div className="content-time">{content.time}</div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </MDBCol>
-        <MDBCol>
-          <div className="video-player">
-            <h3 className="video-title">{selectedVideoTitle}</h3>
-            {selectedVideoUrl ? (
-              <>
-                <div className="ratio ratio-16x9">
-                  <iframe
-                    className="shadow-1-strong rounded"
-                    src={selectedVideoUrl}
-                    title="YouTube video"
-                    allowFullScreen
-                    data-gtm-yt-inspected-2340190_699="true"
-                    id="388567449"
-                    controls={0}
-                  ></iframe>
-                </div>
-              </>
-            ) : (
-              <div className="start-learning-p">
-                <p>Select a video to start learning!</p>
-              </div>
-            )}
-          </div>
-        </MDBCol>
-      </MDBRow>
+      {/* Course notes */}
       <MDBRow className="g-2">
         <MDBCol md="12" lg="6">
-          {/* Course notes */}
-          <MDBCard style={{ maxWidth: "100%" }}>
+          <MDBCard style={{ maxWidth: "100%", margin: "20px" }}>
             <MDBRow className="g-0">
               <MDBCol md="12">
                 <MDBCardBody>
@@ -457,7 +333,6 @@ const CourseDescription = ({ courseDetails }) => {
                         <div className="div1-note">
                           <div className="content-note">
                             <h2>Download Notes</h2>
-
                             {
                               <a
                                 href={courseNotes?.notesUrl}
@@ -484,106 +359,32 @@ const CourseDescription = ({ courseDetails }) => {
           </MDBCard>
         </MDBCol>
       </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12" lg="6">
-          {/* Requirements */}
-          <MDBCardBody>
-            <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-              Requirements
-            </MDBCardTitle>
-          </MDBCardBody>
-          <MDBCardText className="fs-6 fw-normal requirements-text">
-            <div className="div-margin">
-              <ul>
-                {courseDetails &&
-                  courseDetails?.requirements?.map((requirement, index) => (
-                    <li key={index}>{requirement}</li>
-                  ))}
-              </ul>
-            </div>
-          </MDBCardText>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12">
-          {/* Description */}
-          <MDBCardBody>
-            <MDBCardTitle className=" mt-2 text-dark fs-4 fw-bold">
-              Description
-            </MDBCardTitle>
-          </MDBCardBody>
-          <MDBCardText className="fs-6 fw-normal">
-            <div style={{ margin: "3px" }}>
-              <div className="div-margin">
-                <h5>
-                  <b>What's this course about?</b>
-                </h5>
-                <p>{formattedCourseIntro && formattedCourseIntro}</p>
-              </div>
-              <div className="div-margin">
-                <ul>
-                  {formattedAboutCourse &&
-                    formattedAboutCourse?.map((detail, index) => (
-                      <li key={index}>{detail}</li>
-                    ))}
-                </ul>
-              </div>
-            </div>
-            <div>
-              <div className="div-margin">
-                <h5>
-                  <b>
-                    Why {courseDetails && courseDetails?.whythisCourse?.title}?
-                  </b>
-                </h5>
-                <p>{formattedCourseIntro2 && formattedCourseIntro2}</p>
-              </div>
-              <div className="div-margin">
-                <ul>
-                  {formattedWhyCourse &&
-                    formattedWhyCourse.map((detail, index) => (
-                      <li key={index}>{detail}</li>
-                    ))}
-                </ul>
-              </div>
-            </div>
-          </MDBCardText>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="g-2">
-        <MDBCol md="12">
-          {/* Who this course is for */}
-          <MDBCardBody>
-            <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-              Who this course is for:
-            </MDBCardTitle>
-          </MDBCardBody>
-          <MDBCardText className="fs-6 fw-normal">
-            <div className="div-margin">
-              <ul>
-                {courseDetails &&
-                  courseDetails?.whoitsfor?.map((detail, index) => (
-                    <li key={index}>{detail}</li>
-                  ))}
-              </ul>
-            </div>
 
-            <div className="div-margin">
-              <p>
-                {formattedCourseOutro && formattedCourseOutro}
-                <br />
-                <b>
-                  Enroll now!!
-                  <br />
-                  Happy Learning
-                  <br />
-                  Team Geneus
-                </b>
-              </p>
-            </div>
-          </MDBCardText>
-        </MDBCol>
-      </MDBRow>
+      {/* Course Requirements */}
+      <CourseOtherDetails
+        title="Requirements"
+        requirements={courseDetails?.requirements}
+      />
+
+      {/* Course Description */}
+      <Description
+        courseIntro={formattedCourseIntro}
+        aboutCourse={formattedAboutCourse}
+        whyCourseTitle={courseDetails?.whythisCourse?.title}
+        whyCourseIntro={formattedCourseIntro2}
+        whyCourseDetails={formattedWhyCourse}
+      />
+      {/* For who this is course for */}
+      <CourseOtherDetails
+        title="Who this course is for"
+        requirements={courseDetails?.whoitsfor}
+      />
+
+      {/* Display mentor image */}
+      <InstructorCard mentorImage={courseDetails}/>
+
+      {/* ending section */}
+      <CourseSection title={formattedCourseOutro} />
     </MDBContainer>
   );
 };

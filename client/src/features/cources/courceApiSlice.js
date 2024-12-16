@@ -9,7 +9,6 @@ export const courceApiSlice = apiSlice.injectEndpoints({
         }),
         cource: builder.query({
             query: (id) => {
-                console.log('cource id is:',id);
                 return `/courseDes/${id}`
             },
         }),

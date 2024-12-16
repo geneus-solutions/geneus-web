@@ -2,10 +2,13 @@ import {useState} from 'react'
 import './Signup.css';
 
 import { useSignupMutation } from '../../features/auth/authApiSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
 
-  const [signup,{isLoading}] = useSignupMutation();
+  const [signup] = useSignupMutation();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -25,11 +28,12 @@ function Signup() {
   const handleSubmit = async(e) => {
     try {
       e.preventDefault();
-      console.log(formData);
       const data = await signup(formData).unwrap();
-      console.log(data);
+      toast.success(data?.message);
+      navigate('/login');
     } catch (error) {
       console.log(error);
+      toast.error(error?.data?.error)
     }
 
   }
