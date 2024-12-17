@@ -10,6 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 
 import axios from "axios";
+import Logo from "../../assets/g.png";
 import { backendUrl, RAZORPAY_ID } from "../../config";
 import { razorpayScript } from "../../config";
 import { toast } from "react-toastify";
@@ -26,7 +27,6 @@ const SummarySection = ({
   removeCoupon,
   applyCouponMessage,
 }) => {
-  console.log("tis is couponCOde", couponCode);
 
   const navigate = useNavigate();
 
@@ -217,15 +217,17 @@ const SummarySection = ({
             size="lg"
             className="mt-3"
             style={{  backgroundColor: "#333333",
-                color: "#fff",
-                width: "100%", // Set a fixed width (adjust if necessary)
-                height: "50px", // Set a fixed height
-                padding: "10px 20px", // Explicit padding
-                transition: "none", // No transitions
-                boxShadow: "none", // Remove shadows
-                transform: "none", // Prevent scaling
-                border: "1px solid #333333",}}
-                 data-mdb-ripple="false"
+              color: "#fff",
+              width: "100%", // Set a fixed width (adjust if necessary)
+              height: "50px", // Set a fixed height
+              padding: "10px 20px", // Explicit padding
+              transition: "none", // No transitions
+              boxShadow: "none", // Remove shadows
+              transform: "none", // Prevent scaling
+              border: "1px solid #333333",
+            }}
+            data-mdb-ripple="false"
+            onClick={() => makePayment(finalTotal)}
           >
             Proceed to Pay
           </MDBBtn>

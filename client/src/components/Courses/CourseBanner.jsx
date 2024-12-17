@@ -11,10 +11,10 @@ const CourseBanner = ({ imgSrc, course }) => {
           {course && (
             <>
               <h2 className="course-section-title">{course?.title}</h2>
-              <p className="course-section-description">
+              {/* <p className="course-section-description">
                 {course?.description}
-              </p>
-              <button className="course-section-button">Enroll now</button>
+              </p> */}
+              {/* <button className="course-section-button">Enroll now</button> */}
             </>
           )}
         </div>
