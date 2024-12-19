@@ -8,32 +8,25 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBBtn,
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import "./CourseDescription.css";
 import { useState, useEffect } from "react";
 import reactStringReplace from "react-string-replace";
 import { Link } from "react-router-dom";
-// import { userInfo } from "../../redux/slices/userDetails";
-import { useSelector, useDispatch } from "react-redux";
-// import { increment } from "../../redux/slices/cartCount";
-// import { Cart } from "../../features/Cart/cartSlice";
-// import { AddToCart } from "../Cart/addToCart";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
-//import { REACT_APP_BACKEND_URL } from "../../config";
-
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
 import LearningPoints from "./LearningPoints";
 import CourseContent from "./CourseContent";
 import CourseOtherDetails from "./CourseOtherDetails";
 import Description from "./Description";
 import CourseSection from "./CourseSection";
+import InstructorCard from "./InstructorCard";
+import CourseCard from "./DescriptionCourseCard";
+import DescriptionCourseCard from "./DescriptionCourseCard";
 
 const CourseDescription = ({ courseDetails }) => {
-  // const [courseDetails, setCourseDetails] = useState({});
   const [discount, setDiscount] = useState(0);
   const [len, setLen] = useState(0);
 
@@ -45,16 +38,6 @@ const CourseDescription = ({ courseDetails }) => {
 
   // state for fetching all course contents
   const [courseContents, setcourseContents] = useState([]);
-
-  // state for course contents
-  const [selectedVideoUrl, setSelectedVideoUrl] = useState(null);
-  const [selectedVideoTitle, setSelectedVideoTitle] = useState("");
-
-  // to select content url video
-  const handleVideoClick = (content) => {
-    setSelectedVideoUrl(content?.url);
-    setSelectedVideoTitle(content?.contentTitle);
-  };
 
   // state for course notes
   const [courseNotes, setCourseNotes] = useState(null);
@@ -233,50 +216,43 @@ const CourseDescription = ({ courseDetails }) => {
     }
   }, [courseDetails]);
 
-  const navigate = useNavigate();
   const [addToCart, { isLoading }] = useAddToCartMutation();
   const { user: userDetail } = useSelector((state) => state.auth);
 
   const handleAddToCart = async () => {
-    console.log("I am being called", userDetail);
-    if (userDetail.id === undefined) {
-      //toast.error("User is not logged in. Please Signup to add to cart");
-      // console.log("user is not logged in");
-      // window.location.href = "/enroll1";
-      navigate("/login");
-    }
-    if (userDetail.id) {
-      //dispatch(increment()); // not required when getting data from backend
-      const course = {
-        course_id: courseDetails.id,
-        course_title: courseDetails.title,
-        course_description: courseDetails.description,
-        course_image: courseDetails.img,
-        course_price: courseDetails.price,
-        course_discountPrice: courseDetails.discount_price,
-      };
-      try {
+    try {
+      if (userDetail?.id) {
+        const course = {
+          course_id: courseDetails.id,
+          course_title: courseDetails.title,
+          course_description: courseDetails.description,
+          course_image: courseDetails.img,
+          course_price: courseDetails.price,
+          course_discountPrice: courseDetails.discount_price,
+        };
         const ans = await addToCart({
           userId: userDetail?.id,
           courseItem: course,
         });
-        console.log(ans);
-        // if (ans) {
-        //     // dispatch(increment());
-        // }
-      } catch (error) {
-        console.error(error);
-        toast.error("User is not logged in. Please Log in to add to cart");
-        alert("Error while adding item to Cart " + error);
+        toast.info(ans?.data?.message);
+      } else {
+        toast.info("Please Logged in to add course in cart.");
       }
+    } catch (error) {
+      console.error(error);
+      toast.error("User is not logged in. Please Log in to add to cart");
+      alert("Error while adding item to Cart " + error);
     }
   };
 
   return (
     <MDBContainer>
-      <MDBRow className="g-2">
+      <DescriptionCourseCard
+      courseDetails={courseDetails}
+      discount={discount} 
+      handleAddToCart={handleAddToCart} />
+      {/* <MDBRow className="g-2">
         <MDBCol md="12" lg="6">
-          {/* Course image and details */}
           <MDBCardImage
             src={courseDetails && courseDetails?.img}
             alt="..."
@@ -287,7 +263,6 @@ const CourseDescription = ({ courseDetails }) => {
           />
         </MDBCol>
         <MDBCol md="12" lg="6">
-          {/* Add to Cart button */}
           <MDBCardBody className="pb-2">
             <MDBCardTitle className="mt-2 text-dark fs-2 fw-bold colorful-title">
               {courseDetails && courseDetails?.title}
@@ -321,28 +296,19 @@ const CourseDescription = ({ courseDetails }) => {
                       lineHeight: "1.5",
                       borderRadius: "0.25rem",
                       color: "#fff",
-                      backgroundColor: "#007bff",
+                      backgroundColor: "#00b0ff",
                       borderColor: "#007bff",
                     }}
                     onClick={() => handleAddToCart(courseDetails)}
                   >
-                    {" "}
-                    Add to Cart{" "}
+                    Add to Cart
                   </button>
                 </Link>
               </div>
-              {/* Display Mentor Image*/}
-              {courseDetails && courseDetails?.mentorImage && (
-                <img
-                  src={courseDetails?.mentorImage}
-                  alt="Mentor"
-                  className="mentor-image"
-                />
-              )}
             </div>
           </MDBCardBody>
         </MDBCol>
-      </MDBRow>
+      </MDBRow> */}
       {/* What you will Learn  */}
       <LearningPoints
         title="What you will learn?"
@@ -413,6 +379,9 @@ const CourseDescription = ({ courseDetails }) => {
         title="Who this course is for"
         requirements={courseDetails?.whoitsfor}
       />
+
+      {/* Display mentor image */}
+      <InstructorCard mentorImage={courseDetails}/>
 
       {/* ending section */}
       <CourseSection title={formattedCourseOutro} />

@@ -9,8 +9,6 @@ const CourseContent = ({ content }) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  console.log(content)
-
   return (
     <div className="syllabus">
       <h2 className="heading6G">Course Content</h2>
@@ -23,7 +21,7 @@ const CourseContent = ({ content }) => {
             >
               <span>{item.contentTitle}</span>
               <span>{item.time}</span>
-              <span>{expandedIndex === index ? "▲" : "▼"}</span>
+              <span>{expandedIndex === index ? "👆" : "👇"}</span>
             </div>
             {expandedIndex === index && (
               <div className="syllabus-content">
