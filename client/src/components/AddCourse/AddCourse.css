@@ -1,0 +1,65 @@
+/* General styling for the form container */
+form {
+  max-width: 500px; /* Increased width */
+  margin: 1rem auto; /* Adjusted margin */
+  padding: 0.5rem 1rem; /* Reduced vertical padding */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for form elements */
+form div {
+  margin-bottom: 0.8rem; /* Slightly reduced margin */
+}
+
+label {
+  display: block;
+  font-size: 0.9rem; /* Reduced font size */
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+input, 
+textarea, 
+button {
+  width: 100%;
+  padding: 0.6rem; /* Reduced padding */
+  font-size: 0.9rem; /* Reduced font size */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Button styling */
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  form {
+    padding: 0.4rem 0.8rem; /* Further reduced padding for smaller screens */
+    max-width: 90%; /* Make it more responsive for small screens */
+  }
+
+  input, 
+  textarea, 
+  button {
+    font-size: 0.8rem; /* Reduced font size for smaller screens */
+  }
+}
