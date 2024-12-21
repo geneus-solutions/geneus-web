@@ -1,4 +1,5 @@
 export const backendUrl = "https://geneus-api.onrender.com";
+// export const backendUrl = "http://localhost:8000";
 export const razorpayScript = "https://checkout.razorpay.com/v1/checkout.js";
 export const googlesc = "https://accounts.google.com/gsi/client";
 // prettier-ignore

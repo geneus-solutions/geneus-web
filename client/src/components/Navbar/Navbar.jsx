@@ -14,6 +14,8 @@ import { useAuthenticateQuery } from "../../features/authenticate/authenticateAp
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
 import { Cart } from "../../features/Cart/cartSlice";
 
+import { useLogoutMutation } from "../../features/auth/authApiSlice";
+
 function Navbar() {
   const dispatch = useDispatch();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -22,11 +24,19 @@ function Navbar() {
     skip: !data?.data?.id,
   });
 
+  const [logout,{isLoading,isSuccess,isError,error}] = useLogoutMutation();
+
   useEffect(() => {
     if (cartData) {
       dispatch(Cart({ cart: cartData }));
     }
   }, [cartData, dispatch]);
+
+  const handleLogout = async() => {
+    const data = await logout().unwrap();
+    setIsDropdownOpen(!isDropdownOpen)
+    console.log(data);
+  }
 
   // for admin role
   const isAdmin = data?.data?.role === "admin"; //We can change from here like if you want to change
@@ -146,7 +156,7 @@ function Navbar() {
                         </MDBBadge>
                         Cart
                       </NavLink>
-                      <NavLink to="/login" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                      <NavLink to="/login" className="avatar-dropdown-item" onClick={handleLogout}>
                         <AiOutlineLogout /> Logout
                       </NavLink>
                     </div>
