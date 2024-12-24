@@ -1,259 +1,169 @@
+import React from "react";
 import {
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText,
-    MDBBtn,
-    MDBIcon,
-} from "mdb-react-ui-kit";
-
+  Container,
+  Grid,
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useDeleteCartMutation } from "../../features/Cart/cartApiSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
-    
-    const {user} = useSelector((state) => state?.auth);
-    const {cartCount:count,cart:cartDetails} = useSelector((state) => state?.cartData);
-    console.log('user : ',user);
-    const navigate = useNavigate();
+  const { user } = useSelector((state) => state?.auth);
+  const { cartCount: count, cart: cartDetails } = useSelector(
+    (state) => state?.cartData
+  );
 
+  const navigate = useNavigate();
+  const [deleteCart] = useDeleteCartMutation();
 
-    const [deleteCart] = useDeleteCartMutation();
+  const removeFromCart = async (userId, courseId) => {
+    try {
+      const cartDetails = await deleteCart({ user_id: user?.id, course_id: courseId }).unwrap();
 
-    const removeFromCart = async (userId, courseId) => {
+      if (!cartDetails) {
+        console.log("Item not deleted");
+      } else {
+        toast.success("Course deleted from cart");
+      }
+    } catch (error) {
+      console.log("Error", error);
+      toast.error(error);
+    }
+  };
 
-        try {
-            const cartDetails = await deleteCart({ user_id: user?.id, course_id: courseId }).unwrap();
+  const handleBuyNow = () => {
+    if (cartDetails?.cart_items?.length > 0) {
+      const totalPrice = cartDetails?.discount;
+      navigate('/course-details', {
+        state: { cartDetails, totalPrice }
+      });
+    } else {
+      toast.error("Your cart is empty!");
+    }
+  };
 
-            if (!cartDetails) {
-                console.log("item not deleted");
-            } else {
-                toast.success("Course deleted from cart");
-            }
-        } catch (error) {
-            console.log("error", error);
-            toast.error(error);
-        }
-    };
+  return (
+    <Container>
+      <Box mb={2}>
+        <Typography variant="h4" fontWeight="bold" textAlign="left">
+          Shopping Cart
+        </Typography>
+        {cartDetails?.cart_items?.length > 0 && (
+          <Typography variant="body1" mt={1}>
+            {count} Courses
+          </Typography>
+        )}
+      </Box>
 
-    //handle but now funtion:-
+      <hr />
 
-    const handleBuyNow = () => {
-        if (cartDetails?.cart_items?.length > 0) {
-            const totalPrice = cartDetails?.discount;
-            navigate('/course-details', {
-                state: { cartDetails, totalPrice }
-            });
-        } else {
-            toast.error("Your cart is empty!");
-        }
-    };
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={9}>
+          {!(cartDetails?.cart_items?.length > 0) ? (
+            <Box textAlign="center">
+              <Typography variant="h6" color="textSecondary">
+                Your cart is empty. Keep shopping to find a course!
+              </Typography>
+              <Link to="/courses">
+                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                  Keep Shopping
+                </Button>
+              </Link>
+            </Box>
+          ) : (
+            <Grid container spacing={2}>
+              {cartDetails?.cart_items?.map((cart_item) => (
+                <Grid item xs={12} key={cart_item._id}>
+                  <Card sx={{ display: "flex", alignItems: "center", p: 2 }}>
+                    <CardMedia
+                      component="img"
+                      sx={{ width: 150, height: 100 }}
+                      image={cart_item.course_image}
+                      alt={cart_item.course_title}
+                    />
+                    <CardContent sx={{ flex: 1 }}>
+                      <Typography variant="h6" fontWeight="bold">
+                        {cart_item.course_title}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        {cart_item.course_description}
+                      </Typography>
+                    </CardContent>
+                    <Box textAlign="right">
+                      <Button
+                        onClick={() =>
+                          removeFromCart(cartDetails._id, cart_item._id)
+                        }
+                        variant="outlined"
+                        color="error"
+                        sx={{ mb: 1 }}
+                      >
+                        Remove
+                      </Button>
+                      <Button variant="outlined">Move to Wishlist</Button>
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" color="error" fontWeight="bold">
+                        ₹{cart_item.course_discountPrice}
+                      </Typography>
+                      <Typography variant="body2" sx={{ textDecoration: "line-through" }}>
+                        ₹{cart_item.course_price}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Grid>
 
-    return (
-        <MDBContainer>
-            <hr className="hr" />
+        {cartDetails?.cart_items?.length > 0 && (
+          <Grid item xs={12} md={3}>
+            <Card>
+              <CardContent>
+                <Typography variant="body1" color="textSecondary">
+                  Total:
+                </Typography>
+                <Typography variant="h5" color="error">
+                  ₹{cartDetails?.discount}
+                </Typography>
+                <Typography variant="body2" sx={{ textDecoration: "line-through" }}>
+                  ₹{cartDetails?.cart_total}
+                </Typography>
+                <Typography variant="body2">
+                  {cartDetails?.total_after_discount} off
+                </Typography>
+                <Button
+                  variant="contained"
+                  onClick={handleBuyNow}
+                  fullWidth
+                  sx={{ mt: 2 }}
+                >
+                  Buy Now
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
+      </Grid>
 
-            <MDBRow>
-                <MDBCol md="12">
-                    <div className="text-start fs-1 fw-bold">Shopping Cart</div>
-                    {!(cartDetails?.cart_items?.length > 0) ? (
-                        <div></div>
-                    ) : (
-                        <div className="fst-normal fs-6 mt-2 ml-2">
-                            <h6>{count} Courses</h6>
-                        </div>
-                    )}
-                </MDBCol>
-            </MDBRow>
+      <hr />
 
-            <hr className="hr" />
-            <MDBRow>
-                <MDBCol md="9">
-                    {!(cartDetails?.cart_items?.length > 0) ? (
-                        <MDBRow>
-                            <MDBCol md="12">
-                                <div className="card">
-                                    <div className="card-body text-center">
-                                        <MDBIcon
-                                            fas
-                                            icon="shopping-cart"
-                                            color="black"
-                                            size="6x"
-                                        />
-                                        <h5 className="card-title">
-                                            0 courses
-                                        </h5>
-                                        <p className="card-text center">
-                                            Your cart is empty. Keep shopping to
-                                            find a course!
-                                        </p>
-                                        <Link to="/courses">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary"
-                                            >
-                                                Keep shopping
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </MDBCol>
-                        </MDBRow>
-                    ) : (
-                        <MDBRow>
-                            {cartDetails &&
-                                cartDetails?.cart_items?.map((cart_item) => (
-                                    <div className="d-flex flex-start mt-2">
-                                        <MDBCol md="3">
-                                            <img
-                                                fluid
-                                                className="shadow-1-strong me-3"
-                                                src={cart_item.course_image}
-                                                alt="avatar"
-                                                width="100%"
-                                                height="120"
-                                            />
-                                        </MDBCol>
-                                        <MDBCol md="5">
-                                            <div className="ml-2 mt-2 mb-2">
-                                                <h5 class="fw-bold mb-0">
-                                                    {cart_item.course_title}
-                                                </h5>
-                                                <div class="d-flex align-items-center mb-3"></div>
-                                                <p class="mb-0">
-                                                    {
-                                                        cart_item.course_description
-                                                    }
-                                                </p>
-                                            </div>
-                                        </MDBCol>
-                                        <MDBCol md="2">
-                                            <div className="ml-1 mt-2 text-end fs-6">
-                                                <button
-                                                    onClick={() => {
-                                                        removeFromCart(
-                                                            cartDetails._id,
-                                                            cart_item._id
-                                                        );
-                                                    }}
-                                                    type="button"
-                                                    class="btn btn-tertiary"
-                                                    data-mdb-ripple-color="light"
-                                                >
-                                                    Remove
-                                                </button>
-                                                <br />
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-tertiary"
-                                                    data-mdb-ripple-color="light"
-                                                >
-                                                    move to wishlist
-                                                </button>
-                                                <br />
-                                            </div>
-                                        </MDBCol>
-                                        <MDBCol md="2">
-                                            <div className="ml-1 mt-2">
-                                                <div className="mb-1">
-                                                    <strong className="text-danger fs-5">
-                                                        &#8377;
-                                                        {
-                                                            cart_item.course_discountPrice
-                                                        }
-                                                    </strong>
-                                                    <h6 className="mb-1">
-                                                        <s>
-                                                            &#8377;
-                                                            {
-                                                                cart_item.course_price
-                                                            }
-                                                        </s>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </MDBCol>
-                                    </div>
-                                ))}
-                        </MDBRow>
-                    )}
-                </MDBCol>
-
-                {!(cartDetails?.cart_items?.length > 0) ? (
-                    <div></div>
-                ) : (
-                    <MDBCol md="3">
-                        <MDBCard>
-                            <MDBCardBody>
-                                <MDBCardTitle className="text-start fs-6 fw-normal text-muted">
-                                    total:
-                                </MDBCardTitle>
-                                <MDBCardText>
-                                    <div className="mb-1">
-                                        <strong className="text-danger fs-4">
-                                            &#8377;
-                                            {cartDetails &&
-                                                cartDetails?.discount}
-                                        </strong>
-                                        <h6 className="fs-6">
-                                            <s>
-                                                &#8377;
-                                                {cartDetails &&
-                                                    cartDetails?.cart_total}
-                                            </s>
-                                        </h6>
-                                        <h6 className="fs-6">
-                                            {cartDetails &&
-                                                cartDetails?.total_after_discount}{" "}
-                                            off
-                                        </h6>
-                                    </div>
-                                </MDBCardText>
-                                <MDBBtn
-                                    onClick={handleBuyNow}
-                                    className="text-center btn-block"
-                                    size="lg"
-                                    style={{  backgroundColor: "#333333",
-                                        color: "#fff",
-                                        width: "100%", // Set a fixed width (adjust if necessary)
-                                        height: "50px", // Set a fixed height
-                                        padding: "10px 20px", // Explicit padding
-                                        transition: "none", // No transitions
-                                        boxShadow: "none", // Remove shadows
-                                        transform: "none", // Prevent scaling
-                                        border: "1px solid #333333",}}
-                                        data-mdb-ripple="false"  
-                                >
-                                    {" "}
-                                    Buy Now
-                                </MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                )}
-            </MDBRow>
-
-            <hr className="hr" />
-
-            <MDBRow>
-                <MDBCol md="12">
-                    <div className="text-start fs-3 fw-bold">
-                        You might also like
-                    </div>
-                    <div className="fst-normal fs-6 mt-2 ml-2">
-                        <h6>Carousal of Courses</h6>
-                    </div>
-                </MDBCol>
-            </MDBRow>
-
-            <hr className="hr" />
-        </MDBContainer>
-    );
+      <Box mt={4}>
+        <Typography variant="h5" fontWeight="bold">
+          You might also like
+        </Typography>
+        <Typography variant="body2">Carousel of Courses</Typography>
+      </Box>
+    </Container>
+  );
 };
 
 export default Cart;

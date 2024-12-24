@@ -19,7 +19,7 @@ import AddFood from "./Pages/AddFood";
 import DietPlan from "./Pages/DietPlan";
 import Cart from "./components/Cart/Cart";
 import CheckOutCourseDetails from "./components/Cart/CheckOutCourseDetails";
-import AddCourse from "./components/AddCourse/AddCourse";
+
 function App() {
   return (
     <Router>
@@ -31,7 +31,6 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/Product" element={<Product />} />
-          <Route path="/addcourse" element={<AddCourse />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
             <Route path="/plan-diet" element={<AddFood />} />

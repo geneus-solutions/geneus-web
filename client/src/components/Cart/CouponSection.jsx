@@ -1,32 +1,40 @@
 import React from "react";
-import { MDBCard, MDBCardBody, MDBTypography, MDBListGroup, MDBListGroupItem, MDBCol } from "mdb-react-ui-kit";
+import {
+  Card,
+  CardContent,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Grid,
+} from "@mui/material";
 
-const CouponSection = ({ validCoupons  }) => {
+const CouponSection = ({ validCoupons }) => {
   return (
-    <MDBCol md="6">
-      <MDBCard className="h-100">
-        <MDBCardBody>
+    <Grid item xs={12} md={6}>
+      <Card>
+        <CardContent>
           {/* Heading: Coupon Section */}
-          <MDBTypography tag="h5" className="fw-bold mb-3">
+          <Typography variant="h5" gutterBottom>
             Available Coupons
-          </MDBTypography>
+          </Typography>
 
           {/* Display the list of available coupons */}
-          <MDBListGroup flush>
+          <List>
             {validCoupons?.map((coupon) => (
-              <MDBListGroupItem key={coupon.code} className="d-flex justify-content-between">
-                <span>{coupon.code}</span>
-                <span>{coupon.discount}% off</span>
-              </MDBListGroupItem>
+              <ListItem
+                key={coupon.code}
+                divider
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <ListItemText primary={coupon.code} />
+                <Typography variant="body2">{coupon.discount}% off</Typography>
+              </ListItem>
             ))}
-          </MDBListGroup>
-
-          {/* Input field for coupon code */}
-
-          {/* Display Coupon Validation Message */}
-        </MDBCardBody>
-      </MDBCard>
-    </MDBCol>
+          </List>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
