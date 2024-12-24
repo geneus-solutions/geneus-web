@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { IoMdArrowDropdown } from "react-icons/io";
-
-// import { useAuthenticateQuery } from '../../features/authenticate/authenticateApiSlice';
-import { MDBBadge } from "mdbreact";
 import { CgProfile } from "react-icons/cg";
 import { FaCartArrowDown } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -13,8 +10,8 @@ import { useDispatch } from "react-redux";
 import { useAuthenticateQuery } from "../../features/authenticate/authenticateApiSlice";
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
 import { Cart } from "../../features/Cart/cartSlice";
-
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
+import Badge from '@mui/material/Badge'; // MUI Badge import
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -24,7 +21,7 @@ function Navbar() {
     skip: !data?.data?.id,
   });
 
-  const [logout,{isLoading,isSuccess,isError,error}] = useLogoutMutation();
+  const [logout, { isLoading, isSuccess, isError, error }] = useLogoutMutation();
 
   useEffect(() => {
     if (cartData) {
@@ -32,11 +29,11 @@ function Navbar() {
     }
   }, [cartData, dispatch]);
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     const data = await logout().unwrap();
-    setIsDropdownOpen(!isDropdownOpen)
+    setIsDropdownOpen(!isDropdownOpen);
     console.log(data);
-  }
+  };
 
   // for admin role
   const isAdmin = data?.data?.role === "admin"; //We can change from here like if you want to change
@@ -143,26 +140,40 @@ function Navbar() {
                   </div>
                   {isDropdownOpen && (
                     <div className="avatar-dropdown-menu">
-                      <NavLink to="/profile" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                          <CgProfile />
-                          Profile
+                      <NavLink
+                        to="/profile"
+                        className="avatar-dropdown-item"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <CgProfile />
+                        Profile
                       </NavLink>
-                      <NavLink to="/cart" className="avatar-dropdown-item" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                      <NavLink
+                        to="/cart"
+                        className="avatar-dropdown-item"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
                         <FaCartArrowDown />
-                        <MDBBadge className="badge-notification">
-                          {cartData?.cart_items?.length
-                            ? cartData?.cart_items?.length
-                            : 0}
-                        </MDBBadge>
+                        <Badge
+                          badgeContent={
+                            cartData?.cart_items?.length
+                              ? cartData?.cart_items?.length
+                              : 0
+                          }
+                          color="error"
+                          className="badge-notification"
+                        />
                         Cart
                       </NavLink>
-                      <NavLink to="/login" className="avatar-dropdown-item" onClick={handleLogout}>
+                      <NavLink
+                        to="/login"
+                        className="avatar-dropdown-item"
+                        onClick={handleLogout}
+                      >
                         <AiOutlineLogout /> Logout
                       </NavLink>
                     </div>
                   )}
-                  {/* If you still want to show the name next to the avatar, you can uncomment the next line */}{" "}
-                  {/* <p style={{ marginTop: "10px" }}>{data?.data?.name}</p> */}{" "}
                 </div>
               ) : (
                 <NavLink to="/login">

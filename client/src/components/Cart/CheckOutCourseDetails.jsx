@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { MDBContainer, MDBCardBody, MDBTypography, MDBTable, MDBTableHead, MDBTableBody, MDBCard, MDBRow } from "mdb-react-ui-kit";
-import SummarySection from "./SummarySection"; // Import SummarySection
-import CouponSection from "./CouponSection"; // Import CouponSection
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Grid,
+} from "@mui/material";
+import CouponSection from "./CouponSection";
+import SummarySection from "./SummarySection";
 
 const CheckOutCourseDetails = () => {
   const location = useLocation();
@@ -13,8 +24,6 @@ const CheckOutCourseDetails = () => {
   const [message, setMessage] = useState(null);
   const [applyCouponMessage, setApplyCouponMessage] = useState(false);
 
-  // dummy coupon data:-
-
   const validCoupons = [
     { code: "SAVE10", discount: 10, expiryDate: "2024-12-31" },
     { code: "SUMMER20", discount: 20, expiryDate: "2024-12-30" },
@@ -22,7 +31,6 @@ const CheckOutCourseDetails = () => {
   ];
 
   const applyCoupon = () => {
-    // Clear previous messages
     setMessage(null);
 
     if (!couponCode) {
@@ -30,25 +38,26 @@ const CheckOutCourseDetails = () => {
       return;
     }
 
-    // Validate coupon code
-    const coupon = validCoupons.find((coupon)=>coupon.code.toUpperCase() === couponCode.toUpperCase())
+    const coupon = validCoupons.find(
+      (coupon) => coupon.code.toUpperCase() === couponCode.toUpperCase()
+    );
+
     if (coupon) {
-        // Check if the coupon is expired
-        const currentDate = new Date();
-        const expiryDate = new Date(coupon.expiryDate);
-  
-        if (currentDate > expiryDate) {
-          setMessage({ type: "error", text: "This coupon code has expired." });
-        } else {
-          const discountAmount = (totalPrice * coupon.discount) / 100;
-          setDiscount(discountAmount);
-          setFinalTotal(totalPrice - discountAmount);
-          setApplyCouponMessage(true);
-          setMessage({
-            type: "success",
-            text: `Coupon applied! You've saved ₹${discountAmount.toFixed(2)} with coupon ${coupon.code}.`,
-          });
-        }
+      const currentDate = new Date();
+      const expiryDate = new Date(coupon.expiryDate);
+
+      if (currentDate > expiryDate) {
+        setMessage({ type: "error", text: "This coupon code has expired." });
+      } else {
+        const discountAmount = (totalPrice * coupon.discount) / 100;
+        setDiscount(discountAmount);
+        setFinalTotal(totalPrice - discountAmount);
+        setApplyCouponMessage(true);
+        setMessage({
+          type: "success",
+          text: `Coupon applied! You've saved ₹${discountAmount.toFixed(2)}.`,
+        });
+      }
     } else {
       setMessage({
         type: "error",
@@ -58,39 +67,39 @@ const CheckOutCourseDetails = () => {
   };
 
   const removeCoupon = () => {
-    setCouponCode(""); // Reset coupon code
-    setDiscount(0); // Reset discount
-    setFinalTotal(totalPrice); // Reset total amount to original
-    setMessage({
-      type: "success",
-      text: "Coupon removed successfully.",
-    });
+    setCouponCode("");
+    setDiscount(0);
+    setFinalTotal(totalPrice);
+    setMessage({ type: "success", text: "Coupon removed successfully." });
     setApplyCouponMessage(false);
   };
 
+  if (!cartDetails || !totalPrice) {
+    return <Typography variant="h6">No cart details available</Typography>;
+  }
+
   return (
-    <MDBContainer className="py-5">
-      {/* Courses Table */}
-      <MDBCardBody>
-        <MDBTypography tag="h4" className="fw-bold mb-4 text-center" style={{ paddingBottom: "10px" }}>
-          Course Summary
-        </MDBTypography>
-      </MDBCardBody>
-      <MDBCard>
-        <MDBCardBody>
-          <MDBTable bordered>
-            <MDBTableHead light>
-              <tr>
-                <th className="text-start">Description</th>
-                <th className="text-center">Unit Price</th>
-                <th className="text-center">Unit Price after discount</th>
-                <th className="text-end">Amount</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
+    <Container>
+      <Typography variant="h4" gutterBottom align="center">
+        Course Summary
+      </Typography>
+
+      {/* Course Table */}
+      <Card>
+        <CardContent>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Description</TableCell>
+                <TableCell align="center">Unit Price</TableCell>
+                <TableCell align="center">Discounted Price</TableCell>
+                <TableCell align="right">Amount</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {cartDetails?.cart_items?.map((item) => (
-                <tr key={item._id}>
-                  <td className="text-start">
+                <TableRow key={item._id}>
+                  <TableCell>
                     <img
                       src={item.course_image}
                       alt={item.course_title}
@@ -102,38 +111,39 @@ const CheckOutCourseDetails = () => {
                       }}
                     />
                     {item.course_title}
-                  </td>
-                  <td className="text-center">₹{item.course_price}</td>
-                  <td className="text-center">₹{item.course_discountPrice}</td>
-                  <td className="text-end">₹{item.course_discountPrice}</td>
-                </tr>
+                  </TableCell>
+                  <TableCell align="center">₹{item.course_price}</TableCell>
+                  <TableCell align="center">₹{item.course_discountPrice}</TableCell>
+                  <TableCell align="right">₹{item.course_discountPrice}</TableCell>
+                </TableRow>
               ))}
-            </MDBTableBody>
-          </MDBTable>
-        </MDBCardBody>
-      </MDBCard>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
-      {/* Coupon Section and Summary Section in a Row */}
-      <MDBRow className="mt-4">
-        {/* Coupon Section */}
-        <CouponSection
-          validCoupons={validCoupons}
-        />
-
-        {/* Summary Section */}
-        <SummarySection
-          cartDetails={cartDetails}
-          finalTotal={finalTotal}
-          applyCoupon={applyCoupon}
-          couponCode={couponCode}
-          setCouponCode={setCouponCode}
-          message={message}
-          discount={discount}
-          removeCoupon={removeCoupon}
-          applyCouponMessage={applyCouponMessage}
-        />
-      </MDBRow>
-    </MDBContainer>
+      {/* Coupon and Summary Sections */}
+      <Grid container spacing={2} className="mt-4">
+        <Grid item xs={12} md={6}>
+          <CouponSection
+            validCoupons={validCoupons}
+            couponCode={couponCode}
+            setCouponCode={setCouponCode}
+            applyCoupon={applyCoupon}
+            removeCoupon={removeCoupon}
+            message={message}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SummarySection
+            finalTotal={finalTotal}
+            discount={discount}
+            totalPrice={totalPrice}
+            applyCouponMessage={applyCouponMessage}
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

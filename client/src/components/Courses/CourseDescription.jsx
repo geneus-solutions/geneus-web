@@ -1,29 +1,16 @@
-import React from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-} from "mdb-react-ui-kit";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./CourseDescription.css";
-import { useState, useEffect } from "react";
-import reactStringReplace from "react-string-replace";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
+import { Container, Grid, Card, CardContent, Typography, Button, Link } from "@mui/material";
+import reactStringReplace from "react-string-replace";
 import LearningPoints from "./LearningPoints";
 import CourseContent from "./CourseContent";
 import CourseOtherDetails from "./CourseOtherDetails";
 import Description from "./Description";
 import CourseSection from "./CourseSection";
 import InstructorCard from "./InstructorCard";
-import CourseCard from "./DescriptionCourseCard";
 import DescriptionCourseCard from "./DescriptionCourseCard";
 
 const CourseDescription = ({ courseDetails }) => {
@@ -44,7 +31,6 @@ const CourseDescription = ({ courseDetails }) => {
 
   const [courses, setCourses] = useState([]);
 
-  // const user = useSelector(userInfo);
   const { user } = useSelector((state) => state.auth);
 
   const [ip, setIp] = useState("");
@@ -53,7 +39,6 @@ const CourseDescription = ({ courseDetails }) => {
 
   useEffect(() => {
     const fetchVisitorData = async () => {
-      // Check if visitor data has already been fetched in this session
       const visitorDataFetched = sessionStorage.getItem("visitorDataFetched");
 
       if (!visitorDataFetched) {
@@ -63,9 +48,7 @@ const CourseDescription = ({ courseDetails }) => {
           if (data?.status === "success") {
             setIp(data?.query); // IP address
             setCity(data?.city); // City
-            // Send visitor data to the backend
             await saveVisitorData(data?.query, data?.city);
-            // Set the flag in sessionStorage to indicate that visitor data has been fetched
             sessionStorage.setItem("visitorDataFetched", "true");
           } else {
             setError("Unable to fetch location data");
@@ -81,15 +64,8 @@ const CourseDescription = ({ courseDetails }) => {
       try {
         await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/api/visitors`,
-          {
-            ip,
-            city,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
+          { ip, city },
+          { headers: { "Content-Type": "application/json" } }
         );
       } catch (err) {
         console.error("Error saving visitor data:", err);
@@ -106,25 +82,18 @@ const CourseDescription = ({ courseDetails }) => {
   const fetchCourses = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_BACKEND_URL +
-          "/learning?user_id=" +
-          `${user?.userId}`
+        `${process.env.REACT_APP_BACKEND_URL}/learning?user_id=${user?.userId}`
       );
-
       setCourses(response.data.courses);
     } catch (error) {
       console.error("Failed to fetch course data:", error);
     }
   };
+
   // fetching all course contents
   useEffect(() => {
     const fetchCourseContents = async () => {
-      try {
-        setcourseContents(courseDetails?.courseContent);
-        // console.log(courseDetails.courseContent);
-      } catch (error) {
-        console.error("Error fetching course contents:", error);
-      }
+      setcourseContents(courseDetails?.courseContent);
     };
     fetchCourseContents();
   }, [courseDetails?.courseContent]);
@@ -132,86 +101,54 @@ const CourseDescription = ({ courseDetails }) => {
   // fetching all course notes
   useEffect(() => {
     const fetchCourseNotes = async () => {
-      try {
-        const notesUrl = courseDetails?.notes?.notesUrl;
-        const notesTitle = courseDetails?.notes?.notesTitle;
+      const notesUrl = courseDetails?.notes?.notesUrl;
+      const notesTitle = courseDetails?.notes?.notesTitle;
 
-        // console.log("notesUrl:", notesUrl);
-        // console.log("notesTitle:", notesTitle);
-
-        if (notesUrl !== undefined && notesTitle !== undefined) {
-          setCourseNotes({
-            notesUrl,
-            notesTitle,
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching course notes:", error);
+      if (notesUrl !== undefined && notesTitle !== undefined) {
+        setCourseNotes({ notesUrl, notesTitle });
       }
     };
-
     fetchCourseNotes();
   }, [courseDetails]);
 
-  // Calculating the discount percentage dynamically
   useEffect(() => {
+    const calculateDiscount = () => {
+      const p = courseDetails?.price;
+      const dp = courseDetails?.discount_price;
+      setDiscount(Number(((p - dp) / p) * 100));
+    };
+
+    const calculateLength = () => {
+      const length = courseDetails?.learnings?.length;
+      let halfLen = Math.ceil(length / 2);
+      setLen(halfLen);
+    };
+
     if (courseDetails) {
-      const calculateDiscount = () => {
-        const p = courseDetails && courseDetails?.price;
-        const dp = courseDetails && courseDetails?.discount_price;
-        setDiscount(Number(((p - dp) / p) * 100));
-      };
-      const calculateLength = () => {
-        const lenth = courseDetails && courseDetails?.learnings?.length;
-        let halfLen = Math.ceil(lenth / 2);
-        setLen(halfLen);
-      };
       calculateDiscount();
       calculateLength();
     }
-  }, [courseDetails, len]);
+  }, [courseDetails]);
 
   useEffect(() => {
     const formatText = (text) => {
       const formattedText = reactStringReplace(
         text,
         /\*\*(.*?)\*\*/g,
-        (match, i) => (
-          <span key={i} className="bold">
-            {match}
-          </span>
-        )
+        (match, i) => <span key={i} className="bold">{match}</span>
       );
       return formattedText;
     };
 
-    if (courseDetails && courseDetails?.aboutCourse?.intro) {
-      setFormattedCourseIntro(
-        formatText(courseDetails && courseDetails?.aboutCourse?.intro)
-      );
-    }
-    if (courseDetails && courseDetails?.whythisCourse?.intro) {
-      setFormattedCourseIntro2(
-        formatText(courseDetails && courseDetails?.whythisCourse?.intro)
-      );
-    }
-    if (courseDetails && courseDetails?.whythisCourse?.outro) {
-      setFormattedCourseOutro(
-        formatText(courseDetails && courseDetails?.whythisCourse?.outro)
-      );
-    }
-    if (courseDetails && courseDetails?.aboutCourse?.details) {
+    if (courseDetails) {
+      setFormattedCourseIntro(formatText(courseDetails?.aboutCourse?.intro));
+      setFormattedCourseIntro2(formatText(courseDetails?.whythisCourse?.intro));
+      setFormattedCourseOutro(formatText(courseDetails?.whythisCourse?.outro));
       setFormattedAboutCourse(
-        courseDetails &&
-          courseDetails.aboutCourse.details.map((detail) => formatText(detail))
+        courseDetails?.aboutCourse?.details.map((detail) => formatText(detail))
       );
-    }
-    if (courseDetails && courseDetails?.whythisCourse?.details) {
       setFormattedWhyCourse(
-        courseDetails &&
-          courseDetails.whythisCourse.details.map((detail) =>
-            formatText(detail)
-          )
+        courseDetails?.whythisCourse?.details.map((detail) => formatText(detail))
       );
     }
   }, [courseDetails]);
@@ -230,141 +167,51 @@ const CourseDescription = ({ courseDetails }) => {
           course_price: courseDetails.price,
           course_discountPrice: courseDetails.discount_price,
         };
-        const ans = await addToCart({
-          userId: userDetail?.id,
-          courseItem: course,
-        });
+        const ans = await addToCart({ userId: userDetail?.id, courseItem: course });
         toast.info(ans?.data?.message);
       } else {
-        toast.info("Please Logged in to add course in cart.");
+        toast.info("Please Log in to add course to cart.");
       }
     } catch (error) {
       console.error(error);
-      toast.error("User is not logged in. Please Log in to add to cart");
-      alert("Error while adding item to Cart " + error);
+      toast.error("Error adding item to cart.");
     }
   };
 
   return (
-    <MDBContainer>
-      <DescriptionCourseCard
-      courseDetails={courseDetails}
-      discount={discount} 
-      handleAddToCart={handleAddToCart} />
-      {/* <MDBRow className="g-2">
-        <MDBCol md="12" lg="6">
-          <MDBCardImage
-            src={courseDetails && courseDetails?.img}
-            alt="..."
-            id="img1"
-            fluid
-            className="my-3 pr-3 course-image"
-            style={{ height: "350px" }}
-          />
-        </MDBCol>
-        <MDBCol md="12" lg="6">
-          <MDBCardBody className="pb-2">
-            <MDBCardTitle className="mt-2 text-dark fs-2 fw-bold colorful-title">
-              {courseDetails && courseDetails?.title}
-            </MDBCardTitle>
-            <div className="pt-3">
-              <div className="mb-1">
-                <h6 className="mb-1">
-                  <s>
-                    &#8377;
-                    {courseDetails && courseDetails?.price}
-                  </s>
-                  &ensp;{parseInt(discount)}% OFF
-                </h6>
-                <strong className="ms-2 text-danger fs-3">
-                  &#8377;
-                  {courseDetails && courseDetails?.discount_price}
-                </strong>
-              </div>
-              <div>
-                <Link to="#">
-                  <button
-                    style={{
-                      display: "inline-block",
-                      fontWeight: "400",
-                      textAlign: "center",
-                      verticalAlign: "middle",
-                      userSelect: "none",
-                      border: "1px solid transparent",
-                      padding: "0.375rem 0.75rem",
-                      fontSize: "1rem",
-                      lineHeight: "1.5",
-                      borderRadius: "0.25rem",
-                      color: "#fff",
-                      backgroundColor: "#00b0ff",
-                      borderColor: "#007bff",
-                    }}
-                    onClick={() => handleAddToCart(courseDetails)}
-                  >
-                    Add to Cart
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </MDBCardBody>
-        </MDBCol>
-      </MDBRow> */}
-      {/* What you will Learn  */}
-      <LearningPoints
-        title="What you will learn?"
-        points={courseDetails?.learnings}
-      />
+    <Container>
+      <DescriptionCourseCard courseDetails={courseDetails} discount={discount} handleAddToCart={handleAddToCart} />
+      
+      {/* What you will Learn */}
+      <LearningPoints title="What you will learn?" points={courseDetails?.learnings} />
+      
       {/* Course Content */}
       <CourseContent content={courseContents} />
 
-      {/* Course notes */}
-      <MDBRow className="g-2">
-        <MDBCol md="12" lg="6">
-          <MDBCard style={{ maxWidth: "100%", margin: "20px" }}>
-            <MDBRow className="g-0">
-              <MDBCol md="12">
-                <MDBCardBody>
-                  <MDBCardTitle className="mt-2 text-dark fs-4 fw-bold">
-                    Course Notes
-                  </MDBCardTitle>
-                  {userDetail?.userId !== -1 && courses?.length > 0 ? (
-                    <MDBCardText className="fs-6 fw-normal">
-                      <div className="div-margin">
-                        <div className="div1-note">
-                          <div className="content-note">
-                            <h2>Download Notes</h2>
-                            {
-                              <a
-                                href={courseNotes?.notesUrl}
-                                target="_blank"
-                                download={courseNotes?.notesTitle} // Set the download attribute
-                                rel="noopener noreferrer"
-                              >
-                                {courseNotes?.notesTitle}
-                              </a>
-                            }
-                          </div>
-                        </div>
-                      </div>
-                    </MDBCardText>
-                  ) : (
-                    <p>
-                      &nbsp; Get the full course notes by purchasing the course
-                      today
-                    </p>
-                  )}
-                </MDBCardBody>
-              </MDBCol>
-            </MDBRow>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
+      {/* Course Notes */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} lg={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h4" gutterBottom>
+                Course Notes
+              </Typography>
+              {userDetail?.userId !== -1 && courses?.length > 0 ? (
+                <Typography variant="body1">
+                  <Link href={courseNotes?.notesUrl} target="_blank" download={courseNotes?.notesTitle}>
+                    {courseNotes?.notesTitle}
+                  </Link>
+                </Typography>
+              ) : (
+                <Typography variant="body1">Get the full course notes by purchasing the course today.</Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
       {/* Course Requirements */}
-      <CourseOtherDetails
-        title="Requirements"
-        requirements={courseDetails?.requirements}
-      />
+      <CourseOtherDetails title="Requirements" requirements={courseDetails?.requirements} />
 
       {/* Course Description */}
       <Description
@@ -374,18 +221,16 @@ const CourseDescription = ({ courseDetails }) => {
         whyCourseIntro={formattedCourseIntro2}
         whyCourseDetails={formattedWhyCourse}
       />
-      {/* For who this is course for */}
-      <CourseOtherDetails
-        title="Who this course is for"
-        requirements={courseDetails?.whoitsfor}
-      />
+
+      {/* Who this course is for */}
+      <CourseOtherDetails title="Who this course is for" requirements={courseDetails?.whoitsfor} />
 
       {/* Display mentor image */}
-      <InstructorCard mentorImage={courseDetails}/>
+      <InstructorCard mentorImage={courseDetails} />
 
-      {/* ending section */}
+      {/* Ending section */}
       <CourseSection title={formattedCourseOutro} />
-    </MDBContainer>
+    </Container>
   );
 };
 
