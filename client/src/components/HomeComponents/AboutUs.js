@@ -75,9 +75,9 @@ const AboutUs = () => {
 </div>
         
         <Typography variant="body1" paragraph sx={{ mb: 4, color: 'text.secondary', lineHeight: 1.7 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+        Welcome to Geneus Solutions, your premier destination for cutting-edge E-learning courses in full-stack development. Based in Bangalore, India , we are passionate about empowering individuals to become proficient and versatile developers in the ever-evolving field of technology.
+
+At Geneus Solutions, we offer comprehensive courses covering Java, Angular, ReactJS, HTML/CSS/Javascript and the complete MERN stack. Our dynamic and hands-on approach ensures that students not only grasp the theoretical foundations but also gain practical skills that are essential in the real-world scenario.
         </Typography>
 
         <MoreButton

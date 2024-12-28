@@ -11,7 +11,7 @@ import { useAuthenticateQuery } from "../../features/authenticate/authenticateAp
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
 import { Cart } from "../../features/Cart/cartSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
-import Badge from '@mui/material/Badge'; // MUI Badge import
+import Badge from "@mui/material/Badge"; // MUI Badge import
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -21,7 +21,8 @@ function Navbar() {
     skip: !data?.data?.id,
   });
 
-  const [logout, { isLoading, isSuccess, isError, error }] = useLogoutMutation();
+  const [logout, { isLoading, isSuccess, isError, error }] =
+    useLogoutMutation();
 
   useEffect(() => {
     if (cartData) {
@@ -154,15 +155,11 @@ function Navbar() {
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                       >
                         <FaCartArrowDown />
-                        <Badge
-                          badgeContent={
-                            cartData?.cart_items?.length
-                              ? cartData?.cart_items?.length
-                              : 0
-                          }
-                          color="error"
-                          className="badge-notification"
-                        />
+                        <div className="badge-notification">
+                          {cartData?.cart_items?.length
+                            ? cartData.cart_items.length
+                            : 0}
+                        </div>
                         Cart
                       </NavLink>
                       <NavLink

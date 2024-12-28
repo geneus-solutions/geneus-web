@@ -150,6 +150,7 @@
   font-weight: bold;
   margin-right: 10px;
 }
+
 .avatar-dropdown-menu {
   position: absolute;
   top: 50px;
@@ -163,13 +164,18 @@
   min-width: 200px;
   padding: 10px 0;
 }
+
 .avatar-dropdown-item {
-  padding: 10px 20px;
+  position: relative;
+  padding: 13px 20px;
   color: #333;
   text-decoration: none;
   display: flex;
   align-items: center;
 }
+
+
+
 .avatar-dropdown-item:hover {
   background-color: #f0f0f0;
 }
@@ -180,10 +186,18 @@
 
 .badge-notification {
   position: absolute;
-  margin-left: 15px;
-  margin-top: -25px;
+  top: -5px; /* Adjust badge position above the icon */
+  margin-left: 11px;
+  margin-top: 6px;
   background-color: red;
   color: white;
   font-size: 10px;
   border-radius: 50%;
+  padding: 2px 6px; /* Adjust size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Ensure it's above other elements */
 }
+
+
