@@ -59,7 +59,7 @@ const SummarySection = ({
       .request(config)
       .then((response) => {
         var options = {
-          key: RAZORPAY_ID,
+          key: process.env.REACT_APP_RAZORPAY_ID,
           name: "Geneus Solutions",
           currency: "INR",
           amount: response.data.amount,
