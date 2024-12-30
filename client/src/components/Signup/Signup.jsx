@@ -3,7 +3,7 @@ import './Signup.css';
 
 import { useSignupMutation } from '../../features/auth/authApiSlice';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Signup() {
 
@@ -62,7 +62,7 @@ function Signup() {
           <button type="submit" className="signup-button">Signup</button>
         </form>
         <div className="login-link">
-          Already have an account? <a href="/login">Login</a>
+          Already have an account? <Link to="/login">Login</Link>
         </div>
       </div>
       <div className="image-container">

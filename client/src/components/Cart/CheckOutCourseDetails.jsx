@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  Container,
-  Card,
-  CardContent,
-  Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Grid,
-} from "@mui/material";
 import CouponSection from "./CouponSection";
 import SummarySection from "./SummarySection";
+import "./CheckOutCourseDetails.css"; // Import external CSS
 
 const CheckOutCourseDetails = () => {
   const location = useLocation();
@@ -32,16 +21,13 @@ const CheckOutCourseDetails = () => {
 
   const applyCoupon = () => {
     setMessage(null);
-
     if (!couponCode) {
       setMessage({ type: "error", text: "Please enter a coupon code." });
       return;
     }
-
     const coupon = validCoupons.find(
       (coupon) => coupon.code.toUpperCase() === couponCode.toUpperCase()
     );
-
     if (coupon) {
       const currentDate = new Date();
       const expiryDate = new Date(coupon.expiryDate);
@@ -75,75 +61,72 @@ const CheckOutCourseDetails = () => {
   };
 
   if (!cartDetails || !totalPrice) {
-    return <Typography variant="h6">No cart details available</Typography>;
+    return <h6>No cart details available</h6>;
   }
 
+
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom align="center">
-        Course Summary
-      </Typography>
+    <div className="checkout-container">
+      <h2 className="checkout-title">Course Summary</h2>
 
       {/* Course Table */}
-      <Card>
-        <CardContent>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Description</TableCell>
-                <TableCell align="center">Unit Price</TableCell>
-                <TableCell align="center">Discounted Price</TableCell>
-                <TableCell align="right">Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+      <div className="card">
+        <div className="card-content">
+          <table className="course-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Unit Price</th>
+                <th>Discounted Price</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
               {cartDetails?.cart_items?.map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell>
+                <tr key={item._id}>
+                  <td>
                     <img
                       src={item.course_image}
                       alt={item.course_title}
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        borderRadius: "5px",
-                        marginRight: "10px",
-                      }}
+                      className="course-descritptionimage"
                     />
                     {item.course_title}
-                  </TableCell>
-                  <TableCell align="center">₹{item.course_price}</TableCell>
-                  <TableCell align="center">₹{item.course_discountPrice}</TableCell>
-                  <TableCell align="right">₹{item.course_discountPrice}</TableCell>
-                </TableRow>
+                  </td>
+                  <td>₹{item.course_price}</td>
+                  <td>₹{item.course_price - item.course_discountPrice}</td>
+                  <td>₹{item.course_discountPrice}</td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       {/* Coupon and Summary Sections */}
-      <Grid container spacing={2} className="mt-4">
-        <Grid item xs={12} md={6}>
+      <div className="coupon-summary-container">
+        <div className="coupon-section">
           <CouponSection
             validCoupons={validCoupons}
             couponCode={couponCode}
             setCouponCode={setCouponCode}
-            applyCoupon={applyCoupon}
-            removeCoupon={removeCoupon}
-            message={message}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
+            />
+        </div>
+        <div className="summary-section-checkout">
           <SummarySection
+            cartDetails={cartDetails}
             finalTotal={finalTotal}
             discount={discount}
             totalPrice={totalPrice}
             applyCouponMessage={applyCouponMessage}
+            setCouponCode={setCouponCode}
+            applyCoupon={applyCoupon}
+            removeCoupon={removeCoupon}
+            message={message}
+            couponCode={couponCode}
           />
-        </Grid>
-      </Grid>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 
