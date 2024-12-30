@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 // import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
@@ -84,7 +84,7 @@ function Login() {
           )}
         </form>
         <div className="login-link">
-          Dont have ACCOUNT? <a href="/signup">Signup</a>
+          Dont have ACCOUNT? <Link to="/signup">Signup</Link>
         </div>
       </div>
       <div className="image-container">
