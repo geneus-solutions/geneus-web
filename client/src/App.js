@@ -12,13 +12,15 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Cource from "./components/Courses/Course";
 
-import Product from "./components/Product/Product";
 
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import DietPlan from "./Pages/DietPlan";
 import Cart from "./components/Cart/Cart";
 import CheckOutCourseDetails from "./components/Cart/CheckOutCourseDetails";
+import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
+import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
+
 
 function App() {
   return (
@@ -30,11 +32,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="/Product" element={<Product />} />
+          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/add-course" element={<AddCourse />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
             <Route path="/plan-diet" element={<AddFood />} />
             <Route path="/diet-plan" element={<DietPlan />} />
+            <Route path="/course-details" element={<CheckOutCourseDetails />} />
           </Route>
 
           {/* Admin-specific routes */}
@@ -46,7 +50,6 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<Cource />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/course-details" element={<CheckOutCourseDetails />} />
         </Route>
       </Routes>
     </Router>

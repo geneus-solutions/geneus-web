@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useAxiosPrivate from "../../customAxios/authAxios";
-import "./Product.css";
+import "./AddProduct.css";
+import { useAddFoodItemMutation } from "../../../features/addProduct/addProductApiSlice";
 
-const Product = () => {
-  // const privateAxios = useAxiosPrivate();
+const AddProduct = () => {
+  const [addFoodItem, { isLoading, isError }] = useAddFoodItemMutation();
   const [product, setProduct] = useState({
     name: "",
     protein: "",
@@ -23,9 +23,8 @@ const Product = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // await privateAxios.post("/addFoodItem", product);
-      // alert("Product added successfully");
-      // Reset form
+      await addFoodItem(product).unwrap();
+      alert("Product added successfully");
       setProduct({
         name: "",
         protein: "",
@@ -35,7 +34,7 @@ const Product = () => {
         servingSize: "",
       });
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to add product");
+      setError(err.data?.message || "Failed to add product");
     }
   };
 
@@ -116,10 +115,13 @@ const Product = () => {
         </div>
         {error && <p className="error-message">{error}</p>}
 
-        <button type="submit" className="submit-button">Add Product</button>
+        <button type="submit" className="submit-button" disabled={isLoading}>
+          {isLoading ? "Adding Product..." : "Add Product"}
+        </button>
       </form>
+      {isError && <p className="error-message">Failed to add product</p>}
     </div>
   );
 };
 
-export default Product;
+export default AddProduct;
