@@ -4,15 +4,20 @@ import "./Course.css";
 import { useCourcesQuery } from "../../features/cources/courceApiSlice";
 import CourseCard from "./CourseCard";
 import CourseBanner from "./CourseBanner";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdSearch } from "react-icons/io";
 
 const Course = ({ searchResults }) => {
   const [selectedOption, setSelectedOption] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { data: courses } = useCourcesQuery();
 
   const handleDropdownChange = (value) => {
     setSelectedOption(value);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
   };
 
   const filteredCourses = courses?.filter((course) => {
@@ -26,15 +31,20 @@ const Course = ({ searchResults }) => {
     return true;
   });
 
-  const beginnerCourses = filteredCourses?.filter(
+  console.log("this are filterCourse", filteredCourses);
+  const searchedCourses = filteredCourses?.filter((course) =>
+    course.title.toLowerCase().includes(searchTerm)
+  );
+
+  const beginnerCourses = searchedCourses?.filter(
     (course) =>
       course.level.toUpperCase() === "BEGINNER" && course.enabled === true
   );
-  const intermediateCourses = filteredCourses?.filter(
+  const intermediateCourses = searchedCourses?.filter(
     (course) =>
       course.level.toUpperCase() === "INTERMEDIATE" && course.enabled === true
   );
-  const advancedCourses = filteredCourses?.filter(
+  const advancedCourses = searchedCourses?.filter(
     (course) =>
       course.level.toUpperCase() === "ADVANCED" && course.enabled === true
   );
@@ -48,30 +58,47 @@ const Course = ({ searchResults }) => {
       ? intermediateCourses
       : selectedOption === "ADVANCED"
       ? advancedCourses
-      : courses?.filter((course) => course?.enabled === true);
+      : searchedCourses?.filter((course) => course?.enabled === true);
 
   const course = {
     title: "Course",
     description:
-      "There are many course Listed here select the course as your choice",
+      "There are many courses listed here, select the course of your choice.",
   };
 
   return (
     <div>
       <CourseBanner imgSrc={img1} course={course} />
 
-      {/* course drop down */}
-      <div className="dropdown">
+      {/* course drop down and search box */}
+      <div className="search-dropdown-container">
+        <div className="dropdown">
           <button className="dropbtn">
             {selectedOption || "All Courses"}
             <IoMdArrowDropdown className="arrow-down" />
           </button>
-        <div className="dropdown-content">
-          <span onClick={() => handleDropdownChange("BEGINNER")}>BEGINNER</span>
-          <span onClick={() => handleDropdownChange("INTERMEDIATE")}>
-            INTERMEDIATE
-          </span>
-          <span onClick={() => handleDropdownChange("ADVANCED")}>ADVANCED</span>
+          <div className="dropdown-content">
+            <span onClick={() => handleDropdownChange("BEGINNER")}>
+              BEGINNER
+            </span>
+            <span onClick={() => handleDropdownChange("INTERMEDIATE")}>
+              INTERMEDIATE
+            </span>
+            <span onClick={() => handleDropdownChange("ADVANCED")}>
+              ADVANCED
+            </span>
+          </div>
+        </div>
+
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search courses..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="search-input"
+          />
+          <IoMdSearch className="search-icon" />
         </div>
       </div>
 

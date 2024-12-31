@@ -32,7 +32,6 @@ function Login() {
         return;
       }
       const userData = await login({ email, password }).unwrap();
-      toast.success(userData.message);
       dispatch(setCredentials({ ...userData }));
       setEmail("");
       setPassword("");
