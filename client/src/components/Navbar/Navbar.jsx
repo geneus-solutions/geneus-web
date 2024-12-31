@@ -142,14 +142,6 @@ function Navbar() {
                   {isDropdownOpen && (
                     <div className="avatar-dropdown-menu">
                       <NavLink
-                        to="/profile"
-                        className="avatar-dropdown-item"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      >
-                        <CgProfile />
-                        Profile
-                      </NavLink>
-                      <NavLink
                         to="/cart"
                         className="avatar-dropdown-item"
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
