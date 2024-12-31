@@ -22,17 +22,22 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+
 }
 
 .nav-link {
   color: black;
   font-weight: bold;
-  margin: 0 15px; /* Spacing between links */
+  margin: 0 20px; 
   text-decoration: none;
   position: relative;
   padding: 5px 0; /* Vertical padding for hover effect */
   transition: color 0.3s ease;
+}
+
+.nav-item{
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link:hover {
@@ -59,9 +64,12 @@
 /* Dropdown Styling */
 .nav-item.dropdown {
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .dropdown-menu {
+  margin: 0;
   display: none; /* Hidden by default */
   position: absolute;
   background-color: white;
@@ -89,6 +97,7 @@
 }
 
 .dropdown-icon {
+  margin-left: 0.5rem;
   font-size: 1.25em; /* Adjust size as needed */
   transition: transform 0.3s ease-in-out; /* Smooth transition */
 }
@@ -109,27 +118,12 @@
   background-color: #333;
 }
 
-/* Badge Styling */
-/* .badge-notification {
-  position: relative;
-  top: -15px;
-  right: 5px;
-  font-size: 0.65rem;
-  background-color: blue;
-  color: white;
-  border-radius: 100%;
-  padding: 2px;
-} */
-
 .nav-item.cart-icon {
   display: flex;
   align-items: center;
   margin-left: 20px;
   position: relative; /* Added to position badge correctly */
 }
-
-/* mine */
-/* Navbar.css */
 
 .user-info {
   position: relative;
@@ -173,8 +167,6 @@
   display: flex;
   align-items: center;
 }
-
-
 
 .avatar-dropdown-item:hover {
   background-color: #f0f0f0;

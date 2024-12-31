@@ -23,14 +23,13 @@ const SummarySection = ({
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
   const makePayment = async (amount) => {
-    console.log(amount)
     if (!window.Razorpay) {
       alert("Razorpay SDK not loaded. Please check your setup.");
       return;
     }
 
-    let data = JSON.stringify({
-      amount: amount.toString(),
+    const requestdData = JSON.stringify({
+      amount: (amount).toString(),
       currency: "INR",
     });
 
@@ -41,54 +40,52 @@ const SummarySection = ({
       headers: {
         "Content-Type": "application/json",
       },
-      data: data,
+      data: requestdData,
     };
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(response)
-        var options = {
-          key: RAZORPAY_ID,
-          name: "Geneus Solutions",
-          currency: "INR",
-          amount: response?.data?.amount,
-          order_id: response?.data?.id,
-          description: "Happy Learning",
-          image: Logo,
-          handler: async function (response) {
-            console.log("response : ", response);
-            const data = {
-              razorpay_order_id: response?.razorpay_order_id,
-              razorpay_payment_id: response?.razorpay_payment_id,
-              razorpay_signature: response?.razorpay_signature,
-              user_id: user?.userId,
-              cart_details: cartDetails?.cart_items,
-            };
-            const verify = await axios.post(
-              `${backendUrl}/paymentverification`,
-              {
-                data: data,
-              }
-            );
-            if (verify.data.success === true) {
-              toast.success("Payment Successfull");
-              navigate("/");
-            } else {
-              toast.error("Payment Failed");
-            }
-          },
-          prefill: {
-            name: user.name,
-            email: user.email,
-          },
-        };
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
-      })
-      .catch((error) => {
-        console.log("error : ", error);
-      });
+    try {
+      const response = await axios.request(config);
+      if(!response){
+        console.log('no response')
+      }
+      console.log(response)
+      var options = {
+        key: RAZORPAY_ID,
+        name: "Geneus Solutions",
+        currency: "INR",
+        amount: response?.data?.amount,
+        order_id: response?.data?.id,
+        description: "Happy Learning",
+        image: Logo,
+        handler: async function (response) {
+          console.log("response : ", response);
+          const data = {
+            razorpay_order_id: response?.razorpay_order_id,
+            razorpay_payment_id: response?.razorpay_payment_id,
+            razorpay_signature: response?.razorpay_signature,
+            user_id: user?.userId,
+            cart_details: cartDetails?.cart_items,
+          };
+          const verify = await axios.post(`${backendUrl}/paymentverification`, {
+            data: data,
+          });
+          if (verify.data.success === true) {
+            toast.success("Payment Successful");
+            navigate("/");
+          } else {
+            toast.error("Payment Failed");
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email,
+        },
+      };
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.log("error : ", error.response?.data || error.message);
+    }
   };
 
   return (
@@ -146,12 +143,12 @@ const SummarySection = ({
         <hr />
         <div className="summary-item total">
           <span>Total:</span>
-          <span>₹{finalTotal.toFixed(2)}</span>
+          <span>₹{finalTotal}</span>
         </div>
 
         <button
           className="checkout-btn"
-          onClick={() => makePayment(finalTotal?.toFixed(2))}
+          onClick={() => makePayment(finalTotal)}
         >
           Proceed to Pay
         </button>
