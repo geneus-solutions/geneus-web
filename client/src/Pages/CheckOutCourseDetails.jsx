@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import CouponSection from "./CouponSection";
-import SummarySection from "./SummarySection";
+import CouponSection from "../components/Cart/CouponSection";
+import SummarySection from "../components/Cart/SummarySection";
 import "./CheckOutCourseDetails.css"; // Import external CSS
 
 const CheckOutCourseDetails = () => {

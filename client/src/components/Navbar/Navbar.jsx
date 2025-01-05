@@ -1,34 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { IoMdArrowDropdown } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
 import { FaCartArrowDown } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticateQuery } from "../../features/authenticate/authenticateApiSlice";
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
 import { Cart } from "../../features/Cart/cartSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
-import Badge from "@mui/material/Badge"; // MUI Badge import
+import { setIsDropdownOpen } from "../../features/dropDown/dropDownSlice";
+import logo from "../../assets/logo.png";
 
-function Navbar() {
+const Navbar = () => {
   const dispatch = useDispatch();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
+
   const { data } = useAuthenticateQuery();
   const { data: cartData } = useCartQuery(data?.data?.id, {
     skip: !data?.data?.id,
   });
 
-  const [logout, { isLoading, isSuccess, isError, error }] =
-    useLogoutMutation();
+  const [logout] = useLogoutMutation();
 
   useEffect(() => {
     if (cartData) {
       dispatch(Cart({ cart: cartData }));
     }
   }, [cartData, dispatch]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".user-info")) {
+        dispatch(setIsDropdownOpen(false));
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dispatch]);
 
   const handleLogout = async () => {
     const data = await logout().unwrap();
@@ -45,7 +56,7 @@ function Navbar() {
         {/* Logo Section */}
         <NavLink to="/" className="navbar-brand">
           <img
-            src="https://www.geneussolutions.in/static/media/GSMainLogo.e373ff51a56528f216e6.png"
+            src={logo}
             alt="Logo"
             className="logo-img"
           />
@@ -130,30 +141,18 @@ function Navbar() {
                 Contact
               </NavLink>
             </li>
+
             <li className="nav-item">
               {data?.data?.id ? (
                 <div className="user-info dropdown">
                   <div
                     className="avatar"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    onClick={() => dispatch(setIsDropdownOpen(!isDropdownOpen))}
                   >
                     {data?.data?.name.charAt(0).toUpperCase()}
                   </div>
                   {isDropdownOpen && (
                     <div className="avatar-dropdown-menu">
-                      <NavLink
-                        to="/cart"
-                        className="avatar-dropdown-item"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      >
-                        <FaCartArrowDown />
-                        <div className="badge-notification">
-                          {cartData?.cart_items?.length
-                            ? cartData.cart_items.length
-                            : 0}
-                        </div>
-                        Cart
-                      </NavLink>
                       <NavLink
                         to="/login"
                         className="avatar-dropdown-item"
@@ -172,11 +171,24 @@ function Navbar() {
                 </NavLink>
               )}
             </li>
+            <li className="nav-item">
+              <NavLink
+                to="/cart"
+                className="avatar-dropdown-item"
+              >
+                <FaCartArrowDown />
+                <div className="badge-notification">
+                  {cartData?.cart_items?.length
+                    ? cartData.cart_items.length
+                    : 0}
+                </div>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

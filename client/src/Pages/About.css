@@ -1,11 +1,10 @@
-/* AboutUs.css */
 
 .about-us {
   font-family: Arial, sans-serif;
 }
 
 .about-us-header {
-  background: url('../../assets/banner.jpeg') no-repeat center center;
+  background: url('../assets/banner.jpeg') no-repeat center center;
   background-size: cover;
   padding: 60px 0;
   text-align: center;

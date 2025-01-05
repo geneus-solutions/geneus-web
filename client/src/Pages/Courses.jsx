@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import img1 from "../../assets/banner.jpeg";
-import "./Course.css";
-import { useCourcesQuery } from "../../features/cources/courceApiSlice";
-import CourseCard from "./CourseCard";
-import CourseBanner from "./CourseBanner";
+import img1 from "../assets/banner.jpeg";
+import "./Courses.css";
+import { useCourcesQuery } from "../features/cources/courceApiSlice";
+import CourseCard from "../components/Courses/CourseCard";
+import CourseBanner from "../components/Courses/CourseBanner";
 import { IoMdArrowDropdown, IoMdSearch } from "react-icons/io";
 
 const Course = ({ searchResults }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
   const { data: courses } = useCourcesQuery();
+
 
   const handleDropdownChange = (value) => {
     setSelectedOption(value);
@@ -31,7 +31,6 @@ const Course = ({ searchResults }) => {
     return true;
   });
 
-  console.log("this are filterCourse", filteredCourses);
   const searchedCourses = filteredCourses?.filter((course) =>
     course.title.toLowerCase().includes(searchTerm)
   );
