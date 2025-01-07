@@ -7,21 +7,9 @@ body {
   box-sizing: border-box;
 }
 
-.signup-container {
-  display: flex;
-  height: 100vh;
-}
 
 /* Form container styling */
-.form-container {
-  width: 40%;
-  padding: 40px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+
 
 .form-title {
   font-size: 2rem;

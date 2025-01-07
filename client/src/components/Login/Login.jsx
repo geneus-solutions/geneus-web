@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-// import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
@@ -18,7 +17,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
-  const [login, { isLoading, isError }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   useEffect(() => {
     setErrMsg("");
@@ -43,54 +42,47 @@ function Login() {
   };
 
   return (
-    <div className="signup-container">
-      <div className="form-container">
-        <h2 className="form-title">Login</h2>
-        <form onSubmit={handleLogin}>
-          {errMsg && <p style={{ color: "red" }}>{errMsg}</p>}
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+    <div>
+      <h2 className="form-title">Login</h2>
+      <form onSubmit={handleLogin}>
+        {errMsg && <p style={{ color: "red" }}>{errMsg}</p>}
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {isLoading ? (
-            <p
-              style={{ display: "flex", justifyContent: "center" }}
-              className="signup-button"
-            >
-              logging in...
-            </p>
-          ) : (
-            <button type="submit" className="signup-button">
-              Login
-            </button>
-          )}
-        </form>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {isLoading ? (
+          <p
+            style={{ display: "flex", justifyContent: "center" }}
+            className="signup-button"
+          >
+            logging in...
+          </p>
+        ) : (
+          <button type="submit" className="signup-button">
+            Login
+          </button>
+        )}
         <div className="login-link">
-          Dont have ACCOUNT? <Link to="/signup">Signup</Link>
-        </div>
+        Dont have ACCOUNT? <Link to="/signup">Signup</Link>
       </div>
-      <div className="image-container">
-        <div className="overlay">
-          <h1>Lorem ipsum dolor sit amet, consectetur</h1>
-        </div>
-      </div>
+      </form>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import img1 from '../../assets/banner.jpeg';
+import img1 from '../assets/banner.jpeg';
 import './Contact.css';
 
 function Contact() {
@@ -23,7 +23,7 @@ function Contact() {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(124, 166, 255, 0.5)',
+            backgroundColor: 'rgba(41, 41, 41, 0.5)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

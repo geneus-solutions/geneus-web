@@ -1,16 +1,15 @@
 import React from "react";
-import img1 from "../../assets/banner.jpeg";
-import img2 from "../../assets/why choose us.png";
-import nutriImage from '../../assets/Fitness.jpeg';
+import img1 from "../assets/banner.jpeg";
+import img2 from "../assets/why choose us.png";
+import nutriImage from '../assets/Fitness.jpeg';
 import "./About.css";
-import AboutUs from "../HomeComponents/AboutUs";
+import AboutUs from "../components/HomeComponents/AboutUs";
 import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { FaBalanceScale, FaBullseye, FaEye } from "react-icons/fa";
-import CircleCard from "./CircleCard";
-import "./CircleCard.css";
-function About() {
+import CircleCard from "../components/About/CircleCard";
+const About = () => {
   const cards = [
     {
       icon: <FaBullseye />,
@@ -82,6 +81,7 @@ function About() {
       alignItems: "center",
     },
   }));
+
   return (
     <div style={{ position: "relative" }}>
       <div style={{ position: "relative", width: "100vw", height: "60vh" }}>

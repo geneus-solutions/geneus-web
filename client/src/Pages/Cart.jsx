@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useDeleteCartMutation } from "../../features/Cart/cartApiSlice";
+import { useDeleteCartMutation } from "../features/Cart/cartApiSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {

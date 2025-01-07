@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
-import img1 from "../../assets/banner.jpeg";
+import img1 from "../assets/banner.jpeg";
+import { useCourceQuery } from "../features/cources/courceApiSlice";
+import CourseDescription from "../components/Courses/CourseDescription";
+import CourseBanner from "../components/Courses/CourseBanner";
 
-import { useCourceQuery } from "../../features/cources/courceApiSlice";
-import CourseDescription from "./CourseDescription";
-import CourseBanner from "./CourseBanner";
-
-const Cource = () => {
+const CourseDescriptionPage = () => {
   const { id } = useParams();
   const { data: course } = useCourceQuery(id, { skip: !id });
 
@@ -17,4 +16,4 @@ const Cource = () => {
   );
 };
 
-export default Cource;
+export default CourseDescriptionPage;

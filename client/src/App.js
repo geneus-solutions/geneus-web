@@ -1,33 +1,31 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import RequireAuth from "./RequireAuth/RequireAuth";
 
-import Layout from "./components/Layout/Layout";
+//Pages
+import Layout from "./Pages/Layout/Layout";
 import Home from "./Pages/Home";
-import About from "./components/About/About";
-import Contact from "./components/Contact/Contact";
-import Courses from "./components/Courses/Courses";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
-import Cource from "./components/Courses/Course";
-
-
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import Courses from "./Pages/Courses";
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import DietPlan from "./Pages/DietPlan";
-import Cart from "./components/Cart/Cart";
-import CheckOutCourseDetails from "./components/Cart/CheckOutCourseDetails";
+import Cart from "./Pages/Cart";
+import CheckOutCourseDetails from "./Pages/CheckOutCourseDetails";
 import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
 import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
-
+import CourseDescriptionPage from "./Pages/CourseDescritptionPage";
+import LoginSignUpPage from "./Pages/LoginSignUpPage";
+import PageNotFound from "./Pages/PageNotFound";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<LoginSignUpPage />} />
+        <Route path="/signup" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
@@ -39,6 +37,7 @@ function App() {
             <Route path="/plan-diet" element={<AddFood />} />
             <Route path="/diet-plan" element={<DietPlan />} />
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
+            <Route path="/cart" element={<Cart />} />
           </Route>
 
           {/* Admin-specific routes */}
@@ -48,9 +47,9 @@ function App() {
             {/* <Route path="/add-product" element={<AddProduct />} /> */}
           </Route>
           <Route path="/courses" element={<Courses />} />
-          <Route path="/course/:id" element={<Cource />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/course/:id" element={<CourseDescriptionPage />} />
         </Route>
+        <Route path="/*" element={<PageNotFound/>}/>
       </Routes>
     </Router>
   );
