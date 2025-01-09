@@ -45,17 +45,17 @@ function Contact() {
         >
           <h2>Let's get in touch</h2>
           <p style={{ margin: '1rem 0' }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            
           </p>
           <div style={{ marginBottom: '1rem' }}>
             <p>
-              <i className="fa fa-map-marker" aria-hidden="true"></i> 123 Street, New York, USA
+              <i className="fa fa-map-marker" aria-hidden="true"></i> Bengaluru
             </p>
             <p>
-              <i className="fa fa-envelope" aria-hidden="true"></i> xyz@gmail.com
+              <i className="fa fa-envelope" aria-hidden="true"></i> support@geneussolutions.in
             </p>
             <p>
-              <i className="fa fa-phone" aria-hidden="true"></i> +1234567890
+              <i className="fa fa-phone" aria-hidden="true"></i> +91 9148950239
             </p>
           </div>
         </div>
