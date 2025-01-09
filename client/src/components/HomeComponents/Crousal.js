@@ -45,15 +45,14 @@ const Gradient = styled(Box)({
   left: 0,
   right: 0,
   bottom: 0,
-   backgroundColor: 'rgba(124, 166, 255, 0.68)',
+   backgroundColor: 'rgba(43, 44, 46, 0.68)',
 });
 
 const carouselData = [
   {
     title: "Get educated online from your home",
     subtitle: "Best Online Course",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-    image: img1,
+    description: "Provides the best contents for learning in an affordable price.",    image: img1,
     buttonName:'signup',
     path:'/signup'
   },
@@ -71,7 +70,7 @@ const carouselData = [
     description: "Gain new skills and certifications to boost your career prospects",
     image: img1,
     buttonName:'nutri app',
-    parth:'/nutriapp'
+    path:'/nutri-app'
   }
 ];
 
@@ -124,7 +123,7 @@ const Carousel = () => {
             <Typography
               variant="subtitle1"
               sx={{ color: 'primary.light', mb: 1, fontSize: '1.25rem' }}
-            >
+           >
               {slide.subtitle}
             </Typography>
             <Typography

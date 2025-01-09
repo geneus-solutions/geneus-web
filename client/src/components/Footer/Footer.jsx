@@ -8,7 +8,8 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section company-info">
           <h2>Geneus Solutions</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p>Provides the best contents for learning in an affordable price.
+          </p>
           <div className="social-icons">
             <FaInstagram className="social-icon instagram" />
             <FaWhatsapp className="social-icon whatsapp" />
@@ -25,9 +26,9 @@ const Footer = () => {
         <div className="footer-section contact-info">
           <h3>Contact us</h3>
           <ul>
-            <li><FaMapMarkerAlt /> 123 Street, New York, USA</li>
-            <li><FaEnvelope /> xyz@gmail.com</li>
-            <li><FaPhoneAlt /> +1234567890</li>
+            <li><FaMapMarkerAlt /> Bengaluru</li>
+            <li><FaEnvelope /> support@geneussolutions.in</li>
+            <li><FaPhoneAlt /> +91 9148950239</li>
           </ul>
         </div>
       </div>

@@ -9,7 +9,7 @@ function PopularCourse() {
       title: "MERN Stack Development",
       image: img1,
       duration: "45h",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      description: "Provides the best contents for learning in an affordable price."
     },
     {
       title: "React Native Development",
