@@ -8,7 +8,8 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section company-info">
           <h2>Geneus Solutions</h2>
-          <p>Provides the best contents for learning in an affordable price.</p>
+          <p>Provides the best contents for learning in an affordable price.
+          </p>
           <div className="social-icons">
             <FaInstagram className="social-icon instagram" />
             <FaWhatsapp className="social-icon whatsapp" />

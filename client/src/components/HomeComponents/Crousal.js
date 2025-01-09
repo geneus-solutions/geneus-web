@@ -52,7 +52,7 @@ const carouselData = [
   {
     title: "Get educated online from your home",
     subtitle: "Best Online Course",
-    description: "Provides the best contents for learning in an affordable price.",
+    description: " Provides the best contents for learning in an affordable price. ",
     image: img1,
     buttonName:'signup',
     path:'/signup'

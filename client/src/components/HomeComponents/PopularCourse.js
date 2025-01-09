@@ -9,7 +9,7 @@ function PopularCourse() {
       title: "MERN Stack Development",
       image: img1,
       duration: "45h",
-      description: "Master the MERN stack to build full-stack web applications and excel in modern web development."
+      description: " Master the MERN stack to build full-stack web applications and excel in modern web development. "
     },
     {
       title: "React Native Development",
