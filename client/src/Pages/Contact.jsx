@@ -5,7 +5,7 @@ import './Contact.css';
 function Contact() {
   return (
     <div className='contact-banner' style={{ position: 'relative' }}>
-       <div style={{ position: 'relative', width: '100vw', height: '60vh' }}>
+      <div style={{ position: 'relative', width: '100vw', height: '60vh' }}>
         <img
           src={img1}
           style={{
@@ -49,13 +49,13 @@ function Contact() {
           </p>
           <div style={{ marginBottom: '1rem' }}>
             <p>
-              <i className="fa fa-map-marker" aria-hidden="true"></i> Bengaluru
+              <i className="fa fa-map-marker" aria-hidden="true"></i>  Bengaluru
             </p>
             <p>
               <i className="fa fa-envelope" aria-hidden="true"></i> support@geneussolutions.in
             </p>
             <p>
-              <i className="fa fa-phone" aria-hidden="true"></i> +91 9148950239
+              <i className="fa fa-phone" aria-hidden="true"></i>  +91 9148950239
             </p>
           </div>
         </div>
