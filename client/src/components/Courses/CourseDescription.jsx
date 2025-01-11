@@ -13,7 +13,10 @@ import CourseSection from "./CourseSection";
 import InstructorCard from "./InstructorCard";
 import DescriptionCourseCard from "./DescriptionCourseCard";
 
+import CourseContent1 from "./CourseContent1";
+
 const CourseDescription = ({ courseDetails }) => {
+
   const [discount, setDiscount] = useState(0);
   const [len, setLen] = useState(0);
 
@@ -145,10 +148,10 @@ const CourseDescription = ({ courseDetails }) => {
       setFormattedCourseIntro2(formatText(courseDetails?.whythisCourse?.intro));
       setFormattedCourseOutro(formatText(courseDetails?.whythisCourse?.outro));
       setFormattedAboutCourse(
-        courseDetails?.aboutCourse?.details.map((detail) => formatText(detail))
+        courseDetails?.aboutCourse?.details?.map((detail) => formatText(detail))
       );
       setFormattedWhyCourse(
-        courseDetails?.whythisCourse?.details.map((detail) => formatText(detail))
+        courseDetails?.whythisCourse?.details?.map((detail) => formatText(detail))
       );
     }
   }, [courseDetails]);
@@ -186,7 +189,7 @@ const CourseDescription = ({ courseDetails }) => {
       <LearningPoints title="What you will learn?" points={courseDetails?.learnings} />
       
       {/* Course Content */}
-      <CourseContent content={courseContents} />
+      {courseContents?.length > 0&&<CourseContent1 content={courseContents} />}
 
       {/* Course Notes */}
       <Grid container spacing={2}>
@@ -196,7 +199,7 @@ const CourseDescription = ({ courseDetails }) => {
               <Typography variant="h4" gutterBottom>
                 Course Notes
               </Typography>
-              {userDetail?.userId !== -1 && courses?.length > 0 ? (
+              {userDetail?.userId !== -1 ? (
                 <Typography variant="body1">
                   <Link href={courseNotes?.notesUrl} target="_blank" download={courseNotes?.notesTitle}>
                     {courseNotes?.notesTitle}

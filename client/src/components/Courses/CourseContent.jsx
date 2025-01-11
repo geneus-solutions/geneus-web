@@ -25,11 +25,11 @@ const CourseContent = ({ content }) => {
             </div>
             {expandedIndex === index && (
               <div className="syllabus-content">
-                <iframe
+                {item?.url?<iframe
                   src={item.url}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                ></iframe>
+                ></iframe>:<p>Buy now to access all the content</p>}
               </div>
             )}
           </div>

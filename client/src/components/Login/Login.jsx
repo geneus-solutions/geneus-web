@@ -56,7 +56,6 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
@@ -67,6 +66,9 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <div className="login-link" style={{marginBottom:'10px'}}>
+            <Link to="/forgot-password">Forgot Password ?</Link>
+          </div>
         {isLoading ? (
           <p
             style={{ display: "flex", justifyContent: "center" }}
@@ -79,6 +81,7 @@ function Login() {
             Login
           </button>
         )}
+
         <div className="login-link">
         Dont have ACCOUNT? <Link to="/signup">Signup</Link>
       </div>

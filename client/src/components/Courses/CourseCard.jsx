@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "./CourseCard.css";
 
 const CourseCard = ({ course }) => {
+  // let myCourse = course?.title === 'Angular'&& course;
+  // console.log(`this is my course ${course?.title}`, myCourse);
   return (
     <div className="course-card">
       <img src={course?.img} alt={course?.title} className="coursecard-image" />

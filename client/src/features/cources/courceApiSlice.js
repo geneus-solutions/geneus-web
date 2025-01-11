@@ -8,11 +8,11 @@ export const courceApiSlice = apiSlice.injectEndpoints({
             },
         }),
         cource: builder.query({
-            query: (id) => {
-                return `/courseDes/${id}`
+            query: ({id,user_id}) => {
+                return `/courseDes/${id}?_id=${user_id}`
             },
         }),
-        // signup: builder.mutation({
+        // addCourse: builder.mutation({
         //     query: (body) => ({
         //         url: '/register',
         //         method: 'POST',

@@ -16,9 +16,14 @@ import Cart from "./Pages/Cart";
 import CheckOutCourseDetails from "./Pages/CheckOutCourseDetails";
 import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
 import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
+
 import CourseDescriptionPage from "./Pages/CourseDescritptionPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
 import PageNotFound from "./Pages/PageNotFound";
+
+import Mylearning from "./components/MyLearning/MyLearning";
+import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
+import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
 
 function App() {
   return (
@@ -27,17 +32,22 @@ function App() {
         <Route path="/login" element={<LoginSignUpPage />} />
         <Route path="/signup" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>
+          
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/add-course" element={<AddCourse />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
+
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
             <Route path="/plan-diet" element={<AddFood />} />
             <Route path="/diet-plan" element={<DietPlan />} />
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/my-learning" element={<Mylearning />} />
           </Route>
 
           {/* Admin-specific routes */}
@@ -48,6 +58,8 @@ function App() {
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
+          <Route path="/course/:id" element={<Cource />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/*" element={<PageNotFound/>}/>
       </Routes>
