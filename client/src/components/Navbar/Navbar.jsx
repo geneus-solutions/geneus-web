@@ -22,7 +22,8 @@ const Navbar = () => {
     skip: !data?.data?.id,
   });
 
-  const [logout] = useLogoutMutation();
+
+  const [logout, /*{ isLoading, isSuccess, isError, error }*/] = useLogoutMutation();
 
   useEffect(() => {
     if (cartData) {
@@ -142,6 +143,16 @@ const Navbar = () => {
               </NavLink>
             </li>
 
+            {data?.data?.id&&<li className="nav-item">
+              <NavLink
+                to="/my-learning"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                My Learning
+              </NavLink>
+            </li>}
             <li className="nav-item">
               {data?.data?.id ? (
                 <div className="user-info dropdown">

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import './AddCourse.css';
 import { useAddCourseMutation } from '../../../features/addCourse/addCourseApiSlice';
 
 const AddCourse = () => {
   const [course, setCourse] = useState({
     title: '',
     img: '',
-    description: '',
+    description: [{ title: '', details: '' }],
     level: '',
     price: '',
     discount_price: '',
@@ -20,34 +19,87 @@ const AddCourse = () => {
 
   const [addCourse, { isLoading, isError, isSuccess, error }] = useAddCourseMutation();
 
+  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     const keys = name.split('.');
     if (keys.length === 1) {
-      setCourse({ ...course, [name]: value });
+      setCourse((prev) => ({ ...prev, [name]: value }));
     } else if (keys.length === 2) {
-      setCourse({
-        ...course,
-        [keys[0]]: { ...course[keys[0]], [keys[1]]: value },
-      });
+      setCourse((prev) => ({
+        ...prev,
+        [keys[0]]: { ...prev[keys[0]], [keys[1]]: value },
+      }));
     }
   };
 
+  // Handle description field changes
+  const handleDescriptionChange = (e, index, field) => {
+    const updatedDescription = [...course.description];
+    updatedDescription[index][field] = e.target.value;
+    setCourse((prev) => ({ ...prev, description: updatedDescription }));
+  };
+
+  // Add a new description item
+  const addDescriptionItem = () => {
+    setCourse((prev) => ({
+      ...prev,
+      description: [...prev.description, { title: '', details: '' }],
+    }));
+  };
+
+  // Remove a description item
+  const removeDescriptionItem = (index) => {
+    setCourse((prev) => ({
+      ...prev,
+      description: prev.description.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Handle array field changes
   const handleArrayChange = (e, field, index) => {
     const updatedArray = [...course[field]];
     updatedArray[index] = e.target.value;
-    setCourse({ ...course, [field]: updatedArray });
+    setCourse((prev) => ({ ...prev, [field]: updatedArray }));
   };
 
+  // Add a new item to an array field
+  const addArrayItem = (field) => {
+    setCourse((prev) => ({ ...prev, [field]: [...prev[field], ''] }));
+  };
+
+  // Remove an item from an array field
+  const removeArrayItem = (field, index) => {
+    setCourse((prev) => ({
+      ...prev,
+      [field]: prev[field].filter((_, i) => i !== index),
+    }));
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await addCourse(course).unwrap();
-      alert('Course added successfully');
+      alert('Course added successfully!');
       console.log(response);
-    } catch (error) {
+      setCourse({
+        title: '',
+        img: '',
+        description: [{ title: '', details: '' }],
+        level: '',
+        price: '',
+        discount_price: '',
+        duration: '',
+        learnings: [''],
+        requirements: [''],
+        aboutCourse: { intro: '' },
+        whythisCourse: { title: '', intro: '', outro: '' },
+        whoitsfor: [''],
+      });
+    } catch (err) {
+      console.error(err);
       alert('Failed to add course');
-      console.error(error);
     }
   };
 
@@ -55,54 +107,83 @@ const AddCourse = () => {
     <div className="course-container">
       <h2 className="form-title">Add a Course</h2>
       <form onSubmit={handleSubmit} className="course-form">
-        <div className="form-group">
-          <label>Title:</label>
-          <input type="text" name="title" value={course.title} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label>Image URL:</label>
-          <input type="text" name="img" value={course.img} onChange={handleChange} />
-        </div>
+        {/* Basic Fields */}
+        {['title', 'img', 'level', 'price', 'discount_price', 'duration'].map((field) => (
+          <div className="form-group" key={field}>
+            <label>{field.replace('_', ' ').toUpperCase()}:</label>
+            <input
+              type={field.includes('price') ? 'number' : 'text'}
+              name={field}
+              value={course[field]}
+              onChange={handleChange}
+              disabled={isLoading}
+              required={['title', 'img'].includes(field)}
+            />
+          </div>
+        ))}
+
+        {/* Description Field */}
         <div className="form-group">
           <label>Description:</label>
-          <textarea name="description" value={course.description} onChange={handleChange}></textarea>
-        </div>
-        <div className="form-group">
-          <label>Level:</label>
-          <input type="text" name="level" value={course.level} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Price:</label>
-          <input type="number" name="price" value={course.price} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Discount Price:</label>
-          <input type="number" name="discount_price" value={course.discount_price} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Learnings:</label>
-          {course.learnings.map((item, index) => (
-            <div key={index}>
+          {course.description.map((desc, index) => (
+            <div key={index} className="description-field">
               <input
                 type="text"
-                value={item}
-                onChange={(e) => handleArrayChange(e, 'learnings', index)}
+                placeholder="Title"
+                value={desc.title}
+                onChange={(e) => handleDescriptionChange(e, index, 'title')}
+                disabled={isLoading}
+                required
               />
+              <textarea
+                placeholder="Details"
+                value={desc.details}
+                onChange={(e) => handleDescriptionChange(e, index, 'details')}
+                disabled={isLoading}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => removeDescriptionItem(index)}
+                disabled={isLoading || course.description.length === 1}
+              >
+                Remove
+              </button>
             </div>
           ))}
+          <button type="button" onClick={addDescriptionItem} disabled={isLoading}>
+            Add Description
+          </button>
         </div>
-        <div className="form-group">
-          <label>Requirements:</label>
-          {course.requirements.map((item, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                value={item}
-                onChange={(e) => handleArrayChange(e, 'requirements', index)}
-              />
-            </div>
-          ))}
-        </div>
+
+        {/* Array Fields */}
+        {['learnings', 'requirements', 'whoitsfor'].map((field) => (
+          <div className="form-group" key={field}>
+            <label>{field.replace(/([A-Z])/g, ' $1').toUpperCase()}:</label>
+            {course[field].map((item, index) => (
+              <div key={index} className="array-field">
+                <input
+                  type="text"
+                  value={item}
+                  onChange={(e) => handleArrayChange(e, field, index)}
+                  disabled={isLoading}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeArrayItem(field, index)}
+                  disabled={isLoading || course[field].length === 1}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={() => addArrayItem(field)} disabled={isLoading}>
+              Add {field.slice(0, -1)}
+            </button>
+          </div>
+        ))}
+
+        {/* Nested Fields */}
         <div className="form-group">
           <label>About Course:</label>
           <input
@@ -111,46 +192,29 @@ const AddCourse = () => {
             value={course.aboutCourse.intro}
             onChange={handleChange}
             placeholder="Intro"
+            disabled={isLoading}
           />
         </div>
         <div className="form-group">
           <label>Why This Course:</label>
-          <input
-            type="text"
-            name="whythisCourse.title"
-            value={course.whythisCourse.title}
-            onChange={handleChange}
-            placeholder="Title"
-          />
-          <input
-            type="text"
-            name="whythisCourse.intro"
-            value={course.whythisCourse.intro}
-            onChange={handleChange}
-            placeholder="Intro"
-          />
-          <input
-            type="text"
-            name="whythisCourse.outro"
-            value={course.whythisCourse.outro}
-            onChange={handleChange}
-            placeholder="Outro"
-          />
-        </div>
-        <div className="form-group">
-          <label>Who It's For:</label>
-          {course.whoitsfor.map((item, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                value={item}
-                onChange={(e) => handleArrayChange(e, 'whoitsfor', index)}
-              />
-            </div>
+          {['title', 'intro', 'outro'].map((field) => (
+            <input
+              key={field}
+              type="text"
+              name={`whythisCourse.${field}`}
+              value={course.whythisCourse[field]}
+              onChange={handleChange}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              disabled={isLoading}
+            />
           ))}
         </div>
-        <button type="submit"  className="submit-button" disabled={isLoading}>Add Course</button>
-        {isError && <p className="error-message">Failed to add course: {error.message}</p>}
+
+        {/* Submit Button and Status Messages */}
+        <button type="submit" className="submit-button" disabled={isLoading}>
+          {isLoading ? 'Adding...' : 'Add Course'}
+        </button>
+        {isError && <p className="error-message">Failed to add course: {error?.data?.message || 'Unknown error'}</p>}
         {isSuccess && <p className="success-message">Course added successfully!</p>}
       </form>
     </div>

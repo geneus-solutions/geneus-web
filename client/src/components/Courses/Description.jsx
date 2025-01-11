@@ -12,7 +12,7 @@ const Description = ({ courseIntro, aboutCourse, whyCourseTitle,
         <h5><b>What's this course about?</b></h5>
         <p>{courseIntro}</p>
         <ul>
-          {aboutCourse.map((detail, index) => (
+          {aboutCourse?.map((detail, index) => (
             <li key={index}>{detail}</li>
           ))}
         </ul>
@@ -21,7 +21,7 @@ const Description = ({ courseIntro, aboutCourse, whyCourseTitle,
         <h5><b>Why {whyCourseTitle}?</b></h5>
         <p>{whyCourseIntro}</p>
         <ul>
-          {whyCourseDetails.map((detail, index) => (
+          {whyCourseDetails?.map((detail, index) => (
             <li key={index}>{detail}</li>
           ))}
         </ul>
