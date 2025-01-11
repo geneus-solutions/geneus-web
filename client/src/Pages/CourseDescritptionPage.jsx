@@ -3,6 +3,7 @@ import img1 from "../assets/banner.jpeg";
 import { useCourceQuery } from "../features/cources/courceApiSlice";
 import CourseDescription from "../components/Courses/CourseDescription";
 import CourseBanner from "../components/Courses/CourseBanner";
+import { useSelector } from "react-redux";
 
 const CourseDescriptionPage = () => {
   const { id } = useParams();
