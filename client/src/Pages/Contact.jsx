@@ -49,7 +49,7 @@ function Contact() {
           </p>
           <div style={{ marginBottom: '1rem' }}>
             <p>
-              <i className="fa fa-map-marker" aria-hidden="true"></i>  Bengaluru
+              {/* <i className="fa fa-map-marker" aria-hidden="true"></i>  Bengaluru */}
             </p>
             <p>
               <i className="fa fa-envelope" aria-hidden="true"></i> support@geneussolutions.in

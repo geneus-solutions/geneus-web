@@ -15,7 +15,7 @@ const LoginSignUpPage = () => {
       </div>
       <div className="image-container">
         <div className="overlay">
-          <h1>Lorem ipsum dolor sit amet, consectetur</h1>
+          <h1>Welcome! Log in to start learning.</h1>
         </div>
       </div>
     </div>
