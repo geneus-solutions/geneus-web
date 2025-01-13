@@ -18,9 +18,9 @@ const Footer = () => {
         <div className="footer-section quick-links">
           <h3>Quick Link</h3>
           <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#courses">Courses</a></li>
-            <li><a href="#nutri-app">Nutri App</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/courses">Courses</a></li>
+            <li><a href="/nutri-app">Nutri App</a></li>
           </ul>
         </div>
         <div className="footer-section contact-info">
