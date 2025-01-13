@@ -26,7 +26,7 @@ const Footer = () => {
         <div className="footer-section contact-info">
           <h3>Contact us</h3>
           <ul>
-            <li><FaMapMarkerAlt /> Bengaluru </li>
+            {/* <li><FaMapMarkerAlt /> Bengaluru </li> */}
             <li><FaEnvelope /> support@geneussolutions.in </li>
             <li><FaPhoneAlt /> +91 9148950239 </li>
           </ul>
