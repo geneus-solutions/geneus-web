@@ -1,7 +1,7 @@
 /* Footer.css */
 
 .footer {
-    background: linear-gradient(to bottom, #a0c9ff, #007bff);
+    background: linear-gradient(to bottom, #a0c9ff, #000000);
     color: #fff;
     padding: 40px 0;
     display: flex;

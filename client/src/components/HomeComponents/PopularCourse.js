@@ -1,27 +1,29 @@
 import React from 'react'
-import img1 from "../../assets/download.jpeg"
+import img1 from "../../assets/popularCourse_01.png";
+import img2 from "../../assets/popularCourse_02.jpg";
+import img3 from "../../assets/popularCourse_03.jpg";
 import CourseCard from '../CourseCard/CourseCard'
 
 function PopularCourse() {
   // Array of popular courses
   const courses = [
     {
-      title: "MERN Stack Development",
+      title: "HTML/ CSS/ JavaScript",
       image: img1,
       duration: "45h",
-      description: " Master the MERN stack to build full-stack web applications and excel in modern web development. "
+      description: " Master HTML, CSS, and JavaScript to build the foundational structure, design visually appealing and responsive web pages, and add dynamic functionality, excelling in modern web development. "
     },
     {
-      title: "React Native Development",
-      image: img1,
+      title: "React Js Development",
+      image: img2,
       duration: "30h",
-      description: "Learn how to build mobile apps using React Native, covering all the key concepts and practices."
+      description: "Learn React Js to create cool and interactive user interfaces, and become a modern web development pro. With React Js, you can build awesome and responsive web applications easily. Mastering it will help you tackle any front-end project with confidence."
     },
     {
-      title: "Data Structures and Algorithms",
-      image: img1,
+      title: "MERN Stack Development",
+      image: img3,
       duration: "50h",
-      description: "Master data structures and algorithms to excel in coding interviews and problem-solving."
+      description: "Master MongoDB, Express.js, React, and Node.js to create full-stack web applications that are powerful, dynamic, and modern. Dive into the world of web development and watch your skills soar to new heights."
     },
     
   ];

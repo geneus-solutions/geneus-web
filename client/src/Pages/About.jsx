@@ -1,7 +1,8 @@
 import React from "react";
 import img1 from "../assets/banner.jpeg";
+import nutriImage from '../assets/nutriImage.jpg';
+import courseImage from '../assets/courses.jpg';
 import img2 from "../assets/why choose us.png";
-import nutriImage from '../assets/Fitness.jpeg';
 import "./About.css";
 import AboutUs from "../components/HomeComponents/AboutUs";
 import { styled } from "@mui/material/styles";
@@ -190,7 +191,7 @@ const About = () => {
           <ServicesContainer>
             {/* Nutrition App Card */}
             <ServiceCard>
-              <ServiceImage src={img1} alt="Nutrition App" />
+              <ServiceImage src={courseImage} alt="Nutrition App" />
               <Overlay className="overlay">
                 <Typography
                   variant="h5"

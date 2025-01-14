@@ -8,7 +8,7 @@ function Layout() {
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
-      <Navbar/>
+      <Navbar />
       <div
         style={{
           flex: "1",
@@ -17,9 +17,13 @@ function Layout() {
           overflowX: "hidden",
         }}
       >
-        <Outlet/>
+        <Outlet />
       </div>
-      <Footer />
+      <div style={{
+        marginBottom: -50
+      }}>
+        <Footer />
+      </div>
     </div>
   );
 }

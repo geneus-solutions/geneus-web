@@ -43,7 +43,7 @@ const Navbar = () => {
   }, [dispatch]);
 
   const handleLogout = async () => {
-    const data = await logout().unwrap();
+    const data = await logout().unwrap(); 
     setIsDropdownOpen(!isDropdownOpen);
     console.log(data);
   };
