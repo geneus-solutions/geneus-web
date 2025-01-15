@@ -12,6 +12,7 @@ const Contact = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState();
   const [contactUs, { isLoading, isError, error, data }] =
     useContactUsMutation();
 
@@ -22,20 +23,22 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
-      console.log(formData);
-      const contactData = await contactUs(formData);
-      console.log(contactData);
-      if (contactData?.data?.ok) {
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
-        setSubmitted(true);
-      } else {
-        setSubmitted(false);
+      try {
+        const contactData = await contactUs(formData).unwrap();
+        if (contactData?.ok) {
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: "",
+          });
+        }
+        setErrorMsg("")
+      } catch (error) {
+        console.log("this is error", error);
+        setErrorMsg(error?.data?.error);
       }
+      setSubmitted(true);
     });
   };
 
@@ -192,8 +195,17 @@ const Contact = () => {
             zIndex: 1000,
           }}
         >
-          <h2>Thank You!</h2>
-          <p>Your message has been sent successfully.</p>
+          {errorMsg ? (
+            <>
+              <h2>Not Submited</h2>
+              <p>{errorMsg}</p>
+            </>
+          ) : (
+            <>
+              <h2>Thank You!</h2>
+              <p>Your message has been sent successfully.</p>
+            </>
+          )}
           <button
             onClick={() => setSubmitted(false)}
             style={{
