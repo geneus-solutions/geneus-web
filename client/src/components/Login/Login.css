@@ -70,7 +70,7 @@ body {
 /* Image container styling */
 .image-container {
   width: 60%;
-  background: url('../../assets/banner.jpeg') center/cover no-repeat;
+  background: url('../../assets/loginImage.jpg') center/cover no-repeat;
   position: relative;
   display: flex;
   justify-content: center;
@@ -93,4 +93,15 @@ body {
   color: white;
   font-size: 2.5rem;
   text-align: center;
+  animation: colorChange 1s infinite;
+}
+
+
+@keyframes colorChange {
+  70% {
+    color: rgba(255, 255, 255, 0.438);
+  }
+  100% {
+    color: rgb(255, 255, 255);
+  }
 }

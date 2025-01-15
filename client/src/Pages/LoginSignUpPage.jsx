@@ -5,17 +5,25 @@ import "./LoginSignUpPage.css";
 import Signup from "../components/Signup/Signup";
 
 const LoginSignUpPage = () => {
-    const location = useLocation();
+  const location = useLocation();
   return (
     <div className="signup-container">
       <div className="form-container">
-        {
-            location?.pathname === '/login' ? <Login/> : <Signup/>
-        }
+        {location?.pathname === "/login" ? <Login /> : <Signup />}
       </div>
       <div className="image-container">
         <div className="overlay">
-          <h1>Welcome! Log in to start learning.</h1>
+          <h1
+            style={{
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.8)",
+            }}
+          >
+            Welcome!
+            <br />
+            {location?.pathname === "/login"
+              ? " Log in to start learning."
+              : "Signup to start learning."}
+          </h1>
         </div>
       </div>
     </div>

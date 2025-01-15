@@ -1,8 +1,9 @@
 import React from "react";
+import {useNavigate} from 'react-router-dom';
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import img1 from "../../assets/banner.jpeg";
-import img2 from "../../assets/Fitness.jpeg";
+import img1 from "../../assets/courses.jpg";
+import img2 from "../../assets/nutriImage.jpg";
 
 // Styled components
 const ServiceCard = styled(Box)(({ theme }) => ({
@@ -10,6 +11,7 @@ const ServiceCard = styled(Box)(({ theme }) => ({
   width: "300px",
   height: "250px",
   overflow: "hidden",
+  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.8)",
   borderRadius: theme.shape.borderRadius,
   cursor: "pointer",
   "&:hover .overlay": {
@@ -54,6 +56,7 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
 }));
 
 function OurServices() {
+  const navigate = useNavigate();
   return (
     <Box sx={{ py: 8, px: 4 }}>
       {/* Title Section */}
@@ -133,7 +136,7 @@ function OurServices() {
         {/* Nutrition App Card */}
         <ServiceCard>
           <ServiceImage src={img1} alt="Nutrition App" />
-          <Overlay className="overlay">
+          <Overlay className="overlay" onClick={()=>navigate('/courses')}>
             <Typography
               variant="h5"
               color="white"
@@ -142,8 +145,9 @@ function OurServices() {
                 textAlign: "center",
                 px: 2,
               }}
+              
             >
-              Course
+              Courses
             </Typography>
           </Overlay>
         </ServiceCard>
@@ -151,7 +155,7 @@ function OurServices() {
         {/* Community Card */}
         <ServiceCard>
           <ServiceImage src={img2} alt="Community" />
-          <Overlay className="overlay">
+          <Overlay className="overlay"onClick={()=>navigate('/nutri-app')}>
             <Typography
               variant="h5"
               color="white"

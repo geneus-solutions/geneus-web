@@ -32,12 +32,9 @@ function App() {
         <Route path="/login" element={<LoginSignUpPage />} />
         <Route path="/signup" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>
-          
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/add-course" element={<AddCourse />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
 
@@ -53,14 +50,14 @@ function App() {
           {/* Admin-specific routes */}
           <Route element={<RequireAuth allowedRole={["admin"]} />}>
             {/* Add here your admin specific route */}
-            {/* <Route path="/add-course" element={<AddCourse />} /> */}
-            {/* <Route path="/add-product" element={<AddProduct />} /> */}
+            <Route path="/add-course" element={<AddCourse />} />
+            <Route path="/add-product" element={<AddProduct />} />
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
           <Route path="/cart" element={<Cart />} />
         </Route>
-        <Route path="/*" element={<PageNotFound/>}/>
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );

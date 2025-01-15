@@ -88,11 +88,10 @@ const AboutUs = () => {
           E-learning courses in full-stack development. Based in Bangalore,
           India, we are passionate about empowering individuals to become
           proficient and versatile developers in the ever-evolving field of
-          technology.
+          technology.{' '}
           {showFullText && (
             <span>
-              At Geneus Solutions, we offer comprehensive courses covering Java,
-              Angular, ReactJS, HTML/CSS/Javascript and the complete MERN stack.
+              At Geneus Solutions, we offer comprehensive courses covering HTML/CSS/Javascript, ReactJS and the complete MERN stack.
               Our dynamic and hands-on approach ensures that students not only
               grasp the theoretical foundations but also gain practical skills
               that are essential in the real-world scenario.

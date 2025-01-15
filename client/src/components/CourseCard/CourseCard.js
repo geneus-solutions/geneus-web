@@ -2,8 +2,8 @@ import React from 'react'
 
 function CourseCard({ title, image, duration, description }) {
   return (
-    <div style={{ width: "300px", border: "1px solid #ddd", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
-      <img src={image} alt="Course" style={{ width: "100%" }} />
+    <div style={{ width: "380px",}}>
+      <img src={image} alt="Course" style={{ width: "100%", }} />
       <div style={{ padding: "15px" }}>
         <div style={{ marginTop: "15px", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <h4 style={{ marginBottom: "10px" }}>{title}</h4>
