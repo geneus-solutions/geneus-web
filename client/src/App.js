@@ -55,7 +55,6 @@ function App() {
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
-          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
