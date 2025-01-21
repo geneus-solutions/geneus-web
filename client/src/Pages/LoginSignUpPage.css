@@ -8,15 +8,15 @@ body {
   .signup-container {
     display: flex;
     height: 100vh;
+    justify-content: center;
   }
   
   .form-container {
-    width: 40%;
+    width: 100%;
     padding: 40px;
-    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
   }
 

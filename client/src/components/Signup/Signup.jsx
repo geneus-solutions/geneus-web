@@ -3,9 +3,9 @@ import "./Signup.css";
 
 import { useSignupMutation } from "../../features/auth/authApiSlice";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Signup() {
+function Signup({ toggleComponent }) {
   const [signup] = useSignupMutation();
   const navigate = useNavigate();
 
@@ -29,7 +29,8 @@ function Signup() {
       e.preventDefault();
       const data = await signup(formData).unwrap();
       toast.success(data?.message);
-      navigate("/login");
+      toggleComponent();
+      // navigate("/login");
     } catch (error) {
       console.log(error);
       toast.error(error?.data?.error);
@@ -89,10 +90,12 @@ function Signup() {
         </button>
       </form>
       <div className="login-link">
-        If you have ACCOUNT? <Link to="/login">Login</Link>
-      </div>
+          Already have an account? <button type="button" onClick={toggleComponent}>Login</button>
+        </div>
     </div>
   );
 }
 
 export default Signup;
+
+

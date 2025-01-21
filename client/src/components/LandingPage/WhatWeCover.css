@@ -1,0 +1,48 @@
+.what-we-cover {
+  background: linear-gradient(
+    180deg,
+    rgb(66, 69, 148) 19%,
+    rgb(70, 167, 248) 100%
+  );
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  height: 208px;
+  position: relative;
+  width: 560px;
+}
+
+.what-we-cover .heading {
+  height: 56px;
+  left: 20px;
+  position: absolute;
+  top: 30px;
+  width: 520px;
+}
+
+.what-we-cover .trading-beyond-stock {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  height: 62px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: 28px;
+  position: absolute;
+  top: -4px;
+  width: 501px;
+}
+
+.what-we-cover .profitable-stock {
+  color: #ffffff;
+  font-family: "Montserrat-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  height: 67px;
+  left: 20px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 107px;
+  width: 499px;
+}

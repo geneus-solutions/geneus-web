@@ -6,19 +6,20 @@ import { useLoginMutation } from "../../features/auth/authApiSlice";
 import "./Login.css";
 import { toast } from "react-toastify";
 
-function Login() {
+function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent }) {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const from = location.state?.from?.pathname || "/";
-
+  console.log(isLoginDialogOpen, 'thisis dailog')
+  const from = location.state?.from?.pathname ||  "/";
+  console.log('this is from', from)
+  console.log('this is location', location)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
   const [login, { isLoading }] = useLoginMutation();
-
+  console.log('this  is email, password', email, password)
   useEffect(() => {
     setErrMsg("");
   }, [email, password]);
@@ -34,7 +35,7 @@ function Login() {
       dispatch(setCredentials({ ...userData }));
       setEmail("");
       setPassword("");
-      navigate(from, { replace: true });
+      if (isLoginDialogOpen) { setIsLoginDialogOpen(false); } else { navigate(from, { replace: true }); }
     } catch (error) {
       console.log("this is", error);
       toast.error(error?.data?.error);
@@ -66,9 +67,9 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="login-link" style={{marginBottom:'10px'}}>
-            <Link to="/forgot-password">Forgot Password ?</Link>
-          </div>
+        <div className="login-link" style={{ marginBottom: "10px" }}>
+          <Link to="/forgot-password">Forgot Password ?</Link>
+        </div>
         {isLoading ? (
           <p
             style={{ display: "flex", justifyContent: "center" }}
@@ -83,8 +84,11 @@ function Login() {
         )}
 
         <div className="login-link">
-        Dont have ACCOUNT? <Link to="/signup">Signup</Link>
-      </div>
+          Don't have an ACCOUNT?{" "}
+          <button type="button" onClick={toggleComponent}>
+            Signup
+          </button>
+        </div>
       </form>
     </div>
   );

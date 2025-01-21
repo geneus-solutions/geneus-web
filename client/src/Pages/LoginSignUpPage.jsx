@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Login from "../components/Login/Login";
-import { useLocation } from "react-router-dom";
-import "./LoginSignUpPage.css";
 import Signup from "../components/Signup/Signup";
+import "./LoginSignUpPage.css";
 
-const LoginSignUpPage = () => {
-  const location = useLocation();
+const LoginSignUpPage = ({isLoginDialogOpen, setIsLoginDialogOpen}) => {
+  const [showLogin, setShowLogin] = useState(true);
+
+  const toggleComponent = () => {
+    setShowLogin(!showLogin);
+  };
+
   return (
     <div className="signup-container">
       <div className="form-container">
-        {location?.pathname === "/login" ? <Login /> : <Signup />}
+        {showLogin ? <Login toggleComponent={toggleComponent} isLoginDialogOpen={isLoginDialogOpen} setIsLoginDialogOpen={setIsLoginDialogOpen} /> : <Signup toggleComponent={toggleComponent} />}
       </div>
-      <div className="image-container">
+      {/* <div className="image-container">
         <div className="overlay">
           <h1
             style={{
@@ -20,12 +24,10 @@ const LoginSignUpPage = () => {
           >
             Welcome!
             <br />
-            {location?.pathname === "/login"
-              ? " Log in to start learning."
-              : "Signup to start learning."}
+            {showLogin ? "Log in to start learning." : "Signup to start learning."}
           </h1>
-        </div>
-      </div>
+        </div> 
+      </div> */}
     </div>
   );
 };
