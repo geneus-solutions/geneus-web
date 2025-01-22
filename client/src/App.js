@@ -24,19 +24,21 @@ import PageNotFound from "./Pages/PageNotFound";
 import Mylearning from "./components/MyLearning/MyLearning";
 import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
 import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
+import EnrollRedirect from "./Pages/landingPage/EnrollRedirect ";
+import LandingPage from "./Pages/landingPage/LandingPage";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<LoginSignUpPage />} />
-        <Route path="/signup" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
+          <Route path="/:id" element={<LandingPage />} />
 
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
@@ -56,6 +58,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
         </Route>
+
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </Router>
