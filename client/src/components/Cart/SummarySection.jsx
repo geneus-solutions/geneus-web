@@ -22,6 +22,7 @@ const SummarySection = ({
   const user = useSelector((state) => state.auth);
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
+  console.log('this is cart Details', cartDetails)
   const makePayment = async (amount) => {
     if (!window.Razorpay) {
       alert("Razorpay SDK not loaded. Please check your setup.");
@@ -95,12 +96,13 @@ const SummarySection = ({
       <div className="summary-details">
         <div className="summary-item">
           <span>Subtotal:</span>
-          <span>₹{cartDetails?.cart_total}</span>
+          <span>₹{cartDetails?.price ?  cartDetails?.price : cartDetails?.cart_total}</span>
         </div>
 
         <div className="summary-item">
           <span>Discount:</span>
-          <span>₹{cartDetails?.total_after_discount}</span>
+          <span>₹{cartDetails?.discount_price ?  cartDetails?.price - cartDetails?.discount_price :
+          cartDetails?.total_after_discount}</span>
         </div>
 
         {applyCouponMessage && (
