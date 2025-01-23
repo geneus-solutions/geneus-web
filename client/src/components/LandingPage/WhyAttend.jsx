@@ -16,7 +16,7 @@ const WhyAttend = ({course}) => {
     <>
       <div className="whyattend-container">
         <div className="heading">
-          <h1>WHY ATTEND THIS WORKSHOP?</h1>
+          <h1>WHY ATTEND THIS COURSE?</h1>
         </div>
         <div className="whyattend-item">
           {course &&

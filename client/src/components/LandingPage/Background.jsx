@@ -10,16 +10,7 @@ import UnlockButton from "./components/UnlockButton";
 
 const Background = ({ course }) => {
   console.log(course?.courseContent[0]?.url)
-  // function extractFileId(driveUrl) {
-  //   const regex = /\/d\/(.*?)\//;
-  //   const match = driveUrl.match(regex);
-  //   return match ? match[1] : null;
-  // }
-  
-  // const url = course?.courseContent[0]?.url;
-  // const fileId = extractFileId(url);
-  // console.log(fileId); // Output: 1059k3NA-uXEYFgvqKhd72sX22bOuG86v
-  // const videoUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+
   return (
     <div className="background">
       <div className="heading">
@@ -47,8 +38,8 @@ const Background = ({ course }) => {
         style={{ maxWidth: "600px", border: "none" }}
       ></iframe>
       </div>
-
-      <div className="div">
+    {/* In the commented section the live data here :-*/}
+      {/* <div className="div">
         <span className="container">
           <SlCalender />
         </span>
@@ -74,7 +65,7 @@ const Background = ({ course }) => {
           <MdOutlineWatchLater />
         </span>
         <div className="heading-PM">7 PM Onwards</div>
-      </div>
+      </div> */}
 
       <div className="ready-to-grow-your-wrapper">
         <p className="ready-to-grow-your">
@@ -102,6 +93,7 @@ const Background = ({ course }) => {
           </div>
         ))}
 
+{/* in there the time couting start */}
       {/* <div className="container-2">
         <div className="paragraph-border">
           <div className="text-wrapper-4">04</div>

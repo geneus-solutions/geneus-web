@@ -12,15 +12,12 @@ const UnlockButton = ({ course }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    if (!user) {
-      setIsLoginDialogOpen(true);
+    if (user) {
+      navigate("/course-details", {
+        state: { cartDetails: course, totalPrice: course?.discount_price },
+      });
     } else {
-            navigate('/course-details', {
-              state: { cartDetails: course, totalPrice: course?.discount_price }
-            });
-        
-      // Handle checkout process here
-      console.log("Proceed to checkout");
+      setIsLoginDialogOpen(true);
     }
   };
 
@@ -29,7 +26,7 @@ const UnlockButton = ({ course }) => {
       <button className="link" onClick={handleButtonClick}>
         <p className="unlock-AI-trading">
           <span className="text-wrapper-8">
-            {user ? "Checkout" : "BuyNow"}
+            Checkout
             <br />
           </span>
           <span className="text-wrapper-9">{course?.price}</span>{" "}
@@ -39,11 +36,11 @@ const UnlockButton = ({ course }) => {
         </p>
       </button>
       {isLoginDialogOpen && (
-        <div className="login-dialog">
-          {/* Render your login dialog here */}
-          <button className="close-button" onClick={() => setIsLoginDialogOpen(false)} >Close</button>
-          <LoginSignUpPage isLoginDialogOpen={isLoginDialogOpen} setIsLoginDialogOpen={setIsLoginDialogOpen}/>
-        </div>
+        <LoginSignUpPage
+          isLoginDialogOpen={isLoginDialogOpen}
+          setIsLoginDialogOpen={setIsLoginDialogOpen}
+          course={course}
+        />
       )}
     </>
   );
