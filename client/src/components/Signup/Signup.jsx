@@ -35,24 +35,19 @@ console.log('this is isLoginDialog', isLoginDialogOpen)
       const data = await signup(formData).unwrap();
       toast.success(data?.message);
       const userData = await login({ email: formData.email, password: formData.password }).unwrap();
-      console.log(userData)
       dispatch(setCredentials({ ...userData }))
-      console.log('this is isLoginOpen', isLoginDialogOpen)
       if (isLoginDialogOpen) { 
-        console.log('this is isLogged In=----->')
         setIsLoginDialogOpen(false);
         navigate('/course-details', {
           state: { cartDetails: course, totalPrice: course?.discount_price }
         });
         return;
       } if(!isLoginDialogOpen) { 
-        console.log(`Navigating to ${from}`);
         navigate(from, { replace: true })}
         return;
       // toggleComponent();
       // navigate("/login");
     } catch (error) {
-      console.log(error);
       toast.error(error?.data?.error);
     }
   };
