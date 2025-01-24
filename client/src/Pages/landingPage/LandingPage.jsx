@@ -55,7 +55,6 @@ const LandingPage = () => {
     return navigate(-1);
   }
 
-  console.log("this is data", course);
   return (
     <>
       {course?._id ? (
