@@ -18,6 +18,8 @@ import { useParams } from "react-router-dom";
 import Course from "../Courses";
 
 const LandingPage = () => {
+
+  // This is constent data for template:-
   const RecomentdContent = [
     {
       title: "Beginner",
@@ -42,39 +44,6 @@ const LandingPage = () => {
     },
   ];
 
-  // const WhatWeCoverContent = [
-  //   {
-  //     heading: "Trading beyond Stock Charts like a PRO",
-  //     description:
-  //       "Profitable stock trading becomes 10x easier when you understand how to trade like Institutional Traders & I will teach you how to do it.",
-  //   },
-  //   {
-  //     heading: "Automating your Trade Research effortlessly",
-  //     description:
-  //       "Manual trade research can be boring & time consuming. Learn to automate it without coding & save 2 hours everyday.",
-  //   },
-  //   {
-  //     heading: "AI Driven Stock Back Testing",
-  //     description:
-  //       "Learn to leverage the power of AI to back test your strategies & get proven returns data before you take your next trade.",
-  //   },
-  //   {
-  //     heading: "Applying my Proprietary 33% CAGR Strategy",
-  //     description:
-  //       "Get a ready made automated scanning system to generate 33% CAGR based on 7 years of back tested data on NIFTY.",
-  //   },
-  //   {
-  //     heading: "Automating Trade Execution without Coding",
-  //     description:
-  //       "Take trades even while you are at work without sitting in front of a trading screen every single day.",
-  //   },
-  //   {
-  //     heading: "Mastering P.E.A.K. Framework for Consistent Profits",
-  //     description:
-  //       "Find out how our proprietary P.E.A.K framework can make you 2-3x more returns than NIFTY even on limited capital. ",
-  //   },
-  // ];
-
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { data: course } = useCourceQuery(
@@ -93,10 +62,11 @@ const LandingPage = () => {
         <div className="recommend-to-attend-heading">
           <h1>5,500+ PAST ATTENDEES...</h1>
           <h3>
-            Recommend You To Attend This Workshop, If You Fit Any Of The
+            Recommend You To Attend This Course, If You Fit Any Of The
             Following ⬇️
           </h3>
         </div>
+        {/* This is the compenent if require to uncomment this */}
         {/* <div className="recomend-to-attend-container">
           {RecomentdContent &&
             RecomentdContent.map((value, index) => (

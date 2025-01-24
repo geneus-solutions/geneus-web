@@ -6,20 +6,16 @@ import { useLoginMutation } from "../../features/auth/authApiSlice";
 import "./Login.css";
 import { toast } from "react-toastify";
 
-function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent }) {
+function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course }) {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(isLoginDialogOpen, 'thisis dailog')
   const from = location.state?.from?.pathname ||  "/";
-  console.log('this is from', from)
-  console.log('this is location', location)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-
+  console.log('this is isLoginDialogOpen', isLoginDialogOpen)
   const [login, { isLoading }] = useLoginMutation();
-  console.log('this  is email, password', email, password)
   useEffect(() => {
     setErrMsg("");
   }, [email, password]);
@@ -35,7 +31,16 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent }) {
       dispatch(setCredentials({ ...userData }));
       setEmail("");
       setPassword("");
-      if (isLoginDialogOpen) { setIsLoginDialogOpen(false); } else { navigate(from, { replace: true }); }
+      console.log('this is isLoginOpen', isLoginDialogOpen)
+      if (isLoginDialogOpen) { 
+        setIsLoginDialogOpen(false); 
+        navigate('/course-details', {
+          state: { cartDetails: course, totalPrice: course?.discount_price }
+        });
+      }else { 
+        console.log(`Navigating to ${from}`);
+        navigate(from, { replace: true }); 
+      }
     } catch (error) {
       console.log("this is", error);
       toast.error(error?.data?.error);
@@ -46,7 +51,7 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent }) {
     <div>
       <h2 className="form-title">Login</h2>
       <form onSubmit={handleLogin}>
-        {errMsg && <p style={{ color: "red" }}>{errMsg}</p>}
+        {errMsg && <p  className="err-msg">{errMsg}</p>}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -70,18 +75,9 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent }) {
         <div className="login-link" style={{ marginBottom: "10px" }}>
           <Link to="/forgot-password">Forgot Password ?</Link>
         </div>
-        {isLoading ? (
-          <p
-            style={{ display: "flex", justifyContent: "center" }}
-            className="signup-button"
-          >
-            logging in...
-          </p>
-        ) : (
-          <button type="submit" className="signup-button">
-            Login
+          <button type="submit" className="login-button">
+        {isLoading ? "Please Wait" : "Login"}
           </button>
-        )}
 
         <div className="login-link">
           Don't have an ACCOUNT?{" "}

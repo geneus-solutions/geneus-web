@@ -24,7 +24,6 @@ import PageNotFound from "./Pages/PageNotFound";
 import Mylearning from "./components/MyLearning/MyLearning";
 import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
 import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
-import EnrollRedirect from "./Pages/landingPage/EnrollRedirect ";
 import LandingPage from "./Pages/landingPage/LandingPage";
 
 function App() {

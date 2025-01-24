@@ -1,21 +1,26 @@
 import { useState } from "react";
 import "./Signup.css";
 
-import { useSignupMutation } from "../../features/auth/authApiSlice";
+import { useLoginMutation, useSignupMutation } from "../../features/auth/authApiSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setCredentials } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
-function Signup({ toggleComponent }) {
-  const [signup] = useSignupMutation();
+function Signup({ toggleComponent, isLoginDialogOpen, setIsLoginDialogOpen, course }) {
+  const [signup, {isLoading: signUpIsLoading}] = useSignupMutation();
+   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const from = location.state?.from?.pathname ||  "/";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
     password: "",
   });
-
+console.log('this is isLoginDialog', isLoginDialogOpen)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,7 +34,22 @@ function Signup({ toggleComponent }) {
       e.preventDefault();
       const data = await signup(formData).unwrap();
       toast.success(data?.message);
-      toggleComponent();
+      const userData = await login({ email: formData.email, password: formData.password }).unwrap();
+      console.log(userData)
+      dispatch(setCredentials({ ...userData }))
+      console.log('this is isLoginOpen', isLoginDialogOpen)
+      if (isLoginDialogOpen) { 
+        console.log('this is isLogged In=----->')
+        setIsLoginDialogOpen(false);
+        navigate('/course-details', {
+          state: { cartDetails: course, totalPrice: course?.discount_price }
+        });
+        return;
+      } if(!isLoginDialogOpen) { 
+        console.log(`Navigating to ${from}`);
+        navigate(from, { replace: true })}
+        return;
+      // toggleComponent();
       // navigate("/login");
     } catch (error) {
       console.log(error);
@@ -38,7 +58,7 @@ function Signup({ toggleComponent }) {
   };
 
   return (
-    <div>
+    <div className="signup-form">
       <h2 className="form-title">Signup</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -86,7 +106,7 @@ function Signup({ toggleComponent }) {
           />
         </div>
         <button type="submit" className="signup-button">
-          Signup
+          {signUpIsLoading ? "Please wait...." : "Signup"}
         </button>
       </form>
       <div className="login-link">

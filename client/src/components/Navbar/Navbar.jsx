@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -22,6 +22,7 @@ const Navbar = () => {
   const { data: cartData } = useCartQuery(data?.data?.id, {
     skip: !data?.data?.id,
   });
+  const navigate = useNavigate();
 
   const user = useSelector(selectCurrentUser);
   const [logout, /*{ isLoading, isSuccess, isError, error }*/] = useLogoutMutation();
@@ -51,13 +52,15 @@ const Navbar = () => {
       console.log('this is response for logOut',response)
       setIsDropdownOpen(false);
       dispatch(logOut());
+      navigate('/')
+
     }catch(error){
       console.log('this is logoutError', error)
     }
   };
 
   // for admin role
-  const isAdmin = data?.data?.role === "admin"; //We can change from here like if you want to change
+  const isAdmin = user?.role === "admin"; //We can change from here like if you want to change
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -184,7 +187,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <NavLink to="/login">
-                  <div className="login-button">
+                  <div className="navbar-login-button">
                     <p style={{ marginTop: "10px" }}>Login</p>
                   </div>
                 </NavLink>

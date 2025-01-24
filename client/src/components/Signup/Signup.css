@@ -7,86 +7,81 @@ body {
   box-sizing: border-box;
 }
 
+.signup-form{
+  padding: 80px 0;
+}
+
+
 .form-title {
   font-size: 2rem;
+  text-align: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid #007bff;
-  display: inline-block;
+  color: #333;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #007bff;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #555;
 }
 
 .form-group input {
   width: 100%;
   padding: 10px;
-  font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #007BFF; /* Focus color for better UX */
+  outline: none;
 }
 
 .signup-button {
   width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
+  padding: 10px;
+  background-color: #1f678ba5;
   border: none;
   border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .signup-button:hover {
-  background-color: #0056b3;
+  background-color: #157ff0fb;
 }
 
 .login-link {
-  margin-top: 15px;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.login-link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
-}
-
-/* Image container styling */
-.image-container {
-  width: 60%;
-  background: url('../../assets/loginImage.jpg') center/cover no-repeat;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(53, 54, 56, 0.8); /* Semi-transparent blue */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.overlay h1 {
-  color: white;
-  font-size: 2.5rem;
   text-align: center;
+  margin-top: 10px;
+}
+
+.login-link a,
+.login-link button {
+  color: #007BFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover,
+.login-link button:hover {
+  color: #0056b3;
+}
+
+.err-msg {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
 }
