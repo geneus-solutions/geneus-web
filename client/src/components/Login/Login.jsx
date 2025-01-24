@@ -14,7 +14,6 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  console.log('this is isLoginDialogOpen', isLoginDialogOpen)
   const [login, { isLoading }] = useLoginMutation();
   useEffect(() => {
     setErrMsg("");
@@ -31,18 +30,15 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
       dispatch(setCredentials({ ...userData }));
       setEmail("");
       setPassword("");
-      console.log('this is isLoginOpen', isLoginDialogOpen)
       if (isLoginDialogOpen) { 
         setIsLoginDialogOpen(false); 
         navigate('/course-details', {
           state: { cartDetails: course, totalPrice: course?.discount_price }
         });
       }else { 
-        console.log(`Navigating to ${from}`);
         navigate(from, { replace: true }); 
       }
     } catch (error) {
-      console.log("this is", error);
       toast.error(error?.data?.error);
     }
   };

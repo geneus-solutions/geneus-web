@@ -37,7 +37,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
-          <Route path="/:id" element={<LandingPage />} />
+          <Route path="/landing/:id" element={<LandingPage />} />
 
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
@@ -58,7 +58,7 @@ function App() {
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
         </Route>
 
-        <Route path="/*" element={<PageNotFound />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );
