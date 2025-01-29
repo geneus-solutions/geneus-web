@@ -12,14 +12,21 @@ import { Cart } from "../../features/Cart/cartSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import { setIsDropdownOpen } from "../../features/dropDown/dropDownSlice";
 import logo from "../../assets/logo.png";
+import { logOut } from "../../features/auth/authSlice";
 
 const Navbar = () => {
+  
   const dispatch = useDispatch();
   const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
-
+  
   const { data } = useAuthenticateQuery();
-  const { data: cartData } = useCartQuery(data?.data?.id, {
-    skip: !data?.data?.id,
+
+  const {user} = useSelector((state) => state.auth);
+
+  // console.log('user : ',user);
+
+  const { data: cartData } = useCartQuery(user?.id, {
+    skip: !user?.id,
   });
 
 
@@ -30,6 +37,7 @@ const Navbar = () => {
       dispatch(Cart({ cart: cartData }));
     }
   }, [cartData, dispatch]);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest(".user-info")) {
@@ -45,11 +53,12 @@ const Navbar = () => {
   const handleLogout = async () => {
     const data = await logout().unwrap(); 
     setIsDropdownOpen(!isDropdownOpen);
-    console.log(data);
+    
+    dispatch(logOut());
   };
 
   // for admin role
-  const isAdmin = data?.data?.role === "admin"; //We can change from here like if you want to change
+  const isAdmin = user?.role === "admin"; //We can change from here like if you want to change
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -143,7 +152,7 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {data?.data?.id&&<li className="nav-item">
+            {user?.id&&<li className="nav-item">
               <NavLink
                 to="/my-learning"
                 className={({ isActive }) =>
@@ -154,13 +163,13 @@ const Navbar = () => {
               </NavLink>
             </li>}
             <li className="nav-item">
-              {data?.data?.id ? (
+              {user?.id ? (
                 <div className="user-info dropdown">
                   <div
                     className="avatar"
                     onClick={() => dispatch(setIsDropdownOpen(!isDropdownOpen))}
                   >
-                    {data?.data?.name.charAt(0).toUpperCase()}
+                    {user?.name.charAt(0).toUpperCase()}
                   </div>
                   {isDropdownOpen && (
                     <div className="avatar-dropdown-menu">

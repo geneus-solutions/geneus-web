@@ -1,5 +1,8 @@
-import React from "react";
+import React,{useCallback,useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutMutation } from "./features/auth/authApiSlice";
 
 import RequireAuth from "./RequireAuth/RequireAuth";
 
@@ -24,8 +27,53 @@ import PageNotFound from "./Pages/PageNotFound";
 import Mylearning from "./components/MyLearning/MyLearning";
 import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
 import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
+import { logOut } from "./features/auth/authSlice";
+
+const INACTIVITY_TIME = 10 * 1000;
 
 function App() {
+  
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const [logout] = useLogoutMutation();
+
+  const handleLogout = useCallback(async () => {
+    try {
+      if (!user?.id) return;
+      const data = await logout().unwrap();
+      console.log("User logged out:", data);
+      dispatch(logOut());
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
+  }, [user?.id, dispatch, logout]);
+
+  useEffect(() => {
+    let timeout;
+
+    const resetTimer = () => {
+      if (!user?.id) return;
+      clearTimeout(timeout);
+      timeout = setTimeout(handleLogout, INACTIVITY_TIME);
+    };
+
+    const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
+    activityEvents.forEach((event) =>
+      window.addEventListener(event, resetTimer)
+    );
+
+    if (user?.id) {
+      resetTimer();
+    }
+
+    return () => {
+      clearTimeout(timeout);
+      activityEvents.forEach((event) =>
+        window.removeEventListener(event, resetTimer)
+      );
+    };
+  }, [handleLogout, user?.id]);
+
   return (
     <Router>
       <Routes>

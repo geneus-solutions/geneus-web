@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './ResetPassword.css'; // Import the CSS file
 
 const ResetPasswordPage = () => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const location = useLocation();
+    const { id } = useParams();
     const navigate = useNavigate();
-    const query = new URLSearchParams(location.search);
-    const token = query.get('token');
 
-    useEffect(() => {
-        if (!token) {
-            setMessage('Invalid or expired token');
-        }
-    }, [token]);
+    console.log('Token:', id);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/reset-password`, { token, password });
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/reset-password/${id}`, { password });
             if (response.status === 200) {
                 setMessage('Password has been reset successfully. Please log in.');
                 setTimeout(() => {
@@ -54,7 +49,7 @@ const ResetPasswordPage = () => {
                         </div>
                         <button type="submit" className="btn btn-primary w-100">Reset Password</button>
                     </form>
-                    {message && <p className="mt-3 text-center text-danger">{message}</p>}
+                    {message && <p className="mt-3 text-center text-success">{message}</p>}
                 </div>
             </div>
         </div>

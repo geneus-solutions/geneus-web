@@ -5,7 +5,7 @@ import { useContactUsMutation } from "../features/contactUs/contactUsApiSlice";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     subject: "",
     message: "",
@@ -22,12 +22,12 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
-      console.log(formData);
-      const contactData = await contactUs(formData);
-      console.log(contactData);
-      if (contactData.data.ok) {
+      
+      const contactData = await contactUs(formData).unwrap();
+      
+      if (contactData.ok) {
         setFormData({
-          fullName: "",
+          name: "",
           email: "",
           subject: "",
           message: "",
@@ -105,7 +105,7 @@ const Contact = () => {
                 <label style={{ color: "#007BFF" }}>Full Name</label>
                 <input
                   type="text"
-                  name="fullName"
+                  name="name"
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="Name"
