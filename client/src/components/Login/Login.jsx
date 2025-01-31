@@ -6,20 +6,16 @@ import { useLoginMutation } from "../../features/auth/authApiSlice";
 import "./Login.css";
 import { toast } from "react-toastify";
 
-function Login() {
+function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course }) {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const from = location.state?.from?.pathname || "/";
-
+  const from = location.state?.from?.pathname ||  "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-
-  const { user } = useSelector((state) => state.auth);
   const [login, { isLoading }] = useLoginMutation();
-
+  const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     setErrMsg("");
     if (user) {
@@ -38,7 +34,14 @@ function Login() {
       dispatch(setCredentials({ ...userData }));
       setEmail("");
       setPassword("");
-      navigate(from, { replace: true });
+      if (isLoginDialogOpen) { 
+        setIsLoginDialogOpen(false); 
+        navigate('/course-details', {
+          state: { cartDetails: course, totalPrice: course?.discount_price }
+        });
+      }else { 
+        navigate(from, { replace: true }); 
+      }
     } catch (error) {
       toast.error(error?.data?.error);
     }
@@ -48,7 +51,7 @@ function Login() {
     <div>
       <h2 className="form-title">Login</h2>
       <form onSubmit={handleLogin}>
-        {errMsg && <p style={{ color: "red" }}>{errMsg}</p>}
+        {errMsg && <p  className="err-msg">{errMsg}</p>}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -69,25 +72,19 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="login-link" style={{marginBottom:'10px'}}>
-            <Link to="/forgot-password">Forgot Password ?</Link>
-          </div>
-        {isLoading ? (
-          <p
-            style={{ display: "flex", justifyContent: "center" }}
-            className="signup-button"
-          >
-            logging in...
-          </p>
-        ) : (
-          <button type="submit" className="signup-button">
-            Login
+        <div className="login-link" style={{ marginBottom: "10px" }}>
+          <Link to="/forgot-password">Forgot Password ?</Link>
+        </div>
+          <button type="submit" className="login-button">
+        {isLoading ? "Please Wait" : "Login"}
           </button>
-        )}
 
         <div className="login-link">
-        Dont have ACCOUNT? <Link to="/signup">Signup</Link>
-      </div>
+          Don't have an ACCOUNT?{" "}
+          <button type="button" onClick={toggleComponent}>
+            Signup
+          </button>
+        </div>
       </form>
     </div>
   );

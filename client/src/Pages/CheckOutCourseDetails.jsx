@@ -64,7 +64,6 @@ const CheckOutCourseDetails = () => {
     return <h6>No cart details available</h6>;
   }
 
-
   return (
     <div className="checkout-container">
       <h2 className="checkout-title">Course Summary</h2>
@@ -82,21 +81,36 @@ const CheckOutCourseDetails = () => {
               </tr>
             </thead>
             <tbody>
-              {cartDetails?.cart_items?.map((item) => (
-                <tr key={item._id}>
+              {cartDetails?.cart_items ? (
+                cartDetails?.cart_items?.map((item) => (
+                  <tr key={item._id}>
+                    <td>
+                      <img
+                        src={item.course_image}
+                        alt={item.course_title}
+                        className="course-descritptionimage"
+                      />
+                      {item.course_title}
+                    </td>
+                    <td>₹{item.course_price}</td>
+                    <td>₹{item.course_price - item.course_discountPrice}</td>
+                    <td>₹{item.course_discountPrice}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
                   <td>
                     <img
-                      src={item.course_image}
-                      alt={item.course_title}
+                      src={cartDetails?.img}
+                      alt={cartDetails.title}
                       className="course-descritptionimage"
                     />
-                    {item.course_title}
                   </td>
-                  <td>₹{item.course_price}</td>
-                  <td>₹{item.course_price - item.course_discountPrice}</td>
-                  <td>₹{item.course_discountPrice}</td>
+                  <td>₹{cartDetails?.price}</td>
+                  <td>₹{cartDetails?.price - cartDetails?.discount_price}</td>
+                  <td>₹{cartDetails?.discount_price}</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -109,7 +123,7 @@ const CheckOutCourseDetails = () => {
             validCoupons={validCoupons}
             couponCode={couponCode}
             setCouponCode={setCouponCode}
-            />
+          />
         </div>
         <div className="summary-section-checkout">
           <SummarySection

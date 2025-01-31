@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAddCourseMutation } from '../../../features/addCourse/addCourseApiSlice';
+import './AddCourse.css'
 
 const AddCourse = () => {
   const [course, setCourse] = useState({
@@ -151,7 +152,7 @@ const AddCourse = () => {
               </button>
             </div>
           ))}
-          <button type="button" onClick={addDescriptionItem} disabled={isLoading}>
+          <button type="button" className='add-button' onClick={addDescriptionItem} disabled={isLoading}>
             Add Description
           </button>
         </div>
@@ -170,6 +171,7 @@ const AddCourse = () => {
                 />
                 <button
                   type="button"
+                  className='remove-button'
                   onClick={() => removeArrayItem(field, index)}
                   disabled={isLoading || course[field].length === 1}
                 >
@@ -177,7 +179,7 @@ const AddCourse = () => {
                 </button>
               </div>
             ))}
-            <button type="button" onClick={() => addArrayItem(field)} disabled={isLoading}>
+            <button type="button" className='add-button' onClick={() => addArrayItem(field)} disabled={isLoading}>
               Add {field.slice(0, -1)}
             </button>
           </div>

@@ -1,0 +1,81 @@
+.link {
+  background: linear-gradient(
+    180deg,
+    rgb(75, 148, 22) 48%,
+    rgb(184, 205, 46) 100%
+  );
+  border-radius: 50px;
+  height: 80px;
+  left: 740px;
+  position: absolute;
+  top: 552px;
+  width: 530px;
+}
+
+.unlock-AI-trading {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 21px;
+  font-weight: 600;
+  height: 50px;
+  left: 58px;
+  letter-spacing: 0;
+  line-height: 25.2px;
+  position: absolute;
+  text-align: center;
+  top: 14px;
+  width: 415px;
+}
+
+.text-wrapper-8 {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 25.2px;
+}
+
+.text-wrapper-9 {
+  text-decoration: line-through;
+}
+
+/* UnlockButton.css */
+
+/* UnlockButton.css */
+
+/* Dialog background overlay */
+.login-dia {
+  position: fixed;
+  /* background-color: rgba(208, 208, 208, 0.8); Semi-transparent background */
+  z-index: 999; /* Ensure the dialog is on top */
+}
+
+/* Dialog container */
+.login-dialog .dialog-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(209, 203, 203, 0.2);
+  text-align: center;
+  /* width: 1200px; Adjust the width as needed */
+  position: relative;
+}
+
+/* Close button inside the dialog */
+.login-dialog .close-button {
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  background-color: transparent; /* Primary button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 1000px;
+  background-color: #0057b37c;
+}
+
+.login-dialog .close-button:hover {
+  background-color: #0056b3; /* Hover color */
+}

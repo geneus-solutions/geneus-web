@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -10,28 +10,25 @@ import { useAuthenticateQuery } from "../../features/authenticate/authenticateAp
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
 import { Cart } from "../../features/Cart/cartSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
-import { setIsDropdownOpen } from "../../features/dropDown/dropDownSlice";
 import logo from "../../assets/logo.png";
 import { logOut } from "../../features/auth/authSlice";
+import { selectCurrentUser } from "../../features/auth/authSlice";
 
 const Navbar = () => {
   
   const dispatch = useDispatch();
-  const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
+  // const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
   
-  const { data } = useAuthenticateQuery();
-
-  const {user} = useSelector((state) => state.auth);
-
-  // console.log('user : ',user);
-
-  const { data: cartData } = useCartQuery(user?.id, {
-    skip: !user?.id,
-  });
-
-
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null); 
   const [logout, /*{ isLoading, isSuccess, isError, error }*/] = useLogoutMutation();
-
+  const user = useSelector(selectCurrentUser);
+  const { data } = useAuthenticateQuery();
+  const { data: cartData } = useCartQuery(data?.data?.id, {
+    skip: !data?.data?.id,
+  });
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (cartData) {
       dispatch(Cart({ cart: cartData }));
@@ -40,21 +37,32 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest(".user-info")) {
-        dispatch(setIsDropdownOpen(false));
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false); // Close the dropdown if the click is outside
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dispatch]);
+  }, []);
 
   const handleLogout = async () => {
     const data = await logout().unwrap(); 
     setIsDropdownOpen(!isDropdownOpen);
     
     dispatch(logOut());
+    try{
+      const response = await logout().unwrap(); 
+      console.log('this is response for logOut',response)
+      setIsDropdownOpen(false);
+      dispatch(logOut());
+      navigate('/')
+
+    }catch(error){
+      console.log('this is logoutError', error)
+    }
   };
 
   // for admin role
@@ -163,11 +171,11 @@ const Navbar = () => {
               </NavLink>
             </li>}
             <li className="nav-item">
-              {user?.id ? (
-                <div className="user-info dropdown">
+              {user ? (
+                <div className="user-info dropdown" ref={dropdownRef}>
                   <div
                     className="avatar"
-                    onClick={() => dispatch(setIsDropdownOpen(!isDropdownOpen))}
+                    onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
                     {user?.name.charAt(0).toUpperCase()}
                   </div>
@@ -185,7 +193,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <NavLink to="/login">
-                  <div className="login-button">
+                  <div className="navbar-login-button">
                     <p style={{ marginTop: "10px" }}>Login</p>
                   </div>
                 </NavLink>

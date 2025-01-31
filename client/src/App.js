@@ -29,7 +29,9 @@ import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
 import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
 import { logOut } from "./features/auth/authSlice";
 
-const INACTIVITY_TIME = 10 * 1000;
+import LandingPage from "./Pages/landingPage/LandingPage";
+
+const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 function App() {
   
@@ -78,13 +80,13 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginSignUpPage />} />
-        <Route path="/signup" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
+          <Route path="/landing/:id" element={<LandingPage />} />
 
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />
@@ -103,9 +105,9 @@ function App() {
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
-          <Route path="/cart" element={<Cart />} />
         </Route>
-        <Route path="/*" element={<PageNotFound />} />
+
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );

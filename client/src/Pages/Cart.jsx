@@ -19,7 +19,7 @@ const Cart = () => {
   const { cartCount: count, cart: cartDetails } = useSelector(
     (state) => state?.cartData
   );
-
+  console.log(cartDetails, 'this is cartDetails')
   const navigate = useNavigate();
   const [deleteCart] = useDeleteCartMutation();
 

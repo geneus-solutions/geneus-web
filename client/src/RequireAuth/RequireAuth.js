@@ -9,40 +9,43 @@ const RequireAuth = ({allowedRole}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
-    const [loading,setLoading] = useState(true);
+    // const [loading,setLoading] = useState(true);
 
     const token = useSelector(selectCurrentToken);
 
     const user = useSelector(state => state.auth.user);
+    console.log('this is user from require auth', user);
     
-    const { data, isError, error, isSuccess } = useAuthenticateQuery();
-    
+    const { data, isError, error, isSuccess, isLoading } = useAuthenticateQuery();
+    console.log('this is isLoading', isLoading)
     useEffect(() => {
-
       let isMounted = true;
-
       if(isMounted){
-        if (isError) {
+        if (isError && error?.data?.status === 403) {
+          console.log('this is error', isError)
+          console.log('this is error from require auth', error)
             navigate('/login', { state: { from: location }, replace: true });
         }
 
+
         if (isSuccess) {
-            setLoading(false);
+          console.log('tis is success', isSuccess)
+            // setLoading(false);
             dispatch(setCredentials({ accessToken: token, user: data?.data }));
         }
       }
 
       return () => { isMounted = false };
     
-    }, [isError, isSuccess,user,loading, error, navigate, location, dispatch, token, data]);
+    }, [isError, isSuccess, error, navigate, location, dispatch, token, data]);
 
-    if (loading) {
+    if (isLoading) {
       return <p>Loading , please wait...</p>
     }
 
     return allowedRole?.includes(user?.role) ? 
       <Outlet /> 
-      : user?._id ? <h1>Unauthorised</h1>
+      : user?.id ? <h1>Unauthorised</h1>
       :<Navigate to="/login" state={{ from: location }} replace />
 };
 
