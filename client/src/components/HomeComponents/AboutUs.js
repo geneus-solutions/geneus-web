@@ -21,14 +21,6 @@ const ContentContainer = styled(Box)(({ theme }) => ({
   maxWidth: "500px",
 }));
 
-const VideoContainer = styled(Box)(({ theme }) => ({
-  flex: 1,
-  "& video": {
-    width: "100%",
-    height: "auto",
-    borderRadius: theme.shape.borderRadius,
-  },
-}));
 
 const MoreButton = styled(Button)(({ theme }) => ({
   backgroundColor: "#00b0ff",
@@ -88,13 +80,14 @@ const AboutUs = () => {
           E-learning courses in full-stack development. Based in Bangalore,
           India, we are passionate about empowering individuals to become
           proficient and versatile developers in the ever-evolving field of
-          technology.{' '}
+          technology.{" "}
           {showFullText && (
             <span>
-              At Geneus Solutions, we offer comprehensive courses covering HTML/CSS/Javascript, ReactJS and the complete MERN stack.
-              Our dynamic and hands-on approach ensures that students not only
-              grasp the theoretical foundations but also gain practical skills
-              that are essential in the real-world scenario.
+              At Geneus Solutions, we offer comprehensive courses covering
+              HTML/CSS/Javascript, ReactJS and the complete MERN stack. Our
+              dynamic and hands-on approach ensures that students not only grasp
+              the theoretical foundations but also gain practical skills that
+              are essential in the real-world scenario.
             </span>
           )}
         </Typography>
@@ -109,19 +102,13 @@ const AboutUs = () => {
         </MoreButton>
       </ContentContainer>
 
-      <VideoContainer>
-        <video
-          controls
-          poster={img1}
-          style={{ width: "100%", maxWidth: "600px" }}
-        >
-          <source
-            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
-      </VideoContainer>
+      <iframe
+        width="600"
+        height="337"
+        src="https://www.youtube.com/embed/2eTIgVyBnNg?rel=0&controls=0&showinfo=0&modestbranding=1"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
     </SectionContainer>
   );
 };
