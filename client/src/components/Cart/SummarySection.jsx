@@ -6,6 +6,7 @@ import { backendUrl, RAZORPAY_ID } from "../../config";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import "./SummarySection.css";
+import { emptyCart, RemoveFromCart } from "./removeFromCart";
 
 const SummarySection = ({
   cartDetails,
@@ -51,7 +52,7 @@ const makePayment = async (amount) => {
     const data = {
         amount: amount.toString(),
         currency: "INR",
-        username : username
+        username : user.username
     };
 
     const config = {
@@ -94,8 +95,8 @@ const makePayment = async (amount) => {
                     if (verify.data.success === true) {
                         toast.success("Payment Successful");
                         emptyCart(cartDetails._id);
-                        setCartCount(0);
-                        dispatch(reset());
+                       // setCartCount(0);
+                       // dispatch(reset());
                         navigate("/");
                     } else {
                         toast.error("Payment Failed");
