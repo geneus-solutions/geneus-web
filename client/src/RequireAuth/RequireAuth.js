@@ -14,16 +14,13 @@ const RequireAuth = ({allowedRole}) => {
     const token = useSelector(selectCurrentToken);
 
     const user = useSelector(state => state.auth.user);
-    console.log('this is user from require auth', user);
     
     const { data, isError, error, isSuccess, isLoading } = useAuthenticateQuery();
-    console.log('this is isLoading', isLoading)
+    
     useEffect(() => {
       let isMounted = true;
       if(isMounted){
         if (isError && error?.data?.status === 403) {
-          console.log('this is error', isError)
-          console.log('this is error from require auth', error)
             navigate('/login', { state: { from: location }, replace: true });
         }
 

@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fd;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dashboard {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .menu {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  
+  .menu .active {
+    font-weight: bold;
+    color: #6a5acd;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 0px 20px;
+  }
+  
+  .video-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .video-container img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .tabs button {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: #ddd;
+    border-radius: 5px;
+  }
+  
+  .tabs .active {
+    background-color: #6a5acd;
+    color: white;
+  }
+  
+  /* .side-panel {
+    width: 400px;
+  } */
+  
+  .course-content, .author-info {
+    /* background: white; */
+    padding: 10px 0;
+    /* margin-top: 10px; */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    /* box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); */
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li{
+        border-top: 1px solid #ddd;
+        cursor: pointer;
+        margin: 0;
+        padding: 10px 15px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .course-details{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .course-content-panel{
+    display: grid;
+    grid-template-columns: 6fr 2fr;
+    gap: 20px;
+    /* display: flex; */
+
+    /* gap: 20px; */
+  }
+
+  .active{
+    /* background-color: #6a5acd; */
+    color: #6a5acd;
+  }

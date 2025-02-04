@@ -24,7 +24,8 @@ import CourseDescriptionPage from "./Pages/CourseDescritptionPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
 import PageNotFound from "./Pages/PageNotFound";
 
-import Mylearning from "./components/MyLearning/MyLearning";
+// import Mylearning from "./components/MyLearning/MyLearning";
+import MyLearning from "./Pages/MyLearning";
 import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
 import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
 import { logOut } from "./features/auth/authSlice";
@@ -94,7 +95,7 @@ function App() {
             <Route path="/diet-plan" element={<DietPlan />} />
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/my-learning" element={<Mylearning />} />
+            <Route path="/my-learning" element={<MyLearning />} />
           </Route>
 
           {/* Admin-specific routes */}
