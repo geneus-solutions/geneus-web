@@ -163,7 +163,7 @@ const CourseDescription = ({ courseDetails }) => {
     try {
       if (userDetail?.id) {
         const course = {
-          course_id: courseDetails.id,
+          course_id: courseDetails._id,
           course_title: courseDetails.title,
           course_description: courseDetails.description,
           course_image: courseDetails.img,

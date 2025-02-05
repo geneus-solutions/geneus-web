@@ -12,11 +12,16 @@ const cartSlice = createSlice({
             state.cartCount = cart?.cart_items?.length;
             state.cart =cart;
         },
+        emptyCart: (state, action) => {
+            console.log('remove cart reducer is called')
+            state.cartCount = 0;
+            state.cart = null
+        }
     }
 });
 
 
-export const {Cart} = cartSlice.actions;
+export const {Cart, emptyCart} = cartSlice.actions;
 export default cartSlice.reducer;
 
 // export const {setCredentials, logOut} = authSlice.actions;

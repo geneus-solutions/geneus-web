@@ -8,27 +8,27 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticateQuery } from "../../features/authenticate/authenticateApiSlice";
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
-import { Cart } from "../../features/Cart/cartSlice";
+import { Cart, emptyCart } from "../../features/Cart/cartSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import logo from "../../assets/logo.png";
 import { logOut } from "../../features/auth/authSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 
 const Navbar = () => {
-  
   const dispatch = useDispatch();
   // const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
-  
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null); 
-  const [logout, /*{ isLoading, isSuccess, isError, error }*/] = useLogoutMutation();
-  const user = useSelector(selectCurrentUser);
+  const dropdownRef = useRef(null);
   const { data } = useAuthenticateQuery();
+  const user = useSelector(selectCurrentUser);
   const { data: cartData } = useCartQuery(data?.data?.id, {
     skip: !data?.data?.id,
   });
+  const cart = useSelector((state) => state.cartData.cart);
   const navigate = useNavigate();
-  
+  const [logout, { isLoading, isSuccess, isError, error, data: logOutData }] =
+    useLogoutMutation();
   useEffect(() => {
     if (cartData) {
       dispatch(Cart({ cart: cartData }));
@@ -41,7 +41,6 @@ const Navbar = () => {
         setIsDropdownOpen(false); // Close the dropdown if the click is outside
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -49,21 +48,23 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
-    const data = await logout().unwrap(); 
-    setIsDropdownOpen(!isDropdownOpen);
-    
-    dispatch(logOut());
-    try{
-      const response = await logout().unwrap(); 
-      console.log('this is response for logOut',response)
+    try {
+      const response = await logout().unwrap();
+      console.log("this is response", response);
       setIsDropdownOpen(false);
       dispatch(logOut());
-      navigate('/')
-
-    }catch(error){
-      console.log('this is logoutError', error)
+      dispatch(emptyCart());
+      navigate("/");
+    } catch (error) {
+      console.log("this is logoutError", error);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(emptyCart());
+    }
+  }, [user, dispatch]);
 
   // for admin role
   const isAdmin = user?.role === "admin"; //We can change from here like if you want to change
@@ -73,11 +74,7 @@ const Navbar = () => {
       <div className="container-fluid">
         {/* Logo Section */}
         <NavLink to="/" className="navbar-brand">
-          <img
-            src={logo}
-            alt="Logo"
-            className="logo-img"
-          />
+          <img src={logo} alt="Logo" className="logo-img" />
         </NavLink>
 
         {/* Toggler Button for Mobile View */}
@@ -160,16 +157,18 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {user?.id&&<li className="nav-item">
-              <NavLink
-                to="/my-learning"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                My Learning
-              </NavLink>
-            </li>}
+            {user?.id && (
+              <li className="nav-item">
+                <NavLink
+                  to="/my-learning"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  My Learning
+                </NavLink>
+              </li>
+            )}
             <li className="nav-item">
               {user ? (
                 <div className="user-info dropdown" ref={dropdownRef}>
@@ -200,15 +199,10 @@ const Navbar = () => {
               )}
             </li>
             <li className="nav-item">
-              <NavLink
-                to="/cart"
-                className="avatar-dropdown-item"
-              >
+              <NavLink to="/cart" className="avatar-dropdown-item">
                 <FaCartArrowDown />
                 <div className="badge-notification">
-                  {cartData?.cart_items?.length
-                    ? cartData.cart_items.length
-                    : 0}
+                  {cart?.cart_items?.length ? cartData.cart_items.length : 0}
                 </div>
               </NavLink>
             </li>
