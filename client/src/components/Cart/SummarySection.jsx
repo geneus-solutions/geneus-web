@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Logo from "../../assets/g.png";
-import { backendUrl, RAZORPAY_ID } from "../../config";
+// import { backendUrl, RAZORPAY_ID } from "../../config";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import "./SummarySection.css";
-import { emptyCart, RemoveFromCart } from "./removeFromCart";
+import { emptyCart } from "./removeFromCart";
 
 const SummarySection = ({
   cartDetails,
@@ -20,10 +20,9 @@ const SummarySection = ({
   applyCouponMessage,
 }) => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth);
+  const {user} = useSelector((state) => state.auth);
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
-  console.log('this is cart Details', cartDetails)
   const initializeRazorpay = () => {
     return new Promise((resolve) => {
         const script = document.createElement("script");
@@ -45,6 +44,7 @@ const makePayment = async (amount) => {
     }
 
     const res = await initializeRazorpay();
+    console.log('res',res);
     if (!res) {
         throw new Error("Razorpay SDK Failed to load");
                 }
@@ -52,7 +52,7 @@ const makePayment = async (amount) => {
     const data = {
         amount: amount.toString(),
         currency: "INR",
-        username : user.username
+        username : user?.name
     };
 
     const config = {
@@ -65,24 +65,25 @@ const makePayment = async (amount) => {
         data: JSON.stringify(data),
     };
 
+
     const response = await axios.request(config);
+    console.log('response : ',response);
    // console.log(JSON.stringify(response.data));
-            
     const options = {
                 key: process.env.REACT_APP_RAZORPAY_ID,
                 name: "Geneus Solutions",
                 currency: "INR",
-                amount: response.data.amount,
-                order_id: response.data.id,
+                amount: response?.data?.amount,
+                order_id: response?.data?.id,
                 description: "Happy Learning",
                 image: Logo,
                 handler: async function (response) {
                     const data = {
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature,
-                        user_id: user.userId,
-                        cart_details: cartDetails.cart_items,
+                        razorpay_order_id: response?.razorpay_order_id,
+                        razorpay_payment_id: response?.razorpay_payment_id,
+                        razorpay_signature: response?.razorpay_signature,
+                        user_id: user?.id,
+                        cart_details: cartDetails?.cart_items,
                     };
 
                     const verify = await axios.post(
@@ -92,9 +93,9 @@ const makePayment = async (amount) => {
                         }
                     );
 
-                    if (verify.data.success === true) {
+                    if (verify?.data?.success === true) {
                         toast.success("Payment Successful");
-                        emptyCart(cartDetails._id);
+                        emptyCart(cartDetails?._id);
                        // setCartCount(0);
                        // dispatch(reset());
                         navigate("/");
@@ -103,8 +104,8 @@ const makePayment = async (amount) => {
                     }
                 },
                 prefill: {
-                    name: user.username,
-                    email: user.useremail,
+                    name: user?.name,
+                    email: user?.email,
                 },
             };
 

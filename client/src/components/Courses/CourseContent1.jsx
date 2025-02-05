@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Box, Grid, Typography, Card, CardActionArea, Divider } from "@mui/material";
 
 const CourseContent1 = ({content}) => {
+
   const [selected, setSelected] = useState(null);
-    // console.log('content : ',content)
+
   return (
     <Grid container spacing={2} style={{ padding: "20px" }}>
       {/* Course Contents List */}

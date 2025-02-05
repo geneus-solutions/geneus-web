@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import "./Login.css";
@@ -15,9 +15,13 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [login, { isLoading }] = useLoginMutation();
+  const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     setErrMsg("");
-  }, [email, password]);
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, navigate, from,email, password]);
 
   const handleLogin = async (e) => {
     try {

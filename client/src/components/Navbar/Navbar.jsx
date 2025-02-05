@@ -15,18 +15,20 @@ import { logOut } from "../../features/auth/authSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 
 const Navbar = () => {
+  
   const dispatch = useDispatch();
+  // const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null); 
+  const [logout, /*{ isLoading, isSuccess, isError, error }*/] = useLogoutMutation();
+  const user = useSelector(selectCurrentUser);
   const { data } = useAuthenticateQuery();
   const { data: cartData } = useCartQuery(data?.data?.id, {
     skip: !data?.data?.id,
   });
   const navigate = useNavigate();
-
-  const user = useSelector(selectCurrentUser);
-  const [logout, /*{ isLoading, isSuccess, isError, error }*/] = useLogoutMutation();
-
+  
   useEffect(() => {
     if (cartData) {
       dispatch(Cart({ cart: cartData }));
@@ -47,6 +49,10 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
+    const data = await logout().unwrap(); 
+    setIsDropdownOpen(!isDropdownOpen);
+    
+    dispatch(logOut());
     try{
       const response = await logout().unwrap(); 
       console.log('this is response for logOut',response)
@@ -154,7 +160,7 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {user && <li className="nav-item">
+            {user?.id&&<li className="nav-item">
               <NavLink
                 to="/my-learning"
                 className={({ isActive }) =>
@@ -171,7 +177,7 @@ const Navbar = () => {
                     className="avatar"
                     onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
-                    {data?.data?.name.charAt(0).toUpperCase()}
+                    {user?.name.charAt(0).toUpperCase()}
                   </div>
                   {isDropdownOpen && (
                     <div className="avatar-dropdown-menu">

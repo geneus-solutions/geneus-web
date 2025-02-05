@@ -1,5 +1,8 @@
-import React from "react";
+import React,{useCallback,useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutMutation } from "./features/auth/authApiSlice";
 
 import RequireAuth from "./RequireAuth/RequireAuth";
 
@@ -21,12 +24,59 @@ import CourseDescriptionPage from "./Pages/CourseDescritptionPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
 import PageNotFound from "./Pages/PageNotFound";
 
-import Mylearning from "./components/MyLearning/MyLearning";
+// import Mylearning from "./components/MyLearning/MyLearning";
+import MyLearning from "./Pages/MyLearning";
 import ForgotPasswordPage from "./components/ForgotPassword/ForgotPassword";
 import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
+import { logOut } from "./features/auth/authSlice";
+
 import LandingPage from "./Pages/landingPage/LandingPage";
 
+const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
 function App() {
+  
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const [logout] = useLogoutMutation();
+
+  const handleLogout = useCallback(async () => {
+    try {
+      if (!user?.id) return;
+      const data = await logout().unwrap();
+      console.log("User logged out:", data);
+      dispatch(logOut());
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
+  }, [user?.id, dispatch, logout]);
+
+  useEffect(() => {
+    let timeout;
+
+    const resetTimer = () => {
+      if (!user?.id) return;
+      clearTimeout(timeout);
+      timeout = setTimeout(handleLogout, INACTIVITY_TIME);
+    };
+
+    const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
+    activityEvents.forEach((event) =>
+      window.addEventListener(event, resetTimer)
+    );
+
+    if (user?.id) {
+      resetTimer();
+    }
+
+    return () => {
+      clearTimeout(timeout);
+      activityEvents.forEach((event) =>
+        window.removeEventListener(event, resetTimer)
+      );
+    };
+  }, [handleLogout, user?.id]);
+
   return (
     <Router>
       <Routes>
@@ -45,7 +95,7 @@ function App() {
             <Route path="/diet-plan" element={<DietPlan />} />
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/my-learning" element={<Mylearning />} />
+            <Route path="/my-learning" element={<MyLearning />} />
           </Route>
 
           {/* Admin-specific routes */}
