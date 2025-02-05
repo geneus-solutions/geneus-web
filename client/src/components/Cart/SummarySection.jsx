@@ -83,6 +83,7 @@ const makePayment = async (amount) => {
                         razorpay_payment_id: response?.razorpay_payment_id,
                         razorpay_signature: response?.razorpay_signature,
                         user_id: user?.id,
+                        user_email: user?.email,
                         cart_details: cartDetails?.cart_items,
                     };
 
