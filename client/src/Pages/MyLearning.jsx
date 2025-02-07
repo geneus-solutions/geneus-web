@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 import { useMyLearningQuery } from "../features/MyLearning/LearningApiSlice";
@@ -8,20 +8,36 @@ import MyLearningCourseDetails from "../components/my_learningComponents/My_Lear
 // import MyLearningCourseContent from "../components/my_learningComponents/My_Learning_CourseContent";
 // import MyLearningAuthorInfo from "../components/my_learningComponents/My_Learning_AuthorInfo";
 
-import '../styles/My_Learning.css';
+import "../styles/My_Learning.css";
 
 const MyLearning = () => {
+  const { user } = useSelector((state) => state.auth);
 
-  const {user} = useSelector((state) => state.auth);
-    
-  const { data: courses } = useMyLearningQuery({ user_Id: user?.id }, { skip: !user?.id });
+  const {
+    data: courses,
+    isLoading,
+    // refetch,
+  } = useMyLearningQuery({ user_Id: user?.id }, { skip: !user?.id });
+  // const a = useMyLearningQuery({ user_Id: user?.id },
+  // { skip: !user?.id });
+  // console.log('this is user', a)
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [refetch]);
 
   return (
     <div className="dashboard">
-      <MyLearningSidebar data={courses}/>
-      <main className="main-content">
-        <MyLearningCourseDetails data={courses} />
-      </main>
+      {!isLoading && courses?.courses?.length >= 0 ? (
+        <>
+          <MyLearningSidebar data={courses} />
+          <main className="main-content">
+            <MyLearningCourseDetails data={courses} />
+          </main>
+        </>
+      ) : (
+        <p>No Course Purchase.</p>
+      )}
     </div>
   );
 };

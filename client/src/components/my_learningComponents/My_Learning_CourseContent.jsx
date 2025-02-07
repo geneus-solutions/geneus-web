@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 
-import "../../styles/My_Learning.css";
+import "../../styles/My_LearningCourseContent.css";
 
 
 const MyLearningCourseContent = ({data}) => {
@@ -10,9 +10,9 @@ const MyLearningCourseContent = ({data}) => {
   const location = useLocation();
   const currentContent = location?.state?.content;
   const courseId = location?.state?.courseId;
-
+  console.log('this is data', data);
   useEffect(() => {
-    if(!currentContent&&data){
+    if(!currentContent && data?.courseContent?.length>=0){
       navigate('/my-learning/', { state: {courseId,content:data?.courseContent[0] } });
     }
   }, [courseId,currentContent,data]);
@@ -23,8 +23,8 @@ const MyLearningCourseContent = ({data}) => {
   console.log(currentContent);
 
   return (
-    <div className="course-content">
-      <h3 style={{padding:'10px',paddingTop:0,margin:0,fontSize:'20px'}}>Course Content</h3>
+    <div className="course-content-learing">
+      <h3>Course Content</h3>
       <ul>
         {
           data?.courseContent?.map((content,index) => {

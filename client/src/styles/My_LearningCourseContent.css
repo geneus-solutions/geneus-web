@@ -1,0 +1,64 @@
+/* Container for the entire page */
+.page-container {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 300px; /* Adjust this value to match the /width of the sidebar */
+  }
+  
+  /* Sidebar styles */
+  .course-content-learing {
+    width: 400px; /* Adjust the width as needed */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #ffffff; /* Light gray background */
+    border-left: 1px solid #ddd;
+    padding: 10px;
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  }
+  
+  /* Heading styles */
+  .course-content-learing h3 {
+    padding: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd; /* Border below the logo */
+    margin: 0;
+  }
+
+  /* List styles */
+  .course-content-learing ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .course-content-learing ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd; /* Separator between list items */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .course-content-learing ul li:hover {
+    background-color: #e9e9e9; /* Light hover effect */
+  }
+  
+  /* Active content style */
+  .course-content-learing ul li .active {
+    color: #007bff; /* Blue color for active content */
+    font-weight: bold;
+  }
+  
+  /* Paragraph styles inside list items */
+  .course-content-learing ul li p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Time display style */
+  .course-content-learing ul li p:last-child {
+    color: #888;
+    font-size: 12px;
+  }
