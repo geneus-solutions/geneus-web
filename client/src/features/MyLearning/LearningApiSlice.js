@@ -10,5 +10,5 @@ export const learningApiSlice = apiSlice.injectEndpoints({
         }),
     }),
 });
-
+    
 export const { useMyLearningQuery } = learningApiSlice;

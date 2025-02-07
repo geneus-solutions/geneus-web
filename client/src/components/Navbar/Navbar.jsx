@@ -202,7 +202,7 @@ const Navbar = () => {
               <NavLink to="/cart" className="avatar-dropdown-item">
                 <FaCartArrowDown />
                 <div className="badge-notification">
-                  {cart?.cart_items?.length ? cartData.cart_items.length : 0}
+                  {cart?.cart_items?.length ? cartData?.cart_items?.length : 0}
                 </div>
               </NavLink>
             </li>
