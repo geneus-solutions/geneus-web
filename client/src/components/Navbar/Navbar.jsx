@@ -13,6 +13,7 @@ import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import logo from "../../assets/logo.png";
 import { logOut } from "../../features/auth/authSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
+import { apiSlice } from "../../app/api/apiSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const Navbar = () => {
       console.log("this is response", response);
       setIsDropdownOpen(false);
       dispatch(logOut());
-      dispatch(emptyCart());
+      dispatch(apiSlice.util.resetApiState());
       navigate("/");
     } catch (error) {
       console.log("this is logoutError", error);

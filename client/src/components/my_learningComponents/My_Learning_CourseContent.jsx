@@ -23,14 +23,14 @@ const MyLearningCourseContent = ({data}) => {
   console.log(currentContent);
 
   return (
-    <div className="course-content-learing">
+    <div className='course-content-learning'>
       <h3>Course Content</h3>
       <ul>
         {
           data?.courseContent?.map((content,index) => {
             return (
               <li key={index+1} onClick={()=>handleCurrentVideo(content)}>
-                <div style={{display:'flex',justifyContent:'space-between'}}>
+                <div>
                   <p>
                     <strong>{index+1} : </strong> 
                     <span className={currentContent?.contentTitle === content?.contentTitle&&"active"}>
