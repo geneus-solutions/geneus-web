@@ -67,7 +67,7 @@ const Course = ({ searchResults }) => {
 
   return (
     <div>
-      <CourseBanner imgSrc={img1} course={course} />
+      {/* <CourseBanner imgSrc={img1} course={course} /> */}
 
       {/* course drop down and search box */}
       <div className="search-dropdown-container">

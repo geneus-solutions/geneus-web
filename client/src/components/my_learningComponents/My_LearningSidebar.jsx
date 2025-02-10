@@ -21,7 +21,7 @@ const MyLearningSidebar = ({data}) => {
   }
 
   return (
-    <aside className="sidebar">
+    <>
       <h2 className="logo">My Courses</h2>
       <ul className="menu">
         {data?.courses?.map(course => {
@@ -34,7 +34,7 @@ const MyLearningSidebar = ({data}) => {
         <p>Settings</p>
         <p>Support</p>
       </div> */}
-    </aside>
+    </>
   );
 };
 

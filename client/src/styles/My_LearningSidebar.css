@@ -1,56 +1,46 @@
-.sidebar {
-  width: 250px; /* Adjust the width as needed */
-  height: full; /* Full height of the viewport */
-  background-color: #ffffff; /* Light grey background */
-  border-right: 1px solid #ddd; /* Border on the right side */
-  display: flex;
-  padding: 20px;
-  flex-direction: column;
-  overflow-y: scroll; /* Enable vertical scrolling */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
-}
 
 .logo {
-  padding: 20px;
-  font-size: 1.5em;
+  font-size: 24px;
   font-weight: bold;
-  border-bottom: 1px solid #ddd; /* Border below the logo */
-  margin: 0;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .menu {
-  list-style-type: none; /* Remove bullet points */
+  list-style: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1; /* Allow the menu to take up remaining space */
 }
 
 .menu li {
-  padding:10px 20px;
+  padding: 12px 15px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd; /* Border below each menu item */
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
 }
 
-/* .menu li:hover {
-  background-color: #e0e0e0; /* Light grey background on hover */
-/* } */ */
+.menu li:hover {
+  background-color: #1a252f; /* Darker shade on hover */
+}
 
-.menu li.active {
-  color: #000; /* White text for active item */
+.menu .active {
+  background-color: #1abc9c; /* Highlight active course */
+  font-weight: bold;
 }
 
 .settings {
-  padding: 20px;
-  border-top: 1px solid #ddd; /* Border above the settings section */
+  margin-top: auto;
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .settings p {
-  margin: 0;
-  padding: 5px 0;
+  margin: 8px 0;
   cursor: pointer;
+  transition: color 0.3s ease-in-out;
 }
 
 .settings p:hover {
-  color: #007bff; /* Blue text on hover */
+  color: #1abc9c; /* Highlight setting options */
 }
