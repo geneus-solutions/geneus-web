@@ -12,9 +12,6 @@
   transition: right 0.3s ease-in-out;
 }
 
-/* .course-content-learning.open {
-  right: 0; /* Sidebar slides in */
-/* } */ */
 
 .course-content-learning h3 {
   font-size: 20px;
