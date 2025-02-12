@@ -29,7 +29,7 @@ const Background = ({ course }) => {
 
       <div className="iframe">
       <iframe
-        src={course?.courseContent[0]?.url}
+        src="https://www.youtube.com/embed/2eTIgVyBnNg?rel=0&controls=0&showinfo=0&modestbranding=1"
         width="100%"
         height="300px"
         allow="autoplay"
