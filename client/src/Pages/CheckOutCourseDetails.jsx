@@ -118,13 +118,13 @@ const CheckOutCourseDetails = () => {
 
       {/* Coupon and Summary Sections */}
       <div className="coupon-summary-container">
-        <div className="coupon-section">
+        {/* <div className="coupon-section">
           <CouponSection
             validCoupons={validCoupons}
             couponCode={couponCode}
             setCouponCode={setCouponCode}
           />
-        </div>
+        </div> */}
         <div className="summary-section-checkout">
           <SummarySection
             cartDetails={cartDetails}
