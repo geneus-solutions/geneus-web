@@ -1,0 +1,55 @@
+.visitor-container {
+    max-width: 80%; /* Set container width to 80% */
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.visitor-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.visitor-table-container {
+    max-height: 100vh; /* Fixed height for scrollable content */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 10px;
+    position: relative;
+    width: 100%; /* Ensure the table container takes full width of its parent */
+}
+
+.visitor-table {
+    width: 100%; /* Table takes the full width of the container */
+    border-collapse: collapse;
+}
+
+.visitor-table th,
+.visitor-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.visitor-table th {
+    background: #007BFF;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    top: 0; /* Stick the header to the top */
+    z-index: 1; /* Ensure the header is above the body rows */
+}
+
+.visitor-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.no-data {
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+}

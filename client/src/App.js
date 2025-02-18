@@ -31,6 +31,7 @@ import ResetPasswordPage from "./components/ResetPassword/ResetPassword";
 import { logOut } from "./features/auth/authSlice";
 
 import LandingPage from "./Pages/landingPage/LandingPage";
+import VisitorData from "./Pages/adminPages/visitorData/VisitorData";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -103,6 +104,7 @@ function App() {
             {/* Add here your admin specific route */}
             <Route path="/add-course" element={<AddCourse />} />
             <Route path="/add-product" element={<AddProduct />} />
+            <Route path="/visitor-data" element={<VisitorData/>}/>
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
