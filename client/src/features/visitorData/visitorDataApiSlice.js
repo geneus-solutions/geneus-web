@@ -3,9 +3,9 @@ import { apiSlice } from "../../app/api/apiSlice";
 export const visitorDataApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         visitorData: builder.query({
-            query: () => {
+            query: ({date}) => {
                 return {
-                url: `/getvisitor`,
+                url: `/getvisitor/${date}`,
                 method: 'GET',
             }},
         })
