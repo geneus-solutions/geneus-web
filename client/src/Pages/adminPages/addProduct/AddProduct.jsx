@@ -40,9 +40,9 @@ const AddProduct = () => {
 
   return (
     <div className="product-container">
-      <h2 className="form-title">Add your product</h2>
+      <h2 className="form-title-add-product">Add your product</h2>
       <form onSubmit={handleSubmit} className="product-form">
-        <div className="form-group">
+        <div className="form-group-add-product">
           <label>Product Name</label>
           <input
             type="text"
@@ -54,7 +54,7 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group-add-product">
           <label>Calories</label>
           <input
             type="number"
@@ -66,7 +66,7 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group-add-product">
           <label>Protein (g)</label>
           <input
             type="number"
@@ -78,7 +78,7 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group-add-product">
           <label>Carbs (g)</label>
           <input
             type="number"
@@ -90,7 +90,7 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group-add-product">
           <label>Fat (g)</label>
           <input
             type="number"
@@ -102,7 +102,7 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group-add-product">
           <label>Serving Size (g)</label>
           <input
             type="text"
@@ -115,7 +115,7 @@ const AddProduct = () => {
         </div>
         {error && <p className="error-message">{error}</p>}
 
-        <button type="submit" className="submit-button" disabled={isLoading}>
+        <button type="submit" className="submit-button-add-product" disabled={isLoading}>
           {isLoading ? "Adding Product..." : "Add Product"}
         </button>
       </form>
