@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import MyLearningCourseContent from "./My_Learning_CourseContent";
 
@@ -20,6 +20,7 @@ const MyLearningCourseDetails = ({ data }) => {
     }
   }, [courseId, data]);
 
+  console.log("this is course data", currentContent);
   return (
     <div className="course-details">
       <div className="course-content">
@@ -38,7 +39,12 @@ const MyLearningCourseDetails = ({ data }) => {
           ></iframe>
         </div>
         <div className="tabs">
-          {["Overview", "Requirements", "Learnings", /*"Reviews"*/].map((tab) => (
+          {[
+            "Notes",
+            "Overview",
+            "Requirements",
+            "Learnings" /*"Reviews"*/,
+          ].map((tab) => (
             <button
               key={tab}
               className={selectedTab === tab ? "active" : ""}
@@ -50,6 +56,24 @@ const MyLearningCourseDetails = ({ data }) => {
         </div>
 
         <div className="tab-content">
+          {selectedTab === "Notes" && (
+            <div className="about-course">
+              {currentContent?.notes && (
+                <>
+                  <h2>Drive Links</h2>
+                  {currentContent?.driveLinks?.map((val, index) => (
+                  <p>
+                    <p>Time Project: Drive Link</p>
+                    <Link to={val} target="_blank" rel="noopener noreferrer">
+                      {" "}
+                      Click here
+                    </Link>
+                  </p>
+                  ))}
+                </>
+              )}
+            </div>
+          )}
           {selectedTab === "Overview" && (
             <div className="about-course">
               <h2>About Course</h2>

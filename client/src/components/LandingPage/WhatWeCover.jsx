@@ -4,7 +4,7 @@ import "./WhatWeCover.css";
 const WhatWeCover = ({heading, description}) => {
   return (
     <div className="what-we-cover">
-      <div className="heading">
+      <div className="heading-what-we-cover">
         <p className="trading-beyond-stock">
           {heading}
         </p>

@@ -67,6 +67,17 @@
     cursor: pointer;
     transition: 0.3s;
   }
+  .delete-btn {
+    padding: 10px 15px;
+    background: rgb(173, 23, 23);
+    color: #1e293b;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
   
   filter-btn:hover {
     background: #eab308;

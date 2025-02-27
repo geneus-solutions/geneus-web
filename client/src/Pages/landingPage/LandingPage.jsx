@@ -104,7 +104,7 @@ const LandingPage = () => {
               ))}
           </div>
           <Mentor />
-          {/* <FAQ course={course} /> */}
+          <FAQ course={course} />
         </div>
       ) : (
         <h3>Data Not Found</h3>

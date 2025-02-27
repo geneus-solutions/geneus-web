@@ -32,6 +32,7 @@ import { logOut } from "./features/auth/authSlice";
 
 import LandingPage from "./Pages/landingPage/LandingPage";
 import VisitorData from "./Pages/adminPages/visitorData/VisitorData";
+import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -80,6 +81,8 @@ function App() {
 
   return (
     <Router>
+      <div>
+      <PrivacyPolicy/>
       <Routes>
         <Route path="/login" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>
@@ -112,6 +115,7 @@ function App() {
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      </div>
     </Router>
   );
 }
