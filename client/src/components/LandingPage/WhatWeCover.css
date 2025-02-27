@@ -6,12 +6,12 @@
   );
   background-color: rgba(255, 255, 255, 1);
   border-radius: 16px;
-  height: 208px;
+  height: 100px;
   position: relative;
   width: 560px;
 }
 
-.what-we-cover .heading {
+.what-we-cover .heading-what-we-cover {
   height: 56px;
   left: 20px;
   position: absolute;
@@ -43,6 +43,6 @@
   letter-spacing: 0;
   line-height: 24px;
   position: absolute;
-  top: 107px;
+  top: 60px;
   width: 499px;
 }

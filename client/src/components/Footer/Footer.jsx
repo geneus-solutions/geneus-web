@@ -28,7 +28,7 @@ const Footer = () => {
           <ul>
             {/* <li><FaMapMarkerAlt /> Bengaluru </li> */}
             <li><FaEnvelope /> support@geneussolutions.in </li>
-            <li><FaPhoneAlt /> +91 9148950239 </li>
+            {/* <li><FaPhoneAlt /> +91 9148950239 </li> */}
           </ul>
         </div>
       </div>

@@ -11,19 +11,23 @@ const FAQ = ({course}) => {
 
   const faqs = [
     {
-      question: "When and where is the workshop and how long it would be?",
+      question: "How long do I have access to the course?",
       answer:
-        "The workshop will be held on Saturday, 8 Feb 2025, 07:00 p.m. IST. The duration will be around 3 hours and the platform will be Zoom App.",
+      "You’ll have 2 years of unlimited access to the course from the date of enrollment. This means you can learn at your own pace without any rush.",
     },
-    { question: "Do I need to have prior knowledge of trading?", answer: "No prior knowledge is required." },
-    { question: "What should I be prepared with before the workshop starts?", answer: "A notebook, pen, and an open mind." },
-    { question: "Will I get the recordings of the workshop?", answer: "Yes, the recordings will be provided." },
+    { question: "Are the courses live or recorded?", answer: "All our courses are pre-recorded, so you can watch them anytime, anywhere, and revisit lessons whenever needed." },
+    { question: "Can I get a refund if I’m not satisfied with the course?", answer: "Unfortunately, we do not offer refunds. We recommend checking the course details, previewing available content, and ensuring it fits your needs before purchasing." },
+    { question: "Will I receive a certificate after completing the course?", answer: "Yes! Once you complete all the required lessons and assessments, you’ll receive a certificate of completion that you can share on LinkedIn or add to your resume." },
     {
       question:
-        "I’ve heard people losing a lot of money in the stock market and advise us to not invest in it, as the lucky one can only make money from it. Is that true?",
-      answer: "The workshop aims to provide you with skills to make informed decisions.",
+        "Do I need any prior knowledge to take the course?",
+      answer: "Each course has different requirements. Some are beginner-friendly, while others may need prior experience. Check the course description for specific details before enrolling.",
     },
-    { question: "Will there be any refund?", answer: "Refunds will be provided under specific conditions." },
+    {
+      question:
+        "Message of Cookie : -",
+      answer: "Hey there! We use cookies to make your experience smoother, tastier, and more fun. They help us personalize content and improve our site just for you. Keep browsing if that’s cool with you, or check out our Privacy Policy page to learn more!",
+    },
   ];
 
   return (

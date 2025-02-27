@@ -89,9 +89,9 @@ const Contact = () => {
               <i className="fa fa-envelope" aria-hidden="true"></i>{" "}
               support@geneussolutions.in
             </p>
-            <p>
+            {/* <p>
               <i className="fa fa-phone" aria-hidden="true"></i> +91 9148950239
-            </p>
+            </p> */}
           </div>
         </div>
         <div

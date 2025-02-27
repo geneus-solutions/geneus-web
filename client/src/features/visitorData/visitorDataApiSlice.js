@@ -8,8 +8,15 @@ export const visitorDataApiSlice = apiSlice.injectEndpoints({
                 url: `/getvisitor/${date}`,
                 method: 'GET',
             }},
+        }),
+        deleteVisitorData: builder.mutation({
+            query: ({date}) => {
+                return {
+                url: `/deletevisitor/${date}`,
+                method: 'DELETE',
+            }},
         })
     }),
 });
 
-export const { useVisitorDataQuery } = visitorDataApiSlice;
+export const { useVisitorDataQuery, useDeleteVisitorDataMutation } = visitorDataApiSlice;
