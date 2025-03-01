@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  useDeleteVisitorDataByIdMutation,
   useDeleteVisitorDataMutation,
   useVisitorDataQuery,
 } from "../../../features/visitorData/visitorDataApiSlice";
@@ -9,29 +10,40 @@ import PopUp from "./PopUp";
 import { toast } from "react-toastify";
 
 const VisitorData = () => {
-  const [date, setDate] = useState(""); // Holds input date
-  const [selectedDate, setSelectedDate] = useState(""); // Stores the date when "Filter" is clicked
+  const [dateFrom, setDateFrom] = useState(new Date().toISOString().split("T")[0]); // Holds input date
+  const [dateTo, setDateTo] = useState(new Date().toISOString().split("T")[0]); // Holds input date
+  const [selectedDateFrom, setSelectedDateFrom] = useState(new Date().toISOString().split("T")[0]); // Stores the date when "Filter" is clicked
+  const [selectedDateTo, setSelectedDateTo] = useState(new Date().toISOString().split("T")[0]); // Stores the date when "Filter" is clicked
   const [showPopUp, setShowPopUp] = useState(false);
   // Fetch data only when selectedDate is available
   const { data: visitorData, isLoading } = useVisitorDataQuery(
-    { date: selectedDate },
-    { skip: !selectedDate } // Fetch only when selectedDate is not empty
+    { dateFrom: selectedDateFrom, dateTo: selectedDateTo },
+    { skip: !selectedDateFrom || !selectedDateTo} // Fetch only when selectedDate is not empty
   );
 
   const [deleteVisitorData] = useDeleteVisitorDataMutation();
-  const handleDateChange = (event) => {
-    setDate(event.target.value); // Update input date state
+
+  const [deleteVisitorDataById] = useDeleteVisitorDataByIdMutation();
+
+  const handleDateFromChange = (event) => {
+    setDateFrom(event.target.value); // Update input date state
+  };
+
+  const handleDateToChange = (event) => {
+    setDateTo(event.target.value); // Update input date state
   };
 
   const handleFilterClick = () => {
-    setSelectedDate(date); // Trigger API call when "Filter" is clicked
+    setSelectedDateFrom(dateFrom); // Trigger API call when "Filter" is clicked
+    setSelectedDateTo(dateTo);
   };
 
+  console.log('this is selectedDateFrom',selectedDateFrom, selectedDateTo)
   const handleYesClick = async () => {
     try {
         const res = await deleteVisitorData(
-          { date: selectedDate },
-          { skip: !selectedDate }
+          { dateFrom: selectedDateFrom, dateTo: selectedDateTo },
+          { skip: !selectedDateFrom || !selectedDateTo }
         ).unwrap();
         console.log(res);
         toast.success(res.message);
@@ -45,33 +57,47 @@ const VisitorData = () => {
     setShowPopUp(!showPopUp);
   };
 
+  const handleDeleteByID = async (id) =>{
+    console.log('id', id)
+    try{
+      const res = await deleteVisitorDataById({id}).unwrap();
+      console.log(res);
+    }catch(error){
+      console.log('this is error', error)
+    }
+  }
+
   return (
     <div className="visitor-container">
       <h2 className="visitor-title">Visitor Data</h2>
 
       {/* Date Input and Filter Button */}
       <div className="filter-container">
-        <input type="date" value={date} onChange={handleDateChange} />
+        From
+        <input type="date" value={dateFrom} onChange={handleDateFromChange} />
+        To
+        <input type="date" value={dateTo} onChange={handleDateToChange}  min={dateFrom}
+        />
         <button
           className="filter-btn"
           onClick={handleFilterClick}
-          disabled={!date}
+          disabled={!dateFrom || !dateTo}
         >
           Filter
         </button>
         <button
           className="delete-btn"
-          disabled={!date || visitorData?.data?.length<=0}
+          disabled={!dateFrom || !dateTo || visitorData?.data?.length<=0}
           onClick={() => setShowPopUp(!showPopUp)}
         >
-          <AiFillDelete style={{ fontSize: 22 }} />
+          <AiFillDelete style={{ fontSize: 22, color: '#FFFFFF'}} />
         </button>
       </div>
       {showPopUp && (
         <PopUp handleYesClick={handleYesClick} handleNoClick={handleNoClick} />
       )}
       {/* Show message when no date is selected */}
-      {!selectedDate ? (
+      {!selectedDateFrom || !selectedDateTo ? (
         <p className="no-data">
           Please select a date and click "Filter" to fetch && "Delete" to delete the visitor data
         </p>
@@ -83,18 +109,22 @@ const VisitorData = () => {
             <thead>
               <tr>
                 <th>S.No.</th>
+                <th>Date</th>
                 <th>IP Address</th>
                 <th>City</th>
                 <th>Country</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {visitorData?.data?.map((visitor, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
+                  <td>{new Date(visitor.timestamp).toISOString().split('T')[0]}</td>
                   <td>{visitor.ip}</td>
                   <td>{visitor.city}</td>
                   <td>{visitor.country}</td>
+                  <td><AiFillDelete style={{marginLeft: '15px', fontSize: '22px', color: 'red'}} onClick={()=>handleDeleteByID(visitor._id)}/></td>
                 </tr>
               ))}
             </tbody>

@@ -4,6 +4,7 @@ import { useCourceQuery } from "../features/cources/courceApiSlice";
 import CourseDescription from "../components/Courses/CourseDescription";
 import CourseBanner from "../components/Courses/CourseBanner";
 import { useSelector } from "react-redux";
+import FAQ from "../components/LandingPage/FAQ";
 
 const CourseDescriptionPage = () => {
   const { id } = useParams();
@@ -13,6 +14,8 @@ const CourseDescriptionPage = () => {
     <div>
       <CourseBanner imgSrc={img1} title="A Course You'll Actually Finish" course={course} />
       <CourseDescription courseDetails={course} />
+
+      <FAQ course={course} titleColor={"#000000"} answerColor={"#000000"}/>
     </div>
   );
 };

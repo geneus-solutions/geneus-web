@@ -39,38 +39,45 @@ const MyLearningCourseDetails = ({ data }) => {
           ></iframe>
         </div>
         <div className="tabs">
-          {[
-            "Notes",
-            "Overview",
-            "Requirements",
-            "Learnings" /*"Reviews"*/,
-          ].map((tab) => (
-            <button
-              key={tab}
-              className={selectedTab === tab ? "active" : ""}
-              onClick={() => setSelectedTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
+          {["Notes", "Overview", "Requirements", "Learnings" /*"Reviews"*/].map(
+            (tab) => (
+              <button
+                key={tab}
+                className={selectedTab === tab ? "active" : ""}
+                onClick={() => setSelectedTab(tab)}
+              >
+                {tab}
+              </button>
+            )
+          )}
         </div>
 
         <div className="tab-content">
           {selectedTab === "Notes" && (
             <div className="about-course">
-              {currentContent?.notes && (
+              {currentContent?.notes ? (
                 <>
-                  <h2>Drive Links</h2>
-                  {currentContent?.driveLinks?.map((val, index) => (
-                  <p>
-                    <p>Time Project: Drive Link</p>
-                    <Link to={val} target="_blank" rel="noopener noreferrer">
-                      {" "}
-                      Click here
-                    </Link>
-                  </p>
+                  <h2>Notes</h2>
+                  {currentContent?.notes?.map((val, index) => (
+                    <p>
+                      <p>Real Time Project:</p>
+                      <Link to={val} target="_blank" rel="noopener noreferrer">
+                        {" "}
+                        Click here
+                      </Link>
+                    </p>
                   ))}
                 </>
+              ) : (
+                courseData.notes && (
+                  <>
+                    <h2>Notes</h2>
+                    <Link to={courseData?.notes?.notesUrl}
+                    target="_blank" rel="noopener noreferrer">
+                      {courseData?.notes?.notesTitle}
+                    </Link>
+                  </>
+                )
               )}
             </div>
           )}

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import './CourseDescription.css';
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
-import { Container, Grid, Card, CardContent, Typography, Button, Link } from "@mui/material";
 import reactStringReplace from "react-string-replace";
 import LearningPoints from "./LearningPoints";
 import CourseContent from "./CourseContent";
@@ -14,9 +14,9 @@ import InstructorCard from "./InstructorCard";
 import DescriptionCourseCard from "./DescriptionCourseCard";
 
 import CourseContent1 from "./CourseContent1";
+import CourseNotes from "./CourseNotes";
 
 const CourseDescription = ({ courseDetails }) => {
-
   const [discount, setDiscount] = useState(0);
   const [len, setLen] = useState(0);
 
@@ -40,6 +40,7 @@ const CourseDescription = ({ courseDetails }) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
 
+  //Unnassasaary code:-
   useEffect(() => {
     const fetchVisitorData = async () => {
       const visitorDataFetched = sessionStorage.getItem("visitorDataFetched");
@@ -74,6 +75,8 @@ const CourseDescription = ({ courseDetails }) => {
         console.error("Error saving visitor data:", err);
       }
     };
+
+    //Unnassasaary code:-
 
     fetchVisitorData();
   }, []);
@@ -138,7 +141,11 @@ const CourseDescription = ({ courseDetails }) => {
       const formattedText = reactStringReplace(
         text,
         /\*\*(.*?)\*\*/g,
-        (match, i) => <span key={i} className="bold">{match}</span>
+        (match, i) => (
+          <span key={i} className="bold">
+            {match}
+          </span>
+        )
       );
       return formattedText;
     };
@@ -151,7 +158,9 @@ const CourseDescription = ({ courseDetails }) => {
         courseDetails?.aboutCourse?.details?.map((detail) => formatText(detail))
       );
       setFormattedWhyCourse(
-        courseDetails?.whythisCourse?.details?.map((detail) => formatText(detail))
+        courseDetails?.whythisCourse?.details?.map((detail) =>
+          formatText(detail)
+        )
       );
     }
   }, [courseDetails]);
@@ -170,7 +179,10 @@ const CourseDescription = ({ courseDetails }) => {
           course_price: courseDetails.price,
           course_discountPrice: courseDetails.discount_price,
         };
-        const ans = await addToCart({ userId: userDetail?.id, courseItem: course });
+        const ans = await addToCart({
+          userId: userDetail?.id,
+          courseItem: course,
+        });
         toast.info(ans?.data?.message);
       } else {
         toast.info("Please Log in to add course to cart.");
@@ -181,40 +193,50 @@ const CourseDescription = ({ courseDetails }) => {
     }
   };
 
+  console.log("thsi ss coure Details", courseDetails);
   return (
-    <Container>
-      <DescriptionCourseCard courseDetails={courseDetails} discount={discount} handleAddToCart={handleAddToCart} />
-      
+    <div style={{padding: '100px'}}>
+      <DescriptionCourseCard
+        courseDetails={courseDetails}
+        discount={discount}
+        handleAddToCart={handleAddToCart}
+      />
+
       {/* What you will Learn */}
-      <LearningPoints title="What you will learn?" points={courseDetails?.learnings} />
-      
+      <LearningPoints
+        title="What you will learn?"
+        points={courseDetails?.learnings}
+      />
+
       {/* Course Content */}
-      {courseContents?.length > 0&&<CourseContent1 content={courseContents} />}
+      {courseContents?.length > 0 && (
+        <CourseContent1 content={courseContents} />
+      )}
 
       {/* Course Notes */}
-      <Grid container spacing={2}>
-        <Grid item xs={12} lg={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h4" gutterBottom>
-                Course Notes
-              </Typography>
+      <CourseNotes userDetail={userDetail} courseDetails={courseDetails}/>
+            {/* <div className="notes-card-content">
+              <h4 className="notes-heading">Course Notes</h4>
               {userDetail?.userId !== -1 ? (
-                <Typography variant="body1">
-                  <Link href={courseNotes?.notesUrl} target="_blank" download={courseNotes?.notesTitle}>
+                <p>
+                  <a
+                    href={courseNotes?.notesUrl}
+                    target="_blank"
+                    download={courseNotes?.notesTitle}
+                  >
                     {courseNotes?.notesTitle}
-                  </Link>
-                </Typography>
+                  </a>
+                </p>
               ) : (
-                <Typography variant="body1">Get the full course notes by purchasing the course today.</Typography>
+                <p>Get the full course notes by purchasing the course today.</p>
               )}
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+            </div> */}
 
       {/* Course Requirements */}
-      <CourseOtherDetails title="Requirements" requirements={courseDetails?.requirements} />
+      <CourseOtherDetails
+        title="Requirements"
+        requirements={courseDetails?.requirements}
+      />
 
       {/* Course Description */}
       <Description
@@ -226,14 +248,17 @@ const CourseDescription = ({ courseDetails }) => {
       />
 
       {/* Who this course is for */}
-      <CourseOtherDetails title="Who this course is for" requirements={courseDetails?.whoitsfor} />
+      <CourseOtherDetails
+        title="Who this course is for"
+        requirements={courseDetails?.whoitsfor}
+      />
 
       {/* Display mentor image */}
       <InstructorCard mentorImage={courseDetails} />
 
       {/* Ending section */}
-      <CourseSection title={formattedCourseOutro} />
-    </Container>
+      {/* <CourseSection title={formattedCourseOutro} /> */}
+    </div>
   );
 };
 
