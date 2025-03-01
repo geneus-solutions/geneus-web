@@ -34,9 +34,10 @@ const MyLearning = () => {
     }
   }, [courseId, courses]);
 
+  console.log(courses, 'this is courses')
   return (
     <div className="dashboard">
-      {!isLoading && courses?.courses?.length >= 0 ? (
+      {!isLoading && courses?.courses?.length > 0 ? (
         <>
           <aside className="sidebar">
             <MyLearningSidebar data={courses} />

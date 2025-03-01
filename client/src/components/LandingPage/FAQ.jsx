@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './FAQ.css';
 import Disclaimer from "./Desclaimer";
 
-const FAQ = ({course}) => {
+const FAQ = ({course, titleColor, answerColor }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleFAQ = (index) => {
@@ -32,14 +32,14 @@ const FAQ = ({course}) => {
 
   return (
     <div className="faq-container">
-      <h1 className="faq-title">FAQ's</h1>
+      <h1 className="faq-title" style={{color: titleColor}}>FAQ's</h1>
       <div className="faq-items">
         {faqs.map((faq, index) => (
           <div key={index} className="faq-item">
             <div className="faq-question" onClick={() => toggleFAQ(index)}>
               <span className="arrow">{activeIndex === index ? "▼" : "▶"}</span> {faq.question}
             </div>
-            {activeIndex === index && <div className="faq-answer">{faq.answer}</div>}
+            {activeIndex === index && <div className="faq-answer" style={{color: answerColor}}>{faq.answer}</div>}
           </div>
         ))}
       </div>

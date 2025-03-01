@@ -1,149 +1,17 @@
-/* CourseDescription.css */
 
-/* Add general styles for mobile devices */
-@media (max-width: 767px) {
-    /* Adjust card image size */
-    #img1 {
-      max-width: 100%;
-      height: auto;
-    }
-  
-    /* Center align card title and details */
-    .text-dark.fs-2.fw-bold {
-      text-align: center;
-    }
-  
-    /* Adjust validity period font size */
-    .validity {
-      font-size: 12px;
-    }
-  
-    /* Adjust price font size */
-    .text-danger.fs-3 {
-      font-size: 18px;
-    }
-  
-    /* Center align add to cart button */
-    .text-center {
-      text-align: center;
-    }
-  
-    /* Adjust ticks list layout */
-    .ticks {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  
-    /* Adjust course contents layout */
-    .content-ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      /*list-style: none;
-      padding: 0;*/
-    }
-    .div1-content-list {
-        width: 100%;
-        float: left;
-        padding: 16px;
-    }
-    .course-contents {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 20px;
-        height: 100vh; /* Ensure the component takes up the full viewport height */
-    }
-    
-    .content-list {
-        width: 100%;
-        flex: 1;
-        background-color: #f0f0f0;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        margin-right: 20px;
-        max-height: 100%; /* Limit content list height */
-        overflow: auto; /* Add a scrollbar when content exceeds the container height */
-    }
-  
-    /* Adjust video player size */
-    .video-size {
-      width: 100%;
-      height: 300px;
-    }
-  
-    /* Adjust requirements list layout */
-    .div-margin ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  
-    /* Adjust description layout */
-    .div-margin {
-      margin: 3px;
-      width: 100%;
-    }
-  
-    /* Adjust who this course is for list layout */
-    .div-margin ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
 
-    .content-li1 {
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      background-color: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      font-size: 12px;
-  }
-  .content-li2 {
-      cursor: pointer;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      background-color: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      transition: background-color 0.2s;
-      font-size: 12px;
-  }
-  
-  .content-li2:hover {
-      background-color: #e0e0e0;
-  }
 
-}
-.colorful-title {
-    color: blue;
+.notes-card-content {
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-.requirements-text {
-    white-space: nowrap; /* Prevent text from wrapping */
-    text-overflow: ellipsis; /* Show an ellipsis (...) for overflow */
-}
-
-
-/* Add this to your CSS file or style tag */
-.course-image {
-    width: 100%; /* Adjust as needed */
-    height: 200px; /* Set a fixed height */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-    border-radius: 8px; /* Optional: adds rounded corners */
-}
-
-.mentor-image {
-    width: 100%; /* Adjust as needed */
-    height: 250px; /* Set a fixed height */
-    object-fit: contain; /* Ensures the image covers the area without distortion */
-    border-radius: 8px; /* Optional: adds rounded corners */
-    margin-left: 70px;
+.notes-heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+  border-bottom: 3px solid #00b0ff;
+  padding-bottom: 5px;
+  display: inline-block;
+  font-weight: bold;
+  text-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }

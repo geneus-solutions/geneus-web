@@ -1,6 +1,6 @@
 /* CourseDetails.css */
 
-.course-details h2 {
+.course-details-description h2 {
     font-size: 24px;
     margin-bottom: 10px;
     border-bottom: 3px solid #00b0ff;
@@ -10,7 +10,7 @@
     text-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
   }
 
-.course-details {
+.course-details-description {
     font-family: Arial, sans-serif;
     padding: 20px;
   }

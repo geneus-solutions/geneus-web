@@ -6,7 +6,7 @@ const Description = ({ courseIntro, aboutCourse, whyCourseTitle,
     whyCourseIntro, whyCourseDetails
  }) => {
   return (
-    <div className="course-details">
+    <div className="course-details-description">
         <h2>Description</h2>
       <div className="course-section">
         <h5><b>What's this course about?</b></h5>
