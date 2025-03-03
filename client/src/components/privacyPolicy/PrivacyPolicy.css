@@ -1,54 +1,69 @@
 .wrap {
-    margin: 0 auto;
-    max-width: full;
-    position: fixed;
-    bottom: 0px;
+  margin: 0 auto;
+  max-width: full;
+  position: fixed;
+  bottom: 0px;
+}
+.privacy-policy {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 20;
+
+  transform: translateY(100%);
+  opacity: 0;
+
+  /* Animation */
+  animation: slideUp 1s ease-in-out 0s forwards;
+}
+
+/* Keyframes for animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
   }
-  .privacy-policy {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    z-index: 20;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  .privacy-policy .privacy-policy__wrap {
-    margin: 0 auto;
-    max-width: 1024px;
-    position: relative;
-    bottom: 0;
-    padding: 10px;
-  }
-  
-  .privacy-policy__text {
-    /* position: relative;   */
-    text-align: left;
-  }
-  
-  .text__link {
-    color: white;
-    font-family: "Roboto", sans-serif;
-    text-decoration: underline;
-  }
-  
-  .bg_grad {
-    padding: 10px 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background: linear-gradient(to right, #183864, #0b97a8);
-    color: #fff;
-  }
-  
-  .text_got-it {
-    background: white;
-    border: none;
-    padding: 0.4rem 2rem;
-    border-radius: 1rem;
-    color: #183864;
-    font-weight: bold;
-    margin-left: 2rem;
-    font-family: "Roboto", sans-serif;
-  }
-  
-  .text_got-it {
-    cursor: pointer;
-  }
-  
+}
+
+.privacy-policy.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.privacy-policy__text {
+  /* position: relative;   */
+  text-align: left;
+}
+
+.text__link {
+  color: white;
+  font-family: "Roboto", sans-serif;
+  text-decoration: underline;
+}
+
+.bg_grad {
+  padding: 10px 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: linear-gradient(to right, #183864, #0b97a8);
+  color: #fff;
+}
+
+.text_got-it {
+  background: white;
+  border: none;
+  padding: 0.4rem 2rem;
+  border-radius: 1rem;
+  color: #183864;
+  font-weight: bold;
+  margin-left: 2rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.text_got-it {
+  cursor: pointer;
+}
