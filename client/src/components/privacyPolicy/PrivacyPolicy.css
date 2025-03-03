@@ -1,6 +1,6 @@
 .wrap {
     margin: 0 auto;
-    max-width: 1024px;
+    max-width: full;
     position: fixed;
     bottom: 0px;
   }
@@ -20,7 +20,7 @@
   
   .privacy-policy__text {
     /* position: relative;   */
-    text-align: center;
+    text-align: left;
   }
   
   .text__link {

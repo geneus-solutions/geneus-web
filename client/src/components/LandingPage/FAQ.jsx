@@ -21,13 +21,8 @@ const FAQ = ({course, titleColor, answerColor }) => {
     {
       question:
         "Do I need any prior knowledge to take the course?",
-      answer: "Each course has different requirements. Some are beginner-friendly, while others may need prior experience. Check the course description for specific details before enrolling.",
-    },
-    {
-      question:
-        "Message of Cookie : -",
-      answer: "Hey there! We use cookies to make your experience smoother, tastier, and more fun. They help us personalize content and improve our site just for you. Keep browsing if that’s cool with you, or check out our Privacy Policy page to learn more!",
-    },
+      answer: "Yes! Once you complete all the required lessons and assessments, you’ll receive a certificate of completion No worries! Each course comes with its own prerequisites, which you’ll find in the course description. Some courses are perfect for beginners, while others may need a little background knowledge—but don’t worry, we’ll guide you every step of the way!",
+    }
   ];
 
   return (
