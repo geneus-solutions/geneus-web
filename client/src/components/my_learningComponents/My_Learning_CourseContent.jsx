@@ -20,14 +20,14 @@ const MyLearningCourseContent = ({data}) => {
   const handleCurrentVideo = (content) => {
     navigate('/my-learning/', { state: { courseId,content } });
   }
-  console.log(currentContent);
+  
 
   return (
     <div className='course-content-learning'>
       <h3>Course Content</h3>
       <ul>
         {
-          data?.courseContent?.map((content,index) => {
+          data?.courseContent?.slice(0, -1)?.map((content,index) => {
             return (
               <li key={index+1} onClick={()=>handleCurrentVideo(content)}>
                 <div>

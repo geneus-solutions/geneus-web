@@ -234,7 +234,7 @@ const CourseDescription = ({ courseDetails }) => {
 
       {/* Course Requirements */}
       <CourseOtherDetails
-        title="Prerequisite Requirements"
+        title="Prerequisite"
         requirements={courseDetails?.requirements}
       />
 
