@@ -27,7 +27,9 @@ const PrivacyPolicy = () => {
            We use cookies to make your experience smoother. They help us personalize content and improve our site just for you. 
            {/* or check out our Privacy Policy page to learn more! */}
              {/* <Link href="#href" className="text__link">Learn more</Link> */}
+             <div>
              <button className="text_got-it" id="got-it-button" onClick={()=>handleClose()}>Got it!</button>
+             </div>
            </div>
          </div>
        </div>
