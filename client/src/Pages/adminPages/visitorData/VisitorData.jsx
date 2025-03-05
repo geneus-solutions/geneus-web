@@ -124,7 +124,7 @@ const VisitorData = () => {
                   <td>{visitor.ip}</td>
                   <td>{visitor.city}</td>
                   <td>{visitor.country}</td>
-                  <td><AiFillDelete style={{marginLeft: '15px', fontSize: '22px', color: 'red'}} onClick={()=>handleDeleteByID(visitor._id)}/></td>
+                  <td><AiFillDelete style={{marginLeft: '15px', fontSize: '22px', color: 'red', cursor: 'pointer'}} onClick={()=>handleDeleteByID(visitor._id)}/></td>
                 </tr>
               ))}
             </tbody>
