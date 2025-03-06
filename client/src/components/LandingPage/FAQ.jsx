@@ -17,11 +17,11 @@ const FAQ = ({course, titleColor, answerColor }) => {
     },
     { question: "Are the courses live or recorded?", answer: "All our courses are pre-recorded, so you can watch them anytime, anywhere, and revisit lessons whenever needed." },
     { question: "Can I get a refund if I’m not satisfied with the course?", answer: "Unfortunately, we do not offer refunds. We recommend checking the course details, previewing available content, and ensuring it fits your needs before purchasing." },
-    { question: "Will I receive a certificate after completing the course?", answer: "Yes! Once you complete all the required lessons and assessments, you’ll receive a certificate of completion that you can share on LinkedIn or add to your resume." },
+    { question: "Will I receive a certificate after completing the course?", answer: "Yes! Once you complete all the required lessons and assessments, you’ll receive a certificate of completion." },
     {
       question:
         "Do I need any prior knowledge to take the course?",
-      answer: "Yes! Once you complete all the required lessons and assessments, you’ll receive a certificate of completion No worries! Each course comes with its own prerequisites, which you’ll find in the course description. Some courses are perfect for beginners, while others may need a little background knowledge—but don’t worry, we’ll guide you every step of the way!",
+      answer: "No worries! Each course comes with its own prerequisites, which you’ll find in the course description. Some courses are perfect for beginners, while others may need a little background knowledge—but don’t worry, we’ll guide you every step of the way!	",
     }
   ];
 

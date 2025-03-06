@@ -13,6 +13,7 @@ const MyLearningCourseDetails = ({ data }) => {
   const courseId = location.state?.courseId;
   const currentContent = location.state?.content;
 
+
   useEffect(() => {
     if (data?.courses) {
       const course = data?.courses?.find((course) => course?._id === courseId);
@@ -55,7 +56,7 @@ const MyLearningCourseDetails = ({ data }) => {
         <div className="tab-content">
           {selectedTab === "Notes" && (
             <div className="about-course">
-              {currentContent?.notes ? (
+              {/* {currentContent?.notes ? (
                 <>
                   <h2>Notes</h2>
                   {currentContent?.notes?.map((val, index) => (
@@ -78,6 +79,29 @@ const MyLearningCourseDetails = ({ data }) => {
                     </Link>
                   </>
                 )
+              )} */}
+              {courseData?._id === "64e0c36eec5d32490e9f22d7" && (
+                <>
+                  <h2>Notes</h2>
+                  <div>
+                    <Link
+                      to="https://docs.google.com/document/d/1w6gmuAjjOUfF-9obstPa3Cf7EeNYT3zq/edit?usp=sharing&ouid=107792749908186382897&rtpof=true&sd=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      React Js
+                    </Link>
+                  </div>
+                  <div>
+                    <Link
+                      to="https://docs.google.com/document/d/1w6gmuAjjOUfF-9obstPa3Cf7EeNYT3zq/edit?usp=sharing&ouid=107792749908186382897&rtpof=true&sd=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      React Time Project
+                    </Link>
+                  </div>
+                </>
               )}
             </div>
           )}
