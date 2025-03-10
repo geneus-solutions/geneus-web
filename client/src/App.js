@@ -33,6 +33,7 @@ import { logOut } from "./features/auth/authSlice";
 import LandingPage from "./Pages/landingPage/LandingPage";
 import VisitorData from "./Pages/adminPages/visitorData/VisitorData";
 import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy";
+import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -92,6 +93,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
           <Route path="/landing/:id" element={<LandingPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
 
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/nutri-app" element={<CalorieCalculator />} />

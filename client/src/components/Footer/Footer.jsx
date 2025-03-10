@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.css'; // Import the CSS for styling
 import { FaInstagram, FaWhatsapp, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
+import { MdOutlinePrivacyTip } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -18,16 +20,17 @@ const Footer = () => {
         <div className="footer-section quick-links">
           <h3>Quick Link</h3>
           <ul>
-            <li><a href="/about">About</a></li>
-            <li><a href="/courses">Courses</a></li>
-            <li><a href="/nutri-app">Nutri App</a></li>
+            <li className="footer-links"><Link to="/about" className="footer-links">About</Link></li>
+            <li className="footer-links"><Link to="/courses" className="footer-links">Courses</Link></li>
+            <li className="footer-links"><Link to="/nutri-app" className="footer-links">Nutri App</Link></li>
           </ul>
         </div>
         <div className="footer-section contact-info">
           <h3>Contact us</h3>
           <ul>
             {/* <li><FaMapMarkerAlt /> Bengaluru </li> */}
-            <li><FaEnvelope /> support@geneussolutions.in </li>
+            <li className="footer-links"><FaEnvelope /> support@geneussolutions.in </li>
+            <li className="footer-links"><MdOutlinePrivacyTip /><Link to="/privacy" className="footer-links"> Privacy policy and cookie policy</Link></li>
             {/* <li><FaPhoneAlt /> +91 9148950239 </li> */}
           </ul>
         </div>

@@ -25,8 +25,8 @@ const PrivacyPolicy = () => {
          <div className="bg_grad">
            <div className="privacy-policy__text">
            We use cookies to make your experience smoother. They help us personalize content and improve our site just for you. 
-           {/* or check out our Privacy Policy page to learn more! */}
-             {/* <Link href="#href" className="text__link">Learn more</Link> */}
+           or check out our Privacy Policy page to{" "}
+             <Link to="/privacy" className="text__link">learn more</Link>!
              <div>
              <button className="text_got-it" id="got-it-button" onClick={()=>handleClose()}>Got it!</button>
              </div>
