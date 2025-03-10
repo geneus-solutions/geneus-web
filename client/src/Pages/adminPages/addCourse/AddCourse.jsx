@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAddCourseMutation } from '../../../features/addCourse/addCourseApiSlice';
 import './AddCourse.css'
+import { useLocation } from 'react-router-dom';
 
 const AddCourse = () => {
   const [course, setCourse] = useState({
@@ -20,6 +21,14 @@ const AddCourse = () => {
 
   const [addCourse, { isLoading, isError, isSuccess, error }] = useAddCourseMutation();
 
+  const location = useLocation();
+  const existingData = location?.state?.courseData;
+
+  useEffect(() => {
+    if (existingData) {
+      setCourse(existingData);
+    }
+  }, [existingData]);
   // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -106,7 +115,7 @@ const AddCourse = () => {
 
   return (
     <div className="course-container">
-      <h2 className="form-title">Add a Course</h2>
+      <h2 className="form-title">{existingData ?  "Update Course" : "Add a Course"}</h2>
       <form onSubmit={handleSubmit} className="course-form">
         {/* Basic Fields */}
         {['title', 'img', 'level', 'price', 'discount_price', 'duration'].map((field) => (
@@ -214,8 +223,11 @@ const AddCourse = () => {
 
         {/* Submit Button and Status Messages */}
         <button type="submit" className="submit-button" disabled={isLoading}>
-          {isLoading ? 'Adding...' : 'Add Course'}
+          {/* {isLoading ? 'Adding...' : 'Add Course'} */}
+          {existingData ?  "Update Course" : "Add Course"}
         </button>
+
+      
         {isError && <p className="error-message">Failed to add course: {error?.data?.message || 'Unknown error'}</p>}
         {isSuccess && <p className="success-message">Course added successfully!</p>}
       </form>

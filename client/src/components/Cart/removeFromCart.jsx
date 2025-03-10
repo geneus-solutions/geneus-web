@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import { backendUrl } from "../../config";
 
 const removeFromCart = async (userId, courseId) => {
-    console.log("userId", userId);
-    console.log("course_id", courseId);
+    // console.log("userId", userId);
+    // console.log("course_id", courseId);
 
     try {
         const cartDetails = await axios.post(

@@ -5,11 +5,12 @@ import { useCourcesQuery } from "../features/cources/courceApiSlice";
 import CourseCard from "../components/Courses/CourseCard";
 import CourseBanner from "../components/Courses/CourseBanner";
 import { IoMdArrowDropdown, IoMdSearch } from "react-icons/io";
+import Loading from "../components/loading/Loading";
 
 const Course = ({ searchResults }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: courses } = useCourcesQuery();
+  const { data: courses, isLoading } = useCourcesQuery();
 
 
   const handleDropdownChange = (value) => {
@@ -102,6 +103,11 @@ const Course = ({ searchResults }) => {
       </div>
 
       <div className="courses-container">
+        {
+          isLoading && (
+            <Loading/>
+          )
+        }
         {displayedCourses?.map((course) => (
           <CourseCard key={course?.id} course={course} />
         ))}
