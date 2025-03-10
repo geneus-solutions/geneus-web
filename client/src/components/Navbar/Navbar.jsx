@@ -2,9 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import { IoMdArrowDropdown } from "react-icons/io";
-import { FaCartArrowDown } from "react-icons/fa";
-import { AiOutlineLogout } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticateQuery } from "../../features/authenticate/authenticateApiSlice";
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
@@ -14,6 +11,11 @@ import logo from "../../assets/logo.png";
 import { logOut } from "../../features/auth/authSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { apiSlice } from "../../app/api/apiSlice";
+
+import { IoMdArrowDropdown } from "react-icons/io";
+import { FaCartArrowDown } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -146,6 +148,9 @@ const Navbar = () => {
                   <NavLink to="/visitor-data" className="dropdown-item">
                     Visitor's
                   </NavLink>
+                  <NavLink to="/all-courses" className="dropdown-item">
+                    All Courses
+                  </NavLink>
                 </div>
               </li>
             )}
@@ -184,6 +189,13 @@ const Navbar = () => {
                   </div>
                   {isDropdownOpen && (
                     <div className="avatar-dropdown-menu">
+                      <NavLink
+                        to="/profile"
+                        className="avatar-dropdown-item"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <CgProfile/> Profile
+                      </NavLink>
                       <NavLink
                         to="/login"
                         className="avatar-dropdown-item"

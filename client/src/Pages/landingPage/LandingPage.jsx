@@ -5,44 +5,17 @@ import "./LandingPage.css";
 // import { useNavigate } from "react-router-dom";
 import Background from "../../components/LandingPage/Background";
 import WhyAttend from "../../components/LandingPage/WhyAttend";
-import RecomendToAttend from "../../components/LandingPage/RecomendToAttend";
-import img1 from "../../assets/landingImage_01.webp";
-import img2 from "../../assets/landingImage_02.webp";
-import img3 from "../../assets/landingImage_03.webp";
 import WhatWeCover from "../../components/LandingPage/WhatWeCover";
 import FAQ from "../../components/LandingPage/FAQ";
 import Mentor from "../../components/LandingPage/Mentor";
 import { useSelector } from "react-redux";
 import { useCourceQuery } from "../../features/cources/courceApiSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import Course from "../Courses";
-import PageNotFound from "../PageNotFound";
+import Loading from "../../components/loading/Loading";
 
 const LandingPage = () => {
   // This is constent data for template:-
-  const RecomentdContent = [
-    {
-      title: "Beginner",
-      heading: "Wanting To Kickstart Your Financial Journey & Build Wealth",
-      description:
-        "From students to entrepreneurs, discover how AI can empower you to build wealth and secure financial freedom without prior experience.",
-      imageUrl: img1,
-    },
-    {
-      title: "Trader",
-      heading: "Wanting To Skyrocket Your Success & Multiply Your Profits",
-      description:
-        "Mid-level traders, investors, and market practitioners, dive into the world of AI to revolutionise your strategies and maximise your profits like never before.",
-      imageUrl: img2,
-    },
-    {
-      title: "Beginner",
-      heading: "Wanting To Kickstart Your Financial Journey & Build Wealth",
-      description:
-        "Seasoned professionals and intra-day traders, harness the full potential of AI to scale your strategies 10x and discover further edge to dominate the market.",
-      imageUrl: img3,
-    },
-  ];
+  
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -107,7 +80,7 @@ const LandingPage = () => {
           <FAQ course={course} />
         </div>
       ) : (
-        <h3>Data Not Found</h3>
+        <Loading/>
       )}
     </>
   );

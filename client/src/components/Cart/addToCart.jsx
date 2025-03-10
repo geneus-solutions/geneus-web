@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { backendUrl } from "../../config";
 
 const AddToCart = async (userId, courseDetails) => {
-    console.log("userId", userId);
+    // console.log("userId", userId);
     const ItemData = courseDetails;
 
     try {
@@ -11,7 +11,7 @@ const AddToCart = async (userId, courseDetails) => {
             userId,
             ItemData,
         });
-        console.log(cartDetails);
+        // console.log(cartDetails);
         if (!cartDetails) {
             console.log("item not added");
             return -1;

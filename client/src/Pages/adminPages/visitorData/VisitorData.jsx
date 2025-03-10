@@ -94,7 +94,7 @@ const VisitorData = () => {
         </button>
       </div>
       {showPopUp && (
-        <PopUp handleYesClick={handleYesClick} handleNoClick={handleNoClick} />
+        <PopUp title="Are you sure to delete the visitor data?" handleYesClick={handleYesClick} handleNoClick={handleNoClick} />
       )}
       {/* Show message when no date is selected */}
       {!selectedDateFrom || !selectedDateTo ? (

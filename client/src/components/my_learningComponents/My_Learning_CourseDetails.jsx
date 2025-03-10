@@ -85,7 +85,7 @@ const MyLearningCourseDetails = ({ data }) => {
                   <h2>Notes</h2>
                   <div>
                     <Link
-                      to="https://docs.google.com/document/d/1w6gmuAjjOUfF-9obstPa3Cf7EeNYT3zq/edit?usp=sharing&ouid=107792749908186382897&rtpof=true&sd=true"
+                      to="https://docs.google.com/document/d/1G5dmTyJbnC759eAcUd3Uw8ArXF0l44bBOacE2NsAAME/edit?usp=sharing"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

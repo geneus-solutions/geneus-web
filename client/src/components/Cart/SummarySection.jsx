@@ -49,7 +49,7 @@ const SummarySection = ({
       }
 
       const res = await initializeRazorpay();
-      console.log("res", res);
+      // console.log("res", res);
       if (!res) {
         throw new Error("Razorpay SDK Failed to load");
       }
@@ -72,7 +72,7 @@ const SummarySection = ({
       };
 
       const response = await axios.request(config);
-      console.log("response : ", response);
+      // console.log("response : ", response);
       // console.log(JSON.stringify(response.data));
       const options = {
         key: process.env.REACT_APP_RAZORPAY_ID,
@@ -119,7 +119,7 @@ const SummarySection = ({
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
-      console.error("Failed to make payment:", error);
+      // console.error("Failed to make payment:", error);
       alert(
         "Payment failed, please contact our support at support@geneussolutions.in"
       );

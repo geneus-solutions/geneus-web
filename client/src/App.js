@@ -34,6 +34,8 @@ import LandingPage from "./Pages/landingPage/LandingPage";
 import VisitorData from "./Pages/adminPages/visitorData/VisitorData";
 import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy";
 import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage";
+import Profile from "./Pages/Profile";
+import AllCourses from "./components/admin/AllCourses";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -102,6 +104,7 @@ function App() {
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/my-learning" element={<MyLearning />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
 
           {/* Admin-specific routes */}
@@ -110,6 +113,7 @@ function App() {
             <Route path="/add-course" element={<AddCourse />} />
             <Route path="/add-product" element={<AddProduct />} />
             <Route path="/visitor-data" element={<VisitorData/>}/>
+            <Route path="/all-courses" element={<AllCourses/>}/>
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
