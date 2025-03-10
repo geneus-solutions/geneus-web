@@ -1,6 +1,6 @@
 .wrap {
   margin: 0 auto;
-  max-width: full;
+  max-width: 50%;
   position: fixed;
   bottom: 0px;
 }
@@ -9,7 +9,6 @@
   bottom: 0px;
   width: 100%;
   z-index: 1000;
-
   transform: translateY(100%);
   opacity: 0;
 
@@ -36,7 +35,8 @@
 
 .privacy-policy__text {
   /* position: relative;   */
-  text-align: left;
+  text-align: center;
+  padding: 10px;
 }
 
 .text__link {
@@ -56,11 +56,11 @@
 .text_got-it {
   background: white;
   border: none;
+  margin-top: 30px;
   padding: 0.4rem 2rem;
   border-radius: 1rem;
   color: #183864;
   font-weight: bold;
-  margin-left: 2rem;
   font-family: "Roboto", sans-serif;
 }
 

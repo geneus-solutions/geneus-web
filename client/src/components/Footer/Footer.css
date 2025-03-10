@@ -73,8 +73,8 @@
     font-size: 14px;
   }
   
-  .quick-links a {
-    color: #fff;
+  .footer-links {
+    color: #fff !important;
     text-decoration: none;
     transition: color 0.3s;
   }
