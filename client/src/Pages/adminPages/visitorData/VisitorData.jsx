@@ -38,14 +38,14 @@ const VisitorData = () => {
     setSelectedDateTo(dateTo);
   };
 
-  console.log('this is selectedDateFrom',selectedDateFrom, selectedDateTo)
+  // console.log('this is selectedDateFrom',selectedDateFrom, selectedDateTo)
   const handleYesClick = async () => {
     try {
         const res = await deleteVisitorData(
           { dateFrom: selectedDateFrom, dateTo: selectedDateTo },
           { skip: !selectedDateFrom || !selectedDateTo }
         ).unwrap();
-        console.log(res);
+        // console.log(res);
         toast.success(res.message);
         setShowPopUp(!showPopUp);
     } catch (error) {
@@ -58,10 +58,10 @@ const VisitorData = () => {
   };
 
   const handleDeleteByID = async (id) =>{
-    console.log('id', id)
+    // console.log('id', id)
     try{
       const res = await deleteVisitorDataById({id}).unwrap();
-      console.log(res);
+      // console.log(res);
     }catch(error){
       console.log('this is error', error)
     }

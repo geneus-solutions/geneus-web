@@ -21,7 +21,7 @@ const MyLearningCourseDetails = ({ data }) => {
     }
   }, [courseId, data]);
 
-  console.log("this is course data", currentContent);
+  // console.log("this is course data", currentContent);
   return (
     <div className="course-details">
       <div className="course-content">

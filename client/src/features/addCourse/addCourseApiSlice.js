@@ -5,7 +5,7 @@ export const courseApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addCourse: builder.mutation({
       query: (course) => {
-      console.log('this is course data to save', course);
+      // console.log('this is course data to save', course);
         return {
           url: '/add-course', // add the url
           method: 'POST',

@@ -29,7 +29,7 @@ const Learning = () => {
     const [searchResults, setSearchResults] = useState([]);
 
     const user = useSelector(userInfo);
-    console.log(user);
+    // console.log(user);
 
     useEffect(() => {
         fetchCourses();

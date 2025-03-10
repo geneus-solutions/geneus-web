@@ -13,7 +13,6 @@ const cartSlice = createSlice({
             state.cart =cart;
         },
         emptyCart: (state, action) => {
-            console.log('remove cart reducer is called')
             state.cartCount = 0;
             state.cart = null
         }

@@ -25,7 +25,7 @@ const useFetch = (path, options = {}) => {
 
     const fetchData = async () => {
       try {
-        console.log('called...',`${process.env.REACT_APP_BACKEND_URL}/${path}`)
+        // console.log('called...',`${process.env.REACT_APP_BACKEND_URL}/${path}`)
         setData((prev) => ({ ...prev, isLoading: true }));
 
         const { data, status } = await defaultAxios.get(`/${path}`, {

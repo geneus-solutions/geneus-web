@@ -92,7 +92,7 @@ const AddCourse = () => {
     try {
       const response = await addCourse(course).unwrap();
       alert('Course added successfully!');
-      console.log(response);
+      // console.log(response);
       setCourse({
         title: '',
         img: '',

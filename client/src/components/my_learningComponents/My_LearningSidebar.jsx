@@ -4,7 +4,7 @@ import "../../styles/My_LearningSidebar.css";
 
 const MyLearningSidebar = ({data}) => {
 
-  console.log('this is data from MyLearningSidebar', data);
+  // console.log('this is data from MyLearningSidebar', data);
   const navigate = useNavigate();
 
   const location = useLocation();

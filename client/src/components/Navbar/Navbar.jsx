@@ -53,7 +53,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await logout().unwrap();
-      console.log("this is response", response);
+      // console.log("this is response", response);
       setIsDropdownOpen(false);
       dispatch(logOut());
       dispatch(apiSlice.util.resetApiState());
