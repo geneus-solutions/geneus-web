@@ -30,7 +30,7 @@ const Footer = () => {
           <ul>
             {/* <li><FaMapMarkerAlt /> Bengaluru </li> */}
             <li className="footer-links"><FaEnvelope /> support@geneussolutions.in </li>
-            <li className="footer-links"><MdOutlinePrivacyTip /><Link to="/privacy" className="footer-links"> Privacy policy and cookie policy</Link></li>
+            <li className="footer-links"><MdOutlinePrivacyTip /><Link to="/privacy" className="footer-links"> Privacy policy</Link></li>
             {/* <li><FaPhoneAlt /> +91 9148950239 </li> */}
           </ul>
         </div>
