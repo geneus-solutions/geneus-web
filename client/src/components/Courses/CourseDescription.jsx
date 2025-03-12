@@ -193,7 +193,7 @@ const CourseDescription = ({ courseDetails }) => {
     }
   };
 
-  console.log("thsi ss coure Details", courseDetails);
+  // console.log("thsi ss coure Details", courseDetails);
   return (
     <div style={{padding: '100px'}}>
       <DescriptionCourseCard

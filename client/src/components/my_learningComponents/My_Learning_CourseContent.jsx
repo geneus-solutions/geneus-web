@@ -10,7 +10,7 @@ const MyLearningCourseContent = ({data}) => {
   const location = useLocation();
   const currentContent = location?.state?.content;
   const courseId = location?.state?.courseId;
-  console.log('this is data', data);
+  // console.log('this is data', data);
   useEffect(() => {
     if(!currentContent && data?.courseContent?.length>=0){
       navigate('/my-learning/', { state: {courseId,content:data?.courseContent[0] } });

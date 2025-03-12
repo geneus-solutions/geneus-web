@@ -8,7 +8,7 @@ const Mylearning = () => {
     const {user} = useSelector((state) => state.auth);
     
     const { data: courses } = useMyLearningQuery({ user_Id: user?.id }, { skip: !user?.id });
-    console.log(courses);    
+    // console.log(courses);    
     return (
         <div>
             <h4>My Learning</h4>

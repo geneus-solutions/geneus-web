@@ -9,7 +9,7 @@ import "./Background.css";
 import UnlockButton from "./components/UnlockButton";
 
 const Background = ({ course }) => {
-  console.log(course?.courseContent[0]?.url)
+  // console.log(course?.courseContent[0]?.url)
 
   return (
     <div className="background">
