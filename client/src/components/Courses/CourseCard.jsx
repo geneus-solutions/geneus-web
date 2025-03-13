@@ -1,23 +1,17 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./CourseCard.css";
-import { Update } from "@mui/icons-material";
-import UpdateAndDeleteButtion from "../admin/UpdateAndDeleteButtion";
-import { userDetailsSlice } from "../../redux/slices/userDetails";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../features/auth/authSlice";
-
 const CourseCard = ({ course }) => {
   // let myCourse = course?.title === 'Angular'&& course;
   // console.log(`this is my course ${course?.title}`, myCourse);
-  const location = useLocation();
-  const user = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
+  console.log(course)
 
   return (
     <div className="course-card">
-      <img src={course?.img} alt={course?.title} className="coursecard-image" />
+      <img src={course?.img} alt={course?.title} className="coursecard-image" onClick={()=>navigate(`/course/${course?._id}`)}/>
       <div className="course-body">
-        <h3 className="coursecard-title">{course?.title}</h3>
+        <h3 className="coursecard-title" onClick={()=>navigate(`/course/${course?._id}`)}>{course?.title}</h3>
         <div className="rating">
           <i>⭐</i>
           <i>⭐</i>
@@ -34,12 +28,6 @@ const CourseCard = ({ course }) => {
             <button className="view-more-btn">Buy Now</button>
           </Link>
         </div>
-        {location.pathname === "/all-courses" &&
-        (
-              <div>
-                <UpdateAndDeleteButtion courseData={course}/>
-              </div>
-            )}
       </div>
     </div>
   );

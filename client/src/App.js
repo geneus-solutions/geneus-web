@@ -36,6 +36,7 @@ import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy";
 import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage";
 import Profile from "./Pages/Profile";
 import AllCourses from "./components/admin/AllCourses";
+import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -85,7 +86,9 @@ function App() {
   return (
     <Router>
       <div>
+        <ScrollToTop/>
       <PrivacyPolicy/>
+
       <Routes>
         <Route path="/login" element={<LoginSignUpPage />} />
         <Route element={<Layout />}>

@@ -6,6 +6,7 @@ export const courceApiSlice = apiSlice.injectEndpoints({
             query: () => {
                 return '/courses'
             },
+            providesTags: ['Courses'],
         }),
         cource: builder.query({
             query: ({id,user_id}) => {

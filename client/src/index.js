@@ -12,8 +12,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <ToastContainer position="top-right" // Position the toast 
-        autoClose={3000} // Duration before auto-close in milliseconds 
+        <ToastContainer 
+        position="top-right" // Position the toast 
+        autoClose={2000} // Duration before auto-close in milliseconds 
         hideProgressBar={false} // Hide the progress bar 
         newestOnTop={false} // Show newest toasts on top 
         closeOnClick // Close the toast on click 
@@ -22,6 +23,7 @@ root.render(
         draggable // Allow to drag the toast 
         pauseOnHover // Pause toast on hover 
         theme="dark" // Theme of the // toast (colored, light, or dark) 
+        closeButton={false}
         />
         <Provider store={store}>
             <App />

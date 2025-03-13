@@ -11,20 +11,22 @@ function PopularCourse() {
       title: "HTML/ CSS/ JavaScript",
       image: img1,
       duration: "45h",
+      url: '/course/64e0c36eec5d32490e9f22d6',
       description: " Master HTML, CSS, and JavaScript to build the foundational structure, design visually appealing and responsive web pages, and add dynamic functionality, excelling in modern web development. "
     },
     {
       title: "React Js Development",
       image: img2,
       duration: "30h",
+      url: '/course/64e0c36eec5d32490e9f22d7',
       description: "Learn React Js to create cool and interactive user interfaces, and become a modern web development pro. With React Js, you can build awesome and responsive web applications easily. Mastering it will help you tackle any front-end project with confidence."
     },
-    {
-      title: "MERN Stack Development",
-      image: img3,
-      duration: "50h",
-      description: "Master MongoDB, Express.js, React, and Node.js to create full-stack web applications that are powerful, dynamic, and modern. Dive into the world of web development and watch your skills soar to new heights."
-    },
+    // {
+    //   title: "MERN Stack Development",
+    //   image: img3,
+    //   duration: "50h",
+    //   description: "Master MongoDB, Express.js, React, and Node.js to create full-stack web applications that are powerful, dynamic, and modern. Dive into the world of web development and watch your skills soar to new heights."
+    // },
     
   ];
 
@@ -63,6 +65,7 @@ function PopularCourse() {
             key={index}
             title={course.title}
             image={course.image}
+            url={course.url}
             duration={course.duration}
             description={course.description}
           />

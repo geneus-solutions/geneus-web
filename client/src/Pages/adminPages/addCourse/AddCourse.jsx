@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAddCourseMutation } from '../../../features/addCourse/addCourseApiSlice';
+import { useAddCourseMutation, useUpdateCourseMutation } from '../../../features/addCourse/addCourseApiSlice';
 import './AddCourse.css'
 import { useLocation } from 'react-router-dom';
 
@@ -20,15 +20,17 @@ const AddCourse = () => {
   });
 
   const [addCourse, { isLoading, isError, isSuccess, error }] = useAddCourseMutation();
+  const [updateCourse, { isLoading: updateCourseIsLoading }] = useUpdateCourseMutation();
 
   const location = useLocation();
-  const existingData = location?.state?.courseData;
+  const existingData = location?.state?.course;
 
   useEffect(() => {
     if (existingData) {
       setCourse(existingData);
     }
   }, [existingData]);
+
   // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,9 +92,14 @@ const AddCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if(existingData){
+        const response = await updateCourse({courseId: existingData?._id, ...course}).unwrap();
+        alert(response.message);
+      }else{
       const response = await addCourse(course).unwrap();
       alert('Course added successfully!');
       // console.log(response);
+      }
       setCourse({
         title: '',
         img: '',
@@ -223,8 +230,8 @@ const AddCourse = () => {
 
         {/* Submit Button and Status Messages */}
         <button type="submit" className="submit-button" disabled={isLoading}>
-          {/* {isLoading ? 'Adding...' : 'Add Course'} */}
-          {existingData ?  "Update Course" : "Add Course"}
+          {/* {isLoading ? 'Adding...' : 'Add Co{eurse'} */}
+          {isLoading || updateCourseIsLoading ? (existingData ? "Updating Course..." : "Adding Course...") : (existingData ? "Update Course" : "Add Course")}
         </button>
 
       
