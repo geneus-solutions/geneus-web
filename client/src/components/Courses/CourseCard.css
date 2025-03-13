@@ -34,6 +34,7 @@
   object-fit: cover;
   border-bottom: 1px solid #ddd;
   border-radius: 10px 10px 0 0; /* Only round the top corners */
+  cursor: pointer;
 }
 
 /* Body styling */
@@ -46,6 +47,8 @@
 .coursecard-title {
   font-size: 1rem;
   margin-bottom: 10px;
+  cursor: pointer;
+
 }
 
 /* Price styling */

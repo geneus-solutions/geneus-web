@@ -12,7 +12,6 @@ const Course = ({ searchResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { data: courses, isLoading } = useCourcesQuery();
 
-
   const handleDropdownChange = (value) => {
     setSelectedOption(value);
   };
@@ -69,49 +68,49 @@ const Course = ({ searchResults }) => {
   return (
     <div>
       {/* <CourseBanner imgSrc={img1} course={course} /> */}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {/* course drop down and search box */}
+          <div className="search-dropdown-container">
+            <div className="dropdown">
+              <button className="dropbtn">
+                {selectedOption || "All Courses"}
+                <IoMdArrowDropdown className="arrow-down" />
+              </button>
+              <div className="dropdown-content">
+                <span onClick={() => handleDropdownChange("BEGINNER")}>
+                  BEGINNER
+                </span>
+                <span onClick={() => handleDropdownChange("INTERMEDIATE")}>
+                  INTERMEDIATE
+                </span>
+                <span onClick={() => handleDropdownChange("ADVANCED")}>
+                  ADVANCED
+                </span>
+              </div>
+            </div>
 
-      {/* course drop down and search box */}
-      <div className="search-dropdown-container">
-        <div className="dropdown">
-          <button className="dropbtn">
-            {selectedOption || "All Courses"}
-            <IoMdArrowDropdown className="arrow-down" />
-          </button>
-          <div className="dropdown-content">
-            <span onClick={() => handleDropdownChange("BEGINNER")}>
-              BEGINNER
-            </span>
-            <span onClick={() => handleDropdownChange("INTERMEDIATE")}>
-              INTERMEDIATE
-            </span>
-            <span onClick={() => handleDropdownChange("ADVANCED")}>
-              ADVANCED
-            </span>
+            <div className="search-container">
+              <input
+                type="text"
+                placeholder="Search courses..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="search-input"
+              />
+              <IoMdSearch className="search-icon" />
+            </div>
           </div>
-        </div>
 
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search courses..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-input"
-          />
-          <IoMdSearch className="search-icon" />
-        </div>
-      </div>
-
-      <div className="courses-container">
-        {
-          isLoading && (
-            <Loading/>
-          )
-        }
-        {displayedCourses?.map((course) => (
-          <CourseCard key={course?.id} course={course} />
-        ))}
-      </div>
+          <div className="courses-container">
+            {displayedCourses?.map((course) => (
+              <CourseCard key={course?.id} course={course} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

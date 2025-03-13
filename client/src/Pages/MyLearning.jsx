@@ -11,6 +11,7 @@ import MyLearningCourseDetails from "../components/my_learningComponents/My_Lear
 import "../styles/My_Learning.css";
 import MyLearningCourseContent from "../components/my_learningComponents/My_Learning_CourseContent";
 import { useLocation } from "react-router-dom";
+import Loading from "../components/loading/Loading";
 
 const MyLearning = () => {
   const { user } = useSelector((state) => state.auth);
@@ -29,7 +30,9 @@ const MyLearning = () => {
 
   useEffect(() => {
     if (courses?.courses) {
-      const course = courses?.courses?.find((course) => course?._id === courseId);
+      const course = courses?.courses?.find(
+        (course) => course?._id === courseId
+      );
       setCourseData(course);
     }
   }, [courseId, courses]);
@@ -37,20 +40,26 @@ const MyLearning = () => {
   // console.log(courses, 'this is courses')
   return (
     <div className="dashboard">
-      {!isLoading && courses?.courses?.length > 0 ? (
-        <>
-          <aside className="sidebar">
-            <MyLearningSidebar data={courses} />
-          </aside>
-          <main className="main-content">
-            <MyLearningCourseDetails data={courses} />
-          </main>
-          <aside className='right-sidebar'>
-            <MyLearningCourseContent data={courseData}/>
-          </aside>
-        </>
+      {isLoading ? (
+        <Loading />
       ) : (
-        <p className="no-courses">No Course Purchase.</p>
+        <>
+          {courses?.courses?.length > 0 ? (
+            <>
+              <aside className="sidebar">
+                <MyLearningSidebar data={courses} />
+              </aside>
+              <main className="main-content">
+                <MyLearningCourseDetails data={courses} />
+              </main>
+              <aside className="right-sidebar">
+                <MyLearningCourseContent data={courseData} />
+              </aside>
+            </>
+          ) : (
+            <p className="no-courses">No Course Purchase.</p>
+          )}
+        </>
       )}
     </div>
   );

@@ -34,6 +34,7 @@ const AddProduct = () => {
         servingSize: "",
       });
     } catch (err) {
+      console.log(err)
       setError(err.data?.message || "Failed to add product");
     }
   };

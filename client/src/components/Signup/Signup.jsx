@@ -20,7 +20,7 @@ function Signup({ toggleComponent, isLoginDialogOpen, setIsLoginDialogOpen, cour
     mobile: "",
     password: "",
   });
-console.log('this is isLoginDialog', isLoginDialogOpen)
+// console.log('this is isLoginDialog', isLoginDialogOpen)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({

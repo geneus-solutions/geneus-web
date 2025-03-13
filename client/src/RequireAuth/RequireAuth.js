@@ -26,7 +26,7 @@ const RequireAuth = ({allowedRole}) => {
 
 
         if (isSuccess) {
-          console.log('tis is success', isSuccess)
+          // console.log('tis is success', isSuccess)
             // setLoading(false);
             dispatch(setCredentials({ accessToken: token, user: data?.data }));
         }

@@ -31,7 +31,6 @@ const AddFoodToLunch = ({mealName,recall}) => {
   
   const privateAxios = useAxiosPrivate();
   const {user} = useSelector((state) => state.auth);
-  console.log(user)
   const navigate = useNavigate();
  
   // const [{ apiData: foodData }] = useFetch("getFoodItems");
@@ -44,7 +43,6 @@ const AddFoodToLunch = ({mealName,recall}) => {
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(mealName||"Lunch");
 
-  console.log(foodData)
   const handleSearchChange = (event) => {
     const value = event.target.value.toLowerCase();
     setSearchTerm(value);
