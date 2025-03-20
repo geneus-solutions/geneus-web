@@ -5,7 +5,6 @@ const CourseCard = ({ course }) => {
   // let myCourse = course?.title === 'Angular'&& course;
   // console.log(`this is my course ${course?.title}`, myCourse);
   const navigate = useNavigate();
-  console.log(course)
 
   return (
     <div className="course-card">
