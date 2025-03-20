@@ -110,6 +110,7 @@ const VisitorData = () => {
               <tr>
                 <th>S.No.</th>
                 <th>Date</th>
+                <th>URL</th>
                 <th>IP Address</th>
                 <th>City</th>
                 <th>Country</th>
@@ -121,6 +122,7 @@ const VisitorData = () => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{new Date(visitor.timestamp).toISOString().split('T')[0]}</td>
+                  <td>{visitor.url}</td>
                   <td>{visitor.ip}</td>
                   <td>{visitor.city}</td>
                   <td>{visitor.country}</td>

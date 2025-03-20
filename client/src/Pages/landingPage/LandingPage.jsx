@@ -15,7 +15,7 @@ import Loading from "../../components/loading/Loading";
 
 const LandingPage = () => {
   // This is constent data for template:-
-  
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -57,7 +57,7 @@ const LandingPage = () => {
           <div className="recomend-to-attend-container">
             {course?.whoitsfor &&
               course?.whoitsfor?.map((value, index) => (
-                <div className="ai-button">
+                <div className="ai-button" key={index}>
                   <span className="icon">✔️</span>
                   <span className="text">{value}</span>
                 </div>
@@ -80,7 +80,7 @@ const LandingPage = () => {
           <FAQ course={course} />
         </div>
       ) : (
-        <Loading/>
+        <Loading />
       )}
     </>
   );

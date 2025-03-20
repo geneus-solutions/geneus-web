@@ -1,17 +1,9 @@
 import React from "react";
 import "./WhyAttend.css";
 import { MdArrowCircleRight } from "react-icons/md";
-import UnlockButton from "./components/UnlockButton";
 
 const WhyAttend = ({course}) => {
-  const content = [
-    "Do AI-Driven Market Research and Analysis In Less Than 5 Minutes",
-    "Make More Accurate Trading Decisions and Outperform The Market",
-    "Use AI to back-test your strategies",
-    "Improve Your Portfolio’s Performance By 2X",
-    "Create AI-powered Algorithmic Trading Strategies",
-    "Make intraday trading a 5-second task",
-  ];
+
   return (
     <>
       <div className="whyattend-container">

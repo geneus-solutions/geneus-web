@@ -1,82 +1,87 @@
 .background {
-    height: 718px;
-    position: relative;
-    width: 1440px;
-  }
-  
-  .background .heading {
-    height: 118px;
-    left: 150px;
-    position: absolute;
-    top: 20px;
-    width: 1140px;
-  }
-  
-  .background .THE-SECRET-TO {
-    color: transparent;
-    font-family: "Montserrat-ExtraBold", Helvetica;
-    font-size: 45px;
-    font-weight: 800;
-    height: 114px;
-    left: 16px;
-    letter-spacing: 0;
-    line-height: 59px;
-    position: absolute;
-    text-align: center;
-    top: 1px;
-    width: 1200px;
-  }
-  
-  .background .text-wrapper {
-    color: #ffffff;
-  }
-  
-  .background .span {
-    color: #23bf67;
-  }
-  
-  .background .heading-no-need-to {
-    color: #fddd24;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 21px;
-    font-weight: 600;
-    height: 21px;
-    left: 300px;
-    letter-spacing: 0;
-    line-height: 21px;
-    position: absolute;
-    text-align: center;
-    top: 157px;
-    white-space: nowrap;
-    width: 424px;
-  }
-  
-  .background .iframe {
-    height: 298px;
-    left: 170px;
-    position: absolute;
-    top: 230px;
-    width: 530px;
-  }
-  
-  .background .html {
+  height: auto;
+  /* position: relative;   */
+  max-width: 1440px;
+  width: 100%;
+  padding: 20px;
+}
+
+.background .heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  /* left: 10%; */
+  /* position: absolute; */
+  /* top: 20px; */
+  /* width: 80%; */
+  text-align: center;
+}
+
+.background .THE-SECRET-TO {
+  width: 100%;
+  color: #23bf67;
+  font-family: "Montserrat-ExtraBold", Helvetica;
+  font-size: 3vw;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 6vw;
+  text-align: center;
+  /* height: 114px; */
+  /* left: 16px; */
+  /* position: absolute; */
+  /* top: 1px; */
+}
+
+.background .text-wrapper {
+  color: #ffffff;
+}
+
+.background .heading-no-need-to {
+  color: #fddd24;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 1.5vw;
+  font-weight: 600;
+  height: 21px;
+  /* letter-spacing: 0; */
+  /* line-height: 21px; */
+  /* position: absolute; */
+  text-align: center;
+  top: 12vw;
+  white-space: nowrap;
+  width: auto;
+}
+
+.background-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10vh;
+  margin-bottom: 20vh;
+}
+
+.background .iframe {
+  height: auto;
+  width: 100%;
+  /* position: absolute; */
+  max-width: 530px;
+  left: 10%;
+  top: 230px;
+}
+
+/* .background .html {
     background-color: #ffffff;
     height: 298px;
-  }
-  
-  .background .body-region-video {
-    /* background-color: #de1414; */
-    height: 210px;
-    width: 530px;
-  }
-  
-  .background .overlap-group {
+  } */
+
+/* .background .overlap-group {
     height: 328px;
     position: relative;
     top: -30px;
-  }
-  
-  .background .thumbnail {
+  } */
+
+/* .background .thumbnail {
     background-image: url(../../);
     background-position: 50% 50%;
     background-size: cover;
@@ -85,17 +90,17 @@
     position: absolute;
     top: 1000px;
     width: 530px;
-  }
-  
-  .background .button {
+  } */
+
+/* .background .button {
     height: 50px;
     left: 235px;
     position: absolute;
     top: 0;
     width: 50px;
-  }
-  
-  .background .div {
+  } */
+
+/* .background .div {
     background-color: #ffffff;
     border-radius: 10px;
     height: 55px;
@@ -103,18 +108,18 @@
     position: absolute;
     top: 547px;
     width: 245px;
-  }
-  
-  .background .container {
+  } */
+
+/* .background .container {
     height: 27px;
     left: 10px;
     position: absolute;
     top: 14px;
     width: 27px;
-    /* font-size: 20px; */
-  }
-  
-  .background .heading-on-jan {
+    font-size: 20px;
+  } */
+
+/* .background .heading-on-jan {
     color: #000000;
     font-family: "Raleway-SemiBold", Helvetica;
     font-size: 16px;
@@ -128,8 +133,9 @@
     white-space: nowrap;
     width: 148px;
   }
-  
-  .background .div-2 {
+   */
+
+/* .background .div-2 {
     background-color: #ffffff;
     border-radius: 10px;
     height: 55px;
@@ -137,9 +143,9 @@
     position: absolute;
     top: 547px;
     width: 245px;
-  }
-  
-  .background .heading-hours {
+  } */
+
+/* .background .heading-hours {
     color: #000000;
     font-family: "Raleway-SemiBold", Helvetica;
     font-size: 16px;
@@ -152,9 +158,9 @@
     top: 17px;
     white-space: nowrap;
     width: 65px;
-  }
-  
-  .background .div-3 {
+  } */
+
+/* .background .div-3 {
     background-color: #ffffff;
     border-radius: 10px;
     height: 55px;
@@ -162,9 +168,9 @@
     position: absolute;
     top: 622px;
     width: 245px;
-  }
-  
-  .background .heading-live {
+  } */
+
+/* .background .heading-live {
     color: #000000;
     font-family: "Raleway-SemiBold", Helvetica;
     font-size: 16px;
@@ -177,9 +183,9 @@
     top: 17px;
     white-space: nowrap;
     width: 94px;
-  }
-  
-  .background .div-4 {
+  } */
+
+/* .background .div-4 {
     background-color: #ffffff;
     border-radius: 10px;
     height: 55px;
@@ -188,8 +194,9 @@
     top: 622px;
     width: 245px;
   }
-  
-  .background .heading-PM {
+   */
+
+/* .background .heading-PM {
     color: #000000;
     font-family: "Raleway-SemiBold", Helvetica;
     font-size: 16px;
@@ -202,206 +209,273 @@
     top: 17px;
     white-space: nowrap;
     width: 108px;
+  } */
+
+.ready-to-grow-your-wrapper {
+  /* position: absolute; */
+  width: 100%;
+  max-width: 530px;
+  height: 56px;
+  /* text-align: center; */
+  margin-bottom: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.background .ready-to-grow-your {
+  width: full;
+  color: transparent;
+  font-family: "Montserrat-Bold", Helvetica;
+  font-size: 2.1vw;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 3vw;
+  text-align: center;
+  /* height: 58px; */
+  /* position: absolute; */
+  /* top: -2px; */
+  /* width: 483px; */
+}
+
+.background .text-wrapper-2 {
+  color: #17bf65;
+}
+
+.background .text-wrapper-3 {
+  color: #fddd24;
+}
+
+.background-course-list{
+  width: full;
+}
+
+.background .list {
+  /* position: absolute; */
+  width: 90%;
+  max-width: 530px;
+  /* left: 50%; */
+  height: 121px;
+  top: 400px;
+}
+
+.background .item {
+  /* height: 60px;
+  left: 0;
+  position: absolute;
+  top: 0; */
+  width: 100%;
+  text-align: left;
+}
+
+.background .never-miss-trading {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 1.2vw;
+  font-weight: 600;
+  /* height: 52px; */
+  /* letter-spacing: 0; */
+  line-height: 28.5px;
+  /* position: absolute; */
+  flex-wrap: wrap;
+  top: 1px;
+  width: 460px;
+}
+
+/* .background .SVG {
+  height: 21px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 21px;
+} */
+
+/* .background .item-2 {
+  height: 57px;
+  left: 0;
+  position: absolute;
+  top: 64px;
+  width: 530px;
+} */
+
+/* .background .take-accurate {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 19px;
+  font-weight: 600;
+  height: 52px;
+  left: 31px;
+  letter-spacing: 0;
+  line-height: 28.5px;
+  position: absolute;
+  top: 1px;
+  width: 478px;
+} */
+
+/* .background .container-2 {
+  height: 96px;
+  left: 894px;
+  position: absolute;
+  top: 436px;
+  width: 223px;
+} */
+
+/* .background .paragraph-border {
+  border: 4px solid;
+  border-color: #ffffff;
+  border-radius: 500px;
+  height: 96px;
+  left: -2px;
+  position: absolute;
+  top: 0;
+  width: 106px;
+} */
+
+/* .background .text-wrapper-4 {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 34px;
+  font-weight: 600;
+  height: 34px;
+  left: 30px;
+  letter-spacing: 0;
+  line-height: 34px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  white-space: nowrap;
+  width: 46px;
+} */
+
+/* .background .text-wrapper-5 {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  height: 14px;
+  left: 24px;
+  letter-spacing: 0;
+  line-height: 14px;
+  position: absolute;
+  text-align: center;
+  top: 54px;
+  white-space: nowrap;
+  width: 59px;
+} */
+
+/* .background .paragraph-border-2 {
+  border: 4px solid;
+  border-color: #ffffff;
+  border-radius: 500px;
+  height: 96px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 109px;
+} */
+
+/* .background .text-wrapper-6 {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 34px;
+  font-weight: 600;
+  height: 34px;
+  left: 33px;
+  letter-spacing: 0;
+  line-height: 34px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  white-space: nowrap;
+  width: 43px;
+} */
+
+/* .background .text-wrapper-7 {
+  color: #ffffff;
+  font-family: "Montserrat-SemiBold", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  height: 14px;
+  left: 24px;
+  letter-spacing: 0;
+  line-height: 14px;
+  position: absolute;
+  text-align: center;
+  top: 54px;
+  white-space: nowrap;
+  width: 61px;
+} */
+
+.background .heading-no-prior {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: antiquewhite;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .background-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .background .ready-to-grow-your-wrapper {
-    height: 56px;
-    left: 740px;
-    position: absolute;
-    top: 219px;
-    width: 530px;
+
+  .background .iframe {
+    order: 1; /* Make the video come first */
+    margin-bottom: 3vmax;
   }
-  
-  .background .ready-to-grow-your {
-    color: transparent;
-    font-family: "Montserrat-Bold", Helvetica;
-    font-size: 25px;
-    font-weight: 700;
-    height: 58px;
-    left: 24px;
-    letter-spacing: 0;
-    line-height: 28px;
-    position: absolute;
+
+  .ready-to-grow-your-wrapper {
+    order: 2; /* Place the "Ready to Grow" section below the video */
+  }
+
+  .ready-to-grow-your{
     text-align: center;
-    top: -2px;
-    width: 483px;
+    width: full;
+  color: transparent;
+  font-family: "Montserrat-Bold", Helvetica;
+  font-size: 2.1vw;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 3vw;
   }
-  
-  .background .text-wrapper-2 {
-    color: #17bf65;
+
+  .background .THE-SECRET-TO {
+    font-size: 5vw;
+    line-height: 8vw;
   }
-  
-  .background .text-wrapper-3 {
-    color: #fddd24;
-  }
-  
-  .background .list {
-    height: 121px;
-    left: 740px;
-    position: absolute;
-    top: 295px;
-    width: 530px;
-  }
-  
-  .background .item {
-    height: 60px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 530px;
-  }
-  
-  .background .never-miss-trading {
-    color: #ffffff;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 19px;
-    font-weight: 600;
-    height: 52px;
-    left: 31px;
-    letter-spacing: 0;
-    line-height: 28.5px;
-    position: absolute;
-    top: 1px;
-    width: 460px;
-  }
-  
-  .background .SVG {
-    height: 21px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 21px;
-  }
-  
-  .background .item-2 {
-    height: 57px;
-    left: 0;
-    position: absolute;
-    top: 64px;
-    width: 530px;
-  }
-  
-  .background .take-accurate {
-    color: #ffffff;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 19px;
-    font-weight: 600;
-    height: 52px;
-    left: 31px;
-    letter-spacing: 0;
-    line-height: 28.5px;
-    position: absolute;
-    top: 1px;
-    width: 478px;
-  }
-  
-  .background .container-2 {
-    height: 96px;
-    left: 894px;
-    position: absolute;
-    top: 436px;
-    width: 223px;
-  }
-  
-  .background .paragraph-border {
-    border: 4px solid;
-    border-color: #ffffff;
-    border-radius: 500px;
-    height: 96px;
-    left: -2px;
-    position: absolute;
-    top: 0;
-    width: 106px;
-  }
-  
-  .background .text-wrapper-4 {
-    color: #ffffff;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 34px;
-    font-weight: 600;
-    height: 34px;
-    left: 30px;
-    letter-spacing: 0;
-    line-height: 34px;
-    position: absolute;
+
+  .background .heading-no-need-to {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: antiquewhite;
     text-align: center;
-    top: 20px;
-    white-space: nowrap;
-    width: 46px;
   }
-  
-  .background .text-wrapper-5 {
-    color: #ffffff;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 14px;
-    font-weight: 600;
-    height: 14px;
-    left: 24px;
-    letter-spacing: 0;
-    line-height: 14px;
-    position: absolute;
+
+  .background .item{
     text-align: center;
-    top: 54px;
-    white-space: nowrap;
-    width: 59px;
   }
-  
-  .background .paragraph-border-2 {
-    border: 4px solid;
-    border-color: #ffffff;
-    border-radius: 500px;
-    height: 96px;
-    left: 115px;
-    position: absolute;
-    top: 0;
-    width: 109px;
+}
+
+/* Tablet and larger screens */
+@media (min-width: 769px) {
+ 
+  .background .iframe {
+    order: 0; /* Make the video come first */
   }
-  
-  .background .text-wrapper-6 {
-    color: #ffffff;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 34px;
-    font-weight: 600;
-    height: 34px;
-    left: 33px;
-    letter-spacing: 0;
-    line-height: 34px;
-    position: absolute;
-    text-align: center;
-    top: 20px;
-    white-space: nowrap;
-    width: 43px;
+
+  .ready-to-grow-your-wrapper {
+    order: 1; /* Place the "Ready to Grow" section below the video */
   }
-  
-  .background .text-wrapper-7 {
-    color: #ffffff;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 14px;
-    font-weight: 600;
-    height: 14px;
-    left: 24px;
-    letter-spacing: 0;
-    line-height: 14px;
-    position: absolute;
-    text-align: center;
-    top: 54px;
-    white-space: nowrap;
-    width: 61px;
+
+  .background .THE-SECRET-TO {
+    font-size: 3vw;
+    line-height: 6vw;
   }
-  
-  .background .heading-no-prior {
-    color: #b8b8b8;
-    font-family: "Montserrat-SemiBold", Helvetica;
-    font-size: 16px;
-    font-weight: 600;
-    height: 16px;
-    left: 882px;
-    letter-spacing: 0;
-    line-height: 16px;
-    position: absolute;
-    text-align: center;
-    top: 651px;
-    white-space: nowrap;
-    width: 247px;
+
+  .background .heading-no-need-to {
+    font-size: 2vw;
   }
-  
+}
