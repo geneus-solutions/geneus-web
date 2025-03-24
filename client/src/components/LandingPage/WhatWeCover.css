@@ -1,48 +1,96 @@
 .what-we-cover {
-  background: linear-gradient(
-    180deg,
-    rgb(66, 69, 148) 19%,
-    rgb(70, 167, 248) 100%
-  );
+  background: linear-gradient(180deg, rgb(66, 69, 148) 19%, rgb(70, 167, 248) 100%);
   background-color: rgba(255, 255, 255, 1);
-  border-radius: 16px;
-  height: 100px;
+  border-radius: 1rem; /* 16px */
+  height: auto; /* Adjust height automatically */
+  padding: 1rem; /* Add padding for spacing */
+  width: 35rem; /* 560px */
+  max-width: 90%; /* Ensures it doesn't overflow */
   position: relative;
-  width: 560px;
+  text-align: center;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.what-we-cover:hover{
+  transform: scale(1.05);
+  box-shadow: 0 0.375rem 0.625rem rgba(0, 0, 0, 0.15);
+}
+/* Heading container */
 .what-we-cover .heading-what-we-cover {
-  height: 56px;
-  left: 20px;
-  position: absolute;
-  top: 30px;
-  width: 520px;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.5rem; /* 8px */
 }
 
+/* Main heading */
 .what-we-cover .trading-beyond-stock {
   color: #ffffff;
-  font-family: "Montserrat-SemiBold", Helvetica;
-  font-size: 28px;
+  font-family: "Montserrat-SemiBold", Helvetica, sans-serif;
+  font-size: 1.75rem; /* 28px */
   font-weight: 600;
-  height: 62px;
-  left: 0;
-  letter-spacing: 0;
-  line-height: 28px;
-  position: absolute;
-  top: -4px;
-  width: 501px;
+  line-height: 1.5; /* Improves readability */
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
+/* Subheading */
 .what-we-cover .profitable-stock {
   color: #ffffff;
-  font-family: "Montserrat-Regular", Helvetica;
-  font-size: 16px;
+  font-family: "Montserrat-Regular", Helvetica, sans-serif;
+  font-size: 1rem; /* 16px */
   font-weight: 400;
-  height: 67px;
-  left: 20px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: 60px;
-  width: 499px;
+  line-height: 1.5;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+  margin-top: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .what-we-cover {
+    width: 80%;
+    padding: 1rem;
+  }
+
+  .what-we-cover .trading-beyond-stock {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .what-we-cover .profitable-stock {
+    font-size: 0.9375rem; /* 15px */
+  }
+}
+
+@media (max-width: 768px) {
+  .what-we-cover {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .what-we-cover .trading-beyond-stock {
+    font-size: 1.25rem; /* 20px */
+  }
+
+  .what-we-cover .profitable-stock {
+    font-size: 0.875rem; /* 14px */
+  }
+}
+
+@media (max-width: 480px) {
+  .what-we-cover {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .what-we-cover .trading-beyond-stock {
+    font-size: 1.125rem; /* 18px */
+  }
+
+  .what-we-cover .profitable-stock {
+    font-size: 0.8125rem; /* 13px */
+  }
 }

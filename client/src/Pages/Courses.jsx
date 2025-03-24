@@ -7,7 +7,7 @@ import CourseBanner from "../components/Courses/CourseBanner";
 import { IoMdArrowDropdown, IoMdSearch } from "react-icons/io";
 import Loading from "../components/loading/Loading";
 
-const Course = ({ searchResults }) => {
+const Courses = ({ searchResults }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const { data: courses, isLoading } = useCourcesQuery();
@@ -100,7 +100,7 @@ const Course = ({ searchResults }) => {
                 onChange={handleSearchChange}
                 className="search-input"
               />
-              <IoMdSearch className="search-icon" />
+              {/* <IoMdSearch className="search-icon" /> */}
             </div>
           </div>
 
@@ -115,4 +115,4 @@ const Course = ({ searchResults }) => {
   );
 };
 
-export default Course;
+export default Courses;

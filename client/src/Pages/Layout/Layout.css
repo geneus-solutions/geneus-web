@@ -1,0 +1,35 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%; /* ✅ Ensures full width */
+    /* overflow-x: hidden; */
+  }
+  
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .layout-content {
+    flex: 1;
+    min-height: 100vh;
+    margin-top: 4rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  
+  .layout-footer {
+    margin-top: auto;
+    margin-bottom: -50px;
+  }
+
+
+  @media (max-width: 480px) {
+    html, body{
+      overflow-x: hidden;
+    }
+  }

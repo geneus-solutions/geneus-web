@@ -71,7 +71,7 @@ const CheckOutCourseDetails = () => {
       {/* Course Table */}
       <div className="card">
         <div className="card-content">
-          <table className="course-table">
+          <table className="checkout-course-table">
             <thead>
               <tr>
                 <th>Description</th>

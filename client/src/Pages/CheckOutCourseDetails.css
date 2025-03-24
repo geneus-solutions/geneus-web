@@ -23,20 +23,20 @@
   }
   
   /* Table */
-  .course-table {
+  .checkout-course-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
   }
   
-  .course-table th,
-  .course-table td {
+  .checkout-course-table  th,
+  .checkout-course-table  td {
     padding: 0.8rem;
     border: 1px solid #ddd;
     /* text-align: center; */
   }
   
-  .course-table th {
+  .checkout-course-table  th {
     background-color: #f4f4f4;
     font-weight: bold;
   }

@@ -2,26 +2,16 @@ import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
+import "./Layout.css"; // Import CSS
 
 function Layout() {
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
+    <div className="layout-container">
       <Navbar />
-      <div
-        style={{
-          flex: "1",
-          minHeight: "100vh",
-          overflowY: "hidden",
-          overflowX: "hidden",
-        }}
-      >
+      <div className="layout-content">
         <Outlet />
       </div>
-      <div style={{
-        marginBottom: -50
-      }}>
+      <div className="layout-footer">
         <Footer />
       </div>
     </div>

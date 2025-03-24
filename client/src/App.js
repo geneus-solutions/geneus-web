@@ -37,6 +37,7 @@ import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage";
 import Profile from "./Pages/Profile";
 import AllCourses from "./components/admin/AllCourses";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
+import AdminDashboard from "./Pages/adminPages/admin-dashboard/AdminDashboard";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -112,11 +113,14 @@ function App() {
 
           {/* Admin-specific routes */}
           <Route element={<RequireAuth allowedRole={["admin"]} />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard/>}>
+
             {/* Add here your admin specific route */}
-            <Route path="/add-course" element={<AddCourse />} />
-            <Route path="/add-product" element={<AddProduct />} />
-            <Route path="/visitor-data" element={<VisitorData/>}/>
-            <Route path="/all-courses" element={<AllCourses/>}/>
+            <Route path="/admin-dashboard/add-course" element={<AddCourse />} />
+            <Route path="/admin-dashboard/add-product" element={<AddProduct />} />
+            <Route path="/admin-dashboard/visitor-data" element={<VisitorData/>}/>
+            <Route path="/admin-dashboard/all-courses" element={<AllCourses/>}/>
+          </Route>
           </Route>
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
