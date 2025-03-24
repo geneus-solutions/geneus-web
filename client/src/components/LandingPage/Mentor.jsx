@@ -9,11 +9,14 @@ const Mentor = () => {
         MEET YOUR <span className="highlight">MENTOR</span>
       </h1>
       <div className="mentor-content">
+        <div>
         <img
           src={mentorImage}
           alt="Mentor"
           className="mentor-image"
           />
+          <h2 className="mentor-name">Jagdish Sail</h2> 
+          </div>
         <div className="mentor-details">
           <ul>
             <li>12+ years in IT, Technical Leader at World's largest bank</li>
@@ -25,7 +28,6 @@ const Mentor = () => {
          </ul>
         </div>
       </div>
-          <h2>Jagdish Sail</h2>
     </div>
   );
 };

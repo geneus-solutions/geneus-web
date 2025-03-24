@@ -6,15 +6,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 2%; /* Add some padding for responsiveness */
+  padding: 0 2rem;
   box-sizing: border-box;
   cursor: pointer;
   text-align: center;
   transition: all 0.3s ease;
-  width: auto; /* Make the width responsive */
-  max-width: 800px; /* Ensure the button doesn't get too large */
+  width: 100%;
+  max-width: 20rem; /* Limits the button width for better responsiveness */
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  border: none;
+  outline: none;
 }
-
 /* Text inside button */
 .text-wrapper-8 {
   color: #ffffff;
@@ -41,7 +46,8 @@
 
 /* Hover effect for the button */
 .link:hover {
-  opacity: 0.8; /* Slightly reduce opacity on hover */
+  opacity: 0.85;
+  transform: scale(1.05);
 }
 
 /* Dialog background overlay */

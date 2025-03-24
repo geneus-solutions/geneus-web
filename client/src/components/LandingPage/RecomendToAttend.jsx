@@ -1,22 +1,26 @@
 import React from "react";
 import "./RecomendToAttend.css";
 
-const RecomendToAttend = ({ title, heading, description, imageUrl }) => {
+const RecomendToAttend = ({course}) => {
   return (
-    <div className="recomend-to-attend">
-      <div className="picture-tree-webp">
-        <img className="recomend-image" src={imageUrl} />
-        <p className="you-re-a-beginner">
-          <span className="text-wrap">You're A </span>
-
-          <span className="span">{title}</span>
-            {" "}
-          <span className="text-wrap">{heading}</span>
-        </p>
-
-        <p className="from-students-to">{description}</p>
+    <>
+      <div className="recommend-to-attend-heading">
+        <h1>5,500+ PAST ATTENDEES...</h1>
+        <h3>
+          Recommend You To Attend This Course, If You Fit Any Of The Following
+          ⬇️
+        </h3>
       </div>
-    </div>
+      <div className="recomend-to-attend-container">
+        {course?.whoitsfor &&
+          course?.whoitsfor?.map((value, index) => (
+            <div className="ai-button" key={index}>
+              <span className="icon">✔️</span>
+              <span className="text">{value}</span>
+            </div>
+          ))}
+      </div>
+    </>
   );
 };
 

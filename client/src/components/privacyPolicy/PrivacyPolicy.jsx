@@ -24,7 +24,7 @@ const PrivacyPolicy = () => {
        <div className="wrap">
          <div className="bg_grad">
            <div className="privacy-policy__text">
-           We use cookies to make your experience smoother. They help us personalize content and improve our site just for you. 
+           We use cookies to make your experience smoother. They help us personalize content and improve our site just for you 
            or check out our Privacy Policy page to{" "}
              <Link to="/privacy" className="text__link">learn more</Link>!
              <div>

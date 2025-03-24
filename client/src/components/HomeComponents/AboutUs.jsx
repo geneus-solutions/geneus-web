@@ -106,8 +106,9 @@ const AboutUs = () => {
         width="600"
         height="337"
         src="https://www.youtube.com/embed/2eTIgVyBnNg?rel=0&controls=0&showinfo=0&modestbranding=1"
-        frameborder="0"
-        allowfullscreen
+        frameBorder="0"
+        title="about us"
+        allowFullScreen
       ></iframe>
     </SectionContainer>
   );

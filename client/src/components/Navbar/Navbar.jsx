@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticateQuery } from "../../features/authenticate/authenticateApiSlice";
 import { useCartQuery } from "../../features/Cart/cartApiSlice";
@@ -11,18 +10,13 @@ import logo from "../../assets/logo.png";
 import { logOut } from "../../features/auth/authSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { apiSlice } from "../../app/api/apiSlice";
-
-import { IoMdArrowDropdown } from "react-icons/io";
 import { FaCartArrowDown } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  // const isDropdownOpen = useSelector((state) => state.dropdown.isDropdownOpen);
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { data } = useAuthenticateQuery();
   const user = useSelector(selectCurrentUser);
   const { data: cartData } = useCartQuery(data?.data?.id, {
@@ -30,38 +24,40 @@ const Navbar = () => {
   });
   const cart = useSelector((state) => state.cartData.cart);
   const navigate = useNavigate();
-  const [logout, { isLoading, isSuccess, isError, error, data: logOutData }] =
-    useLogoutMutation();
+  const [logout] = useLogoutMutation();
+
   useEffect(() => {
     if (cartData) {
       dispatch(Cart({ cart: cartData }));
     }
   }, [cartData, dispatch]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false); // Close the dropdown if the click is outside
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const handleLogout = async () => {
     try {
-      const response = await logout().unwrap();
-      // console.log("this is response", response);
-      setIsDropdownOpen(false);
+      await logout().unwrap();
       dispatch(logOut());
       dispatch(apiSlice.util.resetApiState());
       navigate("/");
+      setMenuOpen(!menuOpen);
     } catch (error) {
-      console.log("this is logoutError", error);
+      console.log("Logout Error", error);
     }
   };
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   useEffect(() => {
     if (!user) {
@@ -69,161 +65,115 @@ const Navbar = () => {
     }
   }, [user, dispatch]);
 
-  // for admin role
-  const isAdmin = user?.role === "admin"; //We can change from here like if you want to change
+  const isAdmin = user?.role === "admin";
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div className="container-fluid">
-        {/* Logo Section */}
-        <NavLink to="/" className="navbar-brand">
-          <img src={logo} alt="Logo" className="logo-img" />
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="navbar-container">
+        <NavLink to="/" className="logo">
+          <img src={logo} alt="Logo" className="img" />
         </NavLink>
-
-        {/* Toggler Button for Mobile View */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        {/* Navbar Links */}
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                About
-              </NavLink>
-            </li>
-
-            {/* Services Dropdown */}
-            <li className="nav-item dropdown">
-              <div className="nav-link" id="servicesDropdown">
-                Services <IoMdArrowDropdown className="dropdown-icon" />
-              </div>
-              <div className="dropdown-menu" aria-labelledby="servicesDropdown">
-                <NavLink to="/courses" className="dropdown-item">
-                  Courses
-                </NavLink>
-                <NavLink to="/nutri-app" className="dropdown-item">
-                  Nutri App
-                </NavLink>
-              </div>
-            </li>
-
-            {/* Admin Dropdown */}
-            {isAdmin && (
-              <li className="nav-item dropdown">
-                <div className="nav-link" id="adminDropdown">
-                  Admin Menu <IoMdArrowDropdown className="dropdown-icon" />
-                </div>
-                <div className="dropdown-menu" aria-labelledby="adminDropdown">
-                  <NavLink to="/add-course" className="dropdown-item">
-                    Add Course
-                  </NavLink>
-                  <NavLink to="/add-product" className="dropdown-item">
-                    Add Product
-                  </NavLink>
-                  <NavLink to="/visitor-data" className="dropdown-item">
-                    Visitor's
-                  </NavLink>
-                  <NavLink to="/all-courses" className="dropdown-item">
-                    All Courses
-                  </NavLink>
-                </div>
-              </li>
-            )}
-
-            <li className="nav-item">
-              <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Contact
-              </NavLink>
-            </li>
-
-            {user?.id && (
-              <li className="nav-item">
-                <NavLink
-                  to="/my-learning"
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }
-                >
-                  My Learning
-                </NavLink>
-              </li>
-            )}
-            <li className="nav-item">
-              {user ? (
-                <div className="user-info dropdown" ref={dropdownRef}>
-                  <div
-                    className="avatar"
-                    onClick={() => setIsDropdownOpen((prev) => !prev)}
-                  >
-                    {user?.name.charAt(0).toUpperCase()}
-                  </div>
-                  {isDropdownOpen && (
-                    <div className="avatar-dropdown-menu">
-                      <NavLink
-                        to="/profile"
-                        className="avatar-dropdown-item"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      >
-                        <CgProfile/> Profile
-                      </NavLink>
-                      <NavLink
-                        to="/login"
-                        className="avatar-dropdown-item"
-                        onClick={handleLogout}
-                      >
-                        <AiOutlineLogout /> Logout
-                      </NavLink>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <NavLink to="/login">
-                  <div className="navbar-login-button">
-                    <p style={{ marginTop: "10px" }}>Login</p>
-                  </div>
-                </NavLink>
-              )}
-            </li>
-            <li className="nav-item">
-              <NavLink to="/cart" className="avatar-dropdown-item">
-                <FaCartArrowDown />
-                <div className="badge-notification">
-                  {cart?.cart_items?.length ? cartData?.cart_items?.length : 0}
-                </div>
-              </NavLink>
-            </li>
-          </ul>
+        <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? "𐤕" : "☰"}
         </div>
+        {/* Overlay for mobile menu */}
+        {menuOpen && (
+          <div
+            className="menu-overlay"
+            onClick={() => setMenuOpen(false)}
+          ></div>
+        )}
+        <ul className={menuOpen ? "nav-menu active" : "nav-menu"}>
+          <li>
+            <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              About
+            </NavLink>
+          </li>
+          <li className="dropdown">
+            <span className="nav-link">Services</span>
+            <div className="dropdown-menu">
+              <NavLink to="/courses" className="dropdown-link" onClick={() => setMenuOpen(!menuOpen)}>
+                Courses
+              </NavLink>
+              <NavLink to="/nutri-app" className="dropdown-link" onClick={() => setMenuOpen(!menuOpen)}>
+                Nutri App
+              </NavLink>
+            </div>
+          </li>
+          {isAdmin && (
+            <li>
+              <NavLink to="/admin-dashboard/all-courses" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+                Dashboard
+              </NavLink>
+            </li>
+            // <li className="dropdown">
+            //   <span className="nav-link">Admin</span>
+            //   <div className="dropdown-menu">
+            //     <NavLink to="/add-course" className="dropdown-link">
+            //       Add Course
+            //     </NavLink>
+            //     <NavLink to="/add-product" className="dropdown-link">
+            //       Add Product
+            //     </NavLink>
+            //     <NavLink to="/visitor-data" className="dropdown-link">
+            //       Visitors
+            //     </NavLink>
+            //     <NavLink to="/all-courses" className="dropdown-link">
+            //       All Courses
+            //     </NavLink>
+            //   </div>
+            // </li>
+          )}
+          <li>
+            <NavLink to="/contact" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              Contact
+            </NavLink>
+          </li>
+          {user?.id && (
+            <li>
+              <NavLink to="/my-learning" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+                My Learning
+              </NavLink>
+            </li>
+          )}
+          {user ? (
+            <>
+              <li className="dropdown">
+                <span className="avatar">
+                  {user?.name.charAt(0).toUpperCase()}
+                </span>
+                <div className="dropdown-menu">
+                  <NavLink to="/profile" className="dropdown-link" onClick={() => setMenuOpen(!menuOpen)}>
+                    <CgProfile /> Profile
+                  </NavLink>
+                  <button onClick={handleLogout} className="dropdown-link" >
+                    <AiOutlineLogout /> Logout
+                  </button>
+                </div>
+              </li>
+            </>
+          ) : (
+            <li>
+              <NavLink to="/login" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+                Login
+              </NavLink>
+            </li>
+          )}
+          <li>
+            <NavLink to="/cart" className="cart-icon nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              <FaCartArrowDown />
+              {/* &#128722; */}
+              <span className="cart-badge">
+                {cart?.cart_items?.length || 0}
+              </span>
+            </NavLink>
+          </li>
+        </ul>
       </div>
     </nav>
   );

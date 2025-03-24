@@ -2,51 +2,85 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px 10%;
+  margin: 0 10%;
+  /* padding: 2rem 0; Add some padding */
 }
 
 .whyattend-container .heading {
   color: rgba(255, 255, 255, 1);
   text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .whyattend-container .whyattend-item {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Auto-responsive */
+  gap: 1rem;
   width: 100%;
-  margin: 5px;
+  margin: 0.5rem 0;
 }
 
 .whyattend {
   background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(50, 36, 238) 76%);
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 10px;
-  padding: 20px 10px; /* Add padding for spacing inside */
-  position: relative;
-  text-align: left; /* Align text to the left */
+  border-radius: 0.625rem; /* 10px */
+  padding: 1.25rem 0.625rem; /* 20px 10px */
+  text-align: left;
   width: 100%;
-  max-width: 560px;
-  display: flex; /* Flexbox layout */
-  align-items: flex-start; /* Align items at the start */
-  gap: 10px; /* Space between the icon and the text */
+  max-width: 35rem; /* 560px */
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem; /* 10px */
 }
 
 .whyattend .whyattend-img {
   color: #fff;
-  font-size: 30px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
+  font-size: 1.875rem; /* 30px */
+  flex-shrink: 0;
 }
 
 .whyattend .do-AI-driven-market {
   color: #ffffff;
   font-family: "Montserrat-SemiBold", Helvetica;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
   font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1.5; /* Adjust line height for better readability */
-  width: 100%; /* Allow the paragraph to use the full width */
-  word-wrap: break-word; /* Ensure long text wraps properly */
+  letter-spacing: 0.05rem;
+  line-height: 1.5;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .whyattend-container {
+    margin: 0 5%;
+    /* padding: 1.5rem 0; */
+  }
+
+  .whyattend-container .heading {
+    font-size: 1.5rem;
+  }
+
+  .whyattend-container .whyattend-item {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items in one column */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    text-align: center; /* Ensure text is centered */
+  }
+
+  .whyattend {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .whyattend .whyattend-img {
+    font-size: 1.5rem;
+  }
+
+  .whyattend .do-AI-driven-market {
+    font-size: 1rem;
+  }
 }

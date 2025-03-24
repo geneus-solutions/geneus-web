@@ -7,7 +7,7 @@ const baseQuery = fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
 
         const token = getState()?.auth?.token;
-        const frontendUrl = window.location.pathname;
+        const frontendUrl = window.location.href;
         if (token) {
             headers.set("authorization", `Bearer ${token}`);
         }
