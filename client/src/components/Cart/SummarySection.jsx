@@ -43,7 +43,8 @@ const SummarySection = ({
   };
   const makePayment = async (amount) => {
     try {
-      if (!amount || isNaN(amount)) {
+      // if (!amount || isNaN(amount)) {
+      if(amount<0){  //Change for testing in unique coupn code
         console.error("Invalid amount");
         return;
       }
@@ -169,7 +170,7 @@ const SummarySection = ({
 
         {message && <p className={`message ${message.type}`}>{message.text}</p>}
 
-        {/* <input
+        <input
           type="text"
           className="coupon-input"
           value={couponCode}
@@ -185,7 +186,7 @@ const SummarySection = ({
           disabled={applyCouponMessage}
         >
           Apply Coupon
-        </button> */}
+        </button>
 
         <hr />
         <div className="summary-item total">

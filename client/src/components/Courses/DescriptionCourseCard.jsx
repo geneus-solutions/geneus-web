@@ -20,11 +20,11 @@ const DescriptionCourseCard = ({ courseDetails, discount, handleAddToCart }) => 
               <s>
                 &#8377;{courseDetails?.price}
               </s>
-              &ensp;{parseInt(discount)}% OFF
-            </h6>
-            <strong className="course-price">
+              &ensp;{parseInt(discount)}% OFF 
+            <strong className="course-price">{" "}
               &#8377;{courseDetails?.discount_price}
             </strong>
+            </h6>
           </div>
           <div style={{textAlign: 'left'}}>
               <button

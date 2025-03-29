@@ -98,7 +98,7 @@ const MyLearningCourseDetails = ({ data }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      React Time Project
+                      Real Time Project
                     </Link>
                   </div>
                 </>

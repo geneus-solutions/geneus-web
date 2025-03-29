@@ -14,7 +14,7 @@ const CheckOutCourseDetails = () => {
   const [applyCouponMessage, setApplyCouponMessage] = useState(false);
 
   const validCoupons = [
-    { code: "SAVE10", discount: 10, expiryDate: "2024-12-31" },
+    { code: "a3e29f41", discount: 100, expiryDate: "2025-12-31" },
     { code: "SUMMER20", discount: 20, expiryDate: "2024-12-30" },
     { code: "FEST50", discount: 50, expiryDate: "2024-12-15" },
   ];

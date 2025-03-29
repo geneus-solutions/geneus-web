@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCourcesQuery } from "../../features/cources/courceApiSlice";
 import { IoMdArrowDropdown} from "react-icons/io";
 import Loading from "../../components/loading/Loading";
-import "./AllCourses.css";
+import "../../styles/AllCourses.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDeleteCourseMutation } from "../../features/addCourse/addCourseApiSlice";
 import PopUp from "../../Pages/adminPages/visitorData/PopUp";
@@ -44,7 +44,7 @@ const AllCourses = ({ searchResults }) => {
       : searchedCourses?.filter((course) => course);
 
   const handleUpdateCourse = (course) => {
-    navigate("/add-course", { state: {course} });
+    navigate("/admin-dashboard/add-course", { state: {course} });
   };
 
   const handleDeleteCourse = async (courseId) => {
