@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AddProduct.css";
+import "../../../styles/AddProduct.css";
 import { useAddFoodItemMutation } from "../../../features/addProduct/addProductApiSlice";
 
 const AddProduct = () => {

@@ -34,10 +34,10 @@ import LandingPage from "./Pages/landingPage/LandingPage";
 import VisitorData from "./Pages/adminPages/visitorData/VisitorData";
 import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy";
 import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage";
-import Profile from "./Pages/Profile";
-import AllCourses from "./components/admin/AllCourses";
+import AllCourses from "./Pages/adminPages/AllCourses";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
-import AdminDashboard from "./Pages/adminPages/admin-dashboard/AdminDashboard";
+import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashboardLayout";
+import UserProfile from "./Pages/UserProfile";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -108,12 +108,15 @@ function App() {
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/my-learning" element={<MyLearning />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
 
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/course/:id" element={<CourseDescriptionPage />} />
+        </Route>
           {/* Admin-specific routes */}
           <Route element={<RequireAuth allowedRole={["admin"]} />}>
-          <Route path="/admin-dashboard" element={<AdminDashboard/>}>
+          <Route path="/admin-dashboard" element={<AdminDashboardLayout/>}>
 
             {/* Add here your admin specific route */}
             <Route path="/admin-dashboard/add-course" element={<AddCourse />} />
@@ -122,9 +125,6 @@ function App() {
             <Route path="/admin-dashboard/all-courses" element={<AllCourses/>}/>
           </Route>
           </Route>
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/course/:id" element={<CourseDescriptionPage />} />
-        </Route>
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

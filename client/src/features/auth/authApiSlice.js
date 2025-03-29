@@ -1,6 +1,7 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
+    tagTypes: [{ type: 'profileData' }],
     endpoints: (builder) => ({
         login: builder.mutation({
             query: credentials => ({
@@ -23,6 +24,23 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
             }),
         }),
+        getUserProfile: builder.query({
+            query: (id)=> ({
+                url: `/getuserprofile/${id}`,
+                method: "GET"
+            }),
+            providesTags:   
+            [{type: 'profileData'}],
+        }),
+        updateUserProfile: builder.mutation({
+            query: ({id, data}) => ({
+                url: `/updateuserprofile/${id}`,
+                method: 'POST',
+                body: {data}
+            }),
+            invalidatesTags:  
+            [{type: 'profileData'}],
+        }),
         deleteUser: builder.mutation({
             query: (id) => ({
                 url: `/deleteUser/${id}`,
@@ -32,4 +50,10 @@ export const authApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useLoginMutation,useSignupMutation, useLogoutMutation, useDeleteUserMutation } = authApiSlice;
+export const { 
+    useLoginMutation,useSignupMutation, 
+    useLogoutMutation, 
+    useUpdateUserProfileMutation, 
+    useDeleteUserMutation,
+    useGetUserProfileQuery
+} = authApiSlice;

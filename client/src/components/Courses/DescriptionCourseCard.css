@@ -44,7 +44,7 @@
 }
 
 /* Price details styling */
-.course-details-price {
+.course-details.course-price {
   margin-bottom: 15px;
 }
 
@@ -52,8 +52,8 @@
   text-align: left;
 }
 
-.course-details h6 {
-  font-size: 1.2rem;
+.course-details > h6 {
+  font-size: 1.5rem;
   color: #555;
 }
 

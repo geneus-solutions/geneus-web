@@ -11,7 +11,7 @@ import { logOut } from "../../features/auth/authSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { apiSlice } from "../../app/api/apiSlice";
 import { FaCartArrowDown } from "react-icons/fa";
-import { AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineLogout, AiFillDashboard } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
@@ -58,7 +58,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   useEffect(() => {
     if (!user) {
       dispatch(emptyCart());
@@ -85,58 +84,69 @@ const Navbar = () => {
         )}
         <ul className={menuOpen ? "nav-menu active" : "nav-menu"}>
           <li>
-            <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+            <NavLink
+              to="/"
+              className="nav-link"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+            <NavLink
+              to="/about"
+              className="nav-link"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
               About
             </NavLink>
           </li>
           <li className="dropdown">
             <span className="nav-link">Services</span>
             <div className="dropdown-menu">
-              <NavLink to="/courses" className="dropdown-link" onClick={() => setMenuOpen(!menuOpen)}>
+              <NavLink
+                to="/courses"
+                className="dropdown-link"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
                 Courses
               </NavLink>
-              <NavLink to="/nutri-app" className="dropdown-link" onClick={() => setMenuOpen(!menuOpen)}>
+              <NavLink
+                to="/nutri-app"
+                className="dropdown-link"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
                 Nutri App
               </NavLink>
             </div>
           </li>
-          {isAdmin && (
+          {/* {isAdmin && (
             <li>
-              <NavLink to="/admin-dashboard/all-courses" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              <NavLink
+                to="/admin-dashboard/all-courses"
+                className="nav-link"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
                 Dashboard
               </NavLink>
             </li>
-            // <li className="dropdown">
-            //   <span className="nav-link">Admin</span>
-            //   <div className="dropdown-menu">
-            //     <NavLink to="/add-course" className="dropdown-link">
-            //       Add Course
-            //     </NavLink>
-            //     <NavLink to="/add-product" className="dropdown-link">
-            //       Add Product
-            //     </NavLink>
-            //     <NavLink to="/visitor-data" className="dropdown-link">
-            //       Visitors
-            //     </NavLink>
-            //     <NavLink to="/all-courses" className="dropdown-link">
-            //       All Courses
-            //     </NavLink>
-            //   </div>
-            // </li>
-          )}
+          )} */}
           <li>
-            <NavLink to="/contact" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+            <NavLink
+              to="/contact"
+              className="nav-link"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
               Contact
             </NavLink>
           </li>
           {user?.id && (
             <li>
-              <NavLink to="/my-learning" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              <NavLink
+                to="/my-learning"
+                className="nav-link"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
                 My Learning
               </NavLink>
             </li>
@@ -148,10 +158,26 @@ const Navbar = () => {
                   {user?.name.charAt(0).toUpperCase()}
                 </span>
                 <div className="dropdown-menu">
-                  <NavLink to="/profile" className="dropdown-link" onClick={() => setMenuOpen(!menuOpen)}>
-                    <CgProfile /> Profile
-                  </NavLink>
-                  <button onClick={handleLogout} className="dropdown-link" >
+                  {isAdmin ? (
+                    <>
+                      <NavLink
+                        to="/admin-dashboard/visitor-data"
+                        className="dropdown-link"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                      >
+                        <AiFillDashboard /> Dashboard
+                      </NavLink>
+                    </>
+                  ) : (
+                    <NavLink
+                      to="/profile"
+                      className="dropdown-link"
+                      onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                      <CgProfile /> Profile
+                    </NavLink>
+                  )}
+                  <button onClick={handleLogout} className="dropdown-link">
                     <AiOutlineLogout /> Logout
                   </button>
                 </div>
@@ -159,13 +185,21 @@ const Navbar = () => {
             </>
           ) : (
             <li>
-              <NavLink to="/login" className="nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+              <NavLink
+                to="/login"
+                className="nav-link"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
                 Login
               </NavLink>
             </li>
           )}
           <li>
-            <NavLink to="/cart" className="cart-icon nav-link" onClick={() => setMenuOpen(!menuOpen)}>
+            <NavLink
+              to="/cart"
+              className="cart-icon nav-link"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
               <FaCartArrowDown />
               {/* &#128722; */}
               <span className="cart-badge">
