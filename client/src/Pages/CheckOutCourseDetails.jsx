@@ -14,7 +14,7 @@ const CheckOutCourseDetails = () => {
   const [applyCouponMessage, setApplyCouponMessage] = useState(false);
 
   const validCoupons = [
-    { code: "a3e29f41", discount: 100, expiryDate: "2025-12-31" },
+    { code: "a3e29f41", discount: 50, expiryDate: "2025-12-31" },
     { code: "SUMMER20", discount: 20, expiryDate: "2024-12-30" },
     { code: "FEST50", discount: 50, expiryDate: "2024-12-15" },
   ];
@@ -35,7 +35,8 @@ const CheckOutCourseDetails = () => {
       if (currentDate > expiryDate) {
         setMessage({ type: "error", text: "This coupon code has expired." });
       } else {
-        const discountAmount = (totalPrice * coupon.discount) / 100;
+        // const discountAmount = (totalPrice * coupon.discount) / 100;
+        const discountAmount = (totalPrice - 1);
         setDiscount(discountAmount);
         setFinalTotal(totalPrice - discountAmount);
         setApplyCouponMessage(true);
