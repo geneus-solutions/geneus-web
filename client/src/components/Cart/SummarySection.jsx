@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Logo from "../../assets/g.png";
 // import { backendUrl, RAZORPAY_ID } from "../../config";
@@ -20,9 +20,13 @@ const SummarySection = ({
   removeCoupon,
   applyCouponMessage,
 }) => {
+  console.log(cartDetails)
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [appliedCoupon, setAppliedCoupon] = useState("");
+  const location = useLocation();
+  const cartDetailsFromLandingPage = location?.state.cart_items;
+  console.log('this is cart details from landingPage', cartDetailsFromLandingPage);
 
   const { refetch } = useMyLearningQuery(
     { user_Id: user?.id },
@@ -73,7 +77,7 @@ const SummarySection = ({
       };
 
       const response = await axios.request(config);
-      // console.log("response : ", response);
+      console.log("response : ", response);
       // console.log(JSON.stringify(response.data));
       const options = {
         key: process.env.REACT_APP_RAZORPAY_ID,
@@ -90,8 +94,10 @@ const SummarySection = ({
             razorpay_signature: response?.razorpay_signature,
             user_id: user?.id,
             user_email: user?.email,
-            cart_details: cartDetails?.cart_items,
+            cart_details: cartDetailsFromLandingPage ?  cartDetailsFromLandingPage : cartDetails?.cart_items,
           };
+
+          console.log('this is data', data);
 
           const verify = await axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/paymentverification`,

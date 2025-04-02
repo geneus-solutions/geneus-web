@@ -15,7 +15,6 @@ import Courses from "./Pages/Courses";
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import DietPlan from "./Pages/DietPlan";
-import Cart from "./Pages/Cart";
 import CheckOutCourseDetails from "./Pages/CheckOutCourseDetails";
 import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
 import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
@@ -38,6 +37,7 @@ import AllCourses from "./Pages/adminPages/AllCourses";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashboardLayout";
 import UserProfile from "./Pages/UserProfile";
+import CourseCart from "./Pages/CourseCart";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -106,7 +106,7 @@ function App() {
             <Route path="/plan-diet" element={<AddFood />} />
             <Route path="/diet-plan" element={<DietPlan />} />
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
             <Route path="/profile" element={<UserProfile />} />
           </Route>
