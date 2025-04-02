@@ -18,7 +18,7 @@ import { logOut } from "../../features/auth/authSlice";
 import { apiSlice } from "../../app/api/apiSlice";
 
 const AdminSideBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const location = useLocation(); // Get current route
   const dispatch = useDispatch();
   const [logout] = useLogoutMutation();

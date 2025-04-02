@@ -14,8 +14,16 @@ const UnlockButton = ({ course }) => {
   const handleButtonClick = () => {
     if (user) {
       navigate("/course-details", {
-        state: { cartDetails: course, totalPrice: course?.discount_price },
-      });
+        state: { cartDetails: course, totalPrice: course?.discount_price, cart_items: [{
+              course_course_description: course?.description,
+              course_discountPrice: course?.discount_price,
+              course_id: course?._id,
+              course_image: course?.img,
+              course_price: course?.price,
+              course_title: course?.title,
+            }
+          ]
+      }});
     } else {
       setIsLoginDialogOpen(true);
     }

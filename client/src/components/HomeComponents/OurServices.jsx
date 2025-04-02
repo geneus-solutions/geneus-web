@@ -1,46 +1,77 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import img1 from "../../assets/courses.jpg";
-import img2 from "../../assets/nutriImage.jpg";
+import React, { useState } from "react";
 import "./OurServices.css";
+import Course from "../../assets/Home_Course1.png";
+import Nutri from "../../assets/Home_Nutri.png";
+import { Link } from "react-router-dom";
 
-function OurServices() {
-  const navigate = useNavigate();
+const services = [
+  {
+    id: 1,
+    image: Course,
+    title: "Web Development",
+    link: "/courses",
+    description:
+      "Step into the world of web development with our dynamic, expert-guided courses! Whether you're a complete beginner or looking to take your skills to the next level, we’ve got you covered. Learn the cutting-edge technologies that power the web and gain hands-on experience creating high-performing websites and apps. Ready to turn your web development passion into a thriving career? Let’s bring your ideas to life—join our courses and start coding your future today!",
+  },
+  {
+    id: 2,
+    image: Nutri,
+    link: "/nutri-app",
+    title: "Nutri App",
+    description:
+      "Take charge of your health with the Nutri App! Effortlessly track your nutrition, set personalized health goals, and explore customized meal plans designed just for you. With real-time tracking, smart recommendations, and a user-friendly interface, living a balanced lifestyle has never been easier or more enjoyable. Start your wellness journey today and make every meal a step toward a healthier, happier you!",
+  },
+];
+
+const OurServices = () => {
   return (
-    <div className="our-services-container">
-      {/* Title Section */}
-      <div className="our-services-title-section">
-        <div className="lines-container">
-          <div className="line long"></div>
-          <div className="line short"></div>
-        </div>
-        <h2 className="our-services-title">Our Services</h2>
-        <div className="lines-container">
-          <div className="line long"></div>
-          <div className="line short"></div>
-        </div>
+    <section className="our-services">
+      <div className="services-header">
+        <h2 className="our-services-heading">Our Services</h2>
+        <p className="intro">
+          At <b>Geneus Solutions</b>, we’re all about helping you level up in
+          the digital age. Whether you’re ready to dive into the world of web
+          development or take charge of your health with our Nutri App, we've
+          got the perfect tools to get you there. Our expert-led web development
+          courses equip you with the skills to build dynamic, real-world
+          applications, while our Nutri App makes health management simple,
+          intuitive, and personalized. With us, you're not just learning; you're
+          unlocking the skills and knowledge to thrive, innovate, and feel your
+          best. Let’s build your future, one course and app at a time!
+        </p>
       </div>
 
-      {/* Services Cards */}
-      <div className="services-container">
-        {/* Courses Card */}
-        <div className="service-card" onClick={() => navigate("/courses")}> 
-          <img src={img1} alt="Courses" className="service-image" />
-          <div className="overlay">
-            <h3 className="overlay-text">Courses</h3>
-          </div>
-        </div>
+      <div className="our-services-grid">
+        {services.map((service) => (
+          <div
+            key={service.id}
+            className='service-card'>
+            <Link to={service.link} className="service-title">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="service-image"
+              />
+              <h3 className="service-title">{service.title}</h3>
+            </Link>
+            <p className="service-description">
+              {service.description}
+              {/* {expanded === service.id
+                ? service.description
+                : `${service.description.substring(0, 250)}...`} */}
+            </p>
 
-        {/* Nutrition App Card */}
-        <div className="service-card" onClick={() => navigate("/nutri-app")}>
-          <img src={img2} alt="Nutrition App" className="service-image" />
-          <div className="overlay">
-            <h3 className="overlay-text">Nutrition App</h3>
+            <Link to={service.link}
+              className="learn-more"
+            >
+              Explore 
+              {/* {expanded === service.id ? "Read Less" : "Learn More"} */}
+            </Link>
           </div>
-        </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
-}
+};
 
 export default OurServices;
