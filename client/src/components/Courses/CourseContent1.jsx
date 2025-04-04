@@ -73,7 +73,7 @@ const CourseContent1 = ({content}) => {
               </Typography>
               <Typography variant="body1" color="textSecondary">
                 {selected?.url? <iframe
-                    src={selected?.url}
+                    src={`${selected?.url}?rel=0`}
                     width="100%" // Full width of the container
                     height="400px" // Adjusted height
                     style={{ border: "none", borderRadius: "8px" }}

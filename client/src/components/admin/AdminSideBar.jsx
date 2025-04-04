@@ -7,6 +7,8 @@ import {
   FaUser,
   FaCog,
   FaSignOutAlt,
+  FaAppleAlt,
+  FaUserFriends,
 } from "react-icons/fa";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi"; // Unique Icons
 import logo from "../../assets/logo.png"; // Import your image
@@ -66,6 +68,19 @@ const AdminSideBar = () => {
           </li>
         </Link>
         <Link
+          to="/admin-dashboard/all-users"
+          className={`admin-sidebar-link ${
+            location.pathname === "/admin-dashboard/all-users"
+              ? "active"
+              : ""
+          }`}
+        >
+          <li className="admin-sidebar-item">
+            <FaUserFriends />
+            {!isCollapsed && <span>All Users</span>}
+          </li>
+        </Link>
+        <Link
           to="/admin-dashboard/all-courses"
           className={`admin-sidebar-link ${
             location.pathname === "/admin-dashboard/all-courses" ? "active" : ""
@@ -94,7 +109,7 @@ const AdminSideBar = () => {
           }`}
         >
           <li className="admin-sidebar-item">
-            <FaCartPlus />
+            <FaAppleAlt />
             {!isCollapsed && <span>Add Product</span>}
           </li>
         </Link>
@@ -102,7 +117,7 @@ const AdminSideBar = () => {
 
       {/* Bottom Menu Items */}
       <ul className="admin-sidebar-bottom">
-        <Link to="/profile" className="admin-sidebar-link">
+        <Link to="/admin-dashboard/profile" className="admin-sidebar-link">
           <li className="admin-sidebar-item">
             <FaUser />
             {!isCollapsed && <span>Profile</span>}

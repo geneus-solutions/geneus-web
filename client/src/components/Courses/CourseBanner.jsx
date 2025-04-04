@@ -3,7 +3,6 @@ import "./CourseBanner.css";
 import reactImage from '../../assets/reactjs.jpg';
 
 const CourseBanner = ({ imgSrc, course }) => {
-  console.log(course);
   const reactCourse = '64e0c36eec5d32490e9f22d7';
   return (
     <div className="course-section-container">
