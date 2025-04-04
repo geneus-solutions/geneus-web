@@ -52,7 +52,7 @@
   
   .service-image {
     width: 100%;
-    height: auto;
+    height: 400px;
     object-fit: fill;
     border-radius: 8px;
   }
