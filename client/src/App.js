@@ -38,6 +38,7 @@ import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashboardLayout";
 import UserProfile from "./Pages/UserProfile";
 import CourseCart from "./Pages/CourseCart";
+import UsersData from "./Pages/adminPages/userData/UsersData";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -123,6 +124,9 @@ function App() {
             <Route path="/admin-dashboard/add-product" element={<AddProduct />} />
             <Route path="/admin-dashboard/visitor-data" element={<VisitorData/>}/>
             <Route path="/admin-dashboard/all-courses" element={<AllCourses/>}/>
+            <Route path="/admin-dashboard/profile" element={<UserProfile />} />
+            <Route path="/admin-dashboard/all-users" element={<UsersData />} />
+            
           </Route>
           </Route>
 

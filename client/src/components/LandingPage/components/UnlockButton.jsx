@@ -10,19 +10,18 @@ const UnlockButton = ({ course }) => {
   const user = useSelector(selectCurrentUser);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
   const navigate = useNavigate();
-
   const handleButtonClick = () => {
     if (user) {
       navigate("/course-details", {
-        state: { cartDetails: course, totalPrice: course?.discount_price, cart_items: [{
-              course_course_description: course?.description,
-              course_discountPrice: course?.discount_price,
-              course_id: course?._id,
-              course_image: course?.img,
-              course_price: course?.price,
-              course_title: course?.title,
-            }
-          ]
+        state: { cartDetails: {cart_items: [{
+          course_course_description: course?.description,
+          course_discountPrice: course?.discount_price,
+          course_id: course?._id,
+          course_image: course?.img,
+          course_price: course?.price,
+          course_title: course?.title,
+        }
+      ]}, totalPrice: course?.discount_price, 
       }});
     } else {
       setIsLoginDialogOpen(true);

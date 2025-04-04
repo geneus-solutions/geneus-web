@@ -39,7 +39,15 @@ function Signup({ toggleComponent, isLoginDialogOpen, setIsLoginDialogOpen, cour
       if (isLoginDialogOpen) { 
         setIsLoginDialogOpen(false);
         navigate('/course-details', {
-          state: { cartDetails: course, totalPrice: course?.discount_price }
+          state: { cartDetails: {cart_items: [{
+            course_course_description: course?.description,
+            course_discountPrice: course?.discount_price,
+            course_id: course?._id,
+            course_image: course?.img,
+            course_price: course?.price,
+            course_title: course?.title,
+          }
+        ]}, totalPrice: course?.discount_price }
         });
         return;
       } if(!isLoginDialogOpen) { 
