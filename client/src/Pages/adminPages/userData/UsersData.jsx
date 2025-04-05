@@ -11,19 +11,19 @@ import Loading from "../../../components/loading/Loading";
 const UsersData = () => {
   const { data: users } = useGetAllUserQuery();
   const [deleteUser, { isLoading }] = useDeleteUserByIdMutation();
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(null);
 
   const handleDelteUserById = async (id) => {
-    setShowPopUp(!showPopUp);
+    setShowPopUp(id);
   };
 
   const handleNoClick = () => {
     setShowPopUp(!showPopUp);
   };
 
-  const handleYesClick = async (id) => {
+  const handleYesClick = async () => {
     try {
-      const response = await deleteUser(id).unwrap();
+      const response = await deleteUser(showPopUp).unwrap();
       setShowPopUp(!showPopUp);
       toast.success(response.message);
     } catch (error) {
@@ -64,14 +64,14 @@ const UsersData = () => {
                           color: "red",
                           cursor: "pointer",
                         }}
-                        onClick={() => handleDelteUserById(user._id)}
+                        onClick={() => handleDelteUserById(user?._id)}
                       />
                     </td>
                   </tr>
-                  {showPopUp && (
+                  {showPopUp === user._id && (
                     <PopUp
                       title="Are you sure to delete the user account?"
-                      handleYesClick={() => handleYesClick(user._id)}
+                      handleYesClick={handleYesClick}
                       handleNoClick={handleNoClick}
                     />
                   )}
