@@ -31,7 +31,7 @@ const MyLearningCourseDetails = ({ data }) => {
         </p>
         <div className="my-learning-video-container">
           <iframe
-            src={`${currentContent?.url}?rel=0`}
+            src={currentContent?.url && `${currentContent?.url}?rel=0`}
             width="100%"
             height="400px"
             className="video-frame"
