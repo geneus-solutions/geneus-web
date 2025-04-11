@@ -133,7 +133,7 @@ const CheckOutCourseDetails = () => {
                     <td>₹{item.course_price - item.course_discountPrice}</td>
                     <td>₹{item.course_discountPrice}</td>
                     <td onClick={() => removeFromSummry(item._id)}>
-                      <MdDelete />
+                      <MdDelete  style={{cursor: 'pointer'}}/>
                     </td>
                   </tr>
                 ))
