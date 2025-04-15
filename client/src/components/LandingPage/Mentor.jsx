@@ -15,7 +15,7 @@ const Mentor = () => {
           alt="Mentor"
           className="mentor-image"
           />
-          <h2 className="mentor-name">Jagdish Sail</h2> 
+          <h2 className="mentor-name">Jagadish Sail</h2> 
           </div>
         <div className="mentor-details">
           <ul>

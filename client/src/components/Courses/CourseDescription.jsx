@@ -19,7 +19,7 @@ import CourseNotes from "./CourseNotes";
 const CourseDescription = ({ courseDetails }) => {
   const [discount, setDiscount] = useState(0);
   const [len, setLen] = useState(0);
-
+  console.log('this is courseDescription from courseDescription', courseDetails)
   const [formattedCourseIntro, setFormattedCourseIntro] = useState("");
   const [formattedCourseIntro2, setFormattedCourseIntro2] = useState("");
   const [formattedCourseOutro, setFormattedCourseOutro] = useState("");

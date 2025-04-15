@@ -17,8 +17,8 @@ const carouselData = [
     description:
       "Provides the best contents for learning in an affordable price.",
     image: img1,
-    buttonName: "Signup",
-    path: "/login",
+    // buttonName: "Signup",
+    // path: "/login",
   },
   {
     title: "Learn at your own pace",
@@ -66,7 +66,7 @@ const HomeCarousel = () => {
               <h3 className="home-subtitle">{item.subtitle}</h3>
               <h2 className="home-title">{item.title}</h2>
               <p className="home-description">{item.description}</p>
-              {(!user || item.buttonName !== "Signup") && ( // Conditional rendering
+              {item.buttonName && ( // Conditional rendering
                 <Link to={item.path} className="carousel-button">
                   {item.buttonName}
                 </Link>
