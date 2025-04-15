@@ -44,7 +44,7 @@ const Contact = () => {
 
   return (
     <div className="contact-banner" style={{ position: "relative" }}>
-      <div style={{ position: "relative", width: "100vw", height: "60vh" }}>
+      {/* <div style={{ position: "relative", width: "100vw", height: "60vh" }}>
         <img
           src={img1}
           style={{
@@ -69,7 +69,7 @@ const Contact = () => {
         >
           <h1 style={{ color: "white", fontSize: "3rem" }}>Contact Us</h1>
         </div>
-      </div>
+      </div> */}
       <div
         className="contact-form"
         style={{ display: "flex", padding: "2rem" }}
