@@ -24,7 +24,6 @@ const UserProfile = () => {
     });
   };
 
-  console.log('this is userProfie', userProfile)
   const handleCancel = () => {
     setTempEdit({});
   };

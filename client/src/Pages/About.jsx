@@ -35,6 +35,7 @@ const About = () => {
       gradient: "linear-gradient(to right, #ff8000, #ffb380)",
     },
   ];
+  
   const ServiceCard = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "300px",
@@ -85,7 +86,7 @@ const About = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      {/* <div style={{ position: "relative", width: "100vw", height: "60vh" }}>
+      <div style={{ position: "relative", width: "100vw", height: "60vh" }}>
         <img
           src={img1}
           style={{
@@ -111,7 +112,7 @@ const About = () => {
         >
           <h1 style={{ color: "white", fontSize: "3rem" }}>About</h1>
         </div>
-      </div> */}
+      </div>
       <AboutUs />
       <div className="what-we-do">
         <Box sx={{ py: 6, px: 4 }}>

@@ -7,8 +7,6 @@ import img1 from "../../assets/crousel_01.jpg";
 import img2 from "../../assets/crousel_02.jpg";
 import img3 from "../../assets/crousel_03.jpg";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../features/auth/authSlice";
 
 const carouselData = [
   {
@@ -17,8 +15,8 @@ const carouselData = [
     description:
       "Provides the best contents for learning in an affordable price.",
     image: img1,
-    // buttonName: "Signup",
-    // path: "/login",
+    buttonName: "Signup",
+    path: "/signup",
   },
   {
     title: "Learn at your own pace",
@@ -52,9 +50,6 @@ const HomeCarousel = () => {
     arrows: true,
   };
 
-  const user = useSelector(selectCurrentUser);
-  console.log(user);
-
   return (
     <div className="carousel-container">
       <Slider {...settings}>
@@ -66,12 +61,9 @@ const HomeCarousel = () => {
               <h3 className="home-subtitle">{item.subtitle}</h3>
               <h2 className="home-title">{item.title}</h2>
               <p className="home-description">{item.description}</p>
-              {item.buttonName && ( // Conditional rendering
-                <Link to={item.path} className="carousel-button">
-                  {item.buttonName}
-                </Link>
-              )}
-
+              <Link to={item.path} className="carousel-button">
+                {item.buttonName}
+              </Link>
             </div>
           </div>
         ))}

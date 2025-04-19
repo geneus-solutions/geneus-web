@@ -2,8 +2,8 @@ import React from "react";
 import "./WhyAttend.css";
 import { MdArrowCircleRight } from "react-icons/md";
 
-const WhyAttend = ({ course }) => {
-  console.log("this is course from why Attend", course);
+const WhyAttend = ({course}) => {
+
   return (
     <>
       <div className="whyattend-container">
@@ -11,28 +11,19 @@ const WhyAttend = ({ course }) => {
           <h1>WHY ATTEND THIS COURSE?</h1>
         </div>
         <div className="whyattend-item">
-          {course?.aboutCourse?.intro && (
-            <div className="whyattend">
-              <p className="do-AI-driven-market">
-                {course?.aboutCourse?.intro}
-              </p>
-            </div>
-          )}
-          {course?.whythisCourse?.intro && (
-            <div className="whyattend">
-              <p className="do-AI-driven-market">
-                {course?.whythisCourse?.intro}
-              </p>
-            </div>
-          )}
-          {course?.whythisCourse?.outro && (
-            <div className="whyattend">
-              <p className="do-AI-driven-market">
-                {course?.whythisCourse?.outro}
-              </p>
-            </div>
-          )}
+          {course &&
+            course?.map((item, index) => (
+              <div className="whyattend" key={index}>
+                {" "}
+                <span className="whyattend-img">
+                  {" "}
+                  <MdArrowCircleRight />{" "}
+                </span>{" "}
+                <p className="do-AI-driven-market">{item}</p>{" "}
+              </div>
+            ))}{" "}
         </div>
+        {/* /* The Unlock Button not Showing here this is the error here */ }
       </div>
     </>
   );

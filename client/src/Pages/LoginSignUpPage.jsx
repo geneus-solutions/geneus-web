@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Login from "../components/Login/Login";
 import Signup from "../components/Signup/Signup";
 import "./LoginSignUpPage.css";
@@ -8,6 +8,7 @@ const LoginSignUpPage = ({
   setIsLoginDialogOpen,
   course,
 }) => {
+  
   const [showLogin, setShowLogin] = useState(!isLoginDialogOpen);
 
   const toggleComponent = () => {

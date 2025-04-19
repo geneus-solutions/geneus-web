@@ -16,13 +16,12 @@ const Background = ({ course }) => {
           <div className="iframe">
             <iframe
               src="https://www.youtube.com/embed/2eTIgVyBnNg?rel=0&controls=0&showinfo=0&modestbranding=1"
-              width="600px"
-              height="400px"
+              // width="100%"
+              height="300px"
               allow="autoplay"
               allowFullScreen
               title="Google Drive Video"
               // style={{ maxWidth: "600px", border: "none" }}
-              className="iframe-video"
             ></iframe>
           </div>
           <div className="ready-to-grow-your-wrapper">
@@ -36,12 +35,12 @@ const Background = ({ course }) => {
                 Web Development?
               </span>
             </p>
-            {course?.learnings &&
-              course?.learnings?.map((value, index) => (
+            {course?.requirements &&
+              course?.requirements?.map((value, index) => (
                 <div className="list" key={index}>
                   <div className="item">
-                    <ul className="background-list"> 
-                      <li className="never-miss-trading"><span></span>{value}</li>
+                    <ul>
+                      <li className="never-miss-trading">{value}</li>
                     </ul>
                     {/* <p className="never-miss-trading"><span>👉</span>{value}</p> */}
                   </div>

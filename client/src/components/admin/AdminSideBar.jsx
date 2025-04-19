@@ -7,8 +7,6 @@ import {
   FaUser,
   FaCog,
   FaSignOutAlt,
-  FaAppleAlt,
-  FaUserFriends,
 } from "react-icons/fa";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi"; // Unique Icons
 import logo from "../../assets/logo.png"; // Import your image
@@ -20,7 +18,7 @@ import { logOut } from "../../features/auth/authSlice";
 import { apiSlice } from "../../app/api/apiSlice";
 
 const AdminSideBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation(); // Get current route
   const dispatch = useDispatch();
   const [logout] = useLogoutMutation();
@@ -50,9 +48,13 @@ const AdminSideBar = () => {
       {/* Top Menu Items */}
       <ul className="admin-sidebar-menu">
         <li className="admin-sidebar-home">
-          <Link to="/">
+          <Link to="/" className="admin-sidebar-link">
             <img src={logo} alt="Home" className="admin-sidebar-logo" />
-          </Link>
+            {!isCollapsed && <span style={{margin:0,fontSize:'13px',fontWeight:600,color:'white',marginLeft:'10px'}}>Geneus Solutions</span>}
+          </Link>{" "}
+          {/* <p style={{margin:0,fontSize:'12px',fontWeight:'bold'}}>
+            Geneus Solutions
+          </p> */}
         </li>
         <Link
           to="/admin-dashboard/visitor-data"
@@ -65,19 +67,6 @@ const AdminSideBar = () => {
           <li className="admin-sidebar-item">
             <FaUsers />
             {!isCollapsed && <span>All Visitors</span>}
-          </li>
-        </Link>
-        <Link
-          to="/admin-dashboard/all-users"
-          className={`admin-sidebar-link ${
-            location.pathname === "/admin-dashboard/all-users"
-              ? "active"
-              : ""
-          }`}
-        >
-          <li className="admin-sidebar-item">
-            <FaUserFriends />
-            {!isCollapsed && <span>All Users</span>}
           </li>
         </Link>
         <Link
@@ -109,7 +98,7 @@ const AdminSideBar = () => {
           }`}
         >
           <li className="admin-sidebar-item">
-            <FaAppleAlt />
+            <FaCartPlus />
             {!isCollapsed && <span>Add Product</span>}
           </li>
         </Link>
@@ -117,7 +106,7 @@ const AdminSideBar = () => {
 
       {/* Bottom Menu Items */}
       <ul className="admin-sidebar-bottom">
-        <Link to="/admin-dashboard/profile" className="admin-sidebar-link">
+        <Link to="/profile" className="admin-sidebar-link">
           <li className="admin-sidebar-item">
             <FaUser />
             {!isCollapsed && <span>Profile</span>}

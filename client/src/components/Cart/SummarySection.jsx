@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Logo from "../../assets/g.png";
 // import { backendUrl, RAZORPAY_ID } from "../../config";
@@ -23,9 +23,6 @@ const SummarySection = ({
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [appliedCoupon, setAppliedCoupon] = useState("");
-  const location = useLocation();
-  const cartDetailsFromLandingPage = location?.state.cart_items;
-  // console.log('this is cart details from landingPage', cartDetailsFromLandingPage);
 
   const { refetch } = useMyLearningQuery(
     { user_Id: user?.id },
@@ -46,8 +43,8 @@ const SummarySection = ({
   };
   const makePayment = async (amount) => {
     try {
-      if (!amount || isNaN(amount)) {
-      // if(amount<0){  //Change for testing in unique coupn code
+      // if (!amount || isNaN(amount)) {
+      if(amount<0){  //Change for testing in unique coupn code
         console.error("Invalid amount");
         return;
       }
@@ -63,9 +60,6 @@ const SummarySection = ({
         currency: "INR",
         username: user?.name,
         email: user?.email,
-        cart_details: cartDetails?.cart_items?.map((val)=>{
-          return val?.course_id
-        }),
       };
 
       const config = {
@@ -96,9 +90,8 @@ const SummarySection = ({
             razorpay_signature: response?.razorpay_signature,
             user_id: user?.id,
             user_email: user?.email,
-            cart_details: cartDetailsFromLandingPage ?  cartDetailsFromLandingPage : cartDetails?.cart_items,
+            cart_details: cartDetails?.cart_items,
           };
-
 
           const verify = await axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/paymentverification`,
@@ -127,19 +120,19 @@ const SummarySection = ({
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
-      console.error("Failed to make payment:", error);
-      if(error.response.status === 409){
-        toast.info(error.response.data.message || 'You already purchase the course');
-      }else {
-        alert(
-          "Payment failed, please contact our support at support@geneussolutions.in"
-        );
-      }
+      // console.error("Failed to make payment:", error);
+      alert(
+        "Payment failed, please contact our support at support@geneussolutions.in"
+      );
+      // if(error.response.status === 401){
+      //   alert("User Unauthorized, please do re login and try");
+      // }
     }
   };
   return (
     <div className="summary-section">
       <h2 className="summary-title">Summary</h2>
+
       <div className="summary-details">
         <div className="summary-item">
           <span>Subtotal:</span>

@@ -29,13 +29,12 @@ const LandingPage = () => {
     return navigate(-1);
   }
 
-
   return (
     <>
       {course?._id ? (
         <div className="main-container">
           <Background course={course} />
-          <WhyAttend course={course} />
+          <WhyAttend course={course?.learnings} />
           <RecomendToAttend course={course}/>
           <WhatWeCover course={course?.courseContent}/>
           <Mentor />

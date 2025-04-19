@@ -33,15 +33,10 @@
 }
 
 .background-container.iframe {
-  width: 100%;
-  /* max-width: 80rem; */
+  max-width: 100%;
+  max-width: 80rem;
   height: 18.75rem;
   border: none;
-}
-
-.iframe-video{
-  width: 30rem;
-  height: 20rem;
 }
 
 .ready-to-grow-your-wrapper {
@@ -68,26 +63,18 @@
   color: #fddd24;
 }
 
-.background-list {
-  /* padding: 0.4rem; */
+.list ul {
+  padding: 0.4rem;
   text-align: left;
-  list-style: none;
 }
 
-.background-list li::before{
-  content: "👉";
-  margin-right: 8px;
+.list li {
   color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.75rem;
   margin-bottom: 0.5rem;
 }
-
-.never-miss-trading{
-  color: #ffffff;
-}
-
 
 .heading-no-prior {
   display: flex;
@@ -113,11 +100,6 @@
 
   .iframe {
     order: 1;
-  }
-
-  .iframe-video{
-    width: 30rem;
-    height: 20rem;
   }
 
   .ready-to-grow-your-wrapper {
@@ -158,9 +140,5 @@
     font-size: 1rem;
     text-align: center;
   }
-  
-  .iframe-video{
-    width: 20rem;
-    height: 10rem;
-  }
+ 
 }
