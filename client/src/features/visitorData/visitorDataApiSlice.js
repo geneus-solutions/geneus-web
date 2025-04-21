@@ -12,6 +12,16 @@ export const visitorDataApiSlice = apiSlice.injectEndpoints({
             providesTags: (result, error, { dateFrom, dateTo }) => 
                 result ? [{ type: 'Visitor', id: `${dateFrom}-${dateTo}` }] : [],
         }),
+        addVisitorData: builder.mutation({
+            query:() => {
+                return {
+                url: '/track-visitor',
+                method:'POST',
+                headers: {
+                    'Frontend-URL': window.location.href
+                  }
+            }}
+        }),
         deleteVisitorData: builder.mutation({
             query: ({dateFrom, dateTo}) => {
                 return {
@@ -32,4 +42,4 @@ export const visitorDataApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useVisitorDataQuery, useDeleteVisitorDataMutation, useDeleteVisitorDataByIdMutation } = visitorDataApiSlice;
+export const { useVisitorDataQuery, useAddVisitorDataMutation, useDeleteVisitorDataMutation, useDeleteVisitorDataByIdMutation } = visitorDataApiSlice;

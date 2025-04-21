@@ -10,7 +10,7 @@ const UnlockButton = ({ course }) => {
   const user = useSelector(selectCurrentUser);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
   const navigate = useNavigate();
-  console.log(course);
+
   const handleButtonClick = () => {
     if (user) {
       navigate("/course-details", {

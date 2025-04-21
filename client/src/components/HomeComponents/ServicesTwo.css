@@ -78,11 +78,10 @@
   
   .learn-more {
     padding: 10px 20px;
-    font-size: 1.3rem;
+    font-size: 1rem;
     border: none;
     background-color: #0288d1;
     color: white;
-    text-decoration: none;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
     border-radius: 5px;
@@ -95,10 +94,10 @@
   /* Responsive Design */
   @media (min-width: 768px) {
     .our-services-grid {
-    display: flex;
+      display: flex;
       flex-direction: column;
       justify-content: space-between;
-  }
+    }
   }
   
   @media (min-width: 1024px) {

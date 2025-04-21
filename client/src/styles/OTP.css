@@ -1,0 +1,94 @@
+/* Container Styling */
+.otp-container {
+    /* background-color: #f5f7fa; */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Card Styling */
+  .otp-card {
+    /* background: whitesmoke; */
+    /* padding: 2rem; */
+    border-radius: 10px;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+    text-align: center;
+    /* max-width: 400px; */
+    width: 100%;
+  }
+  
+  /* Heading and Description */
+  .otp-card h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .otp-card p {
+    font-size: 0.95rem;
+    color: rgb(100 116 139);
+    margin-bottom: 1.5rem;
+  }
+  
+  /* OTP Input Fields */
+  .otp-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .otp-input {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid #080808;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: border-color 0.3s ease/*, background-color 0.3s ease*/;
+  }
+  
+  .otp-input:focus {
+    border:2px solid #080808;
+    /* background-color: #f0f8ff; */
+    outline: none;
+  }
+  
+  /* Submit Button */
+  .otp-submit {
+    display: block;
+    margin: 0 auto;
+    height: 40px;
+    background: #080808;
+    /* background: green; */
+    /* width: 280px; */
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.8rem 7.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  /* .otp-submit:hover {
+    background: #357abd;
+  } */
+  
+  /* Resend Link */
+  .otp-resend {
+    font-size: 0.875rem;
+    color: rgb(100 116 139);
+  }
+  
+  .otp-link {
+    border: none;
+    background: none;
+    color: #080808;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .otp-link:hover {
+    text-decoration: underline;
+  }
