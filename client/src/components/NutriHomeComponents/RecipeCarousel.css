@@ -1,0 +1,99 @@
+.carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: azure;
+  }
+  
+  .carousel-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00467f;
+    margin-bottom: 10px;
+  }
+  
+  .carousel-description {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+
+  .carousel-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
+
+  .recipe-card-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px 400px; /* Space between cards */
+  }
+  
+  /* Highlight the center card */
+  .slick-current .recipe-card {
+    transform: scale(1.1);
+    box-shadow: 5px 0px 0px rgba(0, 1, 0, 0.1);
+  }
+  .recipe-card {
+    position: relative;
+    width: 350px; /* Fixed width */
+    height: 350px; /* Fixed height */
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+
+  .recipe-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+  }
+
+  .recipe-card .text-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(11, 10, 10, 0.3); /* Optional: Adds a semi-transparent background to the text */
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  
+  .recipe-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: aliceblue;
+      margin-bottom: 80%;
+    }
+    
+    .recipe-info-container{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      padding: 10px
+    }
+  .recipe-info {
+    font-size: 14px;
+    color: aliceblue;
+    margin: 4px 0;
+  }
+  

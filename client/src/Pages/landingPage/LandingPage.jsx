@@ -29,7 +29,6 @@ const LandingPage = () => {
     return navigate(-1);
   }
 
-
   return (
     <>
       {course?._id ? (

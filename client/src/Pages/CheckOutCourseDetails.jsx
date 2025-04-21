@@ -22,6 +22,7 @@ const CheckOutCourseDetails = () => {
   console.log(
     'this is cartDetails', cartDetails, totalPrice
   )
+  console.log('this is cartItems', cartItems)
   
   const validCoupons = [
     { code: "a3e29f41", discount: 50, expiryDate: "2025-12-31" },
@@ -114,7 +115,7 @@ const CheckOutCourseDetails = () => {
                 <th>Unit Price</th>
                 <th>Discounted Price</th>
                 <th>Amount</th>
-                <th>Remove</th>
+                {/* <th>Remove</th> */}
               </tr>
             </thead>
             <tbody>
@@ -132,9 +133,9 @@ const CheckOutCourseDetails = () => {
                     <td>₹{item.course_price}</td>
                     <td>₹{item.course_price - item.course_discountPrice}</td>
                     <td>₹{item.course_discountPrice}</td>
-                    <td onClick={() => removeFromSummry(item._id)}>
+                    {/* <td onClick={() => removeFromSummry(item._id)}>
                       <MdDelete  style={{cursor: 'pointer'}}/>
-                    </td>
+                    </td> */}
                   </tr>
                 ))
               ) : (
@@ -168,6 +169,7 @@ const CheckOutCourseDetails = () => {
         <div className="summary-section-checkout">
           <SummarySection
             cartDetails={cartDetails}
+            // cartDetails={cartItems}
             finalTotal={finalTotal}
             discount={discount}
             totalPrice={totalPrice}

@@ -39,6 +39,11 @@ import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashbo
 import UserProfile from "./Pages/UserProfile";
 import CourseCart from "./Pages/CourseCart";
 import UsersData from "./Pages/adminPages/userData/UsersData";
+import LoginPage from "./Pages/LoginPage";
+import VerifyAccount from "./Pages/verifyAccount";
+import SignupPage from "./Pages/SignupPage";
+import NutriHome from "./Pages/NutriHome";
+import useVisitorTracker from "./hooks/useVisitorTracker";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -85,6 +90,9 @@ function App() {
     };
   }, [handleLogout, user?.id]);
 
+  useVisitorTracker();
+
+
   return (
     <Router>
       <div>
@@ -92,7 +100,10 @@ function App() {
       <PrivacyPolicy/>
 
       <Routes>
-        <Route path="/login" element={<LoginSignUpPage />} />
+        {/* <Route path="/login" element={<LoginSignUpPage />} /> */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="verify-account" element={<VerifyAccount />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
@@ -102,10 +113,11 @@ function App() {
           <Route path="/landing/:id" element={<LandingPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
 
-          <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
-            <Route path="/nutri-app" element={<CalorieCalculator />} />
-            <Route path="/plan-diet" element={<AddFood />} />
+            <Route path="/nutri-app" element={<NutriHome />} />
+            <Route path="/calculate-calorie" element={<CalorieCalculator />} />
+            <Route path="/plan-diet" element={<AddFood />} />   
             <Route path="/diet-plan" element={<DietPlan />} />
+          <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/course-details" element={<CheckOutCourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />

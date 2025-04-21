@@ -1,0 +1,41 @@
+.food-tracking-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: auto;
+    background-color: #f8f9fa;
+    gap: 10px;
+  }
+  
+  .food-tracking-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 600px;
+    height: 500px;
+    text-align: center;
+  }
+  
+  .food-tracking-image {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+  }
+  
+  .food-tracking-content {
+    padding: 20px;
+  }
+  
+  .food-tracking-content h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .food-tracking-content p {
+    color: #6c757d;
+    font-size: 16px;
+    line-height: 1.5;
+  }

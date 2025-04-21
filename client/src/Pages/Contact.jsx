@@ -2,6 +2,8 @@ import React, { useState, useTransition } from "react";
 import img1 from "../assets/banner.jpeg";
 import "./Contact.css";
 import { useContactUsMutation } from "../features/contactUs/contactUsApiSlice";
+import { FaFacebook, FaInstagram, FaLinkedin, FaVoicemail } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -43,161 +45,49 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-banner" style={{ position: "relative" }}>
-      {/* <div style={{ position: "relative", width: "100vw", height: "60vh" }}>
-        <img
-          src={img1}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-          alt="Contact Banner"
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(41, 41, 41, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1 style={{ color: "white", fontSize: "3rem" }}>Contact Us</h1>
-        </div>
-      </div> */}
-      <div
-        className="contact-form"
-        style={{ display: "flex", padding: "2rem" }}
-      >
-        <div
-          style={{
-            backgroundColor: "#007BFF",
-            color: "white",
-            padding: "2rem",
-            width: "35%",
-            borderRadius: "8px 0 0 8px",
-          }}
-        >
-          <h2>Let's get in touch</h2>
-          <div style={{ marginBottom: "1rem" }}>
-            <p>
-              <i className="fa fa-envelope" aria-hidden="true"></i>{" "}
-              support@geneussolutions.in
-            </p>
-            {/* <p>
-              <i className="fa fa-phone" aria-hidden="true"></i> +91 9148950239
-            </p> */}
+    <div className="contact-container">
+      <div className="form-full-width">
+        <form onSubmit={handleSubmit}>
+          <div className="input-row">
+            <div className="input-group">
+              <label>Full Name</label>
+              <input type="text" name="name" value={formData.name} onChange={handleChange} />
+            </div>
+            <div className="input-group">
+              <label>Email</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} />
+            </div>
           </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: "#f9f9f9",
-            padding: "2rem",
-            width: "65%",
-            borderRadius: "0 8px 8px 0",
-          }}
-        >
-          <form onSubmit={handleSubmit}>
-            <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-              <div style={{ flex: 1 }}>
-                <label style={{ color: "#007BFF" }}>Full Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Full Name"
-                  style={{
-                    width: "100%",
-                    padding: "0.5rem",
-                    marginTop: "0.5rem",
-                  }}
-                />
-              </div>
-              <div style={{ flex: 1 }}>
-                <label style={{ color: "#007BFF" }}>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  style={{
-                    width: "100%",
-                    padding: "0.5rem",
-                    marginTop: "0.5rem",
-                  }}
-                />
-              </div>
-            </div>
-            <div style={{ marginBottom: "1rem" }}>
-              <label style={{ color: "#007BFF" }}>Subject</label>
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                placeholder="Subject"
-                style={{
-                  width: "100%",
-                  padding: "0.5rem",
-                  marginTop: "0.5rem",
-                }}
-              />
-            </div>
-            <div style={{ marginBottom: "1rem" }}>
-              <label style={{ color: "#007BFF" }}>Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Message"
-                style={{
-                  width: "100%",
-                  padding: "0.5rem",
-                  marginTop: "0.5rem",
-                  height: "100px",
-                }}
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              style={{
-                backgroundColor: "#007BFF",
-                color: "white",
-                padding: "0.5rem 2rem",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              {isPending ? "Sending..." : "Send"}
-            </button>
-          </form>
+          <div className="input-group">
+            <label>Subject</label>
+            <input type="text" name="subject" value={formData.subject} onChange={handleChange} />
+          </div>
+          <div className="input-group">
+            <label>Message</label>
+            <textarea name="message" value={formData.message} onChange={handleChange}></textarea>
+          </div>
+          <button className="contact-send-button" type="submit" disabled={isPending}>
+            {isPending ? "Sending..." : "Send"}
+          </button>
+        </form>
+      </div>
+
+      {/* Social Connect Section */}
+      <div className="connect-section">
+        <h2>Let's Get in touch</h2>
+        <div className="social-icons">
+          <a href="https://www.facebook.com/geneus.solutions" target="_blank" rel="noreferrer" className="icon"><FaFacebook size={30}/></a>
+          <a href="https://www.instagram.com/geneus.solutions" target="_blank" rel="noreferrer" className="icon"><FaInstagram size={30}/></a>
+          <a href="https://www.linkedin.com/company/geneus-solutions" target="_blank" rel="noopener noreferrer" className="icon"><FaLinkedin size={30}/></a>
+          <a href="mailto:support@geneussolutions.in" className="icon"><MdEmail size={30}/></a>
         </div>
       </div>
+
       {submitted && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#fff",
-            padding: "2rem",
-            borderRadius: "8px",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-            zIndex: 1000,
-          }}
-        >
+        <div className="popup">
           {errorMsg ? (
             <>
-              <h2>Not Submited</h2>
+              <h2>Not Submitted</h2>
               <p>{errorMsg}</p>
             </>
           ) : (
@@ -206,19 +96,7 @@ const Contact = () => {
               <p>Your message has been sent successfully.</p>
             </>
           )}
-          <button
-            onClick={() => setSubmitted(false)}
-            style={{
-              backgroundColor: "#007BFF",
-              color: "white",
-              padding: "0.5rem 2rem",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Close
-          </button>
+          <button onClick={() => setSubmitted(false)}>Close</button>
         </div>
       )}
     </div>

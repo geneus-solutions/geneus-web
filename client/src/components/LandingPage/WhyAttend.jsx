@@ -2,8 +2,8 @@ import React from "react";
 import "./WhyAttend.css";
 import { MdArrowCircleRight } from "react-icons/md";
 
-const WhyAttend = ({ course }) => {
-  console.log("this is course from why Attend", course);
+const WhyAttend = ({course}) => {
+
   return (
     <>
       <div className="whyattend-container">
@@ -16,21 +16,21 @@ const WhyAttend = ({ course }) => {
               <p className="do-AI-driven-market">
                 {course?.aboutCourse?.intro}
               </p>
-            </div>
+              </div>
           )}
           {course?.whythisCourse?.intro && (
             <div className="whyattend">
               <p className="do-AI-driven-market">
                 {course?.whythisCourse?.intro}
               </p>
-            </div>
+        </div>
           )}
           {course?.whythisCourse?.outro && (
             <div className="whyattend">
               <p className="do-AI-driven-market">
                 {course?.whythisCourse?.outro}
               </p>
-            </div>
+      </div>
           )}
         </div>
       </div>

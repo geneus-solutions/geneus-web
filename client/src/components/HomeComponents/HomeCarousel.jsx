@@ -56,20 +56,20 @@ const HomeCarousel = () => {
   console.log(user);
 
   return (
-    <div className="carousel-container">
+    <div className="home-carousel-container">
       <Slider {...settings}>
         {carouselData.map((item, index) => (
-          <div key={index} className="carousel-slide">
-            <img src={item.image} alt={item.title} className="carousel-image" />
+          <div key={index} className="home-carousel-slide">
+            <img src={item.image} alt={item.title} className="home-carousel-image" />
             <div/>
-            <div className="carousel-content">
-              <h3 className="home-subtitle">{item.subtitle}</h3>
-              <h2 className="home-title">{item.title}</h2>
+            <div className="home-carousel-content">
+              <h3 className="home-carousel-subtitle">{item.subtitle}</h3>
+              <h2 className="home-carousel-title">{item.title}</h2>
               <p className="home-description">{item.description}</p>
               {item.buttonName && ( // Conditional rendering
-                <Link to={item.path} className="carousel-button">
-                  {item.buttonName}
-                </Link>
+              <Link to={item.path} className="home-carousel-button">
+                {item.buttonName}
+              </Link>
               )}
 
             </div>

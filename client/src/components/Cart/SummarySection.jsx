@@ -25,7 +25,7 @@ const SummarySection = ({
   const [appliedCoupon, setAppliedCoupon] = useState("");
   const location = useLocation();
   const cartDetailsFromLandingPage = location?.state.cart_items;
-  // console.log('this is cart details from landingPage', cartDetailsFromLandingPage);
+  console.log('this is cart details ', cartDetails);
 
   const { refetch } = useMyLearningQuery(
     { user_Id: user?.id },
@@ -131,12 +131,13 @@ const SummarySection = ({
       if(error.response.status === 409){
         toast.info(error.response.data.message || 'You already purchase the course');
       }else {
-        alert(
-          "Payment failed, please contact our support at support@geneussolutions.in"
-        );
-      }
+      alert(
+        "Payment failed, please contact our support at support@geneussolutions.in"
+      );
+    }
     }
   };
+  
   return (
     <div className="summary-section">
       <h2 className="summary-title">Summary</h2>

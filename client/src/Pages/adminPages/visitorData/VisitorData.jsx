@@ -121,7 +121,7 @@ const VisitorData = () => {
               {visitorData?.data?.map((visitor, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{new Date(visitor.timestamp).toISOString().split('T')[0]}</td>
+                  <td>{new Date(visitor.createdAt).toISOString().split('T')[0]}</td>
                   <td>{visitor.url}</td>
                   <td>{visitor.ip}</td>
                   <td>{visitor.city}</td>

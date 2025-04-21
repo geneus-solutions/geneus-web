@@ -1,7 +1,7 @@
 /* Footer.css */
 
 .footer {
-    background: linear-gradient(to bottom, #a0c9ff, #000000);
+    background: linear-gradient(to bottom, #2278e8, #000000);
     color: #fff;
     padding: 40px 0;
     display: flex;
@@ -28,12 +28,14 @@
 .company-info h2 {
     font-size: 24px;
     margin-bottom: 15px;
+    color: #ffffff;
 }
 
 .company-info p {
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 20px;
+    color: #ffffff;
 }
 
 .social-icons {
@@ -52,6 +54,10 @@
     transform: scale(1.1);
 }
 
+.facebook{
+    color: white;
+}
+
 .instagram {
     color: #e4405f;
 }
@@ -64,6 +70,8 @@
 .contact-info h3 {
     font-size: 18px;
     margin-bottom: 15px;
+    color: #ffffff;
+
 }
 
 .quick-links ul,
