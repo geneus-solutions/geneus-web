@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import CouponSection from "../components/Cart/CouponSection";
+// import CouponSection from "../components/Cart/CouponSection";
 import SummarySection from "../components/Cart/SummarySection";
 import "./CheckOutCourseDetails.css"; // Import external CSS
-import { MdDelete } from "react-icons/md";
+// import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useDeleteCartMutation } from "../features/Cart/cartApiSlice";
 import { useSelector } from "react-redux";

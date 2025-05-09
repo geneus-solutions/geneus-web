@@ -7,6 +7,7 @@ import "./CourseCart.css";
 import { MdDelete } from "react-icons/md";
 
 const CourseCart = () => {
+  
   const { user } = useSelector((state) => state?.auth);
   const { cartCount: count, cart: cartDetails } = useSelector(
     (state) => state?.cartData

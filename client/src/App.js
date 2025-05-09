@@ -44,6 +44,7 @@ import VerifyAccount from "./Pages/verifyAccount";
 import SignupPage from "./Pages/SignupPage";
 import NutriHome from "./Pages/NutriHome";
 import useVisitorTracker from "./hooks/useVisitorTracker";
+import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -55,10 +56,12 @@ function App() {
 
   const handleLogout = useCallback(async () => {
     try {
+
       if (!user?.id) return;
       const data = await logout().unwrap();
-      console.log("User logged out:", data);
+
       dispatch(logOut());
+      
     } catch (error) {
       console.error("Failed to logout:", error);
     }
@@ -122,6 +125,7 @@ function App() {
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/subscribe-to-NutriApp" element={<SubscribeToNutriApp />} />
           </Route>
 
           <Route path="/courses" element={<Courses />} />

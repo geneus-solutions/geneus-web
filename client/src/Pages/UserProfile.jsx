@@ -19,7 +19,7 @@ const UserProfile = () => {
       field, // Field being edited
       value:
         userProfile?.userProfileData[field] ||
-        userProfile?.userProfileData.userId[field] ||
+        userProfile?.userProfileData?.userId[field] ||
         "", // Initial value for the field
     });
   };
@@ -49,7 +49,7 @@ const UserProfile = () => {
 
           <div className="profile-section">
             <strong>User ID</strong>
-            <p className="profile-value">{user?.id.slice(-10)}</p>
+            <p className="profile-value">{user?.id?.slice(-10)}</p>
           </div>
 
           {[
@@ -65,14 +65,14 @@ const UserProfile = () => {
             { label: "Phone Number", field: "mobile",  placeholder: "Enter Phone Number", type: 'number' },
             { label: "Whatsapp Number", field: "whatsappNumber", placeholder: "Enter Whatsapp Number", type: 'number' },
             { label: "Address", field: "address", Enter: "Enter Address" },
-          ].map(({ label, field, placeholder, type }) => (
+          ]?.map(({ label, field, placeholder, type }) => (
             <div key={field} className="profile-section">
               <strong>{label}</strong>
-              {tempEdit.field === field ? (
+              {tempEdit?.field === field ? (
                 <div className="profile-edit">
                   {field === "address" ? (
                     <textarea
-                      value={tempEdit.value}
+                      value={tempEdit?.value}
                       onChange={(e) =>
                         setTempEdit((prev) => ({
                           ...prev,
@@ -87,7 +87,7 @@ const UserProfile = () => {
                   ) : (
                     <input
                       type={type}
-                      value={tempEdit.value}
+                      value={tempEdit?.value}
                       onChange={(e) =>
                         setTempEdit((prev) => ({
                           ...prev,
@@ -112,7 +112,7 @@ const UserProfile = () => {
                 <div className="profile-field">
                   <span className="profile-value">
                     {userProfile?.userProfileData[field] ||
-                      userProfile?.userProfileData.userId[field] ||
+                      userProfile?.userProfileData?.userId[field] ||
                       "Not provided"}
                   </span>
                   <button
@@ -120,7 +120,7 @@ const UserProfile = () => {
                     className="edit-btn"
                   >
                     {userProfile?.userProfileData[field] ||
-                    userProfile?.userProfileData.userId[field]
+                    userProfile?.userProfileData?.userId[field]
                       ? "Edit"
                       : "Add"}
                   </button>
