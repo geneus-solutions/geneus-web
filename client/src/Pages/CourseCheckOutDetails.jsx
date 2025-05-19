@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 // import CouponSection from "../components/Cart/CouponSection";
 import SummarySection from "../components/Cart/SummarySection";
 import "./CheckOutCourseDetails.css"; // Import external CSS
-// import { MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
-import { useDeleteCartMutation } from "../features/Cart/cartApiSlice";
-import { useSelector } from "react-redux";
 
-const CheckOutCourseDetails = () => {
+const CourseDetails = () => {
+
   const location = useLocation();
-  const { cartDetails, totalPrice } = location.state || {};
+  const { courses } = location.state || {};
+
+  const [coursePriceDetails, setCoursePriceDetails] = useState({
+    subTotal: 0,
+    discountedPrice: 0,
+  });
   const [couponCode, setCouponCode] = useState("");
-  const [discount, setDiscount] = useState(0);
-  const [finalTotal, setFinalTotal] = useState(totalPrice);
   const [message, setMessage] = useState(null);
   const [applyCouponMessage, setApplyCouponMessage] = useState(false);
-  const [cartItems, setCartItems] = useState(cartDetails?.cart_items || []);
-  const [deleteCart] = useDeleteCartMutation();
-  const { user } = useSelector((state) => state?.auth);
-  console.log(
-    'this is cartDetails', cartDetails, totalPrice
-  )
-  console.log('this is cartItems', cartItems)
+  const [cartItems, setCartItems] = useState(courses || []);
   
+  const courseIds = cartItems?.map((item) => item?._id);
+
+  useEffect(() => {
+    const totalPrice = cartItems?.reduce((acc, item) => acc + item.price, 0);
+    const totalDiscount = cartItems?.reduce((acc, item) => acc + item.discount_price,0);
+    setCoursePriceDetails({subTotal: totalPrice,discountedPrice: totalDiscount});
+  }, [cartItems]);
+
   const validCoupons = [
     { code: "a3e29f41", discount: 50, expiryDate: "2025-12-31" },
     { code: "SUMMER20", discount: 20, expiryDate: "2024-12-30" },
@@ -47,10 +51,14 @@ const CheckOutCourseDetails = () => {
         setMessage({ type: "error", text: "This coupon code has expired." });
       } else {
         // const discountAmount = (totalPrice * coupon.discount) / 100;
-        const discountAmount = cartDetails?.discount - 1;
-        setDiscount(discountAmount);
-        setFinalTotal(cartDetails?.discount - discountAmount);
-        setApplyCouponMessage(true);
+        const discountAmount = coursePriceDetails?.discountedPrice - 1;
+
+          setCoursePriceDetails((prev) => ({
+            ...prev,
+            discount: prev.discountedPrice - discountAmount,
+          }));
+
+          setApplyCouponMessage(true);
         setMessage({
           type: "success",
           text: `Coupon applied! You've saved ₹${discountAmount.toFixed(2)}.`,
@@ -66,37 +74,23 @@ const CheckOutCourseDetails = () => {
 
   const removeCoupon = () => {
     setCouponCode("");
-    setDiscount(0);
-    setFinalTotal(cartDetails?.discount);
     setMessage({ type: "success", text: "Coupon removed successfully." });
     setApplyCouponMessage(false);
   };
 
-  if (!cartDetails) {
+  if (!cartItems || cartItems.length === 0) {
     return <h6>No cart details available</h6>;
   }
 
   const removeFromSummry = async (itemId) => {
     try {
-      const cartDetails = await deleteCart({
-        user_id: user?.id,
-        course_id: itemId,
-      }).unwrap();
+      
       const updatedCart = cartItems.filter((item) => item._id !== itemId);
       setCartItems(updatedCart);
 
-      const newTotal = updatedCart.reduce(
-        (acc, item) => acc + item.course_discountPrice,
-        0
-      );
-
-      setFinalTotal(newTotal);
-      toast.success("Course removed.");
-
-      // Optional: You can send a request to backend here to update user's cart
-      // await axios.post("/api/cart/remove", { itemId, userId });
+      toast.success("removed from purchase summary");
+      
     } catch (error) {
-      console.error("Error removing course:", error);
       toast.error("Failed to remove course.");
     }
   };
@@ -112,45 +106,32 @@ const CheckOutCourseDetails = () => {
             <thead>
               <tr>
                 <th>Description</th>
-                <th>Unit Price</th>
-                <th>Discounted Price</th>
-                <th>Amount</th>
-                {/* <th>Remove</th> */}
+                <th>Course Price</th>
+                <th>Discount</th>
+                <th>Payable Amount</th>
+                <th>Remove</th>
               </tr>
             </thead>
             <tbody>
-              {cartItems.length > 0 ? (
+              {cartItems.length > 0 && (
                 cartItems.map((item) => (
                   <tr key={item._id}>
                     <td>
                       <img
-                        src={item.course_image}
-                        alt={item.course_title}
+                        src={item.img}
+                        alt={item.title}
                         className="course-descritptionimage"
                       />
-                      {item.course_title}
+                      {item.title}
                     </td>
-                    <td>₹{item.course_price}</td>
-                    <td>₹{item.course_price - item.course_discountPrice}</td>
-                    <td>₹{item.course_discountPrice}</td>
-                    {/* <td onClick={() => removeFromSummry(item._id)}>
+                    <td>₹{item?.price}</td>
+                    <td>₹{item?.price - item.discount_price}</td>
+                    <td>₹{item?.discount_price}</td>
+                    <td onClick={() => removeFromSummry(item?._id)}>
                       <MdDelete  style={{cursor: 'pointer'}}/>
-                    </td> */}
+                    </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
-                  <td>
-                    <img
-                      src={cartDetails?.img}
-                      alt={cartDetails.title}
-                      className="course-descritptionimage"
-                    />
-                  </td>
-                  <td>₹{cartDetails?.price}</td>
-                  <td>₹{cartDetails?.price - cartDetails?.discount_price}</td>
-                  <td>₹{cartDetails?.discount_price}</td>
-                </tr>
               )}
             </tbody>
           </table>
@@ -168,11 +149,9 @@ const CheckOutCourseDetails = () => {
         </div> */}
         <div className="summary-section-checkout">
           <SummarySection
-            cartDetails={cartDetails}
-            // cartDetails={cartItems}
-            finalTotal={finalTotal}
-            discount={discount}
-            totalPrice={totalPrice}
+            courseIds={courseIds}
+            coursePriceDetails={coursePriceDetails}
+            
             applyCouponMessage={applyCouponMessage}
             setCouponCode={setCouponCode}
             applyCoupon={applyCoupon}
@@ -186,4 +165,4 @@ const CheckOutCourseDetails = () => {
   );
 };
 
-export default CheckOutCourseDetails;
+export default CourseDetails;

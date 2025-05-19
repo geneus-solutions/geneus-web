@@ -3,13 +3,15 @@ import React from "react";
 import VerticalLoader from "../components/Loaders/VerticalLoader";
 
 import MakePayment from '../components/MakePayment';
+import { useNutriCheckOutMutation } from "../features/NutriSubscription/NutriSubscriptionApiSlice";
+
 import { MdLockOutline } from "react-icons/md";
 
 const SubscribeToNutriApp = () => {
-  const subscriptionPrice = 299;
+
+  const [NutriCheckOut,{isLoading}] = useNutriCheckOutMutation();
 
   const paymentData = {
-    amount: subscriptionPrice * 100, // in paise
     currency: "INR",
     plan: "NutriApp Premium",
   };
@@ -30,28 +32,26 @@ const SubscribeToNutriApp = () => {
           <li>✓ Priority support & early access to new features</li>
         </ul>
 
-        <p style={styles.price}>Only ₹{subscriptionPrice}/month</p>
+        <p style={styles.price}>Only ₹299/month</p>
 
-        <MakePayment paymentData={paymentData}>
-          {(isLoading) => (
-            <button
-              style={{
-                ...styles.button,
-                opacity: isLoading ? 0.6 : 1,
-                pointerEvents: isLoading ? "none" : "auto",
-              }}
-              disabled={isLoading}
-            >
-                {isLoading ? (
-                    <VerticalLoader />
-                ) : (
-                    <>
-                        <MdLockOutline style={styles.icon} />
-                        Subscribe to Premium
-                    </>
-                )}
-            </button>
-           )}
+        <MakePayment checkout={NutriCheckOut} checkOutData={paymentData}>
+          <button
+            style={{
+              ...styles.button,
+              opacity: isLoading ? 0.6 : 1,
+              pointerEvents: isLoading ? "none" : "auto",
+            }}
+            disabled={isLoading}
+          >
+              {isLoading ? (
+                  <VerticalLoader />
+              ) : (
+                  <>
+                      <MdLockOutline style={styles.icon} />
+                      Subscribe to Premium
+                  </>
+              )}
+          </button>
         </MakePayment> 
       </div>
     </div>

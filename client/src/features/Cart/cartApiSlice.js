@@ -4,16 +4,16 @@ export const foodApiSlice = apiSlice.injectEndpoints({
 
     endpoints: (builder) => ({
         cart: builder.query({
-            query: (params) => {
+            query: () => {
                 return {
-                url: `/cart?user_id=${params}`,
+                url: `/cart`,
                 method: 'GET',
             }},
             providesTags: (result, error, id) => [{ type: 'cart', id }],
         }),
         addToCart: builder.mutation({
             query: (body) => ({
-                url: '/addtocart',
+                url: '/cart',
                 method: 'POST',
                 body,
             }),
@@ -21,8 +21,8 @@ export const foodApiSlice = apiSlice.injectEndpoints({
         }),
         deleteCart: builder.mutation({
             query: (body) =>({
-                url: `/cartdelete`,
-                method: 'POST',
+                url: `/cart`,
+                method: 'DELETE',
                 body,
             }),
             invalidatesTags: (result, error, body) => [{ type: 'cart', id: body.id }],

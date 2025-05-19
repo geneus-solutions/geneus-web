@@ -1,25 +1,26 @@
 import React from "react";
 
-import { 
-    useLazyGetPayIdQuery,
-    useNutriCheckOutMutation,
-    useVerifyNutriSubscriptionMutation } from "../features/NutriSubscription/NutriSubscriptionApiSlice";
+import Logo from '../assets/g.png';
+
+import { useLazyGetKeyQuery } from "../features/payment/paymentApiSlice";
+
+// import {useVerifyNutriSubscriptionMutation } from "../features/NutriSubscription/NutriSubscriptionApiSlice";
+import { useVerifyPaymentMutation } from "../features/payment/paymentApiSlice";
 
 import { useSelector } from "react-redux";
 
-const MakePayment = ({ children,paymentData }) => {
+const MakePayment = ({ children,checkout,checkOutData }) => {
 
-  const [getPayId] = useLazyGetPayIdQuery();
-  const [NutriCheckOut,{isLoading}] = useNutriCheckOutMutation();
-  const [verifyNutriSubscription] = useVerifyNutriSubscriptionMutation();
+  const [getKey] = useLazyGetKeyQuery();
+  const [verifyPayment] = useVerifyPaymentMutation();
 
   const { user } = useSelector((state) => state.auth);
-  console.log("user : ",user);
+  // console.log("user : ",user);
 
   const makePayment = async(paymentData) => {
     try {
 
-        const keyResponse = await getPayId().unwrap();
+        const keyResponse = await getKey().unwrap();
 
         // Check if the Razorpay SDK is loaded
         if (!window.Razorpay) {
@@ -30,23 +31,25 @@ const MakePayment = ({ children,paymentData }) => {
           // Create a new instance of Razorpay
           const options = {
             key: keyResponse?.key_id, 
-            order_id: paymentData?.id, // Razorpay order ID from backend
+            order_id: paymentData?.orderId, // Razorpay order ID from backend
             amount: paymentData?.amount,
+            currency: paymentData?.currency,
 
-            currency: "INR",
-            name: user?.name,
-            description: "Test Transaction",
+            name: "Geneus Solutions",
+            description: "Happy Learning",
+            image: Logo,
 
             prefill: {
-              name: "Manish Shaw",
+              name: user?.name,
               email: user?.email,
               contact: "1234567890",
+              data:paymentData?.data
             },
 
             handler: async function (response) {
               try {
 
-                const result = await verifyNutriSubscription({
+                const result = await verifyPayment({
                   razorpay_order_id: response.razorpay_order_id,
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
@@ -78,22 +81,23 @@ const MakePayment = ({ children,paymentData }) => {
     try {
       
       // Call the checkout mutation
-      const response = await NutriCheckOut(paymentData).unwrap();
-      
+      const response = await checkout(checkOutData).unwrap();
+      console.log("Checkout response:", response);
       // If the response has an ID, make the payment
-      if (response?.id) {
-        makePayment(response);
+      if (response?.Data?.orderId) {
+        makePayment(response?.Data);
       }
 
     } catch (error) {
       // Log the error
       console.error("Error during checkout:", error);
+      alert(`❌ ${error?.data?.message}`);
     }
   };
 
   return (
     <div onClick={handleCheckOut}>
-      {typeof children === "function" ? children(isLoading) : children}
+      {children}
     </div>
   );
 };

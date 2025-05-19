@@ -15,7 +15,7 @@ import Courses from "./Pages/Courses";
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import DietPlan from "./Pages/DietPlan";
-import CheckOutCourseDetails from "./Pages/CheckOutCourseDetails";
+import CourseDetails from "./Pages/CourseCheckOutDetails";
 import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
 import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
 
@@ -121,7 +121,7 @@ function App() {
             <Route path="/plan-diet" element={<AddFood />} />   
             <Route path="/diet-plan" element={<DietPlan />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
-            <Route path="/course-details" element={<CheckOutCourseDetails />} />
+            <Route path="/course-details" element={<CourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
             <Route path="/profile" element={<UserProfile />} />

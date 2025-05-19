@@ -14,19 +14,13 @@ import { useLocation } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 
 const MyLearning = () => {
-  const { user } = useSelector((state) => state.auth);
 
-  const { data: courses, isLoading } = useMyLearningQuery(
-    { user_Id: user?.id },
-    { skip: !user?.id }
-  );
+  const { data: courses, isLoading } = useMyLearningQuery();
 
   const [courseData, setCourseData] = useState({});
-  const [selectedTab, setSelectedTab] = useState("Overview");
 
   const location = useLocation();
   const courseId = location.state?.courseId;
-  const currentContent = location.state?.content;
 
   useEffect(() => {
     if (courses?.courses) {

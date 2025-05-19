@@ -11,7 +11,7 @@ const CourseDescriptionPage = () => {
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { data: course, isLoading } = useCourceQuery(
-    { id, user_id: user?.id },
+    { id,userId: user?.id },
     { skip: !id }
   );
   return (
