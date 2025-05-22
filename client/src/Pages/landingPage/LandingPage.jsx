@@ -1,8 +1,5 @@
 import React from "react";
 import "./LandingPage.css";
-// import axios from "axios";
-// import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
 import Background from "../../components/LandingPage/Background";
 import WhyAttend from "../../components/LandingPage/WhyAttend";
 import WhatWeCover from "../../components/LandingPage/WhatWeCover";

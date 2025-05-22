@@ -15,20 +15,7 @@ const UnlockButton = ({ course }) => {
     if (user) {
       navigate("/course-details", {
         state: { 
-          cartDetails: {
-            cart_items: [{
-          course_course_description: course?.description,
-          course_discountPrice: course?.discount_price,
-          course_id: course?._id,
-          course_image: course?.img,
-          course_price: course?.price,
-          course_title: course?.title,
-        }], 
-        cart_total: course?.price, 
-        discount : course?.discount_price,
-        total_after_discount: course?.price - course?.discount_price, 
-      },
-    totalPrice: course?.discount_price, 
+          courses: [course]
       }});
     } else {
       setIsLoginDialogOpen(true);

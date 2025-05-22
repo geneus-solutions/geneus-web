@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import TrialExpiredPopup from "../components/TrialExpiredPopup";
+
 import { useSelector } from "react-redux";
 
 import {
@@ -19,29 +21,29 @@ import {
   MenuItem,
   Select,
   FormControl,
-  Checkbox,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-// import authAxios from "../customAxios/authAxios";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 import { useGetFoodItemsQuery,useAddFoodMutation } from "../features/Food/foodApiSlice";
 
-const AddFoodToLunch = ({mealName,recall}) => {
+const AddFoodToLunch = ({mealName,handleClose}) => {
   
-  const privateAxios = useAxiosPrivate();
   const {user} = useSelector((state) => state.auth);
   const navigate = useNavigate();
  
-  // const [{ apiData: foodData }] = useFetch("getFoodItems");
   const { data:foodData } = useGetFoodItemsQuery();
-  const [addFood,{isLoading}] = useAddFoodMutation();
+  const [addFood/*,{isLoading}*/] = useAddFoodMutation();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFoods, setFilteredFoods] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(mealName||"Lunch");
+  const [openTrialPopup, setOpenTrialPopup] = useState(false);
+
+  const handleTrialPopupClose = () => {
+    setOpenTrialPopup(false);
+  };
 
   const handleSearchChange = (event) => {
     const value = event.target.value.toLowerCase();
@@ -65,6 +67,7 @@ const AddFoodToLunch = ({mealName,recall}) => {
     // Remove the selected food from the selectedFoods array
     const newSelectedFoods = selectedFoods.filter((food, i) => i !== index);
     setSelectedFoods(newSelectedFoods);
+
   };
 
   const handleTabChange = (event, newValue) => {
@@ -77,21 +80,28 @@ const AddFoodToLunch = ({mealName,recall}) => {
 
   const handleAddFood = async(e) => {
     try {
+        
         e.preventDefault();
+
         const food = selectedFoods.map((food) => {
             return food._id
         });
+
+        console.log("Selected Foods:", food);
+
         const data = await addFood({user:user?.id,[selectedMeal.toLowerCase()]:food}).unwrap();
-        // const data = await privateAxios.post(`/api/addFood`, {
-        //     user:user?.userId,
-        //     [selectedMeal.toLowerCase()]: food
-        // });
+
         toast.success("food added successfully!");
-        recall&&recall({})
+        handleClose&&handleClose();
         navigate("/diet-plan");
+
     } catch (err) { 
-      console.log(err)
-        toast.error("Either email id or password is incorrect.");
+      console.log("Error : ",err);
+      if (err?.status === 402 && err?.data?.message === "Plan expired") {
+        setOpenTrialPopup(true);
+      } else {
+        toast.error(err?.data?.message);
+      }
     }
   };
 
@@ -99,11 +109,12 @@ const AddFoodToLunch = ({mealName,recall}) => {
     <Box
       sx={{
         width: "100%",
-        minHeight: "100vh",
-        padding: "20px 20px 20px 20px",
+        Height: "100%",
+        padding: "20px",
         textAlign: "center",
       }}
     >
+      {openTrialPopup && <TrialExpiredPopup onClose={handleTrialPopupClose} />}
       {/* Search Section */}
       <Box sx={{ borderBottom: 1, borderColor: "divider", textAlign: "left" }}>
         <Typography variant="h5" sx={{ marginBottom: "5px", color: "#1a73e8" }}>
@@ -203,11 +214,11 @@ const AddFoodToLunch = ({mealName,recall}) => {
       {/* Tabs Section */}
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={selectedTab} onChange={handleTabChange} centered>
-          <Tab label="RECENT" />
+          <Tab label="Your Choice" />
           <Tab label="FREQUENT" />
           <Tab label="MY FOODS" />
           <Tab label="MEALS" />
-          <Tab label="RECIPES" />
+          {/* <Tab label="RECIPES" /> */}
         </Tabs>
       </Box>
 
@@ -225,7 +236,7 @@ const AddFoodToLunch = ({mealName,recall}) => {
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <Box style={{ display: "flex", gap: "15px" }}>
-                  <Checkbox />
+                  {/* <Checkbox /> */}
                   <Box
                     sx={{
                       display: "flex",
@@ -295,10 +306,10 @@ const AddFoodToLunch = ({mealName,recall}) => {
         }}
       >
         <Button variant="contained" color="success" onClick={handleAddFood}>
-          Add Checked
+          Add Food
         </Button>
-        <Button variant="contained" color="success">
-          View Deleted Items
+        <Button style={{width:'200px'}} onClick={()=>navigate('/diet-plan')} variant="contained" color="success">
+          Check Your Diat
         </Button>
       </Box>
     </Box>

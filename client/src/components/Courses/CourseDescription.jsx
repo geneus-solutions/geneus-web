@@ -6,35 +6,29 @@ import './CourseDescription.css';
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
 import reactStringReplace from "react-string-replace";
 import LearningPoints from "./LearningPoints";
-import CourseContent from "./CourseContent";
+// import CourseContent from "./CourseContent";
 import CourseOtherDetails from "./CourseOtherDetails";
 import Description from "./Description";
-import CourseSection from "./CourseSection";
+// import CourseSection from "./CourseSection";
 import InstructorCard from "./InstructorCard";
 import DescriptionCourseCard from "./DescriptionCourseCard";
 
-import CourseContent1 from "./CourseContent1";
+import CourseContent from "./CourseContent";
 import CourseNotes from "./CourseNotes";
 
 const CourseDescription = ({ courseDetails }) => {
+
   const [discount, setDiscount] = useState(0);
   const [len, setLen] = useState(0);
 
   const [formattedCourseIntro, setFormattedCourseIntro] = useState("");
   const [formattedCourseIntro2, setFormattedCourseIntro2] = useState("");
-  const [formattedCourseOutro, setFormattedCourseOutro] = useState("");
   const [formattedAboutCourse, setFormattedAboutCourse] = useState([]);
   const [formattedWhyCourse, setFormattedWhyCourse] = useState([]);
 
+  const [addToCart] = useAddToCartMutation();
   // state for fetching all course contents
   const [courseContents, setcourseContents] = useState([]);
-
-  // state for course notes
-  const [courseNotes, setCourseNotes] = useState(null);
-
-  const [courses, setCourses] = useState([]);
-
-  const { user } = useSelector((state) => state.auth);
 
   const [ip, setIp] = useState("");
   const [city, setCity] = useState("");
@@ -81,21 +75,6 @@ const CourseDescription = ({ courseDetails }) => {
     fetchVisitorData();
   }, []);
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
-  const fetchCourses = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/learning?user_id=${user?.userId}`
-      );
-      setCourses(response.data.courses);
-    } catch (error) {
-      console.error("Failed to fetch course data:", error);
-    }
-  };
-
   // fetching all course contents
   useEffect(() => {
     const fetchCourseContents = async () => {
@@ -104,18 +83,6 @@ const CourseDescription = ({ courseDetails }) => {
     fetchCourseContents();
   }, [courseDetails?.courseContent]);
 
-  // fetching all course notes
-  useEffect(() => {
-    const fetchCourseNotes = async () => {
-      const notesUrl = courseDetails?.notes?.notesUrl;
-      const notesTitle = courseDetails?.notes?.notesTitle;
-
-      if (notesUrl !== undefined && notesTitle !== undefined) {
-        setCourseNotes({ notesUrl, notesTitle });
-      }
-    };
-    fetchCourseNotes();
-  }, [courseDetails]);
 
   useEffect(() => {
     const calculateDiscount = () => {
@@ -153,7 +120,6 @@ const CourseDescription = ({ courseDetails }) => {
     if (courseDetails) {
       setFormattedCourseIntro(formatText(courseDetails?.aboutCourse?.intro));
       setFormattedCourseIntro2(formatText(courseDetails?.whythisCourse?.intro));
-      setFormattedCourseOutro(formatText(courseDetails?.whythisCourse?.outro));
       setFormattedAboutCourse(
         courseDetails?.aboutCourse?.details?.map((detail) => formatText(detail))
       );
@@ -165,31 +131,23 @@ const CourseDescription = ({ courseDetails }) => {
     }
   }, [courseDetails]);
 
-  const [addToCart, { isLoading }] = useAddToCartMutation();
-  const { user: userDetail } = useSelector((state) => state.auth);
 
   const handleAddToCart = async () => {
     try {
-      if (userDetail?.id) {
-        const course = {
-          course_id: courseDetails._id,
-          course_title: courseDetails.title,
-          course_description: courseDetails.description,
-          course_image: courseDetails.img,
-          course_price: courseDetails.price,
-          course_discountPrice: courseDetails.discount_price,
-        };
-        const ans = await addToCart({
-          userId: userDetail?.id,
-          courseItem: course,
-        });
-        toast.info(ans?.data?.message);
-      } else {
-        toast.info("Please Log in to add course to cart.");
+
+      if(!courseDetails) {
+        toast.error("Course details not available.");
+        return;
       }
+
+      const ans = await addToCart({
+        courseId: courseDetails._id,
+      }).unwrap();
+
+      toast.info(ans?.message);
+
     } catch (error) {
-      console.error(error);
-      toast.error("Error adding item to cart.");
+      toast.error(error?.data?.message || "Failed to add course to cart");
     }
   };
 
@@ -210,27 +168,11 @@ const CourseDescription = ({ courseDetails }) => {
 
       {/* Course Content */}
       {courseContents?.length > 0 && (
-        <CourseContent1 content={courseContents} />
+        <CourseContent content={courseContents} />
       )}
 
       {/* Course Notes */}
-      <CourseNotes userDetail={userDetail} courseDetails={courseDetails}/>
-            {/* <div className="notes-card-content">
-              <h4 className="notes-heading">Course Notes</h4>
-              {userDetail?.userId !== -1 ? (
-                <p>
-                  <a
-                    href={courseNotes?.notesUrl}
-                    target="_blank"
-                    download={courseNotes?.notesTitle}
-                  >
-                    {courseNotes?.notesTitle}
-                  </a>
-                </p>
-              ) : (
-                <p>Get the full course notes by purchasing the course today.</p>
-              )}
-            </div> */}
+      <CourseNotes />
 
       {/* Course Requirements */}
       <CourseOtherDetails

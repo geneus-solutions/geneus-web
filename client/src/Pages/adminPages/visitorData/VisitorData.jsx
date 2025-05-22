@@ -10,10 +10,11 @@ import PopUp from "./PopUp";
 import { toast } from "react-toastify";
 
 const VisitorData = () => {
-  const [dateFrom, setDateFrom] = useState(new Date().toISOString().split("T")[0]); // Holds input date
-  const [dateTo, setDateTo] = useState(new Date().toISOString().split("T")[0]); // Holds input date
-  const [selectedDateFrom, setSelectedDateFrom] = useState(new Date().toISOString().split("T")[0]); // Stores the date when "Filter" is clicked
-  const [selectedDateTo, setSelectedDateTo] = useState(new Date().toISOString().split("T")[0]); // Stores the date when "Filter" is clicked
+  const currentTime = new Date().toISOString().split("T")[0]
+  const [dateFrom, setDateFrom] = useState(currentTime); // Holds input date
+  const [dateTo, setDateTo] = useState(currentTime); // Holds input date
+  const [selectedDateFrom, setSelectedDateFrom] = useState(currentTime); // Stores the date when "Filter" is clicked
+  const [selectedDateTo, setSelectedDateTo] = useState(currentTime); // Stores the date when "Filter" is clicked
   const [showPopUp, setShowPopUp] = useState(false);
   // Fetch data only when selectedDate is available
   const { data: visitorData, isLoading } = useVisitorDataQuery(
@@ -121,12 +122,12 @@ const VisitorData = () => {
               {visitorData?.data?.map((visitor, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{new Date(visitor.createdAt).toISOString().split('T')[0]}</td>
-                  <td>{visitor.url}</td>
-                  <td>{visitor.ip}</td>
-                  <td>{visitor.city}</td>
-                  <td>{visitor.country}</td>
-                  <td><AiFillDelete style={{marginLeft: '15px', fontSize: '22px', color: 'red', cursor: 'pointer'}} onClick={()=>handleDeleteByID(visitor._id)}/></td>
+                  {/* <td>{new Date(visitor?.createdAt)?.toISOString()?.split('T')[0]}</td> */}
+                  <td>{visitor?.url}</td>
+                  <td>{visitor?.ip}</td>
+                  <td>{visitor?.city}</td>
+                  <td>{visitor?.country}</td>
+                  <td><AiFillDelete style={{marginLeft: '15px', fontSize: '22px', color: 'red', cursor: 'pointer'}} onClick={()=>handleDeleteByID(visitor?._id)}/></td>
                 </tr>
               ))}
             </tbody>

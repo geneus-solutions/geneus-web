@@ -22,7 +22,7 @@ const Navbar = () => {
   const { data: cartData } = useCartQuery(data?.data?.id, {
     skip: !data?.data?.id,
   });
-  const cart = useSelector((state) => state.cartData.cart);
+
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
 
@@ -203,7 +203,7 @@ const Navbar = () => {
               <FaCartArrowDown />
               {/* &#128722; */}
               <span className="cart-badge">
-                {cart?.cart_items?.length || 0}
+                {cartData?.cartItemLength || 0}
               </span>
             </NavLink>
           </li>
