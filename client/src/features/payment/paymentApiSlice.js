@@ -19,10 +19,16 @@ const paymentApiSlice = apiSlice.injectEndpoints({
             }),
             // invalidatesTags: ["User"],
         }),
+        getPaymentHistory: builder.query({
+            query: (user_Id) => ({
+                url: `/payments/${user_Id}`,
+                method: 'GET',
+            }),
+        }),
 
     }),
 });
 
 
 
-export const { useLazyGetKeyQuery,useVerifyPaymentMutation } = paymentApiSlice;
+export const { useLazyGetKeyQuery,useVerifyPaymentMutation, useGetPaymentHistoryQuery } = paymentApiSlice;

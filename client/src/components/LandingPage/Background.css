@@ -18,7 +18,7 @@
 }
 
 .heading-no-need-to {
-  color: #fddd24;
+  color: #7b6b12;
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 0.5rem;
@@ -57,7 +57,7 @@
 }
 
 .text-wrapper {
-  color: #ffffff;
+  color: #000;
 }
 
 .text-wrapper-2 {
@@ -65,7 +65,7 @@
 }
 
 .text-wrapper-3 {
-  color: #fddd24;
+  color: #7b6b12;
 }
 
 .background-list {
@@ -77,7 +77,7 @@
 .background-list li::before{
   content: "👉";
   margin-right: 8px;
-  color: #fff;
+  color: #000;
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.75rem;
@@ -85,7 +85,7 @@
 }
 
 .never-miss-trading{
-  color: #ffffff;
+  color: #000;
 }
 
 

@@ -1,5 +1,5 @@
 .mentor-container {
-  color: #fff;
+  color: #000;
   text-align: center;
   padding: 2rem;
   font-family: "Arial", sans-serif;
@@ -12,7 +12,7 @@
 }
 
 .highlight {
-  color: #ffd700;
+  color: #8f7b09;
 }
 
 .mentor-content {
@@ -26,7 +26,7 @@
 .mentor-image {
   width: 18.75rem; /* 300px */
   height: 18.75rem;
-  border-bottom: 0.2rem solid #ffd700;
+  border-bottom: 0.2rem solid #8f7b09;
   border-radius: 50%;
 }
 
@@ -48,14 +48,14 @@
 
 .mentor-details li::before {
   content: "✔️";
-  color: #ffd700;
+  color: #8f7b09;
   margin-right: 0.5rem;
 }
 
 .mentor-name{
   margin-top: 1.5rem;
   font-size: 2rem;
-  color: #ffd700;
+  color: #8f7b09;
   text-decoration: underline;
   text-align: center;
 }

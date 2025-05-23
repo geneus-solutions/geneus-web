@@ -43,9 +43,11 @@ const SummarySection = ({
         </div>
 
         {applyCouponMessage && (
-          <div className="coupon-details">
-            <p>Coupon Applied: {appliedCoupon}</p>
-            <p>Discount: ₹{discount}</p>
+          <div>
+            <div className="summary-item">
+              <p>Coupon Discount: {appliedCoupon}</p>
+              <p>₹{discount}</p>
+            </div>
             <button
               className="remove-btn"
               onClick={() => {

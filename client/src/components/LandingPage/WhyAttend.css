@@ -7,7 +7,7 @@
 }
 
 .whyattend-container .heading {
-  color: rgba(255, 255, 255, 1);
+  color: #000;
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1.5rem;
@@ -34,7 +34,7 @@
 }
 
 .whyattend .whyattend-img {
-  color: #fff;
+  color: #000;
   font-size: 1.875rem; /* 30px */
   flex-shrink: 0;
 }

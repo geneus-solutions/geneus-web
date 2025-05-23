@@ -10,7 +10,6 @@ import RequireAuth from "./RequireAuth/RequireAuth";
 import Layout from "./Pages/Layout/Layout";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
-import Contact from "./Pages/Contact";
 import Courses from "./Pages/Courses";
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
@@ -36,7 +35,7 @@ import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage";
 import AllCourses from "./Pages/adminPages/AllCourses";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashboardLayout";
-import UserProfile from "./Pages/UserProfile";
+import UserProfile from "./components/UserProfile/UserProfile";
 import CourseCart from "./Pages/CourseCart";
 import UsersData from "./Pages/adminPages/userData/UsersData";
 import LoginPage from "./Pages/LoginPage";
@@ -44,6 +43,11 @@ import VerifyAccount from "./Pages/verifyAccount";
 import SignupPage from "./Pages/SignupPage";
 import NutriHome from "./Pages/NutriHome";
 import useVisitorTracker from "./hooks/useVisitorTracker";
+import ContactUs from "./Pages/ContactUs";
+import UserProfileLayout from "./Pages/UserProfile/UserProfileLayout";
+import PaymentHistory from "./Pages/UserProfile/PaymentHistory";
+import SupportAndQuery from "./Pages/UserProfile/SupportAndQuery";
+import UserEnquiry from "./Pages/adminPages/userEnquiry/UserEnquiry";
 import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -94,8 +98,6 @@ function App() {
   }, [handleLogout, user?.id]);
 
   useVisitorTracker();
-
-
   return (
     <Router>
       <div>
@@ -110,21 +112,25 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="contact" element={<ContactUs />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
           <Route path="/landing/:id" element={<LandingPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
-
-            <Route path="/nutri-app" element={<NutriHome />} />
-            <Route path="/calculate-calorie" element={<CalorieCalculator />} />
-            <Route path="/plan-diet" element={<AddFood />} />   
-            <Route path="/diet-plan" element={<DietPlan />} />
+          <Route path="/nutri-app" element={<NutriHome />} />
+          <Route path="/calculate-calorie" element={<CalorieCalculator />} />
+          <Route path="/plan-diet" element={<AddFood />} />   
+          <Route path="/diet-plan" element={<DietPlan />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/course-details" element={<CourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile" element={<UserProfileLayout />}>
+              <Route index element={<UserProfile />} /> {/* Default route */}
+              <Route path="payment-history" element={<PaymentHistory />} />
+              <Route path="support-query" element={<SupportAndQuery />} />
+            </Route>
+          
             <Route path="/subscribe-to-NutriApp" element={<SubscribeToNutriApp />} />
           </Route>
 
@@ -133,17 +139,21 @@ function App() {
         </Route>
           {/* Admin-specific routes */}
           <Route element={<RequireAuth allowedRole={["admin"]} />}>
-          <Route path="/admin-dashboard" element={<AdminDashboardLayout/>}>
+            <Route path="/admin-dashboard" element={<AdminDashboardLayout/>}>
 
-            {/* Add here your admin specific route */}
-            <Route path="/admin-dashboard/add-course" element={<AddCourse />} />
-            <Route path="/admin-dashboard/add-product" element={<AddProduct />} />
-            <Route path="/admin-dashboard/visitor-data" element={<VisitorData/>}/>
-            <Route path="/admin-dashboard/all-courses" element={<AllCourses/>}/>
-            <Route path="/admin-dashboard/profile" element={<UserProfile />} />
-            <Route path="/admin-dashboard/all-users" element={<UsersData />} />
-            
-          </Route>
+              {/* Add here your admin specific route */}
+              <Route path="visitor-data" element={<VisitorData/>}/>
+              <Route path="add-course" element={<AddCourse />} />
+              <Route path="add-product" element={<AddProduct />} />
+              <Route path="all-courses" element={<AllCourses/>}/>
+              <Route path="all-users" element={<UsersData />} />
+              <Route path="all-enquiry" element={<UserEnquiry />}/>
+              <Route path="profile" element={<UserProfileLayout />}>
+                <Route index element={<UserProfile />} /> 
+                <Route path="payment-history" element={<PaymentHistory />} />
+                <Route path="support-query" element={<SupportAndQuery />} />
+            </Route>
+            </Route>
           </Route>
 
         <Route path="*" element={<PageNotFound />} />

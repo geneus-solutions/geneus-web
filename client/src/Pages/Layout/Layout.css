@@ -10,6 +10,7 @@ html, body {
 .layout-container {
     display: flex;
     flex-direction: column;
+    position: relative;
     min-height: 100vh;
     width: 100%;
   }
@@ -21,6 +22,36 @@ html, body {
     overflow-x: hidden;
     overflow-y: hidden;
   }
+
+  /* Layout.css */
+
+  .chat-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+.chat-toggle-button:hover {
+  background-color: #0056b3;
+}
+
+
+.chatbot-overlay {
+  position: fixed;
+  bottom: 80px; /* just above the toggle button */
+  right: 20px;
+  z-index: 1000; /* high enough to sit on top */
+}
   
   .layout-footer {
     margin-top: auto;

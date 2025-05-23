@@ -10,6 +10,10 @@ import { Box, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { FaBalanceScale, FaBullseye, FaEye } from "react-icons/fa";
 import CircleCard from "../components/About/CircleCard";
+import AboutUsFirst from "../components/About/AboutUsFirst";
+import OurServices from "./OurServices2";
+import WhyChooseUs from "../components/HomeComponents/WhyChooseUs";
+import Testimonials from "../components/HomeComponents/Testimonials";
 const About = () => {
   const cards = [
     {
@@ -84,7 +88,14 @@ const About = () => {
   }));
 
   return (
-    <div style={{ position: "relative" }}>
+    <>
+    {/* <Testimonials/> */}
+    <div >
+    <AboutUsFirst/>
+    
+    <AboutUs />
+    <OurServices/>
+    <WhyChooseUs/>
       {/* <div style={{ position: "relative", width: "100vw", height: "60vh" }}>
         <img
           src={img1}
@@ -95,48 +106,46 @@ const About = () => {
           }}
           alt="about Banner"
         />
-
+        
         <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(124, 166, 255, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(124, 166, 255, 0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           }}
-        >
+          >
           <h1 style={{ color: "white", fontSize: "3rem" }}>About</h1>
-        </div>
-      </div> */}
-      <AboutUs />
-      <div className="what-we-do">
+          </div>
+          </div> */}
+      {/* <div className="what-we-do">
         <Box sx={{ py: 6, px: 4 }}>
-          {/* Title Section */}
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
+            >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
               }}
-            >
+              >
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "end",
                 }}
-              >
+                >
                 <Box
                   sx={{
                     width: "150px",
@@ -145,7 +154,7 @@ const About = () => {
                     marginRight: "10px",
                     marginBottom: "5px",
                   }}
-                />
+                  />
                 <Box
                   sx={{
                     width: "100px",
@@ -153,7 +162,7 @@ const About = () => {
                     backgroundColor: "#00b0ff",
                     marginRight: "10px",
                   }}
-                />
+                  />
               </Box>
 
               <Typography variant="h4" sx={{ mx: 2, fontWeight: "bold" }}>
@@ -165,7 +174,7 @@ const About = () => {
                   display: "flex",
                   flexDirection: "column",
                 }}
-              >
+                >
                 <Box
                   sx={{
                     width: "150px",
@@ -174,7 +183,7 @@ const About = () => {
                     marginRight: "10px",
                     marginBottom: "5px",
                   }}
-                />
+                  />
                 <Box
                   sx={{
                     width: "100px",
@@ -182,14 +191,12 @@ const About = () => {
                     backgroundColor: "#00b0ff",
                     marginRight: "10px",
                   }}
-                />
+                  />
               </Box>
             </Box>
           </Box>
 
-          {/* Services Cards */}
           <ServicesContainer>
-            {/* Nutrition App Card */}
             <ServiceCard>
               <ServiceImage src={courseImage} alt="Nutrition App" />
               <Overlay className="overlay">
@@ -201,7 +208,7 @@ const About = () => {
                     textAlign: "center",
                     px: 2,
                   }}
-                >
+                  >
                   Course
                   <br />
                   <p style={{ fontSize: "15px" }}>
@@ -211,7 +218,6 @@ const About = () => {
               </Overlay>
             </ServiceCard>
 
-            {/* Community Card */}
             <ServiceCard>
               <ServiceImage src={nutriImage} alt="Community" />
               <Overlay className="overlay">
@@ -223,7 +229,7 @@ const About = () => {
                     textAlign: "center",
                     px: 2,
                   }}
-                >
+                  >
                   Nutrition App
                   <p style={{ fontSize: "15px" }}>
                   Helps users make informed dietary choices by calculating calorie intake and tracking macronutrients.
@@ -233,30 +239,31 @@ const About = () => {
             </ServiceCard>
           </ServicesContainer>
         </Box>
-      </div>
+      </div> */}
 
-      <div className="why-choose-us">
+
+      {/* <div className="why-choose-us">
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
-        >
+          >
           <Box
             sx={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
             }}
-          >
+            >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "end",
               }}
-            >
+              >
               <Box
                 sx={{
                   width: "150px",
@@ -265,7 +272,7 @@ const About = () => {
                   marginRight: "10px",
                   marginBottom: "5px",
                 }}
-              />
+                />
               <Box
                 sx={{
                   width: "100px",
@@ -273,7 +280,7 @@ const About = () => {
                   backgroundColor: "#00b0ff",
                   marginRight: "10px",
                 }}
-              />
+                />
             </Box>
 
             <Typography variant="h4" sx={{ mx: 2, fontWeight: "bold" }}>
@@ -285,7 +292,7 @@ const About = () => {
                 display: "flex",
                 flexDirection: "column",
               }}
-            >
+              >
               <Box
                 sx={{
                   width: "150px",
@@ -294,7 +301,7 @@ const About = () => {
                   marginRight: "10px",
                   marginBottom: "5px",
                 }}
-              />
+                />
               <Box
                 sx={{
                   width: "100px",
@@ -302,7 +309,7 @@ const About = () => {
                   backgroundColor: "#00b0ff",
                   marginRight: "10px",
                 }}
-              />
+                />
             </Box>
           </Box>
         </Box>
@@ -319,7 +326,7 @@ const About = () => {
             <Typography
               variant="h6"
               style={{ color: "#00E676", marginTop: "10px" }}
-            >
+              >
               Comprehensive Curriculum
             </Typography>
             <Typography variant="body2" style={{ marginTop: "5px" }}>
@@ -336,7 +343,7 @@ const About = () => {
             <Typography
               variant="h6"
               style={{ color: "#00b0ff", marginTop: "10px" }}
-            >
+              >
               Hands-on Projects
             </Typography>
             <Typography variant="body2" style={{ marginTop: "5px" }}>
@@ -353,7 +360,7 @@ const About = () => {
             <Typography
               variant="h6"
               style={{ color: "#E040FB", marginTop: "10px" }}
-            >
+              >
               Expert Instructors
             </Typography>
             <Typography variant="body2" style={{ marginTop: "5px" }}>
@@ -370,7 +377,7 @@ const About = () => {
             <Typography
               variant="h6"
               style={{ color: "#FF5252", marginTop: "10px" }}
-            >
+              >
               Interactive Learning
             </Typography>
             <Typography variant="body2" style={{ marginTop: "5px" }}>
@@ -380,7 +387,8 @@ const About = () => {
             </Typography>
           </div>
         </div>
-      </div>
+      </div> */}
+      <Testimonials/>
 
       <div className="mission-vision-value">
         <Box sx={{ py: 6, px: 4 }}>
@@ -391,147 +399,39 @@ const About = () => {
               alignItems: "center",
               mb: 6,
             }}
-          >
+            >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
               }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                }}
               >
-                <Box
-                  sx={{
-                    width: "150px",
-                    height: "5px",
-                    backgroundColor: "#00b0ff",
-                    marginRight: "10px",
-                    marginBottom: "5px",
-                  }}
-                />
-                <Box
-                  sx={{
-                    width: "100px",
-                    height: "5px",
-                    backgroundColor: "#00b0ff",
-                    marginRight: "10px",
-                  }}
-                />
-              </Box>
-
               <Typography variant="h4" sx={{ mx: 2, fontWeight: "bold" }}>
                 Our Core Values
               </Typography>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "150px",
-                    height: "5px",
-                    backgroundColor: "#00b0ff",
-                    marginRight: "10px",
-                    marginBottom: "5px",
-                  }}
-                />
-                <Box
-                  sx={{
-                    width: "100px",
-                    height: "5px",
-                    backgroundColor: "#00b0ff",
-                    marginRight: "10px",
-                  }}
-                />
-              </Box>
             </Box>
           </Box>
 
           <div
             style={{ display: "flex", gap: "20px", justifyContent: "center" }}
-          >
+            >
             {cards.map((card, index) => (
               <CircleCard
-                key={index}
-                icon={card.icon}
-                title={card.title}
-                description={card.description}
-                gradient={card.gradient}
+              key={index}
+              icon={card.icon}
+              title={card.title}
+              description={card.description}
+              gradient={card.gradient}
               />
             ))}
           </div>
 
-          {/* <div className="mvv-container">
-            <div className="mvv-card mission">
-              <div className="mvv-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="6" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg>
-              </div>
-              <h3>Mission</h3>
-              <p>
-                Our mission is to empower individuals worldwide by delivering
-                exceptional E-learning experiences in full-stack development. We
-                strive to bridge the gap between aspiring developers and
-                industry demands, fostering a culture of continuous learning,
-                collaboration, and excellence.
-              </p>
-            </div>
-
-            <div className="mvv-card value">
-              <div className="mvv-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M12 2L2 12h4v8h16v-8h4L12 2z" />
-                </svg>
-              </div>
-              <h3>Value</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
-            </div>
-
-            <div className="mvv-card vision">
-              <div className="mvv-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                >
-                  <path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
-              </div>
-              <h3>Vision</h3>
-              <p>
-                To be a global leader in providing accessible and high-quality
-                E-learning courses in full-stack development, fostering a
-                community of skilled and innovative developers.
-              </p>
-            </div>
-          </div> */}
+         
         </Box>
       </div>
     </div>
+      </>
   );
 }
 

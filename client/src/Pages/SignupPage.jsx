@@ -8,43 +8,48 @@ import { useSendOTPMutation } from "../features/verifyAccount/verifyAccountApiSl
 // import "../components/Signup/Signup.css";
 
 const SignupPage = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const from = location.state?.from?.pathname ||  "/";
-    
-    const [signup, {isLoading}] = useSignupMutation();
-    const [sendOTP,{isLoading:isSendOtpLoading}] = useSendOTPMutation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
-    const handleSignup = async(formData) => {
-        try {
+  const [signup, { isLoading }] = useSignupMutation();
+  const [sendOTP, { isLoading: isSendOtpLoading }] = useSendOTPMutation();
 
-            const userData = await signup(formData).unwrap();
-            if (userData?.user?.id) { 
-                const data = await sendOTP({email:formData?.email}).unwrap();
-                if(data.success){
-                    navigate('/verify-account' ,{state: { email:formData?.email,from:{pathname:'/login',prevPathName:from} } }); 
-                }
-            }
-            
-        } catch (error) {
-
-            toast.error(error?.data?.error);
+  const handleSignup = async (formData) => {
+    try {
+      const userData = await signup(formData).unwrap();
+      if (userData?.user?.id) {
+        const data = await sendOTP({ email: formData?.email }).unwrap();
+        if (data.success) {
+          navigate("/verify-account", {
+            state: {
+              email: formData?.email,
+              from: { pathname: "/login", prevPathName: from },
+            },
+          });
         }
+      }
+    } catch (error) {
+      toast.error(error?.data?.error);
     }
+  };
 
-    return (
-        <div className="signup-container">
-            <div>
-                <SignupForm
-                     handleSignup={handleSignup}
-                     isLoading={isLoading || isSendOtpLoading}
-                />
-            </div>
-            <div className="login-link">
-                Already have an account? <button type="button" onClick={()=>navigate('/login')}>Login</button>
-            </div>
+  return (
+    <div className="signup-page-signup-container">
+      <div>
+        <SignupForm
+          handleSignup={handleSignup}
+          isLoading={isLoading || isSendOtpLoading}
+        />
+        <div className="login-link">
+          Already have an account?{" "}
+          <button type="button" onClick={() => navigate("/login")}>
+            Login
+          </button>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default SignupPage;

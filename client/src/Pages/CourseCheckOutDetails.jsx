@@ -63,12 +63,20 @@ const CourseDetails = () => {
           type: "success",
           text: `Coupon applied! You've saved ₹${discountAmount.toFixed(2)}.`,
         });
+
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
       }
     } else {
       setMessage({
         type: "error",
         text: "This coupon code is invalid or expired.",
       });
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     }
   };
 
@@ -76,6 +84,9 @@ const CourseDetails = () => {
     setCouponCode("");
     setMessage({ type: "success", text: "Coupon removed successfully." });
     setApplyCouponMessage(false);
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
   };
 
   if (!cartItems || cartItems.length === 0) {

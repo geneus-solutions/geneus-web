@@ -10,6 +10,7 @@ import {
   FaAppleAlt,
   FaUserFriends,
 } from "react-icons/fa";
+import { SiGooglebigquery } from "react-icons/si";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi"; // Unique Icons
 import logo from "../../assets/logo.png"; // Import your image
 import "../../styles/SidebarDemo.css";
@@ -55,7 +56,7 @@ const AdminSideBar = () => {
           </Link>
         </li>
         <Link
-          to="/admin-dashboard/visitor-data"
+          to="visitor-data"
           className={`admin-sidebar-link ${
             location.pathname === "/admin-dashboard/visitor-data"
               ? "active"
@@ -68,7 +69,7 @@ const AdminSideBar = () => {
           </li>
         </Link>
         <Link
-          to="/admin-dashboard/all-users"
+          to="all-users"
           className={`admin-sidebar-link ${
             location.pathname === "/admin-dashboard/all-users"
               ? "active"
@@ -81,7 +82,7 @@ const AdminSideBar = () => {
           </li>
         </Link>
         <Link
-          to="/admin-dashboard/all-courses"
+          to="all-courses"
           className={`admin-sidebar-link ${
             location.pathname === "/admin-dashboard/all-courses" ? "active" : ""
           }`}
@@ -92,7 +93,7 @@ const AdminSideBar = () => {
           </li>
         </Link>
         <Link
-          to="/admin-dashboard/add-course"
+          to="add-course"
           className={`admin-sidebar-link ${
             location.pathname === "/admin-dashboard/add-course" ? "active" : ""
           }`}
@@ -103,7 +104,7 @@ const AdminSideBar = () => {
           </li>
         </Link>
         <Link
-          to="/admin-dashboard/add-product"
+          to="add-product"
           className={`admin-sidebar-link ${
             location.pathname === "/admin-dashboard/add-product" ? "active" : ""
           }`}
@@ -113,11 +114,22 @@ const AdminSideBar = () => {
             {!isCollapsed && <span>Add Product</span>}
           </li>
         </Link>
+        <Link
+          to="all-enquiry"
+          className={`admin-sidebar-link ${
+            location.pathname === "/admin-dashboard/all-enquiry" ? "active" : ""
+          }`}
+        >
+          <li className="admin-sidebar-item">
+            <SiGooglebigquery />
+            {!isCollapsed && <span>Enquiry's</span>}
+          </li>
+        </Link>
       </ul>
 
       {/* Bottom Menu Items */}
       <ul className="admin-sidebar-bottom">
-        <Link to="/admin-dashboard/profile" className="admin-sidebar-link">
+        <Link to="profile" className="admin-sidebar-link">
           <li className="admin-sidebar-item">
             <FaUser />
             {!isCollapsed && <span>Profile</span>}
