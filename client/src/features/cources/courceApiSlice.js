@@ -9,9 +9,17 @@ export const courceApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Courses'],
         }),
         cource: builder.query({
-            query: ({id,user_id}) => {
-                return `/courseDes/${id}?_id=${user_id}`
-            },
+            query: ({id,userId}) =>({
+                url: `/courseDes/${id}?userId=${userId}`,
+                method: 'GET'
+            })
+        }),
+        courseCheckout: builder.mutation({
+            query: (body) => ({
+                url: '/course-checkout',
+                method: 'POST',
+                body,
+            }),
         }),
         // addCourse: builder.mutation({
         //     query: (body) => ({
@@ -29,4 +37,4 @@ export const courceApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useCourcesQuery,useCourceQuery } = courceApiSlice;
+export const { useCourcesQuery,useCourceQuery,useCourseCheckoutMutation } = courceApiSlice;

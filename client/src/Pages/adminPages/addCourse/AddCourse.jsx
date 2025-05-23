@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAddCourseMutation, useUpdateCourseMutation } from '../../../features/addCourse/addCourseApiSlice';
+import { useAddCourseMutation, useUpdateCourseMutation } from '../../../features/Course/CourseApiSlice';
 import '../../../styles/AddCourse.css';
 import { useLocation } from 'react-router-dom';
 

@@ -4,7 +4,7 @@ import { IoMdArrowDropdown} from "react-icons/io";
 import Loading from "../../components/loading/Loading";
 import "../../styles/AllCourses.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDeleteCourseMutation } from "../../features/addCourse/addCourseApiSlice";
+import { useDeleteCourseMutation } from "../../features/Course/CourseApiSlice";
 import PopUp from "../../Pages/adminPages/visitorData/PopUp";
 
 const AllCourses = ({ searchResults }) => {

@@ -6,7 +6,7 @@ import {
   Select,
   Grid,
   Typography,
-  Box,
+  // Box,
   TextField,
   Button,
   MenuItem,
@@ -15,95 +15,99 @@ import {
 import { styled } from "@mui/system";
 import EastIcon from "@mui/icons-material/East";
 
-// Styled components for modern UI
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  textAlign: "center",
-  color: theme?.palette?.text?.secondary,
-  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-  borderRadius: "15px", // Softer corners
-  maxWidth: "400px",
-  margin: "auto",
-}));
-
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  marginBottom: theme.spacing(3),
-  "& .MuiOutlinedInput-root": {
-    borderRadius: "10px", // Rounded inputs
-    "& fieldset": {
-      borderColor: "#ddd", // Initial border color
-    },
-    "&:hover fieldset": {
-      borderColor: "#1976d2", // On hover
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#1976d2", // When focused
-    },
-  },
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  background: "linear-gradient(45deg, #1976d2, #42a5f5)", // Gradient background
-  color: "#fff",
-  padding: theme.spacing(1.5),
-  borderRadius: "10px", // Rounded button
-  width: "100%",
-  textTransform: "none",
-  fontWeight: "bold",
-  "&:hover": {
-    background: "linear-gradient(45deg, #1565c0, #1e88e5)", // Darker on hover
-  },
-}));
+import { useAddYourHealthGoalMutation } from "../features/healthGoal/healthGoalApiSlice";
 
 const CalorieCalculator = () => {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
-  const [age, setAge] = useState("");
+  const [DOB, setDOB] = useState("");
   const [gender, setGender] = useState("male");
   const [activityLevel, setActivityLevel] = useState("sedentary");
   const [calories, setCalories] = useState(0);
-  const [openCalculator, setOpenCalculator] = useState(false);
+  const [country, setCountry] = useState("India"); // Default country
+  const [goal, setGoal] = useState("Lose Weight"); // Default goal
+  // const [openCalculator, setOpenCalculator] = useState(false);
+
+  const [addYourHealthGoal] = useAddYourHealthGoalMutation();
 
   const handleCaloriesSubmit = (calories) => {
     setCalories(calories);
   };
 
-  const calculateCalories = () => {
-    let BMR;
-    if (gender === "male") {
-      BMR = 10 * weight + 6.25 * height - 5 * age + 5;
-    } else {
-      BMR = 10 * weight + 6.25 * height - 5 * age - 161;
-    }
-    let activityMultiplier;
-    switch (activityLevel) {
-      case "sedentary":
-        activityMultiplier = 1.2;
-        break;
-      case "lightlyActive":
-        activityMultiplier = 1.375;
-        break;
-      case "moderatelyActive":
-        activityMultiplier = 1.55;
-        break;
-      case "veryActive":
-        activityMultiplier = 1.725;
-        break;
-      case "extraActive":
-        activityMultiplier = 1.9;
-        break;
-      default:
-        activityMultiplier = 1.2;
-    }
-    const totalCalories = Math.round(BMR * activityMultiplier);
-    setCalories(totalCalories);
-    const numericCalories = parseFloat(totalCalories);
-    if (!isNaN(numericCalories)) {
-      handleCaloriesSubmit(numericCalories);
-    } else {
+  const calculateCalories = async() => {
+
+    try {
+
+      let BMR;
+
+      // calculate age 
+      const age = Math.floor(
+        (new Date() - new Date(DOB)) / (1000 * 60 * 60 * 24 * 365.25)
+      );
+
+      if (gender === "male") {
+        BMR = 10 * weight + 6.25 * height - 5 * age + 5;
+      } else {
+        BMR = 10 * weight + 6.25 * height - 5 * age - 161;
+      }
+  
+      let activityMultiplier;
+  
+      switch (activityLevel) {
+        case "sedentary":
+          activityMultiplier = 1.2;
+          break;
+        case "lightlyActive":
+          activityMultiplier = 1.375;
+          break;
+        case "moderatelyActive":
+          activityMultiplier = 1.55;
+          break;
+        case "veryActive":
+          activityMultiplier = 1.725;
+          break;
+        case "extraActive":
+          activityMultiplier = 1.9;
+          break;
+        default:
+          activityMultiplier = 1.2;
+      }
+  
+      const goalMultiplier = {
+        "Lose Weight": -500,
+        "Maintain Weight": 0,
+        "Gain Weight": 500,
+      }[goal];
+
+      const totalCalories = Math.round(
+        BMR * activityMultiplier + goalMultiplier
+      );
+      setCalories(totalCalories);
+      const numericCalories = parseFloat(totalCalories);
+  
+      if (!isNaN(numericCalories)) {
+        handleCaloriesSubmit(numericCalories);
+      }
+      
+      const data = await addYourHealthGoal({
+        goal: goal,
+        activityLevel: activityLevel,
+        gender:gender,
+        dateOfBirth: DOB,
+        country: country,
+        height: height,
+        weight: weight,
+      }).unwrap();
+      
+      console.log("Data submitted successfully:", data);
+      // console.log("Data submitted successfully:");
+      
+    } catch (error) {
       console.error("Input is not a valid number");
     }
+
   };
+
   return (
     <div style={{ backgroundColor: "white", width: "100%", minHeight: "100vh",marginTop:'20px' }}>
       <h4 style={{ textAlign: 'center' }}>Nutritional and Calorie Calculators</h4>
@@ -146,11 +150,17 @@ const CalorieCalculator = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="Age"
+                  // label="Age"
                   fullWidth
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  type="number"
+                  value={DOB}
+                  onChange={(e) => setDOB(e.target.value)}
+                  type="date"
+                  sx={{
+                    "& input": {
+                      backgroundColor: "white",
+                      color: "black",
+                    },
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -166,6 +176,29 @@ const CalorieCalculator = () => {
                     <MenuItem value="female">Female</MenuItem>
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Goal</InputLabel>
+                  <Select
+                    value={goal}
+                    onChange={(e) => setGoal(e.target.value)}
+                    label="Goal"
+                  >
+                    <MenuItem value="Lose Weight">Lose Weight</MenuItem>
+                    <MenuItem value="Maintain Weight">Maintain Weight</MenuItem>
+                    <MenuItem value="Gain Weight">Gain Weight</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Country"
+                  fullWidth
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  variant="outlined"
+                />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
@@ -205,9 +238,9 @@ const CalorieCalculator = () => {
               </Grid>
               {calories > 0 && (
                 <Grid item xs={12}>
-                  <Typography variant="h6" align="center">
+                  {/* <Typography variant="h6" align="center">
                     You need approximately {calories} calories/day.
-                  </Typography>
+                  </Typography> */}
                   <Link 
                     to='/plan-diet'
                     state={{caloriesRequired: calories }}

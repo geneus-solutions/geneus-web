@@ -22,7 +22,7 @@ const UserProfile = () => {
       field, // Field being edited
       value:
         userProfile?.userProfileData[field] ||
-        userProfile?.userProfileData.userId[field] ||
+        userProfile?.userProfileData?.userId[field] ||
         "", // Initial value for the field
     });
   };
@@ -104,14 +104,14 @@ const UserProfile = () => {
               type: "number",
             },
             { label: "Address", field: "address", Enter: "Enter Address" },
-          ].map(({ label, field, placeholder, type }) => (
+          ]?.map(({ label, field, placeholder, type }) => (
             <div key={field} className="profile-section">
               <strong className="label">{label}</strong>
               {tempEdit.field === field ? (
                 <div className="profile-edit">
                   {field === "address" ? (
                     <textarea
-                      value={tempEdit.value}
+                      value={tempEdit?.value}
                       onChange={(e) =>
                         setTempEdit((prev) => ({
                           ...prev,
@@ -126,7 +126,7 @@ const UserProfile = () => {
                   ) : (
                     <input
                       type={type}
-                      value={tempEdit.value}
+                      value={tempEdit?.value}
                       onChange={(e) =>
                         setTempEdit((prev) => ({
                           ...prev,
@@ -151,7 +151,7 @@ const UserProfile = () => {
                 <div className="profile-field">
                   <span className="profile-value">
                     {userProfile?.userProfileData[field] ||
-                      userProfile?.userProfileData.userId[field] ||
+                      userProfile?.userProfileData?.userId[field] ||
                       "Not provided"}
                   </span>
                   <button
@@ -159,7 +159,7 @@ const UserProfile = () => {
                     className="edit-btn"
                   >
                     {userProfile?.userProfileData[field] ||
-                    userProfile?.userProfileData.userId[field]
+                    userProfile?.userProfileData?.userId[field]
                       ? "Edit"
                       : "Add"}
                   </button>

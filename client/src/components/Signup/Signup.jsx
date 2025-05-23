@@ -38,23 +38,7 @@ function Signup({ toggleComponent, isLoginDialogOpen, setIsLoginDialogOpen, cour
         console.log('All things are good')
         toast.success("Signed up successfully");
         dispatch(setCredentials({ ...userData }));
-        navigate("/course-details", {
-          state: { 
-            cartDetails: {
-              cart_items: [{
-            course_course_description: course?.description,
-            course_discountPrice: course?.discount_price,
-            course_id: course?._id,
-            course_image: course?.img,
-            course_price: course?.price,
-            course_title: course?.title,
-          }], 
-          cart_total: course?.price, 
-          discount : course?.discount_price,
-          total_after_discount: course?.price - course?.discount_price, 
-        },
-      totalPrice: course?.discount_price, 
-        }});
+        navigate("/course-details", { state: { courses:[course] } } );
         setIsLoginDialogOpen(false);
       }
 

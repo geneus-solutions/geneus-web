@@ -40,28 +40,10 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
 
       const userData = await login({ email, password }).unwrap();
 
-      console.log('userData : ',userData)
-      
       if (userData?.user?.id) { 
         console.log('All things are good')
         dispatch(setCredentials({ ...userData }));
-        navigate("/course-details", {
-          state: { 
-            cartDetails: {
-              cart_items: [{
-            course_course_description: course?.description,
-            course_discountPrice: course?.discount_price,
-            course_id: course?._id,
-            course_image: course?.img,
-            course_price: course?.price,
-            course_title: course?.title,
-          }], 
-          cart_total: course?.price, 
-          discount : course?.discount_price,
-          total_after_discount: course?.price - course?.discount_price, 
-        },
-      totalPrice: course?.discount_price, 
-        }});
+        navigate("/course-details", { state: { courses:[course] } } );
       }
 
     } catch (error) {
@@ -84,23 +66,7 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
       setPassword("");
       if (isLoginDialogOpen) { 
         setIsLoginDialogOpen(false); 
-        navigate("/course-details", {
-          state: { 
-            cartDetails: {
-              cart_items: [{
-            course_course_description: course?.description,
-            course_discountPrice: course?.discount_price,
-            course_id: course?._id,
-            course_image: course?.img,
-            course_price: course?.price,
-            course_title: course?.title,
-          }], 
-          cart_total: course?.price, 
-          discount : course?.discount_price,
-          total_after_discount: course?.price - course?.discount_price, 
-        },
-      totalPrice: course?.discount_price, 
-        }});
+        navigate("/course-details", { state: { courses:[course] } } );
       }else { 
         navigate(from, { replace: true }); 
       }

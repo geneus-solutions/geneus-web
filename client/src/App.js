@@ -14,7 +14,7 @@ import Courses from "./Pages/Courses";
 import CalorieCalculator from "./Pages/CalorieCalculator";
 import AddFood from "./Pages/AddFood";
 import DietPlan from "./Pages/DietPlan";
-import CheckOutCourseDetails from "./Pages/CheckOutCourseDetails";
+import CourseDetails from "./Pages/CourseCheckOutDetails";
 import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
 import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
 
@@ -48,6 +48,7 @@ import UserProfileLayout from "./Pages/UserProfile/UserProfileLayout";
 import PaymentHistory from "./Pages/UserProfile/PaymentHistory";
 import SupportAndQuery from "./Pages/UserProfile/SupportAndQuery";
 import UserEnquiry from "./Pages/adminPages/userEnquiry/UserEnquiry";
+import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -59,10 +60,12 @@ function App() {
 
   const handleLogout = useCallback(async () => {
     try {
+
       if (!user?.id) return;
       const data = await logout().unwrap();
-      console.log("User logged out:", data);
+
       dispatch(logOut());
+      
     } catch (error) {
       console.error("Failed to logout:", error);
     }
@@ -119,7 +122,7 @@ function App() {
           <Route path="/plan-diet" element={<AddFood />} />   
           <Route path="/diet-plan" element={<DietPlan />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
-            <Route path="/course-details" element={<CheckOutCourseDetails />} />
+            <Route path="/course-details" element={<CourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
             <Route path="/profile" element={<UserProfileLayout />}>
@@ -127,6 +130,8 @@ function App() {
               <Route path="payment-history" element={<PaymentHistory />} />
               <Route path="support-query" element={<SupportAndQuery />} />
             </Route>
+          
+            <Route path="/subscribe-to-NutriApp" element={<SubscribeToNutriApp />} />
           </Route>
 
           <Route path="/courses" element={<Courses />} />
