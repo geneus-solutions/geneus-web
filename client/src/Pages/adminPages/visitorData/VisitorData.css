@@ -3,7 +3,7 @@
     max-width: 100wh;
     height: 100vh;
     /* margin: 40px auto; */
-    background: #1e293b;
+    background: #ffffff;
     padding: 20px;
     /* border-radius: 10px; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -16,7 +16,7 @@
     font-size: 40px;
     font-weight: 600;
     margin-bottom: 20px;
-    color: #facc15;
+    color: #000000;
   }
   
   /* Filter Section */
@@ -26,14 +26,15 @@
     align-items: center;
     gap: 15px;
     margin-bottom: 20px;
+    color: #000000;
   }
   
   input[type="date"] {
     padding: 10px;
     border: 1px solid #475569;
     border-radius: 6px;
-    background: #0f172a;
-    color: #f1f5f9;
+    background: #000000;
+    color: #bcbcbc;
     font-size: 16px;
     outline: none;
     appearance: none;
@@ -43,17 +44,19 @@
   input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1); /* Turns the black icon into white */
     cursor: pointer;
+    color: #000000;
   }
   
   /* Firefox - Hide default icon */
   input[type="date"]::-moz-calendar-picker-indicator {
     filter: invert(1);
     cursor: pointer;
+    color: #000000;
   }
   
   input[type="date"]:hover,
   input[type="date"]:focus {
-    border-color: #facc15;
+    border-color: #000000;
   }
   
   .filter-btn {
@@ -107,25 +110,26 @@
   .visitor-table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #475569;
   }
   
   .visitor-table th {
-    background: #334155;
-    color: #facc15;
+    background: #b4d4e6;
+    color: #000000;
     font-weight: bold;
   }
   
   .visitor-table tbody tr:nth-child(even) {
-    background: #1e293b;
+    background: #dbdbe1;
+    color: #000000;
   }
   
   .visitor-table tbody tr:nth-child(odd) {
-    background: #0f172a;
+    background: #bcbcbc;
+    color: #000000;
   }
   
   .visitor-table tbody tr:hover {
-    background: #475569;
+    background: #bebebe;
   }
   
   /* No Data Message */

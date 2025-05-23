@@ -5,11 +5,6 @@ const CircleCard = ({ icon, title, description, gradient }) => {
   return (
     <div
       className="circle-card"
-      style={{
-        background: `linear-gradient(white, white) padding-box, ${gradient} border-box`,
-        border: "3px solid transparent",
-        borderRadius: "50%", // Circular shape
-      }}
     >
       {/* Icon */}
       <div className="circle-icon">{icon}</div>

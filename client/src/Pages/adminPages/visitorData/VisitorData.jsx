@@ -15,11 +15,14 @@ const VisitorData = () => {
   const [selectedDateFrom, setSelectedDateFrom] = useState(new Date().toISOString().split("T")[0]); // Stores the date when "Filter" is clicked
   const [selectedDateTo, setSelectedDateTo] = useState(new Date().toISOString().split("T")[0]); // Stores the date when "Filter" is clicked
   const [showPopUp, setShowPopUp] = useState(false);
+
   // Fetch data only when selectedDate is available
   const { data: visitorData, isLoading } = useVisitorDataQuery(
     { dateFrom: selectedDateFrom, dateTo: selectedDateTo },
     { skip: !selectedDateFrom || !selectedDateTo} // Fetch only when selectedDate is not empty
   );
+
+  // console.log('thisis visitor data', visitorData)
 
   const [deleteVisitorData] = useDeleteVisitorDataMutation();
 
@@ -121,7 +124,7 @@ const VisitorData = () => {
               {visitorData?.data?.map((visitor, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{new Date(visitor.createdAt).toISOString().split('T')[0]}</td>
+                  <td>{new Date(visitor.createdAt).toLocaleDateString()}</td>
                   <td>{visitor.url}</td>
                   <td>{visitor.ip}</td>
                   <td>{visitor.city}</td>

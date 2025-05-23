@@ -11,14 +11,14 @@
   max-width: 100wh;
   height: 100vh;
   padding: 30px;
-  background-color: hsl(217, 33%, 17%);
+  background-color: #ffffff;
 }
 
 .form-title-add-product {
   font-size: 40px;
   font-weight: bold;
   text-align: center;
-  color: #facc15;
+  color: #000000;
   margin-bottom: 20px;
 }
 
@@ -41,20 +41,19 @@
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
-  color: #facc15;
+  color: #000000;
 }
 
 .form-group-add-product input {
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #facc15;
+  border: 1px solid #797474;
   border-radius: 4px;
   outline: none;
   transition: border-color 0.2s ease-in-out;
 }
-
 .form-group-add-product input:focus {
-  border-color: #facc15;
+  border-color: #000000;
 }
 
 .error-message {
@@ -71,7 +70,7 @@
   padding: 10px;
   font-size: 16px;
   font-weight: bold;
-  background-color: #facc15;
+  background-color: rgba(33, 33, 255, 0.64);
   color: white;
   border: none;
   border-radius: 4px;
@@ -80,7 +79,7 @@
 }
 
 .submit-button-add-product:hover {
-  background-color: #8c7003;
+  background-color: rgba(33, 33, 255, 1);
 }
 
 .submit-button:disabled {

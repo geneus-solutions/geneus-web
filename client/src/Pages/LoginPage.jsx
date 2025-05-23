@@ -62,7 +62,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="signup-container">
+        <div className="login-page-signup-container">
             <div>
                 <LoginForm 
                     formData={formData}

@@ -1,3 +1,4 @@
+
 .about-us {
     display: flex;
     flex-direction: column;
@@ -6,11 +7,12 @@
     padding: 50px 20px;
     text-align: center;
     transition: all 0.3s ease-in-out;
+    background: linear-gradient(to bottom, #f5e3e3, #dbeafe);
   }
 
   .about-content {
     max-width: 600px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
   
   .heading {
@@ -20,9 +22,9 @@
     transition: color 0.3s ease-in-out;
   }
   
-  .description {
-    font-size: 1.2rem;
-    color: #555;
+  .aboutus-description {
+    font-size: 1.1rem;
+    color: #444;
     margin-bottom: 15px;
   }
   

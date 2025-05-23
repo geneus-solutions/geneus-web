@@ -1,11 +1,30 @@
 .user-profile-container {
     max-width: 100%;
     margin: 50px 90px;
-    /* background: white; */
     padding: 20px;
     /* border-radius: 10px; */
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     font-family: Arial, sans-serif;
+  }
+
+  .profile-header {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .profile-header p {
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-header .active-tab {
+    color: #000000;
+    font-weight: bold;
+  }
+  
+  hr {
+    margin: 0; /* adjust as needed */
+    margin-bottom: 60px;
   }
   
   .profile-container{
@@ -22,6 +41,7 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
+    color: #303031;
   }
   
   .profile-subtitle {
@@ -32,9 +52,9 @@
   
   .profile-section {
     padding: 15px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #58565676;
   }
-  
+
   .profile-section:last-child {
     border-bottom: none;
   }
@@ -42,12 +62,13 @@
   .profile-field {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex;
     margin-top: 5px;
   }
   
   .profile-value {
     font-size: 16px;
+    text-align: left;
     color: #333;
   }
   
@@ -117,6 +138,60 @@
     object-fit: cover; /* Ensures the image covers the container */
 }
 
+.label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+
+.manage-account-dropdown {
+  width: 100%;
+  padding: 20px 0;
+  margin-bottom: 24px;
+}
+
+.dropdown-title {
+  font-size: 20px;
+  font-weight: 600;
+  /* margin-bottom: 16px; */
+  color: #333;
+}
+
+.account-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-text {
+  font-size: 16px;
+  color: #333;
+  max-width: 70%;
+}
+
+.action-button {
+  padding: 8px 0px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.action-button.change {
+  color: #007bff;
+}
+
+.action-button.change:hover {
+  text-decoration: underline;
+}
+
+.action-button.delete {
+  color: red;
+}
+
+.action-button.delete:hover {
+  text-decoration: underline;
+}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -153,11 +228,6 @@
     .profile-image-container {
         width: 120px;
         height: 120px;
-    }
-
-    .profile-field {
-        flex-direction: column;
-        align-items: flex-start;
     }
 
     .edit-btn, .save-btn, .cancel-btn {

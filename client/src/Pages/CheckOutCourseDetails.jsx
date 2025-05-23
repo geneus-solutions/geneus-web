@@ -16,14 +16,8 @@ const CheckOutCourseDetails = () => {
   const [finalTotal, setFinalTotal] = useState(totalPrice);
   const [message, setMessage] = useState(null);
   const [applyCouponMessage, setApplyCouponMessage] = useState(false);
-  const [cartItems, setCartItems] = useState(cartDetails?.cart_items || []);
-  const [deleteCart] = useDeleteCartMutation();
-  const { user } = useSelector((state) => state?.auth);
-  console.log(
-    'this is cartDetails', cartDetails, totalPrice
-  )
-  console.log('this is cartItems', cartItems)
-  
+  const [cartItems, setCartItems] = useState(cartDetails || {});
+
   const validCoupons = [
     { code: "a3e29f41", discount: 50, expiryDate: "2025-12-31" },
     { code: "SUMMER20", discount: 20, expiryDate: "2024-12-30" },
@@ -47,52 +41,70 @@ const CheckOutCourseDetails = () => {
         setMessage({ type: "error", text: "This coupon code has expired." });
       } else {
         // const discountAmount = (totalPrice * coupon.discount) / 100;
-        const discountAmount = cartDetails?.discount - 1;
+        const discountAmount = cartItems?.discount - 1;
         setDiscount(discountAmount);
-        setFinalTotal(cartDetails?.discount - discountAmount);
+        setFinalTotal(cartItems?.discount - discountAmount);
         setApplyCouponMessage(true);
         setMessage({
           type: "success",
           text: `Coupon applied! You've saved ₹${discountAmount.toFixed(2)}.`,
         });
+
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
       }
     } else {
       setMessage({
         type: "error",
         text: "This coupon code is invalid or expired.",
       });
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     }
   };
 
   const removeCoupon = () => {
     setCouponCode("");
     setDiscount(0);
-    setFinalTotal(cartDetails?.discount);
+    setFinalTotal(cartItems?.discount);
     setMessage({ type: "success", text: "Coupon removed successfully." });
     setApplyCouponMessage(false);
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
   };
 
-  if (!cartDetails) {
+  if (!cartItems) {
     return <h6>No cart details available</h6>;
   }
 
   const removeFromSummry = async (itemId) => {
     try {
-      const cartDetails = await deleteCart({
-        user_id: user?.id,
-        course_id: itemId,
-      }).unwrap();
-      const updatedCart = cartItems.filter((item) => item._id !== itemId);
-      setCartItems(updatedCart);
-
-      const newTotal = updatedCart.reduce(
-        (acc, item) => acc + item.course_discountPrice,
+      const updatedCartItems = cartItems?.cart_items?.filter(
+        (item) => item._id !== itemId
+      );
+      const newCartTotal = updatedCartItems.reduce(
+        (sum, item) => sum + item.course_discountPrice,
         0
       );
+      const actualAmount = updatedCartItems.reduce(
+        (sum, item) => sum + item.course_price,
+        0
+      );
+      const newCartObject = {
+        ...cartItems,
+        cart_items: updatedCartItems,
+        discount: newCartTotal,
+        cart_total: actualAmount,
+        total_after_discount: actualAmount - newCartTotal,
+      };
+      setCartItems(newCartObject);
 
-      setFinalTotal(newTotal);
+      setFinalTotal(newCartObject?.discount);
       toast.success("Course removed.");
-
       // Optional: You can send a request to backend here to update user's cart
       // await axios.post("/api/cart/remove", { itemId, userId });
     } catch (error) {
@@ -115,12 +127,12 @@ const CheckOutCourseDetails = () => {
                 <th>Unit Price</th>
                 <th>Discounted Price</th>
                 <th>Amount</th>
-                {/* <th>Remove</th> */}
+                {cartItems?.cart_items?.length > 1 && <th>Remove</th>}
               </tr>
             </thead>
             <tbody>
-              {cartItems.length > 0 ? (
-                cartItems.map((item) => (
+              {cartItems?.cart_items?.length > 0 ? (
+                cartItems?.cart_items?.map((item) => (
                   <tr key={item._id}>
                     <td>
                       <img
@@ -133,23 +145,25 @@ const CheckOutCourseDetails = () => {
                     <td>₹{item.course_price}</td>
                     <td>₹{item.course_price - item.course_discountPrice}</td>
                     <td>₹{item.course_discountPrice}</td>
-                    {/* <td onClick={() => removeFromSummry(item._id)}>
-                      <MdDelete  style={{cursor: 'pointer'}}/>
-                    </td> */}
+                    {cartItems?.cart_items?.length > 1 && (
+                      <td onClick={() => removeFromSummry(item._id)}>
+                        <MdDelete style={{ cursor: "pointer" }} />
+                      </td>
+                    )}
                   </tr>
                 ))
               ) : (
                 <tr>
                   <td>
                     <img
-                      src={cartDetails?.img}
-                      alt={cartDetails.title}
+                      src={cartItems?.img}
+                      alt={cartItems.title}
                       className="course-descritptionimage"
                     />
                   </td>
-                  <td>₹{cartDetails?.price}</td>
-                  <td>₹{cartDetails?.price - cartDetails?.discount_price}</td>
-                  <td>₹{cartDetails?.discount_price}</td>
+                  <td>₹{cartItems?.price}</td>
+                  <td>₹{cartItems?.price - cartItems?.discount_price}</td>
+                  <td>₹{cartItems?.discount_price}</td>
                 </tr>
               )}
             </tbody>
@@ -168,11 +182,11 @@ const CheckOutCourseDetails = () => {
         </div> */}
         <div className="summary-section-checkout">
           <SummarySection
-            cartDetails={cartDetails}
-            // cartDetails={cartItems}
+            // cartDetails={cartDetails}
+            cartDetails={cartItems}
             finalTotal={finalTotal}
             discount={discount}
-            totalPrice={totalPrice}
+            // totalPrice={totalPrice}
             applyCouponMessage={applyCouponMessage}
             setCouponCode={setCouponCode}
             applyCoupon={applyCoupon}

@@ -16,12 +16,12 @@
 }
 
 .recommend-to-attend-heading > h1 {
-  color: #ffffff;
+  color: #000;
   font-size: 2rem; /* Adjusted for responsiveness */
 }
 
 .recommend-to-attend-heading > h3 {
-  color: #b8b8a7;
+  color: #42423f;
   margin-bottom: 3rem;
   font-size: 1.25rem;
 }

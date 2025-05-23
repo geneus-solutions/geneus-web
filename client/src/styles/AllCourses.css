@@ -4,7 +4,7 @@
    max-width: 100wh;
     height: 100vh;
     font-family: Arial, sans-serif;
-    background-color: #1e293b;
+    background-color: #ffffff;
     color: white;
   }
   
@@ -23,8 +23,8 @@
   }
   
   .admin-course-dropdown-button {
-    background-color: #1e293b   ;
-    color: white;
+    background-color: #585353   ;
+    color: #FFFFFF;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -66,7 +66,7 @@
   .admin-course-search-box {
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 9px;
+    border-radius: 20px;
     margin: 20px 30px;
     width: 30%;
   }
@@ -74,7 +74,8 @@
   .admin-course-search-input {
     width: 100%;
     border: 1px solid #475569;
-    background: #0f172a;
+    border-radius: 20px;
+    background: #c2c3c4;
     outline: none;
     font-size: 16px;
     padding: 10px;
@@ -108,9 +109,8 @@
   
   .course-table th {
     text-align: center;
-    border: 1px solid #475569;
-    background: #334155;
-    color: #facc15;
+    border: 5px solid #475569;
+    color: #000000;
     font-weight: bold;
   }
 
@@ -118,7 +118,7 @@
 .course-table td {
     text-align: center;
     border: none;
-    border: 1px solid #475569;
+    border: 5px solid #475569;
     color: #FFFFFF;
     padding: 12px;
 
