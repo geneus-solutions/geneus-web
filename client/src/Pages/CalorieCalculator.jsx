@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FormControl,
   InputLabel,
@@ -16,6 +16,7 @@ import { styled } from "@mui/system";
 import EastIcon from "@mui/icons-material/East";
 
 import { useAddYourHealthGoalMutation } from "../features/healthGoal/healthGoalApiSlice";
+import { useGetYourCaloriesRequirementQuery } from "../features/Food/foodApiSlice";
 
 const CalorieCalculator = () => {
   const [weight, setWeight] = useState("");
@@ -30,6 +31,9 @@ const CalorieCalculator = () => {
 
   const [addYourHealthGoal] = useAddYourHealthGoalMutation();
 
+   const { data: calorieData } = useGetYourCaloriesRequirementQuery();
+   const navigate = useNavigate();
+   
   const handleCaloriesSubmit = (calories) => {
     setCalories(calories);
   };
@@ -107,6 +111,13 @@ const CalorieCalculator = () => {
     }
 
   };
+
+
+  useEffect(() => {
+  if (calorieData) {
+    navigate("/plan-diet", { state: { caloriesRequired: calorieData } });
+  }
+}, [calorieData, navigate]);
 
   return (
     <div style={{ backgroundColor: "white", width: "100%", minHeight: "100vh",marginTop:'20px' }}>

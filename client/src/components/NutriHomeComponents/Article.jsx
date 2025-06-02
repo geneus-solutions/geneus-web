@@ -5,18 +5,19 @@ const articles = [
   {
     id: 1,
     image: "https://i.pinimg.com/736x/08/34/2c/08342c2ed26b1cd59788f61fb17b2ada.jpg",
-    title: "Planning weight & calories",
+    title: "Smart Calorie Planning with Nutri App",
     description:
-      "Good news! You can stop guessing at how many calories you need to control your weight. When you guess at what you need, you are more likely to consume too few or too many calories, thereby preventing you from meeting your goal. That is frustrating and erodes confidence. Instead, use MyNetDiary to plan and track calories so that you meet your weight goal safely and effectively.",
+      "Stop guessing your daily calorie needs. With Nutri App, you can calculate your personalized calorie requirement based on your body metrics and lifestyle. Avoid under-eating or over-eating, and start reaching your health goals with confidence. Nutri App makes it easy to plan and track your calories for effective weight management.",
   },
   {
     id: 2,
     image: "https://i.pinimg.com/474x/5b/3d/be/5b3dbe6ed5cda0380015050a9deab509.jpg",
-    title: "Healthy Eating Habits",
+    title: "Build Healthy Eating Habits",
     description:
-      "Eating healthy doesn’t have to be complicated. Focus on whole, nutritious foods, balance your meals, and stay hydrated. Using MyNetDiary can help you stay on track with your goals effortlessly.",
+      "Healthy eating is simple with Nutri App. Focus on fresh, whole foods, balanced portions, and staying hydrated. Nutri App supports you every step of the way with smart meal planning and nutritional insights, helping you build habits that last a lifetime.",
   },
 ];
+
 
 const Article = () => {
   return (

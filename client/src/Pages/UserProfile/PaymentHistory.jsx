@@ -7,13 +7,14 @@ import { useGetPaymentHistoryQuery } from "../../features/payment/paymentApiSlic
 const PaymentHistory = () => {
   const user = useSelector(selectCurrentUser);
   const { data: payments } = useGetPaymentHistoryQuery(user.id);
+  console.log('this is payments', payments)
   
   return (
     // <>
     // this
-    // </>
+    // </>o
     <div className="payment-history-container">
-      {!payments?.payments ? (
+      {!payments?.data ? (
         <p>No payments history found.</p>
       ) : (
         <div className="payment-table-wrapper">
@@ -24,12 +25,12 @@ const PaymentHistory = () => {
                 <th>Order ID</th>
                 <th>Payment ID</th>
                 <th>Status</th>
-                <th>Courses</th>
+                {/* <th>Courses</th> */}
                 <th>Date</th>
               </tr>
             </thead>
             <tbody>
-              {payments?.payments?.map((payment, index) => (
+              {payments?.data?.map((payment, index) => (
                 <tr key={payment._id}>
                   <td>{index + 1}</td>
                   <td>{payment.order_id}</td>
@@ -43,13 +44,13 @@ const PaymentHistory = () => {
                   >
                     {payment.status}
                   </td>
-                  <td>
+                  {/* <td>
                     {payment.cart_details.map((item, i) => (
                       <span key={i} className="course-badge">
                         {item.course_title}
                       </span>
                     ))}
-                  </td>
+                  </td> */}
                   <td>{new Date(payment.createdAt).toLocaleDateString()}</td>
                 </tr>
               ))}

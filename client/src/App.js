@@ -117,14 +117,14 @@ function App() {
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
           <Route path="/landing/:id" element={<LandingPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
-          <Route path="/nutri-app" element={<NutriHome />} />
-          <Route path="/calculate-calorie" element={<CalorieCalculator />} />
-          <Route path="/plan-diet" element={<AddFood />} />   
-          <Route path="/diet-plan" element={<DietPlan />} />
+            <Route path="/nutri-app" element={<NutriHome />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/course-details" element={<CourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
+            <Route path="/calculate-calorie" element={<CalorieCalculator />} />
+            <Route path="/plan-diet" element={<AddFood />} />   
+            <Route path="/diet-plan" element={<DietPlan />} />
             <Route path="/profile" element={<UserProfileLayout />}>
               <Route index element={<UserProfile />} /> {/* Default route */}
               <Route path="payment-history" element={<PaymentHistory />} />
