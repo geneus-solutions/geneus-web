@@ -31,4 +31,4 @@ const paymentApiSlice = apiSlice.injectEndpoints({
 
 
 
-export const { useLazyGetKeyQuery,useVerifyPaymentMutation, useGetPaymentHistoryQuery } = paymentApiSlice;
+export const { useLazyGetKeyQuery, useVerifyPaymentMutation, useGetPaymentHistoryQuery } = paymentApiSlice;

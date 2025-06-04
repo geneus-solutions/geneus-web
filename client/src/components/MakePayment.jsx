@@ -2,10 +2,10 @@ import React from "react";
 
 import Logo from '../assets/g.png';
 
-import { useLazyGetKeyQuery } from "../features/payment/paymentApiSlice";
+import { useLazyGetKeyQuery } from "../features/payment/PaymentApiSlice";
 
 // import {useVerifyNutriSubscriptionMutation } from "../features/NutriSubscription/NutriSubscriptionApiSlice";
-import { useVerifyPaymentMutation } from "../features/payment/paymentApiSlice";
+import { useVerifyPaymentMutation } from "../features/payment/PaymentApiSlice";
 
 import { useSelector } from "react-redux";
 
