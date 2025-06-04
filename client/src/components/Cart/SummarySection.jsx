@@ -22,6 +22,7 @@ const SummarySection = ({
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
   const [courseCheckout,{isLoading}] = useCourseCheckoutMutation();
+  console.log('this is discount price', coursePriceDetails)
   
   return (
     <div className="summary-section">
@@ -46,7 +47,7 @@ const SummarySection = ({
           <div>
             <div className="summary-item">
               <p>Coupon Discount: {appliedCoupon}</p>
-              <p>₹{discount}</p>
+              <p>₹{coursePriceDetails?.couponCodeDiscount}</p>
             </div>
             <button
               className="remove-btn"
@@ -84,7 +85,7 @@ const SummarySection = ({
         <hr />
         <div className="summary-item total">
           <span>Total:</span>
-          <span>₹{coursePriceDetails?.discountedPrice}</span>
+          <span>₹{coursePriceDetails?.couponCodeDiscount ? coursePriceDetails?.discountedPrice - coursePriceDetails?.couponCodeDiscount :  coursePriceDetails?.discountedPrice}</span>
         </div>
         <MakePayment
           checkout={courseCheckout}

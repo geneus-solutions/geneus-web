@@ -14,6 +14,7 @@ const CourseDetails = () => {
   const [coursePriceDetails, setCoursePriceDetails] = useState({
     subTotal: 0,
     discountedPrice: 0,
+    couponCodeDiscount: 0,
   });
   const [couponCode, setCouponCode] = useState("");
   const [message, setMessage] = useState(null);
@@ -55,7 +56,7 @@ const CourseDetails = () => {
 
           setCoursePriceDetails((prev) => ({
             ...prev,
-            discount: prev.discountedPrice - discountAmount,
+            couponCodeDiscount: discountAmount,
           }));
 
           setApplyCouponMessage(true);
@@ -83,6 +84,10 @@ const CourseDetails = () => {
   const removeCoupon = () => {
     setCouponCode("");
     setMessage({ type: "success", text: "Coupon removed successfully." });
+    setCoursePriceDetails((prev)=>({
+      ...prev,
+    couponCodeDiscount: 0,
+  }));
     setApplyCouponMessage(false);
     setTimeout(() => {
       setMessage("");
