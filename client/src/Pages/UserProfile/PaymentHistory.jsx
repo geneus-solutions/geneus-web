@@ -2,17 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import "../../styles/PaymentHistory.css";
-import { useGetPaymentHistoryQuery } from "../../features/payment/paymentApiSlice";
+import { useGetPaymentHistoryQuery } from "../../features/payment/PaymentApiSlice";
 
 const PaymentHistory = () => {
   const user = useSelector(selectCurrentUser);
   const { data: payments } = useGetPaymentHistoryQuery(user.id);
-  console.log('this is payments', payments)
   
   return (
-    // <>
-    // this
-    // </>o
     <div className="payment-history-container">
       {!payments?.data ? (
         <p>No payments history found.</p>
