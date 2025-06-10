@@ -9,7 +9,6 @@ const SummarySection = ({
   courseIds,
   coursePriceDetails,
   cartDetails,
-
   applyCoupon,
   couponCode,
   setCouponCode,
@@ -22,8 +21,6 @@ const SummarySection = ({
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
   const [courseCheckout,{isLoading}] = useCourseCheckoutMutation();
-  console.log('this is discount price', coursePriceDetails)
-  
   return (
     <div className="summary-section">
       <h2 className="summary-title">Summary</h2>
@@ -53,8 +50,8 @@ const SummarySection = ({
               className="remove-btn"
               onClick={() => {
                 removeCoupon();
-                setAppliedCoupon(couponCode);
                 setCouponCode("");
+                setAppliedCoupon("");
               }}
             >
               Remove
@@ -68,13 +65,14 @@ const SummarySection = ({
           type="text"
           className="coupon-input"
           value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value)}
+          onChange={(e) => {setCouponCode(e.target.value); }}
           placeholder="Enter your coupon code"
         />
         <button
           className="apply-btn"
           onClick={() => {
             applyCoupon();
+            setAppliedCoupon(couponCode);
             setCouponCode("");
           }}
           disabled={applyCouponMessage}
@@ -92,6 +90,7 @@ const SummarySection = ({
           checkOutData={{
             courseIds,
             currency: "INR",
+            couponCode: appliedCoupon ? appliedCoupon : null
           }}
         >
           <button
