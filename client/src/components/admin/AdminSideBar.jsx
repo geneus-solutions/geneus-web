@@ -19,6 +19,7 @@ import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../features/auth/authSlice";
 import { apiSlice } from "../../app/api/apiSlice";
+import { AiOutlineStock } from "react-icons/ai";
 
 const AdminSideBar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -123,6 +124,17 @@ const AdminSideBar = () => {
           <li className="admin-sidebar-item">
             <SiGooglebigquery />
             {!isCollapsed && <span>Enquiry's</span>}
+          </li>
+        </Link>
+         <Link
+          to="finance-porfolio"
+          className={`admin-sidebar-link ${
+            location.pathname === "/admin-dashboard/finance-porfolio" ? "active" : ""
+          }`}
+        >
+          <li className="admin-sidebar-item">
+            <AiOutlineStock />
+            {!isCollapsed && <span>Stocks & Finance</span>}
           </li>
         </Link>
       </ul>
