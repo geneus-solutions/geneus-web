@@ -8,6 +8,12 @@ const paymentApiSlice = apiSlice.injectEndpoints({
                 method: 'GET'
             })
         }),
+        getStockSymbol: builder.query({
+            query: () => ({
+                url: "/stock-symbols",
+                method: 'GET'
+            })
+        }),
         addStocks: builder.mutation({
             query: (updatedStock) => ({
                 url: "/add-stocks",
@@ -28,6 +34,7 @@ const paymentApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useAddStocksMutation,
+    useGetStockSymbolQuery,
     useGetUserStockQuery,
     useUpdateStocksMutation
 } = paymentApiSlice;

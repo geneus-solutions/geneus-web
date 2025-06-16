@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   useAddStocksMutation,
+  useGetStockSymbolQuery,
   useGetUserStockQuery,
   useUpdateStocksMutation,
 } from "../../features/Stocks/stocksApiSlice";
@@ -10,17 +11,20 @@ import { selectCurrentUser } from "../../features/auth/authSlice";
 
 const StockTable = () => {
   const user = useSelector(selectCurrentUser);
+  const [addStock] = useAddStocksMutation();
+
+  const [updateStock] = useUpdateStocksMutation();
+
+  const { data: userStocks } = useGetUserStockQuery(user.id);
+
+  const {data: stockSymbols} = useGetStockSymbolQuery();
   const [stocks, setStocks] = useState([]);
 
   const [symbols, setSymbols] = useState();
   const [suggestions, setSuggestions] = useState([]);
   const [activeInputIndex, setActiveInputIndex] = useState(null);
 
-  const [addStock] = useAddStocksMutation();
 
-  const [updateStock] = useUpdateStocksMutation();
-  const { data: userStocks } = useGetUserStockQuery(user.id);
-  console.log("this is userStokcs", userStocks);
 
   useEffect(() => {
     if (userStocks?.stocks && userStocks?.stocks?.length > 0) {
@@ -39,21 +43,12 @@ const StockTable = () => {
     }
   }, [userStocks]);
 
-  console.log("this is stocks", stocks);
 
-  useEffect(() => {
-    const fetchStockSymbols = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/stock-symbols");
-        console.log(response.data);
-        setSymbols(response.data.map((sym) => sym.symbol));
-      } catch (error) {
-        console.error("Error fetching stock symbols:", error);
-      }
-    };
-
-    fetchStockSymbols();
-  }, []);
+ useEffect(() => {
+  if (stockSymbols) {
+    setSymbols(stockSymbols.map((sym) => sym.symbol));
+  }
+}, [stockSymbols]);
 
   const [loadingIndex, setLoadingIndex] = useState(null);
 
@@ -75,7 +70,7 @@ const StockTable = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/stock?name=${symbol}`
+        `${process.env.REACT_APP_BACKEND_URL}/stock?name=${symbol}`
       );
       console.log("this is response", response);
       const currentPrice = parseFloat(response.data.data.regularMarketPrice);

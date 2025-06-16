@@ -1,12 +1,13 @@
 import '../../styles/Loaders/VerticalLoader.css';
+
 const VerticalLoader = () => {
     return(
-        <div class="load-container">
-            <div class="blocks b-one"></div>
-            <div class="blocks b-two"></div>
-            <div class="blocks b-three"></div>
-            <div class="blocks b-four"></div>
-            <div class="blocks b-five"></div>
+        <div className="load-container">
+            <div className="blocks b-one"></div>
+            <div className="blocks b-two"></div>
+            <div className="blocks b-three"></div>
+            <div className="blocks b-four"></div>
+            <div className="blocks b-five"></div>
         </div>
     )
 }

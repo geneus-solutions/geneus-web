@@ -15,12 +15,18 @@ export const courceApiSlice = apiSlice.injectEndpoints({
             })
         }),
         courseCheckout: builder.mutation({
-            query: (body) => ({
+            query: (body) => {
+                const voucherToken = localStorage.getItem('voucherToken');
+                return {
                 url: '/course-checkout',
                 method: 'POST',
                 body,
-            }),
-        }),
+                headers: {
+                    "x-voucher-token" : voucherToken || "",
+                },
+            };
+        }
+    }),
         // addCourse: builder.mutation({
         //     query: (body) => ({
         //         url: '/register',
