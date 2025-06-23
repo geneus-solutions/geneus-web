@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import {
   useAddStocksMutation,
   useGetStockSymbolQuery,
@@ -8,6 +7,7 @@ import {
 } from "../../features/Stocks/stocksApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../features/auth/authSlice";
+import { toast } from "react-toastify";
 
 const StockTable = () => {
   const user = useSelector(selectCurrentUser);
@@ -17,19 +17,19 @@ const StockTable = () => {
 
   const { data: userStocks } = useGetUserStockQuery(user.id);
 
-  const {data: stockSymbols} = useGetStockSymbolQuery();
+  const { data: stockSymbols } = useGetStockSymbolQuery();
+
   const [stocks, setStocks] = useState([]);
 
   const [symbols, setSymbols] = useState();
   const [suggestions, setSuggestions] = useState([]);
   const [activeInputIndex, setActiveInputIndex] = useState(null);
-
-
-
+  console.log('this is all stockSymbols', stockSymbols);
+  
   useEffect(() => {
-    if (userStocks?.stocks && userStocks?.stocks?.length > 0) {
+    if (userStocks?.data && userStocks?.data?.length > 0) {
       // If the backend returns user stocks, set them to the local state
-      const mappedStocks = userStocks?.stocks.map((s) => ({
+      const mappedStocks = userStocks?.data.map((s) => ({
         name: s.stockName,
         shares: s.purchasedShares,
         buyPrice: s.buyPrice,
@@ -43,111 +43,81 @@ const StockTable = () => {
     }
   }, [userStocks]);
 
-
- useEffect(() => {
-  if (stockSymbols) {
-    setSymbols(stockSymbols.map((sym) => sym.symbol));
-  }
-}, [stockSymbols]);
+  useEffect(() => {
+    if (stockSymbols) {
+      setSymbols(stockSymbols?.map((sym) => sym.symbol));
+    }
+  }, [stockSymbols]);
 
   const [loadingIndex, setLoadingIndex] = useState(null);
 
   const fetchCurrentPrice = async (index) => {
     const stock = stocks[index];
-    const symbol = stock.name.toUpperCase().trim();
+    const symbol = stock?.name?.toUpperCase().trim();
+
     if (!symbol) {
       alert("Please enter a valid stock symbol.");
       return;
     }
 
-    const { shares, buyPrice } = stock;
-    if (!shares || !buyPrice) {
-      alert("Please enter valid Shares and Buy Price.");
+    const { shares, buyPrice, purchaseDate } = stock;
+
+    if (!shares || !buyPrice || !purchaseDate) {
+      alert("Please enter Shares, Buy Price, and Purchase Date.");
       return;
     }
 
     setLoadingIndex(index);
 
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/stock?name=${symbol}`
-      );
-      console.log("this is response", response);
-      const currentPrice = parseFloat(response.data.data.regularMarketPrice);
-      setLoadingIndex(null);
-      const profit = ((currentPrice - buyPrice) * shares).toFixed(2);
-      const profitPercent = (
-        ((currentPrice - buyPrice) / buyPrice) *
-        100
-      ).toFixed(2);
+      let response;
 
-      const updatedStock = {
-        ...stock,
-        currentPrice,
-        profit,
-        profitPercent,
-      };
-      console.log("this is updated stock", updatedStock);
+      if (stock?._id) {
+        // Update stock
+        response = await updateStock({
+          id: stock?._id,
+          stock: {
+            name: symbol,
+            shares,
+            buyPrice,
+            purchaseDate,
+          },
+        }).unwrap();
+        console.log("✅ Stock updated:", response);
+      } else {
+        // Add new stock
+        response = await addStock({
+          name: symbol,
+          shares,
+          buyPrice,
+          purchaseDate,
+        }).unwrap();
+        console.log("✅ New stock saved:", response.data);
+      }
 
+      if (response.success === true) {
+        toast.success(response.message);
+      }
+      const savedStock = response?.data;
+
+      // Update state
       setStocks((prevStocks) => {
         const updatedStocks = [...prevStocks];
         updatedStocks[index] = {
-          ...updatedStocks[index],
-          currentPrice,
-          profit,
-          profitPercent,
+          name: savedStock?.stockName,
+          shares: savedStock?.purchasedShares,
+          buyPrice: savedStock?.buyPrice,
+          purchaseDate: savedStock?.purchaseDate,
+          currentPrice: savedStock?.currentPrice,
+          profit: savedStock?.profit,
+          profitPercent: savedStock?.profitPercentage,
+          _id: savedStock?._id,
         };
         return updatedStocks;
       });
-
-      console.log("Updated stock before setting state:", updatedStock);
-
-      // Save or update stock in backend
-      if (updatedStock._id) {
-        // Update existing stock
-        // await axios.put(
-        //   `http://localhost:8000/add-stocks/${updatedStock._id}`,
-        //   updatedStock
-        // );
-        const response = await updateStock({
-          stock: updatedStock,
-          id: updatedStock._id,
-        }).unwrap();
-        console.log("Stock updated:", response);
-      } else {
-        // Create new stock
-        const saveResponse = await addStock(updatedStock).unwrap();
-        console.log("New stock saved:", saveResponse.data);
-        updatedStock._id = saveResponse.data._id; // Update frontend with new _id from backend
-      }
-
-      setStocks((prevStocks) => {
-        const updatedStocksArray = [...prevStocks];
-        updatedStocksArray[index] = updatedStock;
-        return updatedStocksArray;
-      });
-
-      // if (parseFloat(profitPercent) > 30) {
-      //   try {
-      //     await emailjs.send(
-      //       EMAILJS_SERVICE_ID,
-      //       EMAILJS_TEMPLATE_ID,
-      //       {
-      //         stock_name: symbol,
-      //         profit_percent: profitPercent,
-      //         message: `Profit of ${profitPercent}% reached for ${symbol}.`,
-      //       },
-      //       EMAILJS_PUBLIC_KEY
-      //     );
-      //     // alert(`Profit alert email sent for ${symbol}!`);
-      //   } catch (emailError) {
-      //     console.error("Error sending email alert:", emailError);
-      //     alert("Failed to send profit alert email.");
-      //   }
-      // }
     } catch (error) {
-      console.error("Error fetching or saving stock price:", error);
-      // alert("Error fetching or saving stock price. Try again later.");
+      console.error("❌ Error fetching/saving stock:", error);
+      alert("Something went wrong. Please try again.");
     } finally {
       setLoadingIndex(null);
     }
@@ -169,7 +139,7 @@ const StockTable = () => {
     // Update suggestions if typing in name
     if (field === "name") {
       const inputVal = value.toUpperCase();
-      const filtered = symbols.filter((sym) =>
+      const filtered = symbols?.filter((sym) =>
         sym.toUpperCase().startsWith(inputVal)
       );
       setSuggestions(filtered);
@@ -316,8 +286,8 @@ const StockTable = () => {
             </tr>
           </thead>
           <tbody>
-            {stocks.map((stock, idx) => {
-              const profitPercent = parseFloat(stock.profitPercent);
+            {stocks?.map((stock, idx) => {
+              const profitPercent = parseFloat(stock?.profitPercent);
               const profitStyle =
                 !isNaN(profitPercent) && stock.profitPercent !== "-"
                   ? profitPercent >= 0
@@ -345,7 +315,7 @@ const StockTable = () => {
                       onFocus={() => setActiveInputIndex(idx)}
                       onBlur={() => setTimeout(() => setSuggestions([]), 150)}
                     />
-                    {activeInputIndex === idx && suggestions.length > 0 && (
+                    {activeInputIndex === idx && suggestions?.length > 0 && (
                       <div
                         style={{
                           position: "absolute",
@@ -360,7 +330,7 @@ const StockTable = () => {
                           color: "#1E90FF",
                         }}
                       >
-                        {suggestions.map((s, i) => (
+                        {suggestions?.map((s, i) => (
                           <div
                             key={i}
                             style={{
@@ -380,7 +350,7 @@ const StockTable = () => {
                     <input
                       type="number"
                       style={styles.input}
-                      value={stock.shares}
+                      value={stock?.shares}
                       onChange={(e) =>
                         handleChange(idx, "shares", e.target.value)
                       }
@@ -389,8 +359,8 @@ const StockTable = () => {
                   <td style={styles.td}>
                     <input
                       type="number"
-                      style={styles.input}
-                      value={stock.buyPrice}
+                      style={styles?.input}
+                      value={stock?.buyPrice}
                       onChange={(e) =>
                         handleChange(idx, "buyPrice", e.target.value)
                       }
@@ -399,27 +369,27 @@ const StockTable = () => {
                   <td style={styles.td}>
                     <input
                       type="date"
-                      style={styles.input}
-                      value={stock.purchaseDate}
+                      style={styles?.input}
+                      value={stock?.purchaseDate}
                       onChange={(e) =>
                         handleChange(idx, "purchaseDate", e.target.value)
                       }
                     />
                   </td>
-                  <td style={styles.td}>{stock.currentPrice}</td>
+                  <td style={styles.td}>{stock?.currentPrice}</td>
                   <td style={styles.td}>
-                    {stock.profit}{" "}
+                    {stock?.profit}{" "}
                     {!isNaN(profitPercent) &&
                       stock.profitPercent !== "-" &&
                       (profitPercent >= 0 ? (
-                        <span style={styles.arrowUp}>↑</span>
+                        <span style={styles?.arrowUp}>↑</span>
                       ) : (
-                        <span style={styles.arrowDown}>↓</span>
+                        <span style={styles?.arrowDown}>↓</span>
                       ))}
                   </td>
                   <td style={{ ...styles.td, ...profitStyle }}>
-                    {stock.profitPercent !== "-"
-                      ? `${stock.profitPercent}%`
+                    {stock?.profitPercent !== "-"
+                      ? `${stock?.profitPercent}%`
                       : "-"}
                   </td>
                   <td style={styles.td}>
