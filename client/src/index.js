@@ -14,7 +14,7 @@ root.render(
   <>
     {/* <React.StrictMode> */}
     <ToastContainer
-      position="top-right" // Position the toast
+      position="top-center" // Position the toast
       autoClose={2000} // Duration before auto-close in milliseconds
       hideProgressBar={false} // Hide the progress bar
       newestOnTop={false} // Show newest toasts on top
