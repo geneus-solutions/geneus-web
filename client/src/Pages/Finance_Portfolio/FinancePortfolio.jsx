@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   useAddStocksMutation,
   useGetStockSymbolQuery,
@@ -8,428 +8,316 @@ import {
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import AddStockForm from "../../components/admin/Stock/AddStockForm";
 
 const StockTable = () => {
+  const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [addStock] = useAddStocksMutation();
+  const [showModal, setShowModal] = useState(false);
 
-  const [updateStock] = useUpdateStocksMutation();
+  const {
+    data: userStocks,
+    isLoading,
+    error,
+    refetch,
+  } = useGetUserStockQuery(user.id);
 
-  const { data: userStocks } = useGetUserStockQuery(user.id);
+  console.log("this is the existiong user stock data--->", userStocks);
+  console.log("this is error on fetching stock", error);
+  const stocks = useMemo(() => {
+    if (!userStocks?.data?.stocks) return [];
 
-  const { data: stockSymbols } = useGetStockSymbolQuery();
-
-  const [stocks, setStocks] = useState([]);
-
-  const [symbols, setSymbols] = useState();
-  const [suggestions, setSuggestions] = useState([]);
-  const [activeInputIndex, setActiveInputIndex] = useState(null);
-  console.log('this is all stockSymbols', stockSymbols);
-  
-  useEffect(() => {
-    if (userStocks?.data && userStocks?.data?.length > 0) {
-      // If the backend returns user stocks, set them to the local state
-      const mappedStocks = userStocks?.data.map((s) => ({
-        name: s.stockName,
-        shares: s.purchasedShares,
-        buyPrice: s.buyPrice,
-        purchaseDate: s.purchaseDate,
-        currentPrice: s.currentPrice || "-", // optional
-        profit: s.profit || "-",
-        profitPercent: s.profitPercentage || "-",
-        _id: s._id,
-      }));
-      setStocks(mappedStocks);
-    }
+    return userStocks?.data?.stocks?.map((s) => ({
+      name: s.stockName,
+      shares: s.totalShares,
+      buyPrice: s.investedAmount,
+      purchaseDate: new Date(s.lastPurchaseDate).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
+      currentPrice: s.currentPrice || "-",
+      totalCurrentPrice: s.currentTotalValue || "-",
+      profit: s.profit || "-",
+      profitPercent: s.profitPercentage || "-",
+      targetPercentage: s.targetPercentage || "",
+      _id: s.stockName,
+    }));
   }, [userStocks]);
 
-  useEffect(() => {
-    if (stockSymbols) {
-      setSymbols(stockSymbols?.map((sym) => sym.symbol));
-    }
-  }, [stockSymbols]);
-
-  const [loadingIndex, setLoadingIndex] = useState(null);
-
-  const fetchCurrentPrice = async (index) => {
-    const stock = stocks[index];
-    const symbol = stock?.name?.toUpperCase().trim();
-
-    if (!symbol) {
-      alert("Please enter a valid stock symbol.");
-      return;
-    }
-
-    const { shares, buyPrice, purchaseDate } = stock;
-
-    if (!shares || !buyPrice || !purchaseDate) {
-      alert("Please enter Shares, Buy Price, and Purchase Date.");
-      return;
-    }
-
-    setLoadingIndex(index);
-
+  const handleAddStock = async (data) => {
     try {
-      let response;
+      console.log("this is data from handel Add Stock---->", data);
+      const response = await addStock({
+        name: data.name.toUpperCase().trim(),
+        shares: Number(data.shares),
+        buyPrice: Number(data.buyPrice),
+        purchaseDate: data.purchaseDate,
+        targetPercentage: Number(data.targetPercentage),
+      }).unwrap();
 
-      if (stock?._id) {
-        // Update stock
-        response = await updateStock({
-          id: stock?._id,
-          stock: {
-            name: symbol,
-            shares,
-            buyPrice,
-            purchaseDate,
-          },
-        }).unwrap();
-        console.log("✅ Stock updated:", response);
-      } else {
-        // Add new stock
-        response = await addStock({
-          name: symbol,
-          shares,
-          buyPrice,
-          purchaseDate,
-        }).unwrap();
-        console.log("✅ New stock saved:", response.data);
-      }
-
-      if (response.success === true) {
+      if (response.success) {
         toast.success(response.message);
+        const saved = response.data;
+        refetch();
       }
-      const savedStock = response?.data;
-
-      // Update state
-      setStocks((prevStocks) => {
-        const updatedStocks = [...prevStocks];
-        updatedStocks[index] = {
-          name: savedStock?.stockName,
-          shares: savedStock?.purchasedShares,
-          buyPrice: savedStock?.buyPrice,
-          purchaseDate: savedStock?.purchaseDate,
-          currentPrice: savedStock?.currentPrice,
-          profit: savedStock?.profit,
-          profitPercent: savedStock?.profitPercentage,
-          _id: savedStock?._id,
-        };
-        return updatedStocks;
-      });
-    } catch (error) {
-      console.error("❌ Error fetching/saving stock:", error);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoadingIndex(null);
+    } catch (err) {
+      console.error("Add stock error:", err);
+      toast.error("Failed to add stock.");
     }
-  };
-
-  const handleChange = (index, field, value) => {
-    const updated = [...stocks];
-    updated[index][field] =
-      field === "shares" || field === "buyPrice"
-        ? parseFloat(value) || ""
-        : value;
-    // Reset calculated fields if inputs change
-    if (field === "shares" || field === "buyPrice" || field === "name") {
-      updated[index].currentPrice = "-";
-      updated[index].profit = "-";
-      updated[index].profitPercent = "-";
-    }
-    setStocks(updated);
-    // Update suggestions if typing in name
-    if (field === "name") {
-      const inputVal = value.toUpperCase();
-      const filtered = symbols?.filter((sym) =>
-        sym.toUpperCase().startsWith(inputVal)
-      );
-      setSuggestions(filtered);
-      setActiveInputIndex(index);
-    }
-  };
-
-  const addRow = () => {
-    setStocks([
-      ...stocks,
-      {
-        name: "",
-        shares: "",
-        buyPrice: "",
-        currentPrice: "-",
-        profit: "-",
-        profitPercent: "-",
-        purchaseDate: "",
-        _id: null,
-      },
-    ]);
-  };
-
-  const selectSuggestion = (symbol) => {
-    if (activeInputIndex !== null) {
-      const updated = [...stocks];
-      updated[activeInputIndex].name = symbol;
-      setStocks(updated);
-      setSuggestions([]);
-      setActiveInputIndex(null);
-    }
-  };
-
-  const totalShares = stocks.reduce(
-    (sum, s) => sum + (parseFloat(s.shares) || 0),
-    0
-  );
-  const totalProfit = stocks
-    .reduce((sum, s) => sum + (parseFloat(s.profit) || 0), 0)
-    .toFixed(2);
-
-  const styles = {
-    container: {
-      padding: "20px",
-      backgroundColor: "#fff",
-      color: "#1E90FF",
-      minHeight: "100vh",
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    },
-    tableWrapper: { overflowX: "auto" },
-    table: {
-      width: "100%",
-      borderCollapse: "collapse",
-      color: "#1E90FF",
-      minWidth: "720px",
-    },
-    th: {
-      border: "1px solid #1E90FF",
-      padding: "8px",
-      backgroundColor: "#001F3F",
-      textAlign: "center",
-    },
-    td: {
-      border: "1px solid #1E90FF",
-      padding: "8px",
-      textAlign: "center",
-      position: "relative",
-    },
-    profitPositive: { color: "limegreen", fontWeight: "bold" },
-    profitNegative: { color: "red", fontWeight: "bold" },
-    button: {
-      backgroundColor: "#1E90FF",
-      border: "none",
-      color: "white",
-      padding: "6px 12px",
-      cursor: "pointer",
-      borderRadius: "4px",
-    },
-    buttonDisabled: {
-      backgroundColor: "#555555",
-      border: "none",
-      color: "#cccccc",
-      padding: "6px 12px",
-      borderRadius: "4px",
-      cursor: "not-allowed",
-    },
-    addButton: {
-      marginTop: "10px",
-      backgroundColor: "#1E90FF",
-      color: "white",
-      padding: "8px 16px",
-      border: "none",
-      borderRadius: "4px",
-      cursor: "pointer",
-    },
-    input: {
-      backgroundColor: "#000",
-      border: "1px solid #1E90FF",
-      color: "#1E90FF",
-      padding: "4px",
-      width: "90%",
-      borderRadius: "3px",
-      textAlign: "center",
-    },
-    arrowUp: { color: "limegreen", marginLeft: "6px", fontWeight: "bold" },
-    arrowDown: { color: "red", marginLeft: "6px", fontWeight: "bold" },
   };
 
   return (
-    <div style={styles.container}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-          position: "relative",
-        }}
-      >
-        <h2
-          style={{
-            margin: 0,
-            width: "100%",
-            textAlign: "center",
-            fontSize: "1.8rem",
-          }}
-        >
-          📈 Stock Profit Tracker
-        </h2>
-      </div>
+    <>
+      <>
+        {isLoading ? (
+          <div>Stock Loading...</div>
+        ) : (
+          <div style={styles.container}>
+            <div>
+              <h2 style={styles.heading}>📈 Stock Profit Tracker</h2>
+              <div style={styles.buttonContainer}>
+                <button
+                  style={styles.addButton}
+                  onClick={() => setShowModal(true)}
+                >
+                  Add New Stock
+                </button>
+              </div>
+              {showModal && (
+                <AddStockForm
+                  onClose={() => setShowModal(false)}
+                  onSubmit={handleAddStock}
+                />
+              )}
+            </div>
 
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>Stock Name</th>
-              <th style={styles.th}>Shares</th>
-              <th style={styles.th}>Buy Price</th>
-              <th style={styles.th}>Purchase Date</th>
-              <th style={styles.th}>Current Price</th>
-              <th style={styles.th}>Profit</th>
-              <th style={styles.th}>Profit %</th>
-              <th style={styles.th}>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stocks?.map((stock, idx) => {
-              const profitPercent = parseFloat(stock?.profitPercent);
-              const profitStyle =
-                !isNaN(profitPercent) && stock.profitPercent !== "-"
-                  ? profitPercent >= 0
-                    ? styles.profitPositive
-                    : styles.profitNegative
-                  : {};
+            {!stocks.length ? (
+              <p style={styles.noDataText}>
+                No stocks added yet. Please add the stock to get the data
+              </p>
+            ) : (
+              <div style={styles.tableWrapper}>
+                <table style={styles.table}>
+                  <thead>
+                    <tr>
+                      <th style={styles.th}>Stock Name</th>
+                      <th style={styles.th}>Shares</th>
+                      <th style={styles.th}>Buy Price</th>
+                      <th style={styles.th}>Purchase Date</th>
+                      <th style={styles.th}>Stock Current Price</th>
+                      <th style={styles.th}>Total Current Price</th>
+                      <th style={styles.th}>Profit</th>
+                      <th style={styles.th}>Profit %</th>
+                      {/* <th style={styles.th}>Target Profit %</th> */}
+                      <th style={styles.th}>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stocks.map((stock, idx) => {
+                      const profitPercent = parseFloat(stock?.profitPercent);
+                      const profitStyle =
+                        !isNaN(profitPercent) && stock.profitPercent !== "-"
+                          ? profitPercent >= 0
+                            ? styles.profitPositive
+                            : styles.profitNegative
+                          : {};
 
-              // Disable check button if invalid inputs or already loading
-              // const disableCheck =
-              //   loadingIndex === idx ||
-              //   !stock.name.trim() ||
-              //   !stock.shares ||
-              //   !stock.buyPrice;
+                      return (
+                        <tr key={idx}>
+                          <td style={styles.td}>{stock?.name}</td>
+                          <td style={styles.td}>{stock?.shares}</td>
+                          <td style={styles.td}>{stock?.buyPrice}</td>
+                          <td style={styles.td}>{stock?.purchaseDate}</td>
+                          <td style={styles.td}>{stock?.currentPrice}</td>
+                          <td style={styles.td}>{stock?.totalCurrentPrice}</td>
+                          <td style={styles.td}>
+                            {stock?.currentPrice > 0
+                              ? stock?.profit
+                              : "Data Not Found"}
+                            {!isNaN(profitPercent) &&
+                              stock.profitPercent !== "-" &&
+                              (profitPercent >= 0 ? (
+                                <span style={styles.arrowUp}>↑</span>
+                              ) : (
+                                <span style={styles.arrowDown}>↓</span>
+                              ))}
+                          </td>
+                          <td style={{ ...styles.td, ...profitStyle }}>
+                            {stock?.profitPercent !== "-"
+                              ? `${stock?.profitPercent}%`
+                              : "-"}
+                          </td>
+                          {/* <td style={styles.td}>{stock?.targetPercentage}</td> */}
+                          <td style={styles.td}>
+                            <button
+                              style={styles.button}
+                              onClick={() =>
+                                navigate(
+                                  `/admin-dashboard/finance-porfolio/${stock?.name}`
+                                )
+                              }
+                            >
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
 
-              return (
-                <tr key={idx}>
-                  <td style={styles.td}>
-                    <input
-                      type="text"
-                      style={styles.input}
-                      value={stock.name}
-                      onChange={(e) =>
-                        handleChange(idx, "name", e.target.value)
-                      }
-                      onFocus={() => setActiveInputIndex(idx)}
-                      onBlur={() => setTimeout(() => setSuggestions([]), 150)}
-                    />
-                    {activeInputIndex === idx && suggestions?.length > 0 && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "100%",
-                          left: 0,
-                          right: 0,
-                          backgroundColor: "#001F3F",
-                          border: "1px solid #1E90FF",
-                          zIndex: 10,
-                          maxHeight: "120px",
-                          overflowY: "auto",
-                          color: "#1E90FF",
-                        }}
-                      >
-                        {suggestions?.map((s, i) => (
-                          <div
-                            key={i}
-                            style={{
-                              padding: "6px",
-                              cursor: "pointer",
-                              borderBottom: "1px solid #1E90FF",
-                            }}
-                            onMouseDown={() => selectSuggestion(s)}
-                          >
-                            {s}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </td>
-                  <td style={styles.td}>
-                    <input
-                      type="number"
-                      style={styles.input}
-                      value={stock?.shares}
-                      onChange={(e) =>
-                        handleChange(idx, "shares", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td style={styles.td}>
-                    <input
-                      type="number"
-                      style={styles?.input}
-                      value={stock?.buyPrice}
-                      onChange={(e) =>
-                        handleChange(idx, "buyPrice", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td style={styles.td}>
-                    <input
-                      type="date"
-                      style={styles?.input}
-                      value={stock?.purchaseDate}
-                      onChange={(e) =>
-                        handleChange(idx, "purchaseDate", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td style={styles.td}>{stock?.currentPrice}</td>
-                  <td style={styles.td}>
-                    {stock?.profit}{" "}
-                    {!isNaN(profitPercent) &&
-                      stock.profitPercent !== "-" &&
-                      (profitPercent >= 0 ? (
-                        <span style={styles?.arrowUp}>↑</span>
-                      ) : (
-                        <span style={styles?.arrowDown}>↓</span>
-                      ))}
-                  </td>
-                  <td style={{ ...styles.td, ...profitStyle }}>
-                    {stock?.profitPercent !== "-"
-                      ? `${stock?.profitPercent}%`
-                      : "-"}
-                  </td>
-                  <td style={styles.td}>
-                    <button
-                      onClick={() => {
-                        fetchCurrentPrice(idx);
-                      }}
-                      style={
-                        loadingIndex === idx
-                          ? styles.buttonDisabled
-                          : styles.button
-                      }
-                      disabled={loadingIndex === idx}
-                    >
-                      {loadingIndex === idx ? "Checking..." : "Check"}
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-
-            <tr style={{ fontWeight: "bold" }}>
-              <td style={styles.td}>Total</td>
-              <td style={styles.td}>{totalShares}</td>
-              <td style={styles.td}></td>
-              <td style={styles.td}></td>
-              <td style={styles.td}></td>
-              <td style={styles.td}>{totalProfit}</td>
-              <td style={styles.td}></td>
-              <td style={styles.td}></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <button style={styles.addButton} onClick={addRow}>
-        Add New Stock
-      </button>
-    </div>
+                    <tr style={{ fontWeight: "bold" }}>
+                      <td style={styles.td}>Total</td>
+                      <td style={styles.td}>
+                        {userStocks?.data?.summary?.totalShares}
+                      </td>
+                      <td style={styles.td}>
+                        {userStocks?.data?.summary?.totalInvested}
+                      </td>
+                      <td style={styles.td}></td>
+                      <td style={styles.td}></td>
+                      <td style={styles.td}>
+                        {userStocks?.data?.summary?.totalCurrentValue}
+                      </td>
+                      <td style={styles.td}>
+                        {userStocks?.data?.summary?.totalProfit?.toFixed(2)}
+                      </td>
+                      <td style={styles.td}>
+                        {userStocks?.data?.summary?.totalProfitPercentage}
+                      </td>
+                      {/* <td style={styles.td}></td> */}
+                      <td style={styles.td}></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
+            <div style={styles.warningBox}>
+              ⚠️ Some stock data could not be loaded. Please refresh the page.
+            </div>
+          </div>
+        )}
+      </>
+    </>
   );
+};
+
+const styles = {
+  container: {
+    padding: "40px 20px",
+    backgroundColor: "#f7f9fc",
+    color: "#1E2A38",
+    minHeight: "100vh",
+    fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+  },
+  tableWrapper: {
+    overflowX: "auto",
+    margin: "10px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    borderRadius: "10px",
+    backgroundColor: "#ffffff",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    minWidth: "960px",
+    fontSize: "15px",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+  warningBox: {
+    marginTop: "20px",
+    padding: "12px 20px",
+    backgroundColor: "#fff3cd",
+    color: "#856404",
+    border: "1px solid #ffeeba",
+    borderRadius: "6px",
+    fontSize: "15px",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  th: {
+    padding: "12px 16px",
+    backgroundColor: "#1E90FF",
+    color: "white",
+    fontWeight: "600",
+    textAlign: "center",
+    borderBottom: "2px solid #1E90FF",
+    position: "sticky",
+    top: 0,
+    zIndex: 1,
+  },
+  td: {
+    padding: "10px 14px",
+    textAlign: "center",
+    borderBottom: "1px solid #e0e0e0",
+    backgroundColor: "#fff",
+    transition: "background-color 0.3s ease",
+  },
+  profitPositive: {
+    color: "#28a745",
+    fontWeight: "bold",
+  },
+  profitNegative: {
+    color: "#dc3545",
+    fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "transparent",
+    border: "1px solid #1E90FF",
+    color: "#1E90FF",
+    padding: "6px 12px",
+    borderRadius: "5px",
+    fontSize: "14px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+  },
+  buttonDisabled: {
+    backgroundColor: "#cccccc",
+    color: "#666666",
+    cursor: "not-allowed",
+    borderRadius: "5px",
+    padding: "6px 12px",
+    fontSize: "14px",
+    border: "none",
+  },
+  addButton: {
+    backgroundColor: "#1E90FF",
+    color: "white",
+    padding: "10px 20px",
+    fontSize: "16px",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    transition: "background 0.3s ease",
+    marginTop: "20px",
+    marginLeft: "10px",
+  },
+  addButtonHover: {
+    backgroundColor: "#006fe6",
+  },
+  input: {
+    backgroundColor: "#f4f4f4",
+    border: "1px solid #ccc",
+    color: "#333",
+    padding: "6px 10px",
+    width: "90%",
+    borderRadius: "4px",
+    textAlign: "center",
+  },
+  arrowUp: {
+    color: "#28a745",
+    marginLeft: "6px",
+    fontWeight: "bold",
+    fontSize: "16px",
+  },
+  arrowDown: {
+    color: "#dc3545",
+    marginLeft: "6px",
+    fontWeight: "bold",
+    fontSize: "16px",
+  },
 };
 
 export default StockTable;

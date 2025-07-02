@@ -50,6 +50,7 @@ import SupportAndQuery from "./Pages/UserProfile/SupportAndQuery";
 import UserEnquiry from "./Pages/adminPages/userEnquiry/UserEnquiry";
 import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 import StockTable from "./Pages/Finance_Portfolio/FinancePortfolio";
+import StockData from "./Pages/Finance_Portfolio/StockData";
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -150,6 +151,7 @@ function App() {
               <Route path="all-users" element={<UsersData />} />
               <Route path="all-enquiry" element={<UserEnquiry />}/>
               <Route path="finance-porfolio" element={<StockTable />}/>
+              <Route path="finance-porfolio/:stockname" element={<StockData />}/>
               <Route path="profile" element={<UserProfileLayout />}>
                 <Route index element={<UserProfile />} /> 
                 <Route path="payment-history" element={<PaymentHistory />} />
