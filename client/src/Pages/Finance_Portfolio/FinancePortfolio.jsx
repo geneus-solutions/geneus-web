@@ -1,15 +1,15 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
   useAddStocksMutation,
-  useGetStockSymbolQuery,
+  useDeleteAllStockMutation,
   useGetUserStockQuery,
-  useUpdateStocksMutation,
 } from "../../features/Stocks/stocksApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AddStockForm from "../../components/admin/Stock/AddStockForm";
+import { MdDelete } from "react-icons/md";
 
 const StockTable = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const StockTable = () => {
     error,
     refetch,
   } = useGetUserStockQuery(user.id);
-
+  const [deleteAllStock] = useDeleteAllStockMutation();
   console.log("this is the existiong user stock data--->", userStocks);
   console.log("this is error on fetching stock", error);
   const stocks = useMemo(() => {
@@ -69,6 +69,20 @@ const StockTable = () => {
     }
   };
 
+  const handleDeleteStock = async (stockName) => {
+    try {
+      const response = await deleteAllStock({
+        stockName,
+        userId: user?.id,
+      }).unwrap();
+      if (response.success) {
+        toast.success(response.message);
+      }
+    } catch (error) {
+      toast.error(error || "Something went wrong");
+    }
+  };
+
   return (
     <>
       <>
@@ -104,8 +118,11 @@ const StockTable = () => {
                   <thead>
                     <tr>
                       <th style={styles.th}>Stock Name</th>
-                      <th style={styles.th}>Shares</th>
-                      <th style={styles.th}>Buy Price</th>
+                      <th style={styles.th}>Total Shares</th>
+                      <th style={styles.th}>Total Invested Amount</th>
+                      <th style={styles.th}>
+                        Average Stock PriceAverage Stock Price
+                      </th>
                       <th style={styles.th}>Purchase Date</th>
                       <th style={styles.th}>Stock Current Price</th>
                       <th style={styles.th}>Total Current Price</th>
@@ -113,6 +130,7 @@ const StockTable = () => {
                       <th style={styles.th}>Profit %</th>
                       {/* <th style={styles.th}>Target Profit %</th> */}
                       <th style={styles.th}>View</th>
+                      <th style={styles.th}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -130,6 +148,9 @@ const StockTable = () => {
                           <td style={styles.td}>{stock?.name}</td>
                           <td style={styles.td}>{stock?.shares}</td>
                           <td style={styles.td}>{stock?.buyPrice}</td>
+                          <td style={styles.td}>
+                            {(stock?.buyPrice / stock?.shares).toFixed(2)}
+                          </td>
                           <td style={styles.td}>{stock?.purchaseDate}</td>
                           <td style={styles.td}>{stock?.currentPrice}</td>
                           <td style={styles.td}>{stock?.totalCurrentPrice}</td>
@@ -161,6 +182,12 @@ const StockTable = () => {
                               }
                             >
                               View
+                            </button>
+                          </td>
+                          <td>
+                            <button className="btn-delete"
+                            onClick={()=>handleDeleteStock(stock?.name)}>
+                              <MdDelete />
                             </button>
                           </td>
                         </tr>
@@ -265,13 +292,18 @@ const styles = {
   },
   button: {
     backgroundColor: "transparent",
-    border: "1px solid #1E90FF",
-    color: "#1E90FF",
+    border: "1px solid #007BFF", // Use primary blue
+    color: "#007BFF", // Use primary blue
     padding: "6px 12px",
     borderRadius: "5px",
     fontSize: "14px",
     cursor: "pointer",
     transition: "all 0.3s ease",
+    "&:hover": {
+      // Add hover effect
+      backgroundColor: "#007BFF",
+      color: "white",
+    },
   },
   buttonDisabled: {
     backgroundColor: "#cccccc",
@@ -283,7 +315,7 @@ const styles = {
     border: "none",
   },
   addButton: {
-    backgroundColor: "#1E90FF",
+    backgroundColor: "#007BFF", // Use primary blue
     color: "white",
     padding: "10px 20px",
     fontSize: "16px",
@@ -293,6 +325,10 @@ const styles = {
     transition: "background 0.3s ease",
     marginTop: "20px",
     marginLeft: "10px",
+    "&:hover": {
+      // Add hover effect
+      backgroundColor: "#0056b3",
+    },
   },
   addButtonHover: {
     backgroundColor: "#006fe6",

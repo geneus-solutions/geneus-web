@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 60px 5vw;
-  background: linear-gradient(to bottom, #f5e3e3, #dbeafe);
+  /* background: linear-gradient(to bottom, #f5e3e3, #dbeafe); */
 
 
 }
@@ -28,8 +28,7 @@
 }
 
 .btn {
-  background-color: #00c9a7;
-  color: white;
+  background-color: #007BFF;
   padding: 12px 24px;
   border: none;
   border-radius: 25px;

@@ -27,13 +27,13 @@ const StartToday = () => {
           variant="contained"
           onClick={() => navigate("/calculate-calorie")}
           sx={{
-            backgroundColor: "#1B1B1B",
+            backgroundColor: "#007BFF", // Use primary blue
             color: "#fff",
             borderRadius: "20px",
             mt: 3,
             px: 4,
             py: 1,
-            "&:hover": { backgroundColor: "#333" },
+            "&:hover": { backgroundColor: "#0056b3" }, // Darker shade on hover
           }}
         >
           Get Started

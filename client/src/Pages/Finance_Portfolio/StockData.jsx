@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import {
   useCreateTargetPercentageMutation,
+  useDeleteStockMutation,
   useGetStockDetailQuery,
   useGetTargetPercentageQuery,
   useUpdateStocksMutation,
@@ -13,12 +14,13 @@ import { toast } from "react-toastify";
 import "../../styles/stockData.css";
 
 import { CiEdit } from "react-icons/ci";
-import { MdCancel } from "react-icons/md";
+import { MdCancel, MdDelete } from "react-icons/md";
 import { CiSaveUp1 } from "react-icons/ci";
 const StockData = () => {
   const { stockname } = useParams();
   const [isEditingTarget, setIsEditingTarget] = useState(false);
   const [overallTarget, setOverallTarget] = useState(0);
+  const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const {
     data: userStocks,
@@ -30,21 +32,29 @@ const StockData = () => {
   const [editingStockId, setEditingStockId] = useState(null);
   const [formData, setFormData] = useState({});
   const [updateStock] = useUpdateStocksMutation();
-  
+
   const [createTargetPercentage] = useCreateTargetPercentageMutation();
   const [updateTargetPercentage] = useUpdateTargetPercentageMutation();
-  const {data: getTargetPercentage, refetch: getPercentageRefetch} = useGetTargetPercentageQuery({userId: user?.id, stockName: stockname});
-  console.log('thi si get TargetPercentage', getTargetPercentage);
+  const { data: getTargetPercentage, refetch: getPercentageRefetch } =
+    useGetTargetPercentageQuery({ userId: user?.id, stockName: stockname });
+  console.log("thi si get TargetPercentage", getTargetPercentage);
+
+  const [deleteStock] = useDeleteStockMutation();
+  const stocks = userStocks?.data?.stocks?.stocks;
+
+  useEffect(() => {
+    if (stocks?.length <= 0) {
+      navigate(-1);
+    }
+  }, [stocks, navigate]);
 
   if (isLoading) return <p>Loading stock details...</p>;
   if (error) return <p>Error fetching stock details.</p>;
 
-  const stocks = userStocks?.data?.stocks?.stocks;
-
   const handleEditClick = (stock) => {
     console.log("tho si stokcs", stock);
     setEditingStockId(stock?._id);
-  
+
     setFormData({
       purchasedShares: stock?.purchasedShares,
       buyPrice: stock?.buyPrice,
@@ -77,32 +87,46 @@ const StockData = () => {
       console.error("Update failed", err);
     }
   };
-  console.log('thi sisuser id', user.id)
-
 
   const handleSaveTarget = async () => {
-  try {
-    const payload = {
-      userId: user?.id,
-      data: { targetPercentage: Number(overallTarget), stockName: stockname },
-    };
-     let res;
-     if (getTargetPercentage?.data) {
-      // Update if target already exists
-      res = await updateTargetPercentage(payload).unwrap();
-      await getPercentageRefetch();
-    } else {
-      // Create if no target exists
-      res = await createTargetPercentage(payload).unwrap();
+    try {
+      const payload = {
+        userId: user?.id,
+        data: { targetPercentage: Number(overallTarget), stockName: stockname },
+      };
+      let res;
+      if (getTargetPercentage?.data) {
+        // Update if target already exists
+        res = await updateTargetPercentage(payload).unwrap();
+        await getPercentageRefetch();
+      } else {
+        // Create if no target exists
+        res = await createTargetPercentage(payload).unwrap();
+      }
+      console.log("thi is res", res);
+      toast.success(res?.message || "Target updated");
+      setIsEditingTarget(false);
+      refetch();
+    } catch (err) {
+      toast.error(err?.data?.message || "Failed to update target");
     }
-    console.log('thi is res',res)
-    toast.success(res?.message || "Target updated");
-    setIsEditingTarget(false);
-    refetch();
-  } catch (err) {
-    toast.error(err?.data?.message || "Failed to update target");
-  }
-};
+  };
+
+  const handleDeleteStock = async (stockId) => {
+    try {
+      const response = await deleteStock({
+        stockId,
+        userId: user?.id,
+      }).unwrap();
+      console.log("this is response when delete the stock", response);
+      if (response?.success) {
+        refetch();
+        toast.success(response?.message || "Stock deleted");
+      }
+    } catch (error) {
+      toast.error(error || "Failed to Delete the stock");
+    }
+  };
 
   return (
     <div className="stock-container">
@@ -122,11 +146,8 @@ const StockData = () => {
                 onChange={(e) => setOverallTarget(e.target.value)}
                 className="input"
               />
-              <button
-                className="btn-save"
-               onClick={handleSaveTarget}
-              >
-              <CiSaveUp1 />
+              <button className="btn-save" onClick={handleSaveTarget}>
+                <CiSaveUp1 />
               </button>
               <button
                 className="btn-cancel"
@@ -137,7 +158,7 @@ const StockData = () => {
                   );
                 }}
               >
-                <MdCancel/>
+                <MdCancel />
               </button>
             </>
           ) : (
@@ -146,12 +167,15 @@ const StockData = () => {
                 {getTargetPercentage?.data?.targetPercentage || 0}%
               </span>
               <button
-                onClick={() => {setIsEditingTarget(true)
-                  setOverallTarget(getTargetPercentage?.data?.targetPercentage || 0)
+                onClick={() => {
+                  setIsEditingTarget(true);
+                  setOverallTarget(
+                    getTargetPercentage?.data?.targetPercentage || 0
+                  );
                 }}
                 className="btn-edit"
               >
-                <CiEdit size={18}/>
+                <CiEdit size={18} />
               </button>
             </>
           )}
@@ -170,6 +194,8 @@ const StockData = () => {
             <th>Profit</th>
             <th>Profit %</th>
             <th>Action</th>
+
+            {stocks?.length > 1 && <th>Delete Stock</th>}
           </tr>
         </thead>
         <tbody>
@@ -240,6 +266,16 @@ const StockData = () => {
                     </button>
                   )}
                 </td>
+                {stocks?.length > 1 && (
+                  <td>
+                    <button
+                      onClick={() => handleDeleteStock(stock?._id)}
+                      className="btn-delete"
+                    >
+                      <MdDelete />
+                    </button>
+                  </td>
+                )}
               </tr>
             );
           })}

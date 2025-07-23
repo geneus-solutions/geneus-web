@@ -7,7 +7,7 @@
     padding: 50px 20px;
     text-align: center;
     transition: all 0.3s ease-in-out;
-    background: linear-gradient(to bottom, #f5e3e3, #dbeafe);
+    /* background: linear-gradient(to bottom, #f5e3e3, #dbeafe); */
   }
 
   .about-content {
@@ -38,7 +38,7 @@
     padding: 10px 20px;
     font-size: 1rem;
     border: none;
-    background-color: #0288d1;
+    background-color: #007BFF;
     color: white;
     cursor: pointer;
     transition: background 0.3s ease-in-out;

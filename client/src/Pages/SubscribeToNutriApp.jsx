@@ -105,7 +105,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#a435f0",
+    backgroundColor: "#007BFF", // Use primary blue
     color: "#fff",
     border: "none",
     padding: "12px 20px",
@@ -114,6 +114,9 @@ const styles = {
     width: "100%",
     fontSize: "16px",
     borderRadius: "6px",
+    "&:hover": { // Add hover effect
+      backgroundColor: "#0056b3",
+    },
   },
   icon: {
     fontSize: "20px",

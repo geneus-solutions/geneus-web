@@ -3,7 +3,7 @@
   .services-container {
     text-align: center;
     padding: 2rem 1rem;
-    background: linear-gradient(to bottom, #dbeafe, #f5e3e3);
+    /* background: linear-gradient(to bottom, #dbeafe, #f5e3e3); */
   }
   
   .services-container h1 {
@@ -35,7 +35,7 @@
   
   .service-card:hover {
     transform: translateY(-5px);
-    border: 2px solid #0dd3b9;
+    border: 2px solid #007BFF;
     transition: transform 0.3s ease;
     background: #f7f7f7;
     border-radius: 12px;
@@ -67,12 +67,12 @@
   .service-card ul li {
     text-align: left;
     margin: 0.5rem 0;
-    color: #0ca678;
+    color: #000;
     font-weight: 500;
   }
   
   .learn-more {
-    background: #0dd3b9;
+    background: #007BFF;
     color: white;
     padding: 0.6rem 1.2rem;
     border: none;
@@ -83,7 +83,7 @@
   }
   
   .learn-more:hover {
-    background: #0aa193;
+    background: #0056b3;
   }
   
   /* .highlight {

@@ -4,8 +4,8 @@ import { useCourceQuery } from "../features/cources/courceApiSlice";
 import CourseDescription from "../components/Courses/CourseDescription";
 import CourseBanner from "../components/Courses/CourseBanner";
 import { useSelector } from "react-redux";
-import FAQ from "../components/LandingPage/FAQ";
 import Loading from "../components/loading/Loading";
+import FaqSection from "../components/LandingPage/NewComponents/FaqSection";
 
 const CourseDescriptionPage = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const CourseDescriptionPage = () => {
           />
           <CourseDescription courseDetails={course} />
 
-          <FAQ course={course} titleColor={"#000000"} answerColor={"#000000"} />
+          <FaqSection/>
         </>
       )}
     </div>
