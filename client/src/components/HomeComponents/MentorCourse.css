@@ -3,7 +3,7 @@
     align-items: start;
     justify-content: space-between;
     padding: 20px 60px;
-    background: linear-gradient(to bottom, #dbeafe, #f5e3e3);
+    /* background: linear-gradient(to bottom, #dbeafe, #f5e3e3); */
     flex-wrap: wrap;
     gap: 2rem;
   }
@@ -54,7 +54,7 @@
   
   .mentor-contact-button {
     width: fit-content;
-    background-color: #00c9a7;
+    background-color: #007BFF;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -67,7 +67,7 @@
   }
   
   .mentor-contact-button:hover {
-    background-color: #00b395;
+    background-color: #0056b3;
   }
   
   /* Responsive Styles */

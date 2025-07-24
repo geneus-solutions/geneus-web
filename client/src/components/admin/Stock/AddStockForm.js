@@ -31,6 +31,12 @@ const inputStyle = {
   border: "1px solid #ccc",
 };
 
+const errorStyle = {
+  color: "red",
+  fontSize: "12px",
+  marginBottom: "10px",
+};
+
 const buttonStyle = {
   padding: "10px 20px",
   backgroundColor: "#1E90FF",
@@ -48,11 +54,30 @@ const AddStockForm = ({ onClose, onSubmit }) => {
     purchaseDate: "",
   });
 
-  const { data: stockSymbols } = useGetStockSymbolQuery();
+  const [formErrors, setFormErrors] = useState({});
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
+  
+  const { data: stockSymbols } = useGetStockSymbolQuery();
   const symbols = stockSymbols?.map((sym) => sym.symbol) || [];
+
+
+    const validate = () => {
+    const errors = {};
+    const { name, shares, buyPrice, purchaseDate } = formData;
+
+    if (!name) errors.name = "Stock symbol is required";
+    else if (!symbols.includes(name))
+      errors.name = "Please select a stock from the suggestions";
+
+    if (!shares) errors.shares = "Shares are required";
+    if (!buyPrice) errors.buyPrice = "Buy price is required";
+    if (!purchaseDate) errors.purchaseDate = "Purchase date is required";
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,11 +102,12 @@ const AddStockForm = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    const { name, shares, buyPrice, purchaseDate, targetPercentage } = formData;
-    if (!name || !shares || !buyPrice || !purchaseDate) {
-      alert("Please fill all fields");
-      return;
-    }
+    if (!validate()) return;
+    // const { name, shares, buyPrice, purchaseDate, targetPercentage } = formData;
+    // if (!name || !shares || !buyPrice || !purchaseDate) {
+    //   alert("Please fill all fields");
+    //   return;
+    // }
 
     onSubmit(formData);
     onClose();
@@ -103,6 +129,7 @@ const AddStockForm = ({ onClose, onSubmit }) => {
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           />
+           {formErrors.name && <div style={errorStyle}>{formErrors.name}</div>}
           {showSuggestions && suggestions.length > 0 && (
             <div
               style={{
@@ -144,6 +171,7 @@ const AddStockForm = ({ onClose, onSubmit }) => {
           value={formData.shares}
           onChange={handleChange}
         />
+          {formErrors.shares && <div style={errorStyle}>{formErrors.shares}</div>}
         <input
           name="buyPrice"
           type="number"
@@ -152,6 +180,7 @@ const AddStockForm = ({ onClose, onSubmit }) => {
           value={formData.buyPrice}
           onChange={handleChange}
         />
+        {formErrors.buyPrice && <div style={errorStyle}>{formErrors.buyPrice}</div>}
         <input
           name="purchaseDate"
           type="date"
@@ -160,6 +189,9 @@ const AddStockForm = ({ onClose, onSubmit }) => {
           value={formData.purchaseDate}
           onChange={handleChange}
         />
+         {formErrors.purchaseDate && (
+          <div style={errorStyle}>{formErrors.purchaseDate}</div>
+        )}
         <div
           style={{
             display: "flex",

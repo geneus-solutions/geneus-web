@@ -1,48 +1,4 @@
 /* Reusable Button Container */
-.link {
-  background: linear-gradient(180deg, rgb(75, 148, 22) 48%, rgb(184, 205, 46) 100%);
-  border-radius: 50px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 2rem;
-  box-sizing: border-box;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.3s ease;
-  width: 100%;
-  max-width: 20rem; /* Limits the button width for better responsiveness */
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: white;
-  border: none;
-  outline: none;
-}
-/* Text inside button */
-.text-wrapper-8 {
-  color: #ffffff;
-  font-family: "Montserrat-SemiBold", Helvetica;
-  font-size: 21px;
-  font-weight: 600;
-  line-height: 25.2px;
-  text-align: center;
-  padding: 10px 0; /* Add some vertical padding */
-  width: 100%; /* Ensure the text spans full width */
-}
-.text-wrapper-9{
-  text-decoration: line-through;
-  color: #ffffff;
-  font-family: "Montserrat-SemiBold", Helvetica;
-  font-size: 21px;
-  font-weight: 600;
-  line-height: 25.2px;
-  text-align: center;
-  padding: 10px 0; /* Add some vertical padding */
-  width: 100%; 
-
-}
 
 /* Hover effect for the button */
 .link:hover {
@@ -79,17 +35,17 @@
   position: absolute;
   top: 10px; /* Adjust for smaller screens */
   right: 10px;
-  background-color: transparent;
+  background-color: #dc3545; /* Red for close button */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   padding: 10px;
-  background-color: #0057b37c;
+  transition: background-color 0.3s ease;
 }
 
 .login-dialog .close-button:hover {
-  background-color: #0056b3;
+  background-color: #b52a37;
 }
 
 /* Media Queries for responsiveness */

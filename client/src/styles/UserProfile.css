@@ -110,14 +110,46 @@
     background-color: #e6f9ea;
   }
   
+  .save-btn {
+    background-color: #007BFF;
+    color: white;
+    border-color: #007BFF;
+  }
+
+  .save-btn:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }
+  
   .cancel-btn {
     color: #dc3545;
     border-color: #dc3545;
     background-color: #f9e6e6;
   }
+
+  .cancel-btn:hover {
+    background-color: #fcebeb;
+    text-decoration: none;
+  }
   
-  .edit-btn:hover, .save-btn:hover, .cancel-btn:hover {
+  .edit-btn:hover, .action-button.change:hover, .action-button.delete:hover {
     text-decoration: underline;
+  }
+
+  .action-button.change {
+    color: #007BFF;
+  }
+  
+  .action-button.change:hover {
+    color: #0056b3;
+  }
+
+  .action-button.delete {
+    color: #dc3545;
+  }
+  
+  .action-button.delete:hover {
+    color: #b52a37;
   }
 
   .profile-image-container {
@@ -175,22 +207,6 @@
   padding: 8px 0px;
   font-weight: 500;
   cursor: pointer;
-}
-
-.action-button.change {
-  color: #007bff;
-}
-
-.action-button.change:hover {
-  text-decoration: underline;
-}
-
-.action-button.delete {
-  color: red;
-}
-
-.action-button.delete:hover {
-  text-decoration: underline;
 }
 
 /* Responsive Design */

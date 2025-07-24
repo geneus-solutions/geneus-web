@@ -1,7 +1,4 @@
-import React from "react";
-import mentor from "../../assets/MentorImage.png";
 import "./InstructorCard.css";
-import Mentor from "../LandingPage/Mentor";
 
 const InstructorCard = ({ mentorImage }) => {
   return (

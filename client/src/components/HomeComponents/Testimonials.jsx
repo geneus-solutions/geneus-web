@@ -1,55 +1,84 @@
-import React from "react";
-import "./Testimonials.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../features/auth/authSlice";
+import { useRef } from "react";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
-const testimonials = [
+import "../../styles/TestimonialsCustom.css";
+import TestimonialCard from "./TestimonialCard";
+
+/* .testimonial-slider */
+
+const testimonialCardData = [
   {
-    quote:
-      "I don't have words to thank this man, I'm really grateful to have this channel and website in my daily routine. If you're a mere beginner, then you can trust this guy and can put your time into his content. I can assure you that it'll be worth it.",
-    name: "Mohit Kumar",
-    title: "Web Developer",
+    id: 1,
+    description: "A fantastic resource for beginners—starting with the basics and building up to advanced concepts. Clear explanations and practical examples make learning both easy and effective.",
+    name: "Ayush Raj",
+    role: "Fresher",
   },
   {
-    quote:
-      "For everyone who wants to level up their #Coding and #Dev skills - seriously, this channel is for you! Both basic and advanced stacks are covered on this channel, and one can learn according to their skill levels. And the icing on the cake is, most of the content is available for free.",
-    name: "Rakesh Shetty",
-    title: "Web Developer",
+    id: 2,
+    description: "This course has been a game-changer with its clear explanations and hands-on projects that make concepts easy to understand and apply.",
+    name: "Sumeet Bafana",
+    role: "Student",
   },
-];
+  {
+    id: 3,
+    description: "I started as a complete beginner, and now I’m working confidently on real-world projects. This platform is excellent for anyone who wants to become web developer.",
+    name: "Rahul Gupta",
+    role: "Web Developer",
+  },
+  {
+    id: 4,
+    description: "Turned my learning into real-world skills. From zero to deploying my first web app Geneus Solutions made it possible. The hands-on approach and structured learning really helped me as a student developer.",
+    name: "Deepesh",
+    role: "Student",
+  },
+]
+
 const Testimonials = () => {
-  const user = useSelector(selectCurrentUser);
-  return (
-    <>
-      <section className="testimonials-section">
-        <h1>Testimonials</h1>
-        <div className="testimonials-grid">
-          {testimonials.map((testimonial, index) => (
-            <div className="testimonial-card" key={index}>
-              <p className="testimonial-quote">“{testimonial.quote}”</p>
-              <div>
-                <p className="testimonial-name">{testimonial.name}</p>
-                <p className="testimonial-title">{testimonial.title}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+  
+  const sliderRef = useRef(null);
 
-      <section className="cta-section">
-        <div className="cta-container">
-          <h1>Start Your Coding Journey</h1>
-          <p>
-            Learn coding step-by-step with India&apos;s most loved programming
-            mentor.
-          </p>
-          <Link to={`${user ? "/courses" : "/login"}`}>
-            <button className="cta-button">Start Now</button>{" "}
-          </Link>
-        </div>
-      </section>
-    </>
+  const scroll = (direction) => {
+    if (sliderRef.current) {
+      const scrollAmount = 360;
+      sliderRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+
+  };
+
+  return (
+    <div className="testimonial-slider-container-custom">
+      {/* Left Content Section */}
+      <div className="testimonial-slider-content-section-custom">
+        <h4 className="testimonial-slider-small-title-custom">----Testimonials from who used this</h4>
+        <h1 className="testimonial-slider-main-title-custom">See what our lovely students say about this!</h1>
+        <p className="testimonial-slider-description-custom">
+          Find a tutor is like finding a piece of missing heart, so find it carefully and invest your time wisely!
+        </p>
+      </div>
+      <div className="testimonial-slide-buttons-custom">
+        <button className="testimonial-slide-button-custom" onClick={() => scroll("left")}> 
+          <FaArrowLeftLong size={20}/>
+        </button>
+        <button className="testimonial-slide-button-custom" onClick={() => scroll("right")}> 
+          <FaArrowRightLong size={20}/>
+        </button>
+      </div>
+
+      {/* Testimonial Cards Section */}
+      <div className="testimonial-slider-testimonial-cards-custom" ref={sliderRef}>
+        {testimonialCardData.map((testimonial) => (
+          <div key={testimonial.id}>
+            <TestimonialCard testimonial={testimonial} />
+          </div>
+        ))}
+      </div>
+
+      {/* Slider Buttons */}
+    </div>
   );
 };
 

@@ -47,15 +47,16 @@
   .home-carousel-button {
     display: inline-block;
     padding: 8px 15px;
-    background: #ff9800;
+    background: #007BFF;
     color: white;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
     margin-top: 10px;
+    transition: background 0.3s;
   }
   
   .home-carousel-button:hover {
-    background: #e68900;
+    background: #0056b3;
   }
   

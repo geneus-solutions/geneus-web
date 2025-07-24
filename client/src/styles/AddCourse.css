@@ -134,17 +134,18 @@ button[type="button"],
 }
 
 .add-button {
-  background-color: #28a745;
+  background-color: #007BFF;
   color: #fff;
 }
 
 .add-description-button {
-  background-color: #28a745;
+  background-color: #007BFF;
   color: #fff;
 }
 
-.add-button:hover {
-  background-color: #218838;
+.add-button:hover,
+.add-description-button:hover {
+  background-color: #0056b3;
 }
 
 /* Add Button Styles */
@@ -174,7 +175,7 @@ button[type="button"]:hover {
   font-size: 16px;
   font-weight: bold;
   color: #ffffff;
-  background-color: #007bff;
+  background-color: #007BFF;
   border: none;
   border-radius: 5px;
   cursor: pointer;
