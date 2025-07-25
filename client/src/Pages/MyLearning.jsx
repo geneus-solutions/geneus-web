@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { useSelector } from "react-redux";
 import { useMyLearningQuery } from "../features/MyLearning/LearningApiSlice";
 
 import MyLearningSidebar from "../components/my_learningComponents/My_LearningSidebar";

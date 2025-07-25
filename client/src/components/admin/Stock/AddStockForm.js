@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGetStockSymbolQuery } from "../../../features/Stocks/stocksApiSlice";
 
 const modalOverlay = {
@@ -77,7 +77,7 @@ const AddStockForm = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    const { name, shares, buyPrice, purchaseDate, targetPercentage } = formData;
+    const { name, shares, buyPrice, purchaseDate/*, targetPercentage*/ } = formData;
     if (!name || !shares || !buyPrice || !purchaseDate) {
       alert("Please fill all fields");
       return;

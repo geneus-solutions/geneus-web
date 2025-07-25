@@ -89,7 +89,7 @@ const AddFoodToLunch = ({mealName,handleClose}) => {
 
         console.log("Selected Foods:", food);
 
-        const data = await addFood({user:user?.id,[selectedMeal.toLowerCase()]:food}).unwrap();
+        await addFood({user:user?.id,[selectedMeal.toLowerCase()]:food}).unwrap();
 
         toast.success("food added successfully!");
         handleClose&&handleClose();

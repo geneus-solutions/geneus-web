@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import img1 from "../assets/banner.jpeg";
+// import img1 from "../assets/banner.jpeg";
 import "./Courses.css";
 import { useCourcesQuery } from "../features/cources/courceApiSlice";
 import CourseCard from "../components/Courses/CourseCard";
-import CourseBanner from "../components/Courses/CourseBanner";
-import { IoMdArrowDropdown, IoMdSearch } from "react-icons/io";
+// import CourseBanner from "../components/Courses/CourseBanner";
+import { IoMdArrowDropdown } from "react-icons/io";
 import Loading from "../components/loading/Loading";
 
 const Courses = ({ searchResults }) => {
@@ -59,11 +59,11 @@ const Courses = ({ searchResults }) => {
       ? advancedCourses
       : searchedCourses?.filter((course) => course?.enabled === true);
 
-  const course = {
-    title: "Course",
-    description:
-      "There are many courses listed here, select the course of your choice.",
-  };
+  // const course = {
+  //   title: "Course",
+  //   description:
+  //     "There are many courses listed here, select the course of your choice.",
+  // };
 
   return (
     <div>

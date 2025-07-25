@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
   useAddStocksMutation,
-  useGetStockSymbolQuery,
+  // useGetStockSymbolQuery,
   useGetUserStockQuery,
-  useUpdateStocksMutation,
+  // useUpdateStocksMutation,
 } from "../../features/Stocks/stocksApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../features/auth/authSlice";
@@ -61,6 +61,7 @@ const StockTable = () => {
       if (response.success) {
         toast.success(response.message);
         const saved = response.data;
+        console.log("this is saved stock data--->", saved);
         refetch();
       }
     } catch (err) {

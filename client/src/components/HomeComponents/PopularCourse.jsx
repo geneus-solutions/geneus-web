@@ -1,7 +1,6 @@
 import React from "react";
 import img1 from "../../assets/popularCourse_01.png";
 import img2 from "../../assets/popularCourse_02.jpg";
-import CourseCard from "../CourseCard/CourseCard";
 import "./PopularCourse.css";
 import { Link } from "react-router-dom";
 
