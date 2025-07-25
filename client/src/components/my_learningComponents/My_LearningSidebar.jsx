@@ -14,7 +14,7 @@ const MyLearningSidebar = ({data}) => {
     if(!courseId && data?.courses?.length>=0){
       navigate('/my-learning/', { state: { courseId: data?.courses[0]?._id } });
     }
-  }, [courseId,data?.courses]);
+  }, [courseId,data?.courses,navigate]);
 
   const handleActiveCourse = (courseId) => {
     navigate('/my-learning/', { state: { courseId } });

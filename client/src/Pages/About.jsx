@@ -1,13 +1,13 @@
 import React from "react";
-import img1 from "../assets/banner.jpeg";
-import nutriImage from '../assets/nutriImage.jpg';
-import courseImage from '../assets/courses.jpg';
-import img2 from "../assets/why choose us.png";
+// import img1 from "../assets/banner.jpeg";
+// import nutriImage from '../assets/nutriImage.jpg';
+// import courseImage from '../assets/courses.jpg';
+// import img2 from "../assets/why choose us.png";
 import "./About.css";
 import AboutUs from "../components/HomeComponents/AboutUs";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
+// import SettingsIcon from "@mui/icons-material/Settings";
 import { FaBalanceScale, FaBullseye, FaEye } from "react-icons/fa";
 import CircleCard from "../components/About/CircleCard";
 import AboutUsFirst from "../components/About/AboutUsFirst";
@@ -40,53 +40,54 @@ const About = () => {
       gradient: "linear-gradient(to right, #ff8000, #ffb380)",
     },
   ];
-  const ServiceCard = styled(Box)(({ theme }) => ({
-    position: "relative",
-    width: "300px",
-    height: "250px",
-    overflow: "hidden",
-    borderRadius: theme.shape.borderRadius,
-    cursor: "pointer",
-    "&:hover .overlay": {
-      opacity: 1,
-    },
-    "&:hover img": {
-      transform: "scale(1.1)",
-    },
-  }));
 
-  const ServiceImage = styled("img")({
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    transition: "transform 0.3s ease-in-out",
-  });
+  // const ServiceCard = styled(Box)(({ theme }) => ({
+  //   position: "relative",
+  //   width: "300px",
+  //   height: "250px",
+  //   overflow: "hidden",
+  //   borderRadius: theme.shape.borderRadius,
+  //   cursor: "pointer",
+  //   "&:hover .overlay": {
+  //     opacity: 1,
+  //   },
+  //   "&:hover img": {
+  //     transform: "scale(1.1)",
+  //   },
+  // }));
 
-  const Overlay = styled(Box)({
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0, 0,0 , 0.85)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    opacity: 0,
-    transition: "opacity 0.3s ease-in-out",
-    className: "overlay",
-  });
+  // const ServiceImage = styled("img")({
+  //   width: "100%",
+  //   height: "100%",
+  //   objectFit: "cover",
+  //   transition: "transform 0.3s ease-in-out",
+  // });
 
-  const ServicesContainer = styled(Box)(({ theme }) => ({
-    display: "flex",
-    gap: theme.spacing(4),
-    marginTop: theme.spacing(4),
-    justifyContent: "center", // Center the service cards
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
-      alignItems: "center",
-    },
-  }));
+  // const Overlay = styled(Box)({
+  //   position: "absolute",
+  //   top: 0,
+  //   left: 0,
+  //   right: 0,
+  //   bottom: 0,
+  //   backgroundColor: "rgba(0, 0,0 , 0.85)",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   opacity: 0,
+  //   transition: "opacity 0.3s ease-in-out",
+  //   className: "overlay",
+  // });
+
+  // const ServicesContainer = styled(Box)(({ theme }) => ({
+  //   display: "flex",
+  //   gap: theme.spacing(4),
+  //   marginTop: theme.spacing(4),
+  //   justifyContent: "center", // Center the service cards
+  //   [theme.breakpoints.down("md")]: {
+  //     flexDirection: "column",
+  //     alignItems: "center",
+  //   },
+  // }));
 
   return (
     <>

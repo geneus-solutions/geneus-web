@@ -26,6 +26,7 @@ const CourseContent = ({ content }) => {
             {expandedIndex === index && (
               <div className="syllabus-content">
                 {item?.url?<iframe
+                  title={item.contentTitle}
                   src={item.url}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen

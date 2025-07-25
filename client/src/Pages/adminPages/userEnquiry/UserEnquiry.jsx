@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../../styles/UserEnquiry.css'
 import { useDeleteQueryMutation, useGetEnqueryQuery, useUpdateQueryMutation } from '../../../features/supportAndQuery/SupportAndQueryApiSlice';
 import { FaTrash } from 'react-icons/fa';
@@ -8,7 +8,7 @@ const UserEnquiry = () => {
 
     const {data: enquiries} = useGetEnqueryQuery();
     const [deleteQuery] = useDeleteQueryMutation();
-    const [enquiry, setEnquiry] = useState({});
+    // const [enquiry, setEnquiry] = useState({});
     const [updateQuery] = useUpdateQueryMutation();
 
     const onStatusChange = async (id, newStatus) => {

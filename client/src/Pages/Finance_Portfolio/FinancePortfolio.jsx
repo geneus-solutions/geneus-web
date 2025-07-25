@@ -61,6 +61,7 @@ const StockTable = () => {
       if (response.success) {
         toast.success(response.message);
         const saved = response.data;
+        console.log("this is saved stock data--->", saved);
         refetch();
       }
     } catch (err) {

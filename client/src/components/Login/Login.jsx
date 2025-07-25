@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import "./Login.css";
@@ -28,7 +28,7 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
 
     setErrMsg("");
 
-  }, [,email, password]);
+  }, [email, password]);
 
   const handleVerifyNav = async() => {
     try {
@@ -73,7 +73,7 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
     } catch (error) {
       if(error?.status === 401 && error?.data?.error === "Please verify your account"){
         setIsAccountNotVerified(true);
-        const data = await sendOTP({email:email}).unwrap();
+        await sendOTP({email:email}).unwrap();
       }else{
         toast.error(error?.data?.error);
       }
