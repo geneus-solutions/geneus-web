@@ -19,7 +19,7 @@ const AddQuiz = () => {
     name: '',
     description: ''
   });
-
+  // questions
   const [questions, setQuestions] = useState([
     {
       questionText: '',
@@ -83,7 +83,7 @@ const AddQuiz = () => {
     try {
 
       const response = await saveQuiz(payload).unwrap();
-      
+
       if(response?.success) {
         alert('Quiz created successfully!');
         setBasicInfo({ name: '', description: '' });
