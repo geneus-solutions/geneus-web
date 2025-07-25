@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "./ContactUs.css";
@@ -44,9 +44,9 @@ const ContactUs = () => {
     subject: "",
     message: "",
   });
-  const [isPending, startTransition] = useTransition();
-  const [errorMsg, setErrorMsg] = useState();
-  const [contactUs, { isLoading, isError, error, data }] =
+  // const [isPending, startTransition] = useTransition();
+  // const [errorMsg, setErrorMsg] = useState();
+  const [contactUs] =
     useContactUsMutation();
 
   const handleChange = (e) => {
@@ -55,7 +55,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    startTransition(async () => {
+    // startTransition(async () => {
       try {
         const contactData = await contactUs(formData).unwrap();
         if (contactData?.ok) {
@@ -66,13 +66,13 @@ const ContactUs = () => {
             message: "",
           });
         }
-        setErrorMsg("");
+        // setErrorMsg("");
         toast.success("Thank you, Your message has been sent successfully");
       } catch (error) {
         console.log("this is error", error);
-        setErrorMsg(error?.data?.error);
+        // setErrorMsg(error?.data?.error);
       }
-    });
+    // });
   };
   return (
     <section className="contact-map">

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import './CourseDescription.css';
 import { useAddToCartMutation } from "../../features/Cart/cartApiSlice";
@@ -19,7 +18,7 @@ import CourseNotes from "./CourseNotes";
 const CourseDescription = ({ courseDetails }) => {
 
   const [discount, setDiscount] = useState(0);
-  const [len, setLen] = useState(0);
+  // const [len, setLen] = useState(0);
 
   const [formattedCourseIntro, setFormattedCourseIntro] = useState("");
   const [formattedCourseIntro2, setFormattedCourseIntro2] = useState("");
@@ -30,9 +29,9 @@ const CourseDescription = ({ courseDetails }) => {
   // state for fetching all course contents
   const [courseContents, setcourseContents] = useState([]);
 
-  const [ip, setIp] = useState("");
-  const [city, setCity] = useState("");
-  const [error, setError] = useState("");
+  // const [ip, setIp] = useState("");
+  // const [city, setCity] = useState("");
+  // const [error, setError] = useState("");
 
   //Unnassasaary code:-
   useEffect(() => {
@@ -44,15 +43,16 @@ const CourseDescription = ({ courseDetails }) => {
           const response = await fetch("http://ip-api.com/json/");
           const data = await response.json();
           if (data?.status === "success") {
-            setIp(data?.query); // IP address
-            setCity(data?.city); // City
+            // setIp(data?.query); // IP address
+            // setCity(data?.city); // City
             await saveVisitorData(data?.query, data?.city);
             sessionStorage.setItem("visitorDataFetched", "true");
-          } else {
-            setError("Unable to fetch location data");
-          }
+          } 
+          // else {
+          //   setError("Unable to fetch location data");
+          // }
         } catch (err) {
-          setError("Error fetching data");
+          // setError("Error fetching data");
           console.error(err);
         }
       }
@@ -91,15 +91,15 @@ const CourseDescription = ({ courseDetails }) => {
       setDiscount(Number(((p - dp) / p) * 100));
     };
 
-    const calculateLength = () => {
-      const length = courseDetails?.learnings?.length;
-      let halfLen = Math.ceil(length / 2);
-      setLen(halfLen);
-    };
+    // const calculateLength = () => {
+    //   const length = courseDetails?.learnings?.length;
+    //   // let halfLen = Math.ceil(length / 2);
+    //   // setLen(halfLen);
+    // };
 
     if (courseDetails) {
       calculateDiscount();
-      calculateLength();
+      // calculateLength();
     }
   }, [courseDetails]);
 

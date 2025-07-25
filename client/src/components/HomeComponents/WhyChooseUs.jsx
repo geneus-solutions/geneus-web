@@ -1,7 +1,6 @@
 // WhyChooseUs.jsx
 import "./WhyChooseUs.css";
-import { FaChartBar, FaUserMd, FaHeadset, FaLock, FaChalkboardTeacher, FaGraduationCap, FaTools, FaPuzzlePiece } from "react-icons/fa";
-import { FiUsers } from "react-icons/fi";
+import { FaHeadset, FaChalkboardTeacher, FaGraduationCap, FaTools, FaPuzzlePiece } from "react-icons/fa";
 
 const WhyChooseUs = () => {
   return (

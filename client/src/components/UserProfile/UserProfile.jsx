@@ -14,7 +14,7 @@ const UserProfile = () => {
   const user = useSelector(selectCurrentUser);
   const [updateProfile] = useUpdateUserProfileMutation();
   const { data: userProfile } = useGetUserProfileQuery(user.id);
-  const [deleteUser, { isLoading }] = useDeleteUserByIdMutation();
+  const [deleteUser] = useDeleteUserByIdMutation();
   const navigate = useNavigate();
   const handleEdit = (e, field) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ const UserProfile = () => {
       const id = user?.id; // User ID for the request
       const { field, value } = tempEdit; // Extract field and value from tempEdit
       const data = { [field]: value }; // Dynamically create payload with key-value pair
-      const response = await updateProfile({ id, data }).unwrap(); // Send data to backend
+      await updateProfile({ id, data }).unwrap(); // Send data to backend
       setTempEdit({}); // Clear tempEdit after save
     } catch (error) {
       toast.error(error?.data?.error?.message);

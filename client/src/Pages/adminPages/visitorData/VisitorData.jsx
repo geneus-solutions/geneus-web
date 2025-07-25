@@ -64,7 +64,7 @@ const VisitorData = () => {
   const handleDeleteByID = async (id) =>{
     // console.log('id', id)
     try{
-      const res = await deleteVisitorDataById({id}).unwrap();
+      await deleteVisitorDataById({id}).unwrap();
       // console.log(res);
     }catch(error){
       console.log('this is error', error)

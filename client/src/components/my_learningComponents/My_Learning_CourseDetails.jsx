@@ -1,18 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import MyLearningCourseContent from "./My_Learning_CourseContent";
+import { useGetQuizzesQuery } from "../../features/quiz/quizApiSlice";
 
 import "../../styles/MyLearningCourseDetails.css";
 
 const MyLearningCourseDetails = ({ data }) => {
+
   const [courseData, setCourseData] = useState({});
   const [selectedTab, setSelectedTab] = useState("Overview");
 
+  
   const location = useLocation();
   const courseId = location.state?.courseId;
   const currentContent = location.state?.content;
-
+  
+  const { data: quizzesData } = useGetQuizzesQuery({
+    courseId: courseData?._id,
+    title: currentContent?.contentTitle,
+  },{
+    skip: !courseData?._id && !currentContent?.contentTitle, // Skip if courseData is not set
+  });
 
   useEffect(() => {
     if (data?.courses) {
@@ -31,6 +39,7 @@ const MyLearningCourseDetails = ({ data }) => {
         </p>
         <div className="my-learning-video-container">
           <iframe
+            title={currentContent?.contentTitle}
             src={currentContent?.url && `${currentContent?.url}?rel=0`}
             width="100%"
             height="400px"
@@ -40,7 +49,7 @@ const MyLearningCourseDetails = ({ data }) => {
           ></iframe>
         </div>
         <div className="tabs">
-          {["Notes", "Overview", "Requirements", "Learnings" /*"Reviews"*/].map(
+          {["Notes", "Overview", "Requirements", "Learnings" , "Quizzes"].map(
             (tab) => (
               <button
                 key={tab}
@@ -127,17 +136,29 @@ const MyLearningCourseDetails = ({ data }) => {
               ))}
             </div>
           )}
-          {/* {selectedTab === "Reviews" && (
+          {selectedTab === "Quizzes" && (
             <div className="reviews-section">
-              <h2>Reviews</h2>
-              <p>{courseData?.reviews}</p>
+              <h2>Play Quizze</h2>
+              {quizzesData?.length > 0 ? (
+                quizzesData?.map((quiz, index) => (
+                  <div key={index} className="quiz-item">
+                    <h3>{quiz.title}</h3>
+                    <p>{quiz.description}</p>
+                    <Link
+                      to={`/quiz/${quiz._id}`}
+                      className="start-quiz-button"
+                    >
+                      Start Quiz
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <p>No quizzes available for this course.</p>
+              )}
             </div>
-          )} */}
+          )}
         </div>
       </div>
-      {/* <div className="side-panel">
-        <MyLearningCourseContent data={courseData} />
-      </div> */}
     </div>
   );
 };

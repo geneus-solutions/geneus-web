@@ -12,7 +12,6 @@ import {
   MenuItem,
   Paper,
 } from "@mui/material";
-import { styled } from "@mui/system";
 import EastIcon from "@mui/icons-material/East";
 
 import { useAddYourHealthGoalMutation } from "../features/healthGoal/healthGoalApiSlice";

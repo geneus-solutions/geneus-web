@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGetStockSymbolQuery } from "../../../features/Stocks/stocksApiSlice";
 
 const modalOverlay = {
@@ -102,12 +102,20 @@ const AddStockForm = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
+<<<<<<< HEAD
     if (!validate()) return;
     // const { name, shares, buyPrice, purchaseDate, targetPercentage } = formData;
     // if (!name || !shares || !buyPrice || !purchaseDate) {
     //   alert("Please fill all fields");
     //   return;
     // }
+=======
+    const { name, shares, buyPrice, purchaseDate/*, targetPercentage*/ } = formData;
+    if (!name || !shares || !buyPrice || !purchaseDate) {
+      alert("Please fill all fields");
+      return;
+    }
+>>>>>>> bac8697 (quiz functionality)
 
     onSubmit(formData);
     onClose();

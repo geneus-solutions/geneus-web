@@ -15,7 +15,7 @@ function Signup({ toggleComponent, isLoginDialogOpen, setIsLoginDialogOpen, cour
 
   const [sendOTP,{isLoading:isSendOtpLoading}] = useSendOTPMutation();
   const [signup, {isLoading: signUpIsLoading}] = useSignupMutation();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();

@@ -17,8 +17,8 @@ const CourseDetails = () => {
     couponCodeDiscount: 0,
   });
 
-  const [message, setMessage] = useState(null);
-  const [applyCouponMessage, setApplyCouponMessage] = useState(false);
+  // const [message, setMessage] = useState(null);
+  // const [applyCouponMessage, setApplyCouponMessage] = useState(false);
   const [cartItems, setCartItems] = useState(courses || []);
   
   const courseIds = cartItems?.map((item) => item?._id);

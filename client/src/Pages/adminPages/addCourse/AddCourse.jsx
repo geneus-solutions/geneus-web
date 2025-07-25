@@ -96,7 +96,7 @@ const AddCourse = () => {
         const response = await updateCourse({courseId: existingData?._id, ...course}).unwrap();
         alert(response.message);
       }else{
-      const response = await addCourse(course).unwrap();
+      await addCourse(course).unwrap();
       alert('Course added successfully!');
       // console.log(response);
       }

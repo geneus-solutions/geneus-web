@@ -21,7 +21,7 @@ const LandingPage = () => {
 
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { data: course, error } = useCourceQuery(
+  const { data: course } = useCourceQuery(
     { id, user_id: user?.id },
     { skip: !id }
   );

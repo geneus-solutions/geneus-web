@@ -19,7 +19,7 @@ import AddProduct from "./Pages/adminPages/addProduct/AddProduct";
 import AddCourse from "./Pages/adminPages/addCourse/AddCourse";
 
 import CourseDescriptionPage from "./Pages/CourseDescritptionPage";
-import LoginSignUpPage from "./Pages/LoginSignUpPage";
+// import LoginSignUpPage from "./Pages/LoginSignUpPage";
 import PageNotFound from "./Pages/PageNotFound";
 
 // import Mylearning from "./components/MyLearning/MyLearning";
@@ -52,6 +52,9 @@ import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 import StockTable from "./Pages/Finance_Portfolio/FinancePortfolio";
 import StockData from "./Pages/Finance_Portfolio/StockData";
 
+import QuizPage from "./Pages/quiz-page";
+import AddQuizPage from "./Pages/adminPages/AddQuiz/AddQuizPage";
+
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 function App() {
@@ -64,7 +67,7 @@ function App() {
     try {
 
       if (!user?.id) return;
-      const data = await logout().unwrap();
+      await logout().unwrap();
 
       dispatch(logOut());
       
@@ -124,6 +127,7 @@ function App() {
             <Route path="/course-details" element={<CourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
             <Route path="/my-learning" element={<MyLearning />} />
+            <Route path="/quiz/:id" element={<QuizPage />} />
             <Route path="/calculate-calorie" element={<CalorieCalculator />} />
             <Route path="/plan-diet" element={<AddFood />} />   
             <Route path="/diet-plan" element={<DietPlan />} />
@@ -139,6 +143,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDescriptionPage />} />
         </Route>
+
           {/* Admin-specific routes */}
           <Route element={<RequireAuth allowedRole={["admin"]} />}>
             <Route path="/admin-dashboard" element={<AdminDashboardLayout/>}>
@@ -146,6 +151,7 @@ function App() {
               {/* Add here your admin specific route */}
               <Route path="visitor-data" element={<VisitorData/>}/>
               <Route path="add-course" element={<AddCourse />} />
+              <Route path="add-quiz" element={<AddQuizPage />} />
               <Route path="add-product" element={<AddProduct />} />
               <Route path="all-courses" element={<AllCourses/>}/>
               <Route path="all-users" element={<UsersData />} />
