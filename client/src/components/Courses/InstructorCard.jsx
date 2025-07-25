@@ -1,4 +1,5 @@
 import React from "react";
+import mentor from "../../assets/MentorImage.png";
 import "./InstructorCard.css";
 
 const InstructorCard = ({ mentorImage }) => {

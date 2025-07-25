@@ -1,15 +1,18 @@
-import React from "react";
 import "./LandingPage.css";
-import Background from "../../components/LandingPage/Background";
-import WhyAttend from "../../components/LandingPage/WhyAttend";
-import WhatWeCover from "../../components/LandingPage/WhatWeCover";
-import FAQ from "../../components/LandingPage/FAQ";
-import Mentor from "../../components/LandingPage/Mentor";
 import { useSelector } from "react-redux";
 import { useCourceQuery } from "../../features/cources/courceApiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/loading/Loading";
 import RecomendToAttend from "../../components/LandingPage/RecomendToAttend";
+import HeroSection from "../../components/LandingPage/NewComponents/HeroSection";
+import WhyAttendSection from "../../components/LandingPage/NewComponents/WhyAttendSection";
+import Curriculum from "../../components/LandingPage/NewComponents/Curriculum";
+import MentorSection from "../../components/LandingPage/NewComponents/MentorSection";
+import FaqSection from "../../components/LandingPage/NewComponents/FaqSection";
+import PricingSection from "../../components/LandingPage/NewComponents/PricingSection";
+import ReadyToGrowSection from "../../components/LandingPage/NewComponents/ReadyToGrowSection";
+import Testimonials from "../../components/HomeComponents/Testimonials";
+import StartJourney from "../../components/HomeComponents/StartJourney";
 
 const LandingPage = () => {
   // This is constent data for template:-
@@ -30,12 +33,15 @@ const LandingPage = () => {
     <>
       {course?._id ? (
         <div className="main-container">
-          <Background course={course} />
-          <WhyAttend course={course} />
+          <HeroSection course={course}/>
+          <ReadyToGrowSection course={course}/>
+          <WhyAttendSection course={course}/>
           <RecomendToAttend course={course}/>
-          <WhatWeCover course={course?.courseContent}/>
-          <Mentor />
-          <FAQ course={course} />
+          <Curriculum course={course?.courseContent}/>
+          <MentorSection/>
+          <Testimonials/>
+          <FaqSection course={course}/>
+          <PricingSection course={course}/>
         </div>
       ) : (
         <Loading />

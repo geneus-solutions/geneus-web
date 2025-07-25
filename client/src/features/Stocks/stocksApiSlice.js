@@ -64,7 +64,26 @@ const paymentApiSlice = apiSlice.injectEndpoints({
         url: `/getTargetPercentage/${userId}/${stockName}`,
         method: 'GET',
       })
-    })
+    }),
+    deleteStock: builder.mutation({
+      query: ({stockId, userId}) => ({
+        url: `/delete-stock/${stockId}/${userId}`,
+        method: 'DELETE',
+      }),
+        invalidatesTags: (result, error, { userId}) => [
+        { type: "UserStocks", id: userId},
+      ],
+    }),
+    deleteAllStock: builder.mutation({
+      query: ({ stockName, userId }) => ({
+        url: `/delete-allstock`,
+        method: "DELETE",
+        body: { stockName, userId },
+      }),
+      invalidatesTags: (result, error, { userId }) => [
+        { type: "UserStocks", id: userId },
+      ],
+    }),
   }),
 });
 
@@ -77,4 +96,6 @@ export const {
   useCreateTargetPercentageMutation,
   useUpdateTargetPercentageMutation,
   useGetTargetPercentageQuery,
+  useDeleteStockMutation,
+  useDeleteAllStockMutation
 } = paymentApiSlice;

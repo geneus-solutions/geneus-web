@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./UnlockButton.css";
+// import "./UnlockButton.css";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../features/auth/authSlice";
 import LoginSignUpPage from "../../../Pages/LoginSignUpPage";
@@ -23,18 +23,12 @@ const UnlockButton = ({ course }) => {
 
   return (
     <>
-      <button className="link" onClick={handleButtonClick}>
-        <p className="unlock-AI-trading">
-          <span className="text-wrapper-8">
-            Checkout
-            <br />
-          </span>
-          <span className="text-wrapper-9">{course?.price}</span>{" "}
-          <span className="text-wrapper-8">
-            Rs.{course?.discount_price}/- Only
-          </span>
-        </p>
-      </button>
+       <div className="price-section">
+            <span className="original-price">{course?.price}</span>
+            <span className="discounted-price">Rs.{course?.discount_price}/- only</span>
+          </div>
+          <button className="enroll-btn" onClick={handleButtonClick}>🚀 Enroll Now - {course?.discount_price}</button>
+          <p className="no-exp">No prior experience needed</p>
       {isLoginDialogOpen && (
         <LoginSignUpPage
           isLoginDialogOpen={isLoginDialogOpen}
