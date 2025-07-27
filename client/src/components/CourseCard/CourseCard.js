@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function CourseCard({ title, image, duration, description, url }) {
+function CourseCard({ title, image/*, duration*/, description, url }) {
   return (
     <div style={{ width: "380px" }}>
       <Link to={url}>
