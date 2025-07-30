@@ -1,9 +1,8 @@
 import { useState, useMemo } from "react";
 import {
   useAddStocksMutation,
-  useGetStockSymbolQuery,
   useGetUserStockQuery,
-  useUpdateStocksMutation,
+  useDeleteAllStockMutation
 } from "../../features/Stocks/stocksApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../features/auth/authSlice";
