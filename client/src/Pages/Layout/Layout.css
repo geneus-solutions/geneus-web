@@ -33,16 +33,24 @@ html, body {
     height: 55px;
     border: none;
     border-radius: 50%;
-    background-color: #007bff;
+    background: rgba(0, 123, 255, 0.85);
+    backdrop-filter: blur(4px) saturate(120%);
+    -webkit-backdrop-filter: blur(4px) saturate(120%);
     color: white;
     font-size: 24px;
     cursor: pointer;
     z-index: 1001;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(31, 38, 135, 0.18), 0 2px 8px rgba(0,0,0,0.12);
+    transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-
-.chat-toggle-button:hover {
-  background-color: #0056b3;
+.chat-toggle-button:hover, .chat-toggle-button:focus {
+  background: rgba(0, 86, 179, 0.95);
+  transform: scale(1.08);
+  box-shadow: 0 12px 32px rgba(31, 38, 135, 0.22), 0 4px 12px rgba(0,0,0,0.16);
 }
 
 
@@ -64,3 +72,13 @@ html, body {
       overflow-x: hidden;
     }
   }
+
+@media (max-width: 600px) {
+  .chat-toggle-button {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    bottom: 16px;
+    right: 16px;
+  }
+}

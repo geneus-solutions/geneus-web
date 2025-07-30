@@ -69,7 +69,7 @@ const VerifyAccount = ({email,handleVerifyNav = null}) => {
     }
 
     return(
-        <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexWrap:'wrap',height:'auto'}}>
+        <div className="verify-account-modal">
             <OTP callFunctionHandler={handleVerifyAccount} sendOTP={handleSendOTP} isVerifyLoading={isVerifyLoading} isLoading={isLoading} />
         </div>
     )
