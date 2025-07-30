@@ -95,6 +95,18 @@ body {
   color: #0056b3;
 }
 
+.login-link-text {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.login-link-text:hover, .login-link-text:focus {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
 .err-msg {
   color: red;
   text-align: center;

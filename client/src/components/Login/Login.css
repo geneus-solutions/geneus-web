@@ -29,12 +29,14 @@ body {
 .form-title {
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  padding: 0;
   color: #333;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+  padding: 0;
 }
 
 .form-group label {
@@ -62,7 +64,9 @@ body {
 
 .login-link {
   text-align: center;
-  margin: 10px 0;
+  margin: 0 0 8px 0;
+  padding: 0;
+  display: block;
 }
 
 .login-link a,
@@ -98,4 +102,26 @@ body {
   color: red;
   text-align: center;
   margin-bottom: 10px;
+}
+
+.login-link-text {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.login-link-text:hover, .login-link-text:focus {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.login-form {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
 }

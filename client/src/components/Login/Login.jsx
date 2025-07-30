@@ -81,47 +81,48 @@ function Login({isLoginDialogOpen, setIsLoginDialogOpen, toggleComponent, course
   };
 
   return (
-    <div>
-      {(!isAccountNotVerified)&&<div>
-        <h2 className="form-title">Login</h2>
-        <form onSubmit={handleLogin}>
-          {errMsg && <p  className="err-msg">{errMsg}</p>}
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="login-link" style={{ marginBottom: "10px" }}>
-            <Link to="/forgot-password">Forgot Password ?</Link>
-          </div>
+    <div className="login-form-wrapper">
+      {(!isAccountNotVerified) && (
+        <div className="login-form-inner">
+          <h2 className="form-title">Login</h2>
+          <form onSubmit={handleLogin} className="login-form">
+            {errMsg && <p className="err-msg">{errMsg}</p>}
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="login-link" style={{ marginBottom: "10px" }}>
+              <Link to="/forgot-password">Forgot Password ?</Link>
+            </div>
             <button type="submit" className="login-button">
               {(isLoading) ? "Please Wait" : "Login"}
             </button>
-
-          <div className="login-link">
-            Don't have an ACCOUNT?{" "}
-            <button type="button" onClick={toggleComponent}>
-              Signup
-            </button>
-          </div>
-        </form>
-      </div>}
-     {(isAccountNotVerified && email)&&<VerifyAccount email={email} handleVerifyNav={handleVerifyNav} />}
+            <div className="login-link">
+              Don't have an account?{' '}
+              <span className="login-link-text" onClick={toggleComponent} tabIndex={0} role="button" style={{cursor: 'pointer'}}>
+                Signup
+              </span>
+            </div>
+          </form>
+        </div>
+      )}
+      {(isAccountNotVerified && email) && <VerifyAccount email={email} handleVerifyNav={handleVerifyNav} />}
     </div>
   );
 }

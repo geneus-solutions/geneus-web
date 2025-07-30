@@ -90,7 +90,7 @@ const OTP = ({ callFunctionHandler,sendOTP,isLoading,isVerifyLoading }) => {
         <p className="otp-resend">
           Didn’t receive a code?{" "}
           {canResend&&!isLoading ? (
-            <button className="otp-link" onClick={handleResend}>
+            <button className="otp-link-resend" onClick={handleResend}>
                 Resend
             </button>
             

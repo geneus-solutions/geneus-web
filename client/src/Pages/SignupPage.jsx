@@ -43,9 +43,9 @@ const SignupPage = () => {
         />
         <div className="login-link">
           Already have an account?{" "}
-          <button type="button" onClick={() => navigate("/login")}>
+          <span className="login-link-text" onClick={() => navigate("/login") } tabIndex={0} role="button" style={{cursor: 'pointer'}}>
             Login
-          </button>
+          </span>
         </div>
       </div>
     </div>

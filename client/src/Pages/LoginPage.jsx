@@ -73,9 +73,9 @@ const LoginPage = () => {
 
                 <div className="login-link">
                     Don't have an ACCOUNT?{" "}
-                    <button type="button" onClick={()=>{navigate('/signup')}}>
+                    <span className="login-link-text" onClick={()=>{navigate('/signup')}} tabIndex={0} role="button" style={{cursor: 'pointer'}}>
                         Signup
-                    </button>
+                    </span>
                 </div>
                 {isAccountVerified && (
                     <div style={{display:'flex',alignItems:'center',flexDirection:'column'}}>
