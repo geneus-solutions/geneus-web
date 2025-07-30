@@ -102,20 +102,11 @@ const AddStockForm = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-<<<<<<< HEAD
-    if (!validate()) return;
-    // const { name, shares, buyPrice, purchaseDate, targetPercentage } = formData;
-    // if (!name || !shares || !buyPrice || !purchaseDate) {
-    //   alert("Please fill all fields");
-    //   return;
-    // }
-=======
     const { name, shares, buyPrice, purchaseDate/*, targetPercentage*/ } = formData;
     if (!name || !shares || !buyPrice || !purchaseDate) {
       alert("Please fill all fields");
       return;
     }
->>>>>>> bac8697 (quiz functionality)
 
     onSubmit(formData);
     onClose();

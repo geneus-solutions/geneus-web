@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import React from "react";
->>>>>>> bac8697 (quiz functionality)
 import "./InstructorCard.css";
 
 const InstructorCard = ({ mentorImage }) => {
