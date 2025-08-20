@@ -12,7 +12,7 @@ const MentorCourse = () => {
   <div className="hero-content">
     <h1>Courses taught by Industry Leaders</h1>
     <ul className="mentor-features">
-      <li>15+ years in Software Engineering, Ex-Google Senior Developer</li>
+      <li>15+ years in Software Engineering.</li>
       <li>BE from RV College of Engineering, Bangalore.</li>
       <li>Expert in Full Stack Development. ReactJs, Java.</li>
       <li>Specialized in Spring Boot, Angular, MERN stack.</li>
