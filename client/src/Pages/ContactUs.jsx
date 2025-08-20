@@ -42,6 +42,7 @@ const ContactUs = () => {
     name: "",
     email: "",
     subject: "",
+    contactNumber: "",
     message: "",
   });
   // const [isPending, startTransition] = useTransition();
@@ -63,6 +64,7 @@ const ContactUs = () => {
             name: "",
             email: "",
             subject: "",
+            contactNumber: "",
             message: "",
           });
         }
@@ -127,6 +129,20 @@ const ContactUs = () => {
                 name="subject"
                 placeholder="Enter subject"
                 value={formData.subject}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="input-row">
+            <div className="input-group">
+              <label>Contact Number</label>
+              <input
+                type="Number"
+                id="contactNumber"
+                name="contactNumber"
+                placeholder="Enter Contact Number"
+                value={formData.contactNumber}
                 onChange={handleChange}
                 required
               />
