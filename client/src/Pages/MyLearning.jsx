@@ -50,7 +50,7 @@ const MyLearning = () => {
               </aside>
             </>
           ) : (
-            <p className="no-courses">No Course Purchase.</p>
+            <p className="no-courses">"You haven't purchased any courses yet. Check your progress in the 'My Learning' section."</p>
           )}
         </>
       )}
