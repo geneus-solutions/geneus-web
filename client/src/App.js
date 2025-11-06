@@ -36,6 +36,8 @@ import AllCourses from "./Pages/adminPages/AllCourses";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashboardLayout";
 import UserProfile from "./components/UserProfile/UserProfile";
+import Careers from "./components/CareersPage/Careers";
+import ApplyJobForm from "./components/CareersPage/ApplyJobForm";
 import CourseCart from "./Pages/CourseCart";
 import UsersData from "./Pages/adminPages/userData/UsersData";
 import LoginPage from "./Pages/LoginPage";
@@ -118,11 +120,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactUs />} />
+          {/* <Route path="careers" element={<Careers />} /> */}
+          <Route path="/apply-job/:jobTitle" element={<ApplyJobForm />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
           <Route path="/landing/:id" element={<LandingPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
-            <Route path="/nutri-app" element={<NutriHome />} />
+          <Route path="/nutri-app" element={<NutriHome />} />
           <Route element={<RequireAuth allowedRole={["user", "admin"]} />}>
             <Route path="/course-details" element={<CourseDetails />} />
             <Route path="/cart" element={<CourseCart />} />
