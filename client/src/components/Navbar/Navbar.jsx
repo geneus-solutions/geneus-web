@@ -131,6 +131,15 @@ const Navbar = () => {
               </NavLink>
             </li>
           )} */}
+          {/* <li>
+            <NavLink
+              to="/careers"
+              className="nav-link"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              Careers
+            </NavLink>
+          </li> */}
           <li>
             <NavLink
               to="/contact"
