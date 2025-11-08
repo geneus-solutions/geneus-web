@@ -119,7 +119,7 @@ const ApplyJobForm = () => {
 
   return (
     <motion.div
-      className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg mt-12"
+      className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg mt-12 mb-12"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -129,7 +129,7 @@ const ApplyJobForm = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-3 max-w-2xl mx-auto text-sm"
+        className="space-y-4 max-w-2xl mx-auto text-sm"
       >
         <div>
           <label className="block font-medium mb-1">Full Name</label>
@@ -164,63 +164,59 @@ const ApplyJobForm = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full items-center">
-          <div>
-            <label className="block font-medium mb-1">Degree</label>
-            <input
-              type="text"
-              name="degreeBranch"
-              className="w-full border rounded-lg px-3 py-2"
-              onChange={handleChange}
-              value={formData.degreeBranch}
-            />
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">College</label>
-            <input
-              type="text"
-              name="college"
-              className="w-full border rounded-lg px-3 py-2"
-              onChange={handleChange}
-              value={formData.college}
-            />
-          </div>
+        <div>
+          <label className="block font-medium mb-1">Degree</label>
+          <input
+            type="text"
+            name="degreeBranch"
+            className="w-full border rounded-lg px-3 py-2"
+            onChange={handleChange}
+            value={formData.degreeBranch}
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full items-center">
-          <div>
-            <label className="block font-medium mb-1">Current Semester</label>
-            <input
-              type="text"
-              name="currentSemester"
-              className="w-full border rounded-lg px-3 py-2"
-              onChange={handleChange}
-              value={formData.currentSemester}
-            />
-          </div>
+        <div>
+          <label className="block font-medium mb-1">College</label>
+          <input
+            type="text"
+            name="college"
+            className="w-full border rounded-lg px-3 py-2"
+            onChange={handleChange}
+            value={formData.college}
+          />
+        </div>
 
-          <div>
-            <label className="block font-medium mb-1">Tenth Marks(%)</label>
-            <input
-              type="text"
-              name="tenthMarks"
-              className="w-full border rounded-lg px-3 py-2"
-              onChange={handleChange}
-              value={formData.tenthMarks}
-            />
-          </div>
+        <div>
+          <label className="block font-medium mb-1">Current Semester</label>
+          <input
+            type="text"
+            name="currentSemester"
+            className="w-full border rounded-lg px-3 py-2"
+            onChange={handleChange}
+            value={formData.currentSemester}
+          />
+        </div>
 
-          <div>
-            <label className="block font-medium mb-1">Twelfth Marks(%)</label>
-            <input
-              type="text"
-              name="twelfthMarks"
-              className="w-full border rounded-lg px-3 py-2"
-              onChange={handleChange}
-              value={formData.twelfthMarks}
-            />
-          </div>
+        <div>
+          <label className="block font-medium mb-1">Tenth Marks (%)</label>
+          <input
+            type="text"
+            name="tenthMarks"
+            className="w-full border rounded-lg px-3 py-2"
+            onChange={handleChange}
+            value={formData.tenthMarks}
+          />
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1">Twelfth Marks (%)</label>
+          <input
+            type="text"
+            name="twelfthMarks"
+            className="w-full border rounded-lg px-3 py-2"
+            onChange={handleChange}
+            value={formData.twelfthMarks}
+          />
         </div>
 
         <div>
@@ -243,7 +239,7 @@ const ApplyJobForm = () => {
           </p>
         )}
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center pt-2">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -256,7 +252,7 @@ const ApplyJobForm = () => {
 
           <button
             type="button"
-            className="text-gray-600 hover:underline"
+            className="text-gray-600 hover:underline text-white"
             onClick={() => navigate(-1)}
           >
             ← Back

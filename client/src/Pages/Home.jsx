@@ -23,7 +23,6 @@ const Home = () => {
       <MentorCourse/>
       <CoreOffering/>
       <OurServices/>
-
       <Testimonials/>
       <StartJourney/>
       {/* <Heilight /> */}
