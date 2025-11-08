@@ -252,7 +252,7 @@ const ApplyJobForm = () => {
 
           <button
             type="button"
-            className="text-gray-600 hover:underline text-white"
+            className="hover:underline text-white"
             onClick={() => navigate(-1)}
           >
             ← Back
