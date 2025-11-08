@@ -23,13 +23,17 @@ const faqData = [
       "Yes! Once you complete all the required lessons and assessments, you’ll receive a certificate of completion.",
   },
   {
+    question: "Are the courses live or recorded?",
+    answer: "Our program includes a mix of pre-recorded and live practical sessions. The foundational modules are pre-recorded for flexib;e sself-learning, while the remaining modules focus on live, hands-on training and real-time project support with mentors."
+  },
+  {
     question: "Do I need any prior knowledge to take the course?",
     answer:
       "No worries! Each course comes with its own prerequisites, which you’ll find in the course description. Some courses are perfect for beginners, while others may need a little background knowledge—but don’t worry, we’ll guide you every step of the way!	",
   },
 ];
 
-const FaqSection = ({ course }) => {
+const FaqSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAnswer = (index) => {

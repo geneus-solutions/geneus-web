@@ -12,7 +12,6 @@ import FaqSection from "../../components/LandingPage/NewComponents/FaqSection";
 import PricingSection from "../../components/LandingPage/NewComponents/PricingSection";
 import ReadyToGrowSection from "../../components/LandingPage/NewComponents/ReadyToGrowSection";
 import Testimonials from "../../components/HomeComponents/Testimonials";
-import StartJourney from "../../components/HomeComponents/StartJourney";
 
 const LandingPage = () => {
   // This is constent data for template:-
@@ -40,7 +39,7 @@ const LandingPage = () => {
           <Curriculum course={course?.courseContent}/>
           <MentorSection/>
           <Testimonials/>
-          <FaqSection course={course}/>
+          <FaqSection/>
           <PricingSection course={course}/>
         </div>
       ) : (
