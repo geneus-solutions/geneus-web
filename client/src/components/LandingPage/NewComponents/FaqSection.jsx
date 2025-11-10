@@ -8,11 +8,6 @@ const faqData = [
       "You’ll have 2 years of unlimited access to the course from the date of enrollment. This means you can learn at your own pace without any rush.",
   },
   {
-    question: "Are the courses live or recorded?",
-    answer:
-      "All our courses are pre-recorded, so you can watch them anytime, anywhere, and revisit lessons whenever needed.",
-  },
-  {
     question: "Can I get a refund if I’m not satisfied with the course?",
     answer:
       "Unfortunately, we do not offer refunds. We recommend checking the course details, previewing available content, and ensuring it fits your needs before purchasing.",
@@ -24,7 +19,7 @@ const faqData = [
   },
   {
     question: "Are the courses live or recorded?",
-    answer: "Our program includes a mix of pre-recorded and live practical sessions. The foundational modules are pre-recorded for flexib;e sself-learning, while the remaining modules focus on live, hands-on training and real-time project support with mentors."
+    answer: "Our program includes a mix of pre-recorded and live practical sessions. The foundational modules are pre-recorded for flexible self-learning, while the remaining modules focus on live, hands-on training and real-time project support with mentors."
   },
   {
     question: "Do I need any prior knowledge to take the course?",
