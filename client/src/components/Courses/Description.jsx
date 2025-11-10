@@ -18,7 +18,7 @@ const Description = ({ courseIntro, aboutCourse, whyCourseTitle,
         </ul>
       </div>
       <div className="course-section">
-        <h5><b>Why {whyCourseTitle}?</b></h5>
+        <h5><b>{whyCourseTitle}</b></h5>
         <p>{whyCourseIntro}</p>
         <ul>
           {whyCourseDetails?.map((detail, index) => (
