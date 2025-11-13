@@ -131,7 +131,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           )} */}
-          {/* <li>
+          <li>
             <NavLink
               to="/careers"
               className="nav-link"
@@ -139,7 +139,7 @@ const Navbar = () => {
             >
               Careers
             </NavLink>
-          </li> */}
+          </li>
           <li>
             <NavLink
               to="/contact"

@@ -120,7 +120,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactUs />} />
-          {/* <Route path="careers" element={<Careers />} /> */}
+          <Route path="careers" element={<Careers />} />
           <Route path="/apply-job/:jobTitle" element={<ApplyJobForm />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
