@@ -37,7 +37,6 @@ import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import AdminDashboardLayout from "./Pages/adminPages/admin-dashboard/AdminDashboardLayout";
 import UserProfile from "./components/UserProfile/UserProfile";
 import Careers from "./components/CareersPage/Careers";
-import ApplyJobForm from "./components/CareersPage/ApplyJobForm";
 import CourseCart from "./Pages/CourseCart";
 import UsersData from "./Pages/adminPages/userData/UsersData";
 import LoginPage from "./Pages/LoginPage";
@@ -53,9 +52,11 @@ import UserEnquiry from "./Pages/adminPages/userEnquiry/UserEnquiry";
 import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 import StockTable from "./Pages/Finance_Portfolio/FinancePortfolio";
 import StockData from "./Pages/Finance_Portfolio/StockData";
-
+import ApplyJobForm from "./components/CareersPage/ApplyJobForm";
 import QuizPage from "./Pages/quiz-page";
 import AddQuizPage from "./Pages/adminPages/AddQuiz/AddQuizPage";
+import MernProgramForm from './components/CareersPage/MernProgramForm';
+import MernProgram from './components/CareersPage/MernProgram';
 
 const INACTIVITY_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -121,7 +122,9 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path="careers" element={<Careers />} />
-          <Route path="/apply-job/:jobTitle" element={<ApplyJobForm />} />
+         <Route path="apply-job/:id" element={<ApplyJobForm />} />
+         <Route path="mern-program/apply" element={<MernProgramForm />}/>
+         <Route path="mern-program" element={<MernProgram />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password/:id" element={<ResetPasswordPage />} />
           <Route path="/landing/:id" element={<LandingPage />} />
