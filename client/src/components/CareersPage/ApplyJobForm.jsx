@@ -165,8 +165,8 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           animate={{ opacity: 1, y: 0 }}
           className="bg-green-100 text-green-700 p-3 rounded-lg mb-4 text-center border border-green-300"
         >
-          🎉 <b>Application submitted!</b>  
-          <br />Our team will reach out to you within <b>2–5 days</b>.
+          🎉 <b>Thank you. The application has been submitted!</b>  
+          <br />Our team will reach out to you within <b>2–5 days for the enrollment process</b>.
         </motion.div>
       )}
 
