@@ -41,6 +41,80 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   const [success, setSuccess] = useState(false);
 
   const [applyJob] = useApplyJobMutation();
+  const validate = useCallback((data) => {
+    const errs = {};
+    if (!data.name.trim()) errs.name = "Please enter your full name";
+    if (!/^\S+@\S+\.\S+$/.test(data.email || "")) errs.email = "Enter a valid email";
+    if (!/^\+?\d{7,15}$/.test(data.phone || "")) errs.phone = "Enter a valid phone number";
+    if (!data.degreeBranch.trim()) errs.degreeBranch = "Required";
+    if (!data.college.trim()) errs.college = "Required";
+    if (!data.currentSemester.trim()) errs.currentSemester = "Required";
+
+    if (!data.resume) {
+      errs.resume = "Upload your resume";
+    } else if (!ALLOWED_TYPES.includes(data.resume.type)) {
+      errs.resume = "Only PDF or DOC files allowed";
+    } else if (data.resume.size > MAX_FILE_SIZE) {
+      errs.resume = "File too large (max 2MB)";
+    }
+
+    return errs;
+  }, []);
+
+  const handleChange = useCallback((e) => {
+    const { name, value, files } = e.target;
+    setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "resume" ? files?.[0] || null : value,
+    }));
+  }, []);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setError("");
+      setSuccess(false);
+
+      const errs = validate(formData);
+      if (Object.keys(errs).length) {
+        setFieldErrors(errs);
+        setError("Please fix the highlighted fields");
+        return;
+      }
+
+      const payload = new FormData();
+      Object.entries({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        college: formData.college,
+        degreeBranch: formData.degreeBranch,
+        currentSemester: formData.currentSemester,
+      }).forEach(([k, v]) => payload.append(k, v));
+
+      payload.append("resume", formData.resume);
+      payload.append("jobId", isMernProgram ? "mern-program" : id);
+
+      try {
+        setLoading(true);
+        const response = await applyJob(payload).unwrap();
+        if (response?.success) {
+          setSuccess(true);
+          setFormData(initialFormFactory());
+          setFieldErrors({});
+        } else {
+          setError(response?.message || "Failed to submit application");
+        }
+      } catch (err) {
+        const msg = err?.data?.message || err?.message || "Something went wrong";
+        setError(msg);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [applyJob, formData, id, isMernProgram, validate]
+  );
 
   if (isLoading) {
     return (
@@ -65,78 +139,6 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       </div>
     );
   }
-
-  const validate = useCallback((data) => {
-    const errs = {};
-    if (!data.name.trim()) errs.name = "Please enter your full name";
-    if (!/^\S+@\S+\.\S+$/.test(data.email || "")) errs.email = "Enter a valid email";
-    if (!/^\+?\d{7,15}$/.test(data.phone || "")) errs.phone = "Enter a valid phone number";
-    if (!data.degreeBranch.trim()) errs.degreeBranch = "Required";
-    if (!data.college.trim()) errs.college = "Required";
-    if (!data.currentSemester.trim()) errs.currentSemester = "Required";
-
-    if (!data.resume) {
-      errs.resume = "Upload your resume";
-    } else if (!ALLOWED_TYPES.includes(data.resume.type)) {
-      errs.resume = "Only PDF or DOC files allowed";
-    } else if (data.resume.size > MAX_FILE_SIZE) {
-      errs.resume = "File too large (max 2MB)";
-    }
-
-    return errs;
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "resume" ? files?.[0] || null : value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess(false);
-
-    const errs = validate(formData);
-    if (Object.keys(errs).length) {
-      setFieldErrors(errs);
-      setError("Please fix the highlighted fields");
-      return;
-    }
-
-    const payload = new FormData();
-    Object.entries({
-      name: formData.name,
-      phone: formData.phone,
-      email: formData.email,
-      college: formData.college,
-      degreeBranch: formData.degreeBranch,
-      currentSemester: formData.currentSemester,
-    }).forEach(([k, v]) => payload.append(k, v));
-
-    payload.append("resume", formData.resume);
-    payload.append("jobId", isMernProgram ? "mern-program" : id);
-
-    try {
-      setLoading(true);
-      const response = await applyJob(payload).unwrap();
-      if (response?.success) {
-        setSuccess(true);
-        setFormData(initialFormFactory());
-        setFieldErrors({});
-      } else {
-        setError(response?.message || "Failed to submit application");
-      }
-    } catch (err) {
-      const msg = err?.data?.message || err?.message || "Something went wrong";
-      setError(msg);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const inputs = [
     { name: "name", label: "Full Name" },
