@@ -44,8 +44,10 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   const validate = useCallback((data) => {
     const errs = {};
     if (!data.name.trim()) errs.name = "Please enter your full name";
-    if (!/^\S+@\S+\.\S+$/.test(data.email || "")) errs.email = "Enter a valid email";
-    if (!/^\+?\d{7,15}$/.test(data.phone || "")) errs.phone = "Enter a valid phone number";
+    if (!/^\S+@\S+\.\S+$/.test(data.email || ""))
+      errs.email = "Enter a valid email";
+    if (!/^\+?\d{7,15}$/.test(data.phone || ""))
+      errs.phone = "Enter a valid phone number";
     if (!data.degreeBranch.trim()) errs.degreeBranch = "Required";
     if (!data.college.trim()) errs.college = "Required";
     if (!data.currentSemester.trim()) errs.currentSemester = "Required";
@@ -107,7 +109,8 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           setError(response?.message || "Failed to submit application");
         }
       } catch (err) {
-        const msg = err?.data?.message || err?.message || "Something went wrong";
+        const msg =
+          err?.data?.message || err?.message || "Something went wrong";
         setError(msg);
       } finally {
         setLoading(false);
@@ -146,7 +149,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
     { name: "phone", label: "Phone Number" },
     { name: "degreeBranch", label: "Degree / Branch" },
     { name: "college", label: "College / University" },
-    { name: "currentSemester", label: "Current Semester / Graduation Year" },
+    { name: "currentSemester", label: "Graduation Year", type: "select" },
   ];
 
   return (
@@ -165,8 +168,10 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           animate={{ opacity: 1, y: 0 }}
           className="bg-green-100 text-green-700 p-3 rounded-lg mb-4 text-center border border-green-300"
         >
-          🎉 <b>Thank you. The application has been submitted!</b>  
-          <br />Our team will reach out to you within <b>2–5 days for the enrollment process</b>.
+          🎉 <b>Thank you. The application has been submitted!</b>
+          <br />
+          Our team will reach out to you within{" "}
+          <b>2–5 days for the enrollment process</b>.
         </motion.div>
       )}
 
@@ -176,18 +181,42 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
             <label className="block font-medium mb-1">
               {inp.label} <span className="text-red-500">*</span>
             </label>
-            <input
-              type="text"
-              name={inp.name}
-              className={`w-full border rounded-lg px-3 py-2 ${
-                fieldErrors[inp.name] ? "border-red-500" : ""
-              }`}
-              onChange={handleChange}
-              value={formData[inp.name]}
-              placeholder={`Enter your ${inp.label.toLowerCase()}`}
-            />
+            {inp.type === "select" ? (
+              <select
+                name={inp.name}
+                value={formData[inp.name]}
+                onChange={handleChange}
+                className={`w-full border rounded-lg px-3 py-2 font-black ${
+                  fieldErrors[inp.name] ? "border-red-500" : ""
+                }`}
+              >
+                <option value="">Select year</option>
+                <option value="Pursuing">Pursuing</option>
+                {Array.from(
+                  { length: new Date().getFullYear() - 2015 + 1 },
+                  (_, i) => 2015 + i
+                ).map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type="text"
+                name={inp.name}
+                className={`w-full border rounded-lg px-3 py-2 ${
+                  fieldErrors[inp.name] ? "border-red-500" : ""
+                }`}
+                onChange={handleChange}
+                value={formData[inp.name]}
+                placeholder={`Enter your ${inp.label.toLowerCase()}`}
+              />
+            )}
             {fieldErrors[inp.name] && (
-              <p className="text-red-600 text-sm mt-1">{fieldErrors[inp.name]}</p>
+              <p className="text-red-600 text-sm mt-1">
+                {fieldErrors[inp.name]}
+              </p>
             )}
           </div>
         ))}
@@ -205,7 +234,9 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
             onChange={handleChange}
           />
           {formData.resume && (
-            <p className="text-sm text-gray-600 mt-1">Selected: {formData.resume.name}</p>
+            <p className="text-sm text-gray-600 mt-1">
+              Selected: {formData.resume.name}
+            </p>
           )}
           {fieldErrors.resume && (
             <p className="text-red-600 text-sm mt-1">{fieldErrors.resume}</p>
