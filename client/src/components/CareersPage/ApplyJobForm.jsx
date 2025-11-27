@@ -158,9 +158,18 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        Apply for : {isMernProgram ? "MERN FULL STACK Developer Training + Internship" : job?.title}
-      </h2>
+      {isMernProgram ? (
+        <div className="mb-4 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2">
+            Apply for: MERN FULL STACK Developer Training + Internship
+          </h2>
+          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
+            Gain real project experience, 1:1 mentorship, and job-ready skills. Internship is <strong>FREE</strong> — fee only for the course.
+          </p>
+        </div>
+      ) : (
+        <h2 className="text-2xl font-bold mb-6 text-center">Apply for : {job?.title}</h2>
+      )}
 
       {success && (
         <motion.div
