@@ -159,7 +159,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       animate={{ opacity: 1, y: 0 }}
     >
       <h2 className="text-2xl font-bold mb-6 text-center">
-        Apply for : {isMernProgram ? "MERN Training + Internship" : job?.title}
+        Apply for : {isMernProgram ? "MERN FULL STACK Developer Training + Internship" : job?.title}
       </h2>
 
       {success && (
@@ -170,7 +170,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
         >
           🎉 <b>Thank you. The application has been submitted!</b>
           <br />
-          Our team will reach out to you within{" "}
+          Our team will verify and reach out to you within{" "}
           <b>2–5 days for the enrollment process</b>.
         </motion.div>
       )}
