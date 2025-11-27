@@ -165,7 +165,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           </h2>
 
           <p className="text-sm sm:text-base text-gray-700 max-w-2xl mx-auto mb-2">
-            Get hands-on MERN training + real-world project internship designed for freshers. Limited seats per batch.
+            Get hands-on MERN training + real-world project internship. Perfect for graduates, students, freshers, and career changers. Limited seats per batch.
           </p>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 text-sm text-gray-600 mb-3">
@@ -180,10 +180,10 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
             <h3 className="font-semibold mb-2">Why Join This Program?</h3>
             <ul className="list-none text-sm space-y-1 text-gray-700">
               <li>✔ Hands-on MERN stack training</li>
-              <li>✔ Work on a real startup project</li>
-              <li>✔ Resume review & mock interview support</li>
-              <li>✔ Personalized 1:1 mentorship</li>
-              <li>✔ Certification & experience letter</li>
+              <li>✔ Work on a industry based project</li>
+              <li>✔ Personalized 1:1 mentorship & guidance</li>
+              <li>✔ Certification, Experience letter & job-ready skills</li>
+              <li>✔ Resume review, portfolio building & mock interviews</li>
             </ul>
           </div>
         </div>
