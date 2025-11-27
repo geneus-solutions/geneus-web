@@ -175,77 +175,99 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
         </motion.div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3 text-sm" noValidate>
-        {inputs.map((inp) => (
-          <div key={inp.name}>
-            <label className="block font-medium mb-1">
-              {inp.label} <span className="text-red-500">*</span>
+      <form onSubmit={handleSubmit} className="text-sm" noValidate>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {inputs.map((inp) => (
+            <div
+              key={inp.name}
+              className={
+                inp.name === "currentSemester" ? "md:col-span-1" : ""
+              }
+            >
+              <label className="block text-sm font-semibold mb-1 text-gray-700">
+                {inp.label} <span className="text-red-500">*</span>
+              </label>
+              {inp.type === "select" ? (
+                <select
+                  name={inp.name}
+                  value={formData[inp.name]}
+                  onChange={handleChange}
+                  className={`w-full border border-gray-200 bg-white rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200 ${
+                    fieldErrors[inp.name] ? "border-red-500" : ""
+                  }`}
+                >
+                  <option value="">Select year</option>
+                  <option value="Pursuing">Pursuing</option>
+                  {Array.from({ length: 29 }, (_, i) => 2001 + i).map(
+                    (year) => (
+                      <option key={year} value={String(year)}>
+                        {year}
+                      </option>
+                    )
+                  )}
+                </select>
+              ) : (
+                <input
+                  type="text"
+                  name={inp.name}
+                  className={`w-full border border-gray-200 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200 ${
+                    fieldErrors[inp.name] ? "border-red-500" : ""
+                  }`}
+                  onChange={handleChange}
+                  value={formData[inp.name]}
+                  placeholder={`Enter your ${inp.label.toLowerCase()}`}
+                />
+              )}
+              {fieldErrors[inp.name] && (
+                <p className="text-red-600 text-sm mt-1">
+                  {fieldErrors[inp.name]}
+                </p>
+              )}
+            </div>
+          ))}
+
+          {/* Resume - full width */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-semibold mb-1 text-gray-700">
+              Resume (PDF/DOC) <span className="text-red-500">*</span>
             </label>
-            {inp.type === "select" ? (
-              <select
-                name={inp.name}
-                value={formData[inp.name]}
-                onChange={handleChange}
-                className={`w-full border rounded-lg px-3 py-2 font-black ${
-                  fieldErrors[inp.name] ? "border-red-500" : ""
-                }`}
-              >
-                <option value="">Select year</option>
-                <option value="Pursuing">Pursuing</option>
-                {Array.from(
-                  { length: new Date().getFullYear() - 2015 + 1 },
-                  (_, i) => 2015 + i
-                ).map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            ) : (
+            <div className="flex items-center gap-3">
               <input
-                type="text"
-                name={inp.name}
-                className={`w-full border rounded-lg px-3 py-2 ${
-                  fieldErrors[inp.name] ? "border-red-500" : ""
+                type="file"
+                name="resume"
+                accept=".pdf,.doc,.docx"
+                className={`flex-1 border border-gray-200 rounded-lg px-3 py-2 bg-white shadow-sm ${
+                  fieldErrors.resume ? "border-red-500" : ""
                 }`}
                 onChange={handleChange}
-                value={formData[inp.name]}
-                placeholder={`Enter your ${inp.label.toLowerCase()}`}
               />
-            )}
-            {fieldErrors[inp.name] && (
-              <p className="text-red-600 text-sm mt-1">
-                {fieldErrors[inp.name]}
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData((prev) => ({ ...prev, resume: null }));
+                  setFieldErrors((prev) => ({ ...prev, resume: undefined }));
+                }}
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Clear
+              </button>
+            </div>
+            {formData.resume && (
+              <p className="text-sm text-gray-600 mt-2">
+                Selected: {formData.resume.name}
               </p>
             )}
+            {fieldErrors.resume && (
+              <p className="text-red-600 text-sm mt-1">{fieldErrors.resume}</p>
+            )}
           </div>
-        ))}
-
-        {/* Resume */}
-        <div>
-          <label className="block font-medium mb-1">
-            Resume (PDF/DOC) <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="file"
-            name="resume"
-            accept=".pdf,.doc,.docx"
-            className={`w-full ${fieldErrors.resume ? "border-red-500" : ""}`}
-            onChange={handleChange}
-          />
-          {formData.resume && (
-            <p className="text-sm text-gray-600 mt-1">
-              Selected: {formData.resume.name}
-            </p>
-          )}
-          {fieldErrors.resume && (
-            <p className="text-red-600 text-sm mt-1">{fieldErrors.resume}</p>
-          )}
         </div>
 
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+        {error && (
+          <p className="text-red-600 text-sm mt-3">{error}</p>
+        )}
 
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 mt-6">
           <button
             type="button"
             className="text-gray-600 hover:underline"
@@ -255,11 +277,11 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           </button>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             type="submit"
             disabled={loading}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 disabled:opacity-60"
+            className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-2 rounded-lg shadow-lg hover:from-blue-700 hover:to-cyan-600 disabled:opacity-60"
           >
             {loading ? "Submitting..." : "Submit Application"}
           </motion.button>
