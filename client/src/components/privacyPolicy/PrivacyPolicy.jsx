@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
   useEffect(() => {
     const isPrivacyPolicyAccepted = localStorage.getItem('privacyPolicyAccepted');
     if (!isPrivacyPolicyAccepted) {
-      setIsOpen(true);
+      setIsOpen(false);
     }
   }, []);
 
