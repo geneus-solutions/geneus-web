@@ -147,7 +147,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
     { name: "name", label: "Full Name" },
     { name: "email", label: "Email Address" },
     { name: "phone", label: "Phone Number" },
-    { name: "degreeBranch", label: "Degree / Branch" },
+    { name: "degreeBranch", label: "Degree / Branch (e.g., B.Tech CSE / BCA / MCA)" },
     { name: "college", label: "College / University" },
     { name: "currentSemester", label: "Graduation Year", type: "select" },
   ];
@@ -163,9 +163,29 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2">
             Apply for: MERN FULL STACK Developer Training + Internship
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-            Gain real project experience, 1:1 mentorship, and job-ready skills. Internship is <strong>FREE</strong> — fee only for the course.
+
+          <p className="text-sm sm:text-base text-gray-700 max-w-2xl mx-auto mb-2">
+            Get hands-on MERN training + real-world project internship designed for freshers. Limited seats per batch.
           </p>
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 text-sm text-gray-600 mb-3">
+            <span className="inline-block">Duration: <strong>3 Months including Internship</strong></span>
+            <span className="inline-block">•</span>
+            <span className="inline-block">Internship is <strong>FREE</strong>. Training fee applies only for MERN course.</span>
+            <span className="inline-block">•</span>
+            <span className="inline-block">Fees: MERN – <strong>₹3000</strong></span>
+          </div>
+
+          <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 text-left max-w-2xl mx-auto mb-4">
+            <h3 className="font-semibold mb-2">Why Join This Program?</h3>
+            <ul className="list-none text-sm space-y-1 text-gray-700">
+              <li>✔ Hands-on MERN stack training</li>
+              <li>✔ Work on a real startup project</li>
+              <li>✔ Resume review & mock interview support</li>
+              <li>✔ Personalized 1:1 mentorship</li>
+              <li>✔ Certification & experience letter</li>
+            </ul>
+          </div>
         </div>
       ) : (
         <h2 className="text-2xl font-bold mb-6 text-center">Apply for : {job?.title}</h2>
