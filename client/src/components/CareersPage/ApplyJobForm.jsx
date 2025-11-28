@@ -147,176 +147,203 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
     { name: "name", label: "Full Name" },
     { name: "email", label: "Email Address" },
     { name: "phone", label: "Phone Number" },
-    { name: "degreeBranch", label: "Degree / Branch (e.g., B.Tech CSE / BCA / MCA)" },
+    { name: "degreeBranch", label: "Degree / Branch (e.g., BE/B.Tech / BCA / MCA / BSc)" },
     { name: "college", label: "College / University" },
     { name: "currentSemester", label: "Graduation Year", type: "select" },
   ];
 
   return (
-    <motion.div
-      className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg mt-12"
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
-      {isMernProgram ? (
-        <div className="mb-4 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2">
-            Apply for: MERN FULL STACK Developer Training + Internship
-          </h2>
+<motion.div
+  className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl mt-12 border border-gray-100"
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+>
+  {/* Logo Section 
+  <div className="flex justify-center mb-4">
+    <img
+      src="/static/media/logo.e373ff51a56528f216e6.png"
+      alt="Geneus Solutions"
+      className="h-12 sm:h-14 object-contain"
+    />
+  </div>*/}
 
-          <p className="text-sm sm:text-base text-gray-700 max-w-2xl mx-auto mb-2">
-            Get hands-on MERN training + real-world project internship. Perfect for graduates, students, freshers, and career changers. Limited seats per batch.
-          </p>
+  {isMernProgram ? (
+    <div className="mb-5 text-center">
+      <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-gray-900">
+        MERN Full Stack Developer Training + Internship
+      </h2>
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 text-sm text-gray-600 mb-3">
-            <span className="inline-block">Duration: <strong>3 Months including Internship</strong></span>
-            <span className="inline-block">•</span>
-            <span className="inline-block">Internship is <strong>FREE</strong>. Training fee applies only for MERN course.</span>
-            <span className="inline-block">•</span>
-            <span className="inline-block">Fees: MERN – <strong>₹3000</strong></span>
-          </div>
+      <p className="text-gray-600 mt-2 text-[15px] max-w-xl mx-auto">
+        A practical, beginner-friendly MERN program with real projects,
+        mentor support, and a 3-month internship letter.
+        Ideal for freshers, students & job-seekers.
+      </p>
 
-          <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 text-left max-w-2xl mx-auto mb-4">
-            <h3 className="font-semibold mb-2">Why Join This Program?</h3>
-            <ul className="list-none text-sm space-y-1 text-gray-700">
-              <li>✔ Hands-on MERN stack training</li>
-              <li>✔ Work on a industry based project</li>
-              <li>✔ Personalized 1:1 mentorship & guidance</li>
-              <li>✔ Certification, Experience letter & job-ready skills</li>
-              <li>✔ Resume review, portfolio building & mock interviews</li>
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <h2 className="text-2xl font-bold mb-6 text-center">Apply for : {job?.title}</h2>
-      )}
+      {/* Fees + Duration */}
+      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mt-4 text-gray-700 text-sm space-y-1">
+        <p>
+          <strong>Duration:</strong> 3 Months (Including Internship)
+        </p>
+        <p>
+          <strong>Internship:</strong> FREE (Training fee only)
+        </p>
+        <p className="font-semibold text-blue-900">
+          Training Fee: ₹7,000 &nbsp;
+          <span className="text-green-700 font-bold">(Student Offer: ₹3,000)</span>
+        </p>
+      </div>
 
-      {success && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-green-100 text-green-700 p-3 rounded-lg mb-4 text-center border border-green-300"
+      {/* ⭐ NEW — Learn More Link 
+      <div className="mt-3">
+        <a
+          href="https://www.geneussolutions.in/course/68f9afe3e867ddc118adcfe6"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 font-medium underline hover:text-blue-800 transition"
         >
-          🎉 <b>Thank you. The application has been submitted!</b>
-          <br />
-          Our team will verify and reach out to you within{" "}
-          <b>2–5 days for the enrollment process</b>.
-        </motion.div>
-      )}
+          Learn More → Mern Training Topics covered
+        </a>
+      </div>*/}
 
-      <form onSubmit={handleSubmit} className="text-sm" noValidate>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {inputs.map((inp) => (
-            <div
-              key={inp.name}
-              className={
-                inp.name === "currentSemester" ? "md:col-span-1" : ""
-              }
+      {/* Why Join */}
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 text-left mt-6">
+        <h3 className="font-semibold text-gray-800 mb-3 text-lg">
+          Why Join This Program?
+        </h3>
+        <ul className="space-y-2 text-gray-700 text-[15px] leading-relaxed">
+          <li>✔ Step-by-Step MERN Stack Training (MongoDB → Express → React → Node)</li>
+          <li>✔ Build a Real Industry-Level Project</li>
+          <li>✔ Learn Directly from Industry Developers & Mentors</li>
+          <li>✔ Course Completion Certificate</li>
+          <li>✔ 3-Month Internship Letter + Weekly Evaluations</li>
+          <li>✔ 100% Practical Training, Beginner Friendly</li>
+          <li>✔ Mock Interviews with Detailed Feedback</li>
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <h2 className="text-2xl font-bold mb-6 text-center">Apply for : {job?.title}</h2>
+  )}
+
+  {/* Success Message */}
+  {success && (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-green-100 text-green-800 p-3 rounded-lg mb-4 text-center border border-green-300"
+    >
+      🎉 <b>Your application is submitted!</b>
+      <br />Our team will reach out within <b>2–5 working days</b>.
+    </motion.div>
+  )}
+
+  {/* Form */}
+  <form onSubmit={handleSubmit} className="text-sm" noValidate>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {inputs.map((inp) => (
+        <div key={inp.name}>
+          <label className="block text-sm font-semibold mb-1 text-gray-800">
+            {inp.label} <span className="text-red-500">*</span>
+          </label>
+
+          {inp.type === "select" ? (
+            <select
+              name={inp.name}
+              value={formData[inp.name]}
+              onChange={handleChange}
+              className={`w-full border border-gray-300 rounded-lg px-3 py-2 bg-white shadow-sm focus:ring-blue-300 focus:ring-2 ${
+                fieldErrors[inp.name] ? "border-red-500" : ""
+              }`}
             >
-              <label className="block text-sm font-semibold mb-1 text-gray-700">
-                {inp.label} <span className="text-red-500">*</span>
-              </label>
-              {inp.type === "select" ? (
-                <select
-                  name={inp.name}
-                  value={formData[inp.name]}
-                  onChange={handleChange}
-                  className={`w-full border border-gray-200 bg-white rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200 ${
-                    fieldErrors[inp.name] ? "border-red-500" : ""
-                  }`}
-                >
-                  <option value="">Select year</option>
-                  <option value="Pursuing">Pursuing</option>
-                  {Array.from({ length: 29 }, (_, i) => 2001 + i).map(
-                    (year) => (
-                      <option key={year} value={String(year)}>
-                        {year}
-                      </option>
-                    )
-                  )}
-                </select>
-              ) : (
-                <input
-                  type="text"
-                  name={inp.name}
-                  className={`w-full border border-gray-200 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200 ${
-                    fieldErrors[inp.name] ? "border-red-500" : ""
-                  }`}
-                  onChange={handleChange}
-                  value={formData[inp.name]}
-                  placeholder={`Enter your ${inp.label.toLowerCase()}`}
-                />
-              )}
-              {fieldErrors[inp.name] && (
-                <p className="text-red-600 text-sm mt-1">
-                  {fieldErrors[inp.name]}
-                </p>
-              )}
-            </div>
-          ))}
+              <option value="">Select Year</option>
+              <option value="Pursuing">Pursuing</option>
+              {Array.from({ length: 29 }, (_, i) => 2001 + i).map((year) => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type="text"
+              name={inp.name}
+              onChange={handleChange}
+              value={formData[inp.name]}
+              placeholder={`Enter your ${inp.label.toLowerCase()}`}
+              className={`w-full border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-blue-300 focus:ring-2 ${
+                fieldErrors[inp.name] ? "border-red-500" : ""
+              }`}
+            />
+          )}
 
-          {/* Resume - full width */}
-          <div className="md:col-span-2">
-            <label className="block text-sm font-semibold mb-1 text-gray-700">
-              Resume (PDF/DOC) <span className="text-red-500">*</span>
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                type="file"
-                name="resume"
-                accept=".pdf,.doc,.docx"
-                className={`flex-1 border border-gray-200 rounded-lg px-3 py-2 bg-white shadow-sm ${
-                  fieldErrors.resume ? "border-red-500" : ""
-                }`}
-                onChange={handleChange}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setFormData((prev) => ({ ...prev, resume: null }));
-                  setFieldErrors((prev) => ({ ...prev, resume: undefined }));
-                }}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Clear
-              </button>
-            </div>
-            {formData.resume && (
-              <p className="text-sm text-gray-600 mt-2">
-                Selected: {formData.resume.name}
-              </p>
-            )}
-            {fieldErrors.resume && (
-              <p className="text-red-600 text-sm mt-1">{fieldErrors.resume}</p>
-            )}
-          </div>
+          {fieldErrors[inp.name] && (
+            <p className="text-red-500 text-xs mt-1">{fieldErrors[inp.name]}</p>
+          )}
         </div>
+      ))}
 
-        {error && (
-          <p className="text-red-600 text-sm mt-3">{error}</p>
-        )}
+      {/* Resume */}
+      <div className="md:col-span-2">
+        <label className="block text-sm font-semibold mb-1 text-gray-800">
+          Resume (PDF/DOC) <span className="text-red-500">*</span>
+        </label>
 
-        <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 mt-6">
+        <div className="flex gap-3 items-center">
+          <input
+            type="file"
+            name="resume"
+            accept=".pdf,.doc,.docx"
+            onChange={handleChange}
+            className={`flex-1 border border-gray-300 bg-white rounded-lg px-3 py-2 shadow-sm ${
+              fieldErrors.resume ? "border-red-500" : ""
+            }`}
+          />
+
           <button
             type="button"
-            className="text-gray-600 hover:underline"
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              setFormData((prev) => ({ ...prev, resume: null }));
+              setFieldErrors((prev) => ({ ...prev, resume: undefined }));
+            }}
+            className="text-gray-600 text-sm hover:underline"
           >
-            ← Back
+            Clear
           </button>
-
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            type="submit"
-            disabled={loading}
-            className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-2 rounded-lg shadow-lg hover:from-blue-700 hover:to-cyan-600 disabled:opacity-60"
-          >
-            {loading ? "Submitting..." : "Submit Application"}
-          </motion.button>
         </div>
-      </form>
-    </motion.div>
+
+        {formData.resume && (
+          <p className="text-gray-600 text-xs mt-2">
+            Selected: {formData.resume.name}
+          </p>
+        )}
+        {fieldErrors.resume && (
+          <p className="text-red-500 text-xs mt-1">{fieldErrors.resume}</p>
+        )}
+      </div>
+    </div>
+
+    {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+
+    {/* CTA Section */}
+    <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-4">
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="text-gray-600 hover:underline"
+      >
+        ← Back
+      </button>
+
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.97 }}
+        type="submit"
+        disabled={loading}
+        className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-7 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-60"
+      >
+        {loading ? "Submitting..." : "Submit Application"}
+      </motion.button>
+    </div>
+  </form>
+</motion.div>
   );
 };
 
