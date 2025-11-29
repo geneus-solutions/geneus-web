@@ -180,18 +180,23 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       </p>
 
       {/* Fees + Duration */}
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mt-4 text-gray-700 text-sm space-y-1">
-        <p>
-          <strong>Duration:</strong> 3 Months (Including Internship)
-        </p>
-        <p>
-          <strong>Internship:</strong> FREE (Training fee only)
-        </p>
-        <p className="font-semibold text-blue-900">
-          Training Fee: ₹7,000 &nbsp;
-          <span className="text-green-700 font-bold">(Student Offer: ₹3,000)</span>
-        </p>
-      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4 text-center space-y-2">
+  <p className="text-gray-700 text-sm">
+    <strong className="text-gray-900">Duration:</strong> 3 Months (Including Internship)
+  </p>
+
+  <p className="text-gray-700 text-sm">
+    <strong className="text-gray-900">Internship:</strong> FREE (Training fee only)
+  </p>
+
+  <div className="pt-1">
+    <p className="text-gray-900 font-semibold">Training Fee: <span className="line-through text-red-500">₹7,000</span></p>
+    <p className="text-green-700 font-bold text-lg">You Pay Only: ₹3,000</p>
+    <p className="text-xs text-green-600 font-medium">(Limited-Time Student Offer)</p>
+  </div>
+</div>
+
 
       {/* ⭐ NEW — Learn More Link 
       <div className="mt-3">
@@ -220,6 +225,22 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           <li>✔ Mock Interviews with Detailed Feedback</li>
         </ul>
       </div>
+
+      <div className="mt-3">
+  <a
+    href="https://www.geneussolutions.in/course/68f9afe3e867ddc118adcfe6"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-600 font-medium underline hover:text-blue-800 transition"
+  >
+    View Full Course Topics →
+  </a>
+  <p className="text-xs text-gray-500 mt-1">
+    (Main course page shows original fee ₹7,000. You will pay only ₹3,000 under the student offer.)
+  </p>
+</div>
+
+
       {/* 🌱 Past Students Section */}
 <div className="bg-white border border-green-200 rounded-xl p-5 text-left mt-6 shadow-sm">
   <h3 className="font-semibold text-green-700 mb-3 text-lg">
@@ -271,6 +292,12 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   ) : (
     <h2 className="text-2xl font-bold mb-6 text-center">Apply for : {job?.title}</h2>
   )}
+
+{/* Informational note (visible before submission) */}
+<div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-4 text-sm text-gray-700">
+  <strong>Note:</strong> After you submit the registration form, our team will contact you within <b>2–5 working days</b> for the <b>payment & enrollment process</b> and guide you with the next steps.
+</div>
+
 
   {/* Success Message */}
   {success && (
