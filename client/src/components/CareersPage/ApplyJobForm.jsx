@@ -220,6 +220,53 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
           <li>✔ Mock Interviews with Detailed Feedback</li>
         </ul>
       </div>
+      {/* 🌱 Past Students Section */}
+<div className="bg-white border border-green-200 rounded-xl p-5 text-left mt-6 shadow-sm">
+  <h3 className="font-semibold text-green-700 mb-3 text-lg">
+    🌱 Our Past Students (Who Completed Internship & Later Got Jobs)
+  </h3>
+  <p className="text-gray-600 text-sm mb-3">
+    We feel happy to share a few of our learners who continued their journey and are now working in the industry:
+  </p>
+
+  <ul className="space-y-2 text-[15px]">
+    <li>
+      <span className="font-semibold text-gray-800">1) Dipendra – </span>
+      <a
+        href="https://www.linkedin.com/in/dipendra-kumar-bm5"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 underline hover:text-blue-800"
+      >
+        View LinkedIn Profile
+      </a>
+    </li>
+
+    <li>
+      <span className="font-semibold text-gray-800">2) Deepak – </span>
+      <a
+        href="https://www.linkedin.com/in/deepakgupta21"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 underline hover:text-blue-800"
+      >
+        View LinkedIn Profile
+      </a>
+    </li>
+
+    <li>
+      <span className="font-semibold text-gray-800">3) Sonali – </span>
+      <a
+        href="https://www.linkedin.com/in/sonali-kumari-114a03204/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 underline hover:text-blue-800"
+      >
+        View LinkedIn Profile
+      </a>
+    </li>
+  </ul>
+</div>
     </div>
   ) : (
     <h2 className="text-2xl font-bold mb-6 text-center">Apply for : {job?.title}</h2>
