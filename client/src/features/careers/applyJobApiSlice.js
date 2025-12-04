@@ -12,4 +12,25 @@ const contactUsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
+const paidjobApiSlice = apiSlice.injectEndpoints({
+   endpoints: (builder) => ({
+     postpaidjob: builder.mutation({
+      query: (data) => ({
+        url: "/createOpportunity",
+        method: "POST",
+        body: data,
+      }),
+        invalidatesTags: ['Opportunities']
+     }),
+     
+     // GET - Get all opportunities
+     getopportunities: builder.query({
+       query: () => "/getopportunity", 
+       providesTags: ['Opportunities']
+     })
+   })
+     })
+  
+
 export const { useApplyJobMutation } = contactUsApiSlice;
+export const { usePostpaidjobMutation, useGetopportunitiesQuery } = paidjobApiSlice;
