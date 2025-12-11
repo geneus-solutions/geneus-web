@@ -13,15 +13,20 @@ import {
   ShareIcon,
 } from "@heroicons/react/24/outline";
 import "./Careers.css";
-import { useCareersQuery } from "../../features/careers/careersSlice";
+
+import { useGetopportunitiesQuery } from "../../features/careers/opportunitySlice";
 import { useState } from "react";
 
 const Careers = () => {
   const navigate = useNavigate();
 
-  const { data: jobsData, isLoading, isError } = useCareersQuery();
+  const { data: jobsData, isLoading, isError } = useGetopportunitiesQuery();
 
-  const jobs = Array.isArray(jobsData) ? jobsData : [];
+  const jobs = Array.isArray(jobsData?.opportunities)
+    ? jobsData.opportunities
+    : [];
+
+   
 
   const [activeCategory, setActiveCategory] = React.useState("All");
   const [showModal, setShowModal] = React.useState(false);
@@ -30,8 +35,8 @@ const Careers = () => {
 
   const categories = [
     "All",
-    "Development",
-    "Design",
+    "Department",
+    "Internship",
     "Marketing",
     "Customer Service",
     "Operations",
@@ -40,8 +45,16 @@ const Careers = () => {
   const filteredJobs =
     activeCategory === "All"
       ? jobs
-      : jobs.filter((job) => job.department === activeCategory);
+      : jobs.filter((job) => {
+        if (activeCategory === "Department") return job.type === "job";
 
+        return (
+          job.department === activeCategory ||
+          job.employementType === activeCategory
+        );
+      })
+
+ 
   const fadeUpVariant = {
     hidden: { opacity: 0, y: 30 },
     visible: (i = 0) => ({
@@ -64,11 +77,9 @@ const Careers = () => {
   const handleApplyClick = (job) => {
     setSelectedJob(job);
     setShowModal(true);
-
-   navigate(
-    `/careers?job=${encodeURIComponent(job.title)}`,
-    { replace: false }
-  );
+    navigate(`/careers?job=${encodeURIComponent(job.title)}`, {
+      replace: false,
+    });
   };
 
   const closeModal = () => {
@@ -76,9 +87,15 @@ const Careers = () => {
     setSelectedJob(null);
   };
 
+  useEffect(() => {
+    if (jobsData) {
+      console.log("Jobs data received:", jobsData);
+      console.log("Number of jobs:", jobs.length);
+    }
+  }, [jobsData, jobs]);
+
   return (
     <div className="careers-page">
-      {/* Hiring Banner */}
       <div className="hiring-banner">
         <motion.button
           className="hiring-btn"
@@ -89,7 +106,6 @@ const Careers = () => {
         </motion.button>
       </div>
 
-      {/* Header */}
       <div className="careers-header text-center">
         <motion.h1
           className="careers-title"
@@ -113,7 +129,6 @@ const Careers = () => {
         </motion.p>
       </div>
 
-      {/* Category Filters */}
       <div className="category-filters">
         <div className="filters-container">
           <motion.button
@@ -152,28 +167,29 @@ const Careers = () => {
         </div>
       </div>
 
-      {/* Jobs List */}
       <section className="max-w-4xl mx-auto mt-10 px-6 divide-y divide-gray-200 relative z-10">
         {isLoading && (
-          <p className="text-center py-10 text-gray-500">Loading...</p>
+          <p className="text-center py-10 text-gray-500">
+            Loading job opportunities...
+          </p>
         )}
         {isError && (
           <p className="text-center py-10 text-red-500">
-            Failed to load jobs. Try again later.
+            Failed to load job opportunities. Please try again later.
           </p>
         )}
 
         {!isLoading && filteredJobs.length === 0 && (
           <p className="text-center py-10 text-gray-500">
             {activeCategory === "All"
-              ? "No jobs available at the moment."
-              : `No jobs in ${activeCategory}.`}
+              ? "No job opportunities available at the moment."
+              : `No job opportunities in ${activeCategory}.`}
           </p>
         )}
 
         {filteredJobs.map((job, index) => (
           <motion.div
-            key={job._id || index}
+            key={job._id || job.id || index}
             variants={fadeUpVariant}
             initial="hidden"
             whileInView="visible"
@@ -183,16 +199,27 @@ const Careers = () => {
           >
             <div>
               <h3 className="text-lg font-semibold mb-1 text-gray-900">
-                {job.title}
+                {job.title || "Untitled Position"}
               </h3>
-              <p className="text-gray-600 mb-3">{job.desc}</p>
+              <p className="text-gray-600 mb-3">
+                {job.desc || job.description || "No description available"}
+              </p>
               <div className="flex gap-3 text-sm text-gray-700">
-                <span className="flex items-center gap-1 border border-gray-300 rounded-full px-3 py-1">
-                  <MapPinIcon className="w-4 h-4" /> {job.location}
-                </span>
-                <span className="flex items-center gap-1 border border-gray-300 rounded-full px-3 py-1">
-                  <ClockIcon className="w-4 h-4" /> {job.employmentType}
-                </span>
+                {job.location && (
+                  <span className="flex items-center gap-1 border border-gray-300 rounded-full px-3 py-1">
+                    <MapPinIcon className="w-4 h-4" /> {job.location}
+                  </span>
+                )}
+                {job.employmentType && (
+                  <span className="flex items-center gap-1 border border-gray-300 rounded-full px-3 py-1">
+                    <ClockIcon className="w-4 h-4" /> {job.employmentType}
+                  </span>
+                )}
+                {job.department && (
+                  <span className="flex items-center gap-1 border border-gray-300 rounded-full px-3 py-1">
+                    {job.department}
+                  </span>
+                )}
               </div>
             </div>
             <motion.button
@@ -207,7 +234,6 @@ const Careers = () => {
       </section>
 
       {/* Job Popup Modal */}
-
       <AnimatePresence>
         {showModal && selectedJob && (
           <motion.div
@@ -227,7 +253,7 @@ const Careers = () => {
               {(() => {
                 const shareUrl = `${
                   window.location.origin
-                }/jobs/${encodeURIComponent(selectedJob.title)}`;
+                }/jobs/${encodeURIComponent(selectedJob.title || "job")}`;
 
                 const handleWhatsAppShare = () => {
                   const msg = `Check out this job: ${selectedJob.title}\n\n${shareUrl}`;
@@ -238,7 +264,7 @@ const Careers = () => {
                 };
 
                 const handleEmailShare = () => {
-                  const subject = `Job Opportunity: ${selectedJob._id}`;
+                  const subject = `Job Opportunity: ${selectedJob.title}`;
                   const body = `Hi,\n\nCheck out this job:\n\n${selectedJob.title}\n${shareUrl}`;
                   window.open(
                     `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(
@@ -250,7 +276,6 @@ const Careers = () => {
 
                 return (
                   <>
-                    {/* Close Button */}
                     <button
                       onClick={closeModal}
                       className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
@@ -261,11 +286,10 @@ const Careers = () => {
                     <div className="w-full flex justify-center">
                       <div className="max-w-6xl w-full px-4">
                         <div className="space-y-8">
-                          {/* Header */}
                           <div>
                             <div className="flex items-center justify-between mb-2">
                               <h2 className="text-3xl font-bold text-gray-900">
-                                {selectedJob.title}
+                                {selectedJob.title || "Untitled Position"}
                               </h2>
 
                               <div className="flex items-center space-x-3">
@@ -275,7 +299,11 @@ const Careers = () => {
                                   className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium shadow hover:bg-blue-700"
                                   onClick={() =>
                                     navigate(
-                                      `/apply-job/${selectedJob._id}`
+                                      `/apply-job/${
+                                        selectedJob._id || selectedJob.id
+                                      }`,{
+                                        state:{title: selectedJob.title}
+                                      }
                                     )
                                   }
                                 >
@@ -325,35 +353,49 @@ const Careers = () => {
                             </div>
 
                             <p className="text-gray-600 mb-4">
-                              {selectedJob.desc}
+                              {selectedJob.desc ||
+                                selectedJob.description ||
+                                "No description available"}
                             </p>
 
                             <div className="flex flex-wrap gap-3 text-sm text-gray-700 mb-4">
-                              <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
-                                <MapPinIcon className="w-4 h-4" />
-                                {selectedJob.location}
-                              </span>
+                              {selectedJob.location && (
+                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
+                                  <MapPinIcon className="w-4 h-4" />
+                                  {selectedJob.location}
+                                </span>
+                              )}
 
-                              <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
-                                <ClockIcon className="w-4 h-4" />
-                                {selectedJob.employmentType}
-                              </span>
+                              {selectedJob.employmentType && (
+                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
+                                  <ClockIcon className="w-4 h-4" />
+                                  {selectedJob.employmentType}
+                                </span>
+                              )}
+
+                              {selectedJob.department && (
+                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
+                                  {selectedJob.department}
+                                </span>
+                              )}
                             </div>
                           </div>
 
                           {/* Job Details Sections */}
-                          <div className="text-gray-700 leading-relaxed">
-                            <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                              About this role
-                            </h3>
-                            <p>{selectedJob.about}</p>
-                          </div>
+                          {selectedJob.about && (
+                            <div className="text-gray-700 leading-relaxed">
+                              <h3 className="font-semibold text-lg text-gray-900 mb-2">
+                                About this role
+                              </h3>
+                              <p>{selectedJob.about}</p>
+                            </div>
+                          )}
 
-                          <div>
-                            <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                              Qualifications
-                            </h3>
-                            {selectedJob?.qualifications?.length > 0 ? (
+                          {selectedJob?.qualifications?.length > 0 && (
+                            <div>
+                              <h3 className="font-semibold text-lg text-gray-900 mb-2">
+                                Qualifications
+                              </h3>
                               <ul className="list-disc list-inside space-y-1">
                                 {selectedJob.qualifications.map(
                                   (item, index) => (
@@ -361,20 +403,14 @@ const Careers = () => {
                                   )
                                 )}
                               </ul>
-                            ) : (
-                              <p className="text-gray-500 text-sm">
-                                No qualifications listed.
-                              </p>
-                            )}
-                          </div>
+                            </div>
+                          )}
 
-                          
-
-                          <div>
-                            <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                              Responsibilities
-                            </h3>
-                            {selectedJob?.responsibilities?.length > 0 ? (
+                          {selectedJob?.responsibilities?.length > 0 && (
+                            <div>
+                              <h3 className="font-semibold text-lg text-gray-900 mb-2">
+                                Responsibilities
+                              </h3>
                               <ul className="list-disc list-inside space-y-1">
                                 {selectedJob.responsibilities.map(
                                   (item, index) => (
@@ -382,15 +418,10 @@ const Careers = () => {
                                   )
                                 )}
                               </ul>
-                            ) : (
-                              <p className="text-gray-500 text-sm">
-                                No responsibilities listed.
-                              </p>
-                            )}
-                          </div>
+                            </div>
+                          )}
 
-                          
-                            {/* Duration */}
+                          <div className="space-y-4">
                             {selectedJob.duration && (
                               <div>
                                 <span className="font-semibold">
@@ -400,7 +431,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Stipend */}
                             {selectedJob.stipend && (
                               <div>
                                 <span className="font-semibold">Stipend: </span>
@@ -408,7 +438,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Salary range */}
                             {selectedJob.salaryRange && (
                               <div>
                                 <span className="font-semibold">Salary: </span>
@@ -418,7 +447,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Apply by */}
                             {selectedJob.applyBy && (
                               <div>
                                 <span className="font-semibold">
@@ -428,7 +456,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Skills Required */}
                             {selectedJob.skills?.length > 0 && (
                               <div>
                                 <span className="font-semibold block mb-1">
@@ -447,7 +474,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Other Requirements */}
                             {selectedJob.otherRequirements && (
                               <div>
                                 <span className="font-semibold">
@@ -459,7 +485,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Perks */}
                             {selectedJob.perks?.length > 0 && (
                               <div>
                                 <span className="font-semibold block mb-1">
@@ -473,7 +498,6 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {/* Number of openings */}
                             {selectedJob.openings && (
                               <div>
                                 <span className="font-semibold">
@@ -482,8 +506,7 @@ const Careers = () => {
                                 {selectedJob.openings}
                               </div>
                             )}
-                          
-                         
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -495,8 +518,7 @@ const Careers = () => {
         )}
       </AnimatePresence>
 
-      {/* Testimonial */}
-      <motion.section
+      {/* <motion.section
         variants={fadeUpVariant}
         initial="hidden"
         whileInView="visible"
@@ -504,7 +526,7 @@ const Careers = () => {
         className="text-center py-20 bg-gradient-to-b from-white to-gray-50 relative z-10"
       >
         <p className="text-2xl font-semibold text-gray-800 max-w-2xl mx-auto leading-snug">
-          “Untitled truly values work-life balance. We work hard and deliver,
+          “We truly value work-life balance. We work hard and deliver,
           but at the end of the day you can switch off.”
         </p>
         <div className="mt-6">
@@ -516,10 +538,9 @@ const Careers = () => {
           <p className="font-semibold">Frankie Sullivan</p>
           <p className="text-sm text-gray-600">Web Developer, Untitled</p>
         </div>
-      </motion.section>
+      </motion.section> */}
 
-      {/* Footer Links */}
-      <motion.div
+      {/* <motion.div
         variants={fadeUpVariant}
         initial="hidden"
         whileInView="visible"
@@ -537,7 +558,7 @@ const Careers = () => {
         <span>Releases</span>
         <span>•</span>
         <span>Support</span>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 };

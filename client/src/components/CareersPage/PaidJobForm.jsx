@@ -15,7 +15,7 @@ import {
   FaHome,
   FaGlobe
 } from 'react-icons/fa';
-import { usePostpaidjobMutation} from '../../features/careers/applyJobApiSlice';
+import { usePostpaidjobMutation} from '../../features/careers/opportunitySlice';
 
 
 const OpportunityForm = () => {

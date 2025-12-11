@@ -124,7 +124,7 @@ function App() {
           <Route path="contact" element={<ContactUs />} />
           <Route path="careers" element={<Careers />} />
          <Route path="apply-job/:id" element={<ApplyJobForm />} />
-          <Route path="apply-paid" element={<PaidJobForm />} />
+          <Route path="create-job" element={<PaidJobForm />} />
          <Route path="mern-program/apply" element={<MernProgramForm />}/>
          <Route path="mern-program" element={<MernProgram />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetJobByIdQuery } from "../../features/careers/careersSlice";
 import { useApplyJobMutation } from "../../features/careers/applyJobApiSlice";
@@ -24,6 +24,9 @@ const initialFormFactory = () => ({
 const ApplyJobForm = ({ isMernProgram = false }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
+  
+  const {title} = location.state || {};
 
   const {
     data: job,
@@ -32,6 +35,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   } = useGetJobByIdQuery(isMernProgram ? undefined : id, {
     skip: isMernProgram,
   });
+ 
 
   const initialForm = useMemo(() => initialFormFactory(), []);
   const [formData, setFormData] = useState(initialForm);
@@ -153,24 +157,13 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   ];
 
   return (
-<motion.div
-  className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl mt-12 border border-gray-100"
-  initial={{ opacity: 0, y: 40 }}
-  animate={{ opacity: 1, y: 0 }}
->
-  {/* Logo Section 
-  <div className="flex justify-center mb-4">
-    <img
-      src="/static/media/logo.e373ff51a56528f216e6.png"
-      alt="Geneus Solutions"
-      className="h-12 sm:h-14 object-contain"
-    />
-  </div>*/}
-
-  {isMernProgram ? (
-    <div className="mb-5 text-center">
-      <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-gray-900">
-        MERN Full Stack Developer Training + Internship
+    <motion.div
+      className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg mt-12"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        Apply for : {isMernProgram ? "MERN Training + Internship" : title}
       </h2>
 
       <p className="text-gray-600 mt-2 text-[15px] max-w-xl mx-auto">
