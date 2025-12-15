@@ -38,6 +38,8 @@ const OpportunityForm = () => {
     otherRequirements: [""],
     perks: [""],
     numberOfOpening: 1,
+    lastDateToApply: "",
+    startFrom: "",
 
     // Job Details
     jobDetails: {
@@ -45,8 +47,7 @@ const OpportunityForm = () => {
       responsibilities: [""],
       requirements: [""],
       internshipId: "",
-      lastDateToApply: "",
-      startFrom: ""
+      
     },
 
     // Course Details
@@ -55,8 +56,7 @@ const OpportunityForm = () => {
       durationWeeks: "",
       modules: [""],
       internshipId: "",
-      lastDateToApply: "",
-      startFrom: "",
+      
     },
 
     // Internship Details
@@ -68,8 +68,7 @@ const OpportunityForm = () => {
         min: "",
         max: "",
       },
-      lastDateToApply: "",
-      startFrom: ""
+      
     },
   });
 
@@ -190,16 +189,7 @@ const OpportunityForm = () => {
     }
   };
 
-  const handleAboutChange = (index, value) => {
-    if (typeof formData.about === "string") {
-      setFormData((prev) => ({
-        ...prev,
-        about: [value],
-      }));
-    } else {
-      handleArrayChange("about", index, value);
-    }
-  };
+
 
   const prepareFormData = () => {
     const filteredSkills = formData.skills.filter(
@@ -377,29 +367,26 @@ const OpportunityForm = () => {
         otherRequirements: [""],
         perks: [""],
         numberOfOpening: 1,
+        lastDateToApply: "",
+        startFrom:"",
         jobDetails: {
           salary: "",
           responsibilities: [""],
           requirements: [""],
           internshipId: "",
-          lastDateToApply: "",
-           startFrom:"",
+          
         },
         courseDetails: {
           price: "",
           durationWeeks: "",
           modules: [""],
           internshipId: "",
-          lastDateToApply: "",
-          startFrom:"",
         },
         internshipDetails: {
           duration: "",
           stipendType: "unpaid",
           stipendAmount: "",
           stipendRange: { min: "", max: "" },
-          lastDateToApply: "",
-          startFrom:"",
         },
       });
 
@@ -1048,7 +1035,7 @@ const OpportunityForm = () => {
                     <input
                       type="date"
                       name="jobDetails.lastDateToApply"
-                      value={formData.jobDetails.lastDateToApply}
+                      value={formData.lastDateToApply}
                       onChange={handleInputChange}
                       className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
              focus:ring-2 focus:ring-blue-500 focus:border-transparent 
@@ -1065,7 +1052,7 @@ const OpportunityForm = () => {
                     <input
                       type="text"
                       name="jobDetails.startFrom"
-                      value={formData.jobDetails.startFrom}
+                      value={formData.startFrom}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="Start Date"
@@ -1194,7 +1181,7 @@ const OpportunityForm = () => {
                     <input
                       type="date"
                       name="courseDetails.lastDateToApply"
-                      value={formData.courseDetails.lastDateToApply}
+                      value={formData.lastDateToApply}
                       onChange={handleInputChange}
                       className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
              focus:ring-2 focus:ring-blue-500 focus:border-transparent 
@@ -1211,7 +1198,7 @@ const OpportunityForm = () => {
                     <input
                       type="text"
                       name="courseDetails.startFrom"
-                      value={formData.courseDetails.startFrom}
+                      value={formData.startFrom}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="Start Date"
@@ -1260,7 +1247,7 @@ const OpportunityForm = () => {
                       <input
                         type="date"
                         name="internshipDetails.lastDateToApply"
-                        value={formData.internshipDetails.lastDateToApply}
+                        value={formData.lastDateToApply}
                         onChange={handleInputChange}
                         className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
              focus:ring-2 focus:ring-blue-500 focus:border-transparent 
@@ -1277,7 +1264,7 @@ const OpportunityForm = () => {
                     <input
                       type="text"
                       name="internshipDetails.startFrom"
-                      value={formData.internshipDetails.startFrom}
+                      value={formData.startFrom}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="Start Date"
