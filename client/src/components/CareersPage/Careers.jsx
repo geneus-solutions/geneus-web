@@ -26,8 +26,6 @@ const Careers = () => {
     ? jobsData.opportunities
     : [];
 
-   
-
   const [activeCategory, setActiveCategory] = React.useState("All");
   const [showModal, setShowModal] = React.useState(false);
   const [selectedJob, setSelectedJob] = React.useState(null);
@@ -35,7 +33,7 @@ const Careers = () => {
 
   const categories = [
     "All",
-    "Department",
+    "Job",
     "Internship",
     "Marketing",
     "Customer Service",
@@ -45,16 +43,12 @@ const Careers = () => {
   const filteredJobs =
     activeCategory === "All"
       ? jobs
-      : jobs.filter((job) => {
-        if (activeCategory === "Department") return job.type === "job";
-
-        return (
-          job.department === activeCategory ||
-          job.employementType === activeCategory
+      : jobs.filter(
+          (job) =>
+            job.department === activeCategory ||
+            job.type.toLowerCase() === activeCategory.toLowerCase()
         );
-      })
 
- 
   const fadeUpVariant = {
     hidden: { opacity: 0, y: 30 },
     visible: (i = 0) => ({
@@ -224,7 +218,7 @@ const Careers = () => {
             </div>
             <motion.button
               whileHover={{ x: 3 }}
-              className="flex items-center gap-1 text-gray-800 font-medium"
+              className="flex items-center gap-1 text-white font-medium"
               onClick={() => handleApplyClick(job)}
             >
               Apply <ArrowUpRightIcon className="w-4 h-4" />
@@ -233,21 +227,22 @@ const Careers = () => {
         ))}
       </section>
 
+      
       {/* Job Popup Modal */}
       <AnimatePresence>
         {showModal && selectedJob && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-40 flex items-start justify-center overflow-y-auto z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="fixed inset-0 backdrop-blur-[2px] bg-white/30 flex items-start justify-center overflow-y-auto z-50"
+            initial={{ y:50, opacity: 0 }}
+            animate={{ y:0,opacity: 1 }}
+            exit={{ y:50,opacity: 0 }}
             onClick={closeModal}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl mx-auto mt-10 mb-10 p-8 relative"
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 40, opacity: 0 }}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl mx-auto mt-24 mb-10 p-8 relative"
+              initial={{ y: 40, opacity: 0 , scale: 0.98 }}
+              animate={{ y: 0, opacity: 1 , scale: 1}}
+              exit={{ y: 40, opacity: 0, scale: 0.98, transition: { duration: 0.15 }  }}
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -278,9 +273,9 @@ const Careers = () => {
                   <>
                     <button
                       onClick={closeModal}
-                      className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+                      className="absolute top-8 right-4 p-2 text-gray-500 hover:text-gray-800"
                     >
-                      <XMarkIcon className="w-6 h-6" />
+                      <XMarkIcon className="w-6 h-6" style={{ color: "white"}} />
                     </button>
 
                     <div className="w-full flex justify-center">
@@ -301,8 +296,9 @@ const Careers = () => {
                                     navigate(
                                       `/apply-job/${
                                         selectedJob._id || selectedJob.id
-                                      }`,{
-                                        state:{title: selectedJob.title}
+                                      }`,
+                                      {
+                                        state: { title: selectedJob.title },
                                       }
                                     )
                                   }
@@ -313,16 +309,17 @@ const Careers = () => {
                                 <div className="relative">
                                   <button
                                     title="Share Job"
-                                    className="p-2 rounded-full border border-gray-300 hover:bg-gray-100"
+                                    className="p-2 rounded-full border border-gray-300"
                                     onClick={() =>
                                       setShareMenu((prev) => !prev)
                                     }
                                   >
-                                    <ShareIcon className="w-5 h-5 text-gray-600" />
+                                    <ShareIcon className="w-5 h-5 text-gray-600" style={{ color: 'white'}}/>
                                   </button>
 
                                   {shareMenu && (
-                                    <div className="absolute right-0 mt-2 bg-white border rounded-lg shadow-lg w-48 p-2 z-50">
+                                    <div style={{ backgroundColor: 'white'}} 
+                                    className="absolute right-0 mt-2 border rounded-lg shadow-lg w-48 p-2 z-50">
                                       <button
                                         className="w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 rounded"
                                         onClick={handleWhatsAppShare}
@@ -333,7 +330,7 @@ const Careers = () => {
                                           className="w-5 h-5"
                                         />
                                         <span>Share on WhatsApp</span>
-                                      </button>
+                                      </button><br/>
 
                                       <button
                                         className="w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 rounded"
@@ -353,8 +350,8 @@ const Careers = () => {
                             </div>
 
                             <p className="text-gray-600 mb-4">
-                              {selectedJob.desc ||
-                                selectedJob.description ||
+                              {selectedJob.description ||
+                                selectedJob.desc ||
                                 "No description available"}
                             </p>
 
@@ -366,10 +363,17 @@ const Careers = () => {
                                 </span>
                               )}
 
-                              {selectedJob.employmentType && (
+                              {selectedJob.locationType && (
+                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
+                                  <MapPinIcon className="w-4 h-4" />
+                                  {selectedJob.locationType}
+                                </span>
+                              )}
+
+                              {selectedJob.employementType && (
                                 <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
                                   <ClockIcon className="w-4 h-4" />
-                                  {selectedJob.employmentType}
+                                  {selectedJob.employementType}
                                 </span>
                               )}
 
@@ -378,94 +382,74 @@ const Careers = () => {
                                   {selectedJob.department}
                                 </span>
                               )}
+
+                              {selectedJob.type && (
+                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
+                                  {selectedJob.type}
+                                </span>
+                              )}
+
+                              {selectedJob.visibility && (
+                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
+                                  {selectedJob.visibility === "public"
+                                    ? "Public"
+                                    : "Private"}
+                                </span>
+                              )}
                             </div>
                           </div>
 
-                          {/* Job Details Sections */}
+                          {/* About Section */}
                           {selectedJob.about && (
                             <div className="text-gray-700 leading-relaxed">
-                              <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                                About this role
+                              <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                About this opportunity
                               </h3>
-                              <p>{selectedJob.about}</p>
+                              {Array.isArray(selectedJob.about) ? (
+                                <ul className="list-disc list-inside space-y-2">
+                                  {selectedJob.about.map((item, index) => (
+                                    <li key={index} className="text-gray-700">
+                                      {item}
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p>{selectedJob.about}</p>
+                              )}
                             </div>
                           )}
 
-                          {selectedJob?.qualifications?.length > 0 && (
-                            <div>
-                              <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                                Qualifications
-                              </h3>
-                              <ul className="list-disc list-inside space-y-1">
-                                {selectedJob.qualifications.map(
-                                  (item, index) => (
-                                    <li key={index}>{item}</li>
-                                  )
-                                )}
-                              </ul>
-                            </div>
-                          )}
-
-                          {selectedJob?.responsibilities?.length > 0 && (
-                            <div>
-                              <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                                Responsibilities
-                              </h3>
-                              <ul className="list-disc list-inside space-y-1">
-                                {selectedJob.responsibilities.map(
-                                  (item, index) => (
-                                    <li key={index}>{item}</li>
-                                  )
-                                )}
-                              </ul>
-                            </div>
-                          )}
-
-                          <div className="space-y-4">
-                            {selectedJob.duration && (
+                          {/* Who Can Apply Section */}
+                          {selectedJob.whoCanApply &&
+                            selectedJob.whoCanApply.length > 0 && (
                               <div>
-                                <span className="font-semibold">
-                                  Duration:{" "}
-                                </span>
-                                {selectedJob.duration}
+                                <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                  Who Can Apply
+                                </h3>
+                                <ul className="list-disc list-inside space-y-2">
+                                  {selectedJob.whoCanApply.map(
+                                    (item, index) => (
+                                      <li key={index} className="text-gray-700">
+                                        {item}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
                               </div>
                             )}
 
-                            {selectedJob.stipend && (
+                          {/* Skills Section */}
+                          {selectedJob.skills &&
+                            selectedJob.skills.length > 0 && (
                               <div>
-                                <span className="font-semibold">Stipend: </span>
-                                {selectedJob.stipend}
-                              </div>
-                            )}
-
-                            {selectedJob.salaryRange && (
-                              <div>
-                                <span className="font-semibold">Salary: </span>
-                                {selectedJob.salaryRange.min} -{" "}
-                                {selectedJob.salaryRange.max}{" "}
-                                {selectedJob.salaryRange.currency}
-                              </div>
-                            )}
-
-                            {selectedJob.applyBy && (
-                              <div>
-                                <span className="font-semibold">
-                                  Apply By:{" "}
-                                </span>
-                                {selectedJob.applyBy}
-                              </div>
-                            )}
-
-                            {selectedJob.skills?.length > 0 && (
-                              <div>
-                                <span className="font-semibold block mb-1">
-                                  Skills Required:
-                                </span>
+                                <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                  Required Skills
+                                </h3>
                                 <div className="flex flex-wrap gap-2">
                                   {selectedJob.skills.map((skill, index) => (
                                     <span
                                       key={index}
-                                      className="px-3 py-1 bg-white border border-black rounded-full text-sm"
+                                      className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium"
                                     >
                                       {skill}
                                     </span>
@@ -474,39 +458,229 @@ const Careers = () => {
                               </div>
                             )}
 
-                            {selectedJob.otherRequirements && (
+                          {/* Other Requirements Section */}
+                          {selectedJob.otherRequirements &&
+                            selectedJob.otherRequirements.length > 0 && (
                               <div>
-                                <span className="font-semibold">
-                                  Other Requirements:{" "}
-                                </span>
-                                <p className="text-gray-700">
-                                  {selectedJob.otherRequirements}
-                                </p>
+                                <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                  Other Requirements
+                                </h3>
+                                <ul className="list-disc list-inside space-y-2">
+                                  {selectedJob.otherRequirements.map(
+                                    (item, index) => (
+                                      <li key={index} className="text-gray-700">
+                                        {item}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
                               </div>
                             )}
 
-                            {selectedJob.perks?.length > 0 && (
+                          {/* Perks Section */}
+                          {selectedJob.perks &&
+                            selectedJob.perks.length > 0 && (
                               <div>
-                                <span className="font-semibold block mb-1">
-                                  Perks:
-                                </span>
-                                <ul className="list-disc list-inside space-y-1">
+                                <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                  Perks
+                                </h3>
+                                <ul className="list-disc list-inside space-y-2">
                                   {selectedJob.perks.map((perk, index) => (
-                                    <li key={index}>{perk}</li>
+                                    <li key={index} className="text-gray-700">
+                                      {perk}
+                                    </li>
                                   ))}
                                 </ul>
                               </div>
                             )}
 
-                            {selectedJob.openings && (
-                              <div>
-                                <span className="font-semibold">
-                                  Number of openings:{" "}
-                                </span>
-                                {selectedJob.openings}
+                          {/* Job/Internship Specific Details */}
+                          {selectedJob.type === "job" &&
+                            selectedJob.jobDetails && (
+                              <div className="space-y-6">
+                                <div>
+                                  <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                    Job Details
+                                  </h3>
+
+                                  {selectedJob.jobDetails.salary && (
+                                    <div className="mb-3">
+                                      <span className="font-semibold">
+                                        Salary:{" "}
+                                      </span>
+                                      ₹
+                                      {selectedJob.jobDetails.salary.toLocaleString()}
+                                    </div>
+                                  )}
+
+                                  {selectedJob.jobDetails.responsibilities &&
+                                    selectedJob.jobDetails.responsibilities
+                                      .length > 0 && (
+                                      <div>
+                                        <h4 className="font-medium text-gray-800 mb-2">
+                                          Responsibilities:
+                                        </h4>
+                                        <ul className="list-disc list-inside space-y-1">
+                                          {selectedJob.jobDetails.responsibilities.map(
+                                            (resp, index) => (
+                                              <li
+                                                key={index}
+                                                className="text-gray-700"
+                                              >
+                                                {resp}
+                                              </li>
+                                            )
+                                          )}
+                                        </ul>
+                                      </div>
+                                    )}
+
+                                  {selectedJob.jobDetails.requirements &&
+                                    selectedJob.jobDetails.requirements.length >
+                                      0 && (
+                                      <div className="mt-4">
+                                        <h4 className="font-medium text-gray-800 mb-2">
+                                          Requirements:
+                                        </h4>
+                                        <ul className="list-disc list-inside space-y-1">
+                                          {selectedJob.jobDetails.requirements.map(
+                                            (req, index) => (
+                                              <li
+                                                key={index}
+                                                className="text-gray-700"
+                                              >
+                                                {req}
+                                              </li>
+                                            )
+                                          )}
+                                        </ul>
+                                      </div>
+                                    )}
+                                </div>
                               </div>
                             )}
-                          </div>
+
+                          {selectedJob.type === "internship" &&
+                            selectedJob.internshipDetails && (
+                              <div className="space-y-4">
+                                <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                  Internship Details
+                                </h3>
+
+                                {selectedJob.internshipDetails.duration && (
+                                  <div>
+                                    <span className="font-semibold">
+                                      Duration:{" "}
+                                    </span>
+                                    {selectedJob.internshipDetails.duration}
+                                  </div>
+                                )}
+
+                                {selectedJob.internshipDetails.stipendType &&
+                                  selectedJob.internshipDetails.stipendType !==
+                                    "unpaid" && (
+                                    <div>
+                                      <span className="font-semibold">
+                                        Stipend:{" "}
+                                      </span>
+                                      {selectedJob.internshipDetails
+                                        .stipendType === "fixed"
+                                        ? `₹${selectedJob.internshipDetails.stipendAmount?.toLocaleString()}/month`
+                                        : selectedJob.internshipDetails
+                                            .stipendType === "range"
+                                        ? `₹${selectedJob.internshipDetails.stipendRange?.min?.toLocaleString()} - ₹${selectedJob.internshipDetails.stipendRange?.max?.toLocaleString()}/month`
+                                        : "Unpaid"}
+                                    </div>
+                                  )}
+
+                                {selectedJob.internshipDetails
+                                  .lastDateToApply && (
+                                  <div>
+                                    <span className="font-semibold">
+                                      Last Date to Apply:{" "}
+                                    </span>
+                                    {new Date(
+                                      selectedJob.internshipDetails.lastDateToApply
+                                    ).toLocaleDateString()}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
+                          {selectedJob.type === "course" &&
+                            selectedJob.courseDetails && (
+                              <div className="space-y-4">
+                                <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                                  Course Details
+                                </h3>
+
+                                {selectedJob.courseDetails.price && (
+                                  <div>
+                                    <span className="font-semibold">
+                                      Price:{" "}
+                                    </span>
+                                    ₹
+                                    {selectedJob.courseDetails.price.toLocaleString()}
+                                  </div>
+                                )}
+
+                                {selectedJob.courseDetails.durationWeeks && (
+                                  <div>
+                                    <span className="font-semibold">
+                                      Duration:{" "}
+                                    </span>
+                                    {selectedJob.courseDetails.durationWeeks}{" "}
+                                    weeks
+                                  </div>
+                                )}
+
+                                {selectedJob.courseDetails.modules &&
+                                  selectedJob.courseDetails.modules.length >
+                                    0 && (
+                                    <div>
+                                      <h4 className="font-medium text-gray-800 mb-2">
+                                        Course Modules:
+                                      </h4>
+                                      <ul className="list-disc list-inside space-y-1">
+                                        {selectedJob.courseDetails.modules.map(
+                                          (module, index) => (
+                                            <li
+                                              key={index}
+                                              className="text-gray-700"
+                                            >
+                                              {module}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )}
+                              </div>
+                            )}
+
+                          {/* Number of Openings */}
+                          {selectedJob.numberOfOpening && (
+                            <div className="pt-4 border-t border-gray-200">
+                              <span className="font-semibold">
+                                Number of Openings:{" "}
+                              </span>
+                              {selectedJob.numberOfOpening}
+                            </div>
+                          )}
+
+                          {/* Posted Date */}
+                          {selectedJob.createdAt && (
+                            <div className="text-sm text-gray-500 pt-4 border-t border-gray-200">
+                              <span className="font-semibold">Posted on: </span>
+                              {new Date(
+                                selectedJob.createdAt
+                              ).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
