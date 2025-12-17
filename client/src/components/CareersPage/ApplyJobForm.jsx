@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useGetJobByIdQuery } from "../../features/careers/careersSlice";
 import { useApplyJobMutation } from "../../features/careers/applyJobApiSlice";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
@@ -24,16 +23,26 @@ const initialFormFactory = () => ({
 const ApplyJobForm = ({ isMernProgram = false }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const location = useLocation() || {}; 
-  const {title} = location.state || {};
  
-  const {
-    data: job,
-    isLoading,
-    isError,
-  } = useGetJobByIdQuery(isMernProgram ? undefined : id, {
-    skip: isMernProgram,
-  });
+  const location = useLocation() || {};
+  const { title, type } = location.state || {};
+
+  let noteMessage = "Our team will reach out to you within 2–5 working days.";
+
+  if (type) {
+    const selectedType = type.toLowerCase().trim();
+
+    if (selectedType === "course") {
+      noteMessage =
+        "After registration, our team will reach out to you within 2–5 working days for the enrollment and payment process.";
+    } else if (selectedType === "job") {
+      noteMessage =
+        "Our team will reach out to you within 2–5 business days.";
+    } else if (selectedType === "internship") {
+      noteMessage =
+        "Our team will reach out to you within 2–5 business days.";
+    }
+  }
 
   const initialForm = useMemo(() => initialFormFactory(), []);
   const [formData, setFormData] = useState(initialForm);
@@ -42,7 +51,8 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [applyJob] = useApplyJobMutation();
+  const [applyJob, {error: applyJobError}] = useApplyJobMutation();
+  console.log("Apply job error",applyJobError);
   const validate = useCallback((data) => {
     const errs = {};
     if (!data.name.trim()) errs.name = "Please enter your full name";
@@ -102,7 +112,10 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
 
       try {
         setLoading(true);
-        const response = await applyJob(payload).unwrap();
+        const response = await applyJob({
+          data: payload, opportunityId: id
+        }).unwrap();
+        console.log("Apply job response:", response);
         if (response?.success) {
           setSuccess(true);
           setFormData(initialFormFactory());
@@ -121,29 +134,6 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
     [applyJob, formData, id, isMernProgram, validate]
   );
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-[50vh]">
-        <p className="text-lg font-medium">Fetching job details...</p>
-      </div>
-    );
-  }
-
-  if (!isMernProgram && (isError || !job)) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring" }}
-          className="text-7xl font-extrabold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg"
-        >
-          404
-        </motion.h1>
-        <p className="text-gray-600 mt-3">Job Not Found</p>
-      </div>
-    );
-  }
 
   const inputs = [
     { name: "name", label: "Full Name" },
@@ -320,9 +310,8 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
 
       {/* Informational note (visible before submission) */}
       <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-4 text-sm text-gray-700">
-        <strong>Note:</strong> After you submit the registration form, our team
-        will contact you within <b>2–5 working days</b> for the{" "}
-        <b>payment & enrollment process</b> and guide you with the next steps.
+        <strong>Note:</strong>
+        {noteMessage}
       </div>
 
       {/* Success Message */}
