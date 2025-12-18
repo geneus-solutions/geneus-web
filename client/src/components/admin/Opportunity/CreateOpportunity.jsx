@@ -16,6 +16,7 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 import { usePostpaidjobMutation } from "../../../features/careers/opportunitySlice";
+import InternshipDropdown from "./Internshipdropdown";
 
 const OpportunityForm = () => {
   const [postPaidJob, { isLoading, isError, isSuccess, error }] =
@@ -1158,22 +1159,17 @@ const OpportunityForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Internship ID
-                  </label>
                   <div className="relative">
-                    <input
-                      type="text"
-                      name="courseDetails.internshipId"
-                      value={formData.courseDetails.internshipId}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                     <InternshipDropdown
+                  name="courseDetails.internshipId"
+                  value={formData.courseDetails.internshipId}
+                  onChange={handleInputChange}
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="Internship ID"
-                    />
+                  disabled={isLoading}
+                />
                   </div>
                 </div>
-
-              
               </div>
             )}
 

@@ -31,7 +31,6 @@ const Careers = () => {
   const [selectedJob, setSelectedJob] = React.useState(null);
   const [shareMenu, setShareMenu] = useState(false);
 
-
   const categories = [
     "All",
     "Job",
@@ -228,22 +227,26 @@ const Careers = () => {
         ))}
       </section>
 
-      
       {/* Job Popup Modal */}
       <AnimatePresence>
         {showModal && selectedJob && (
           <motion.div
             className="fixed inset-0 backdrop-blur-[2px] bg-white/30 flex items-start justify-center overflow-y-auto z-50"
-            initial={{ y:50, opacity: 0 }}
-            animate={{ y:0,opacity: 1 }}
-            exit={{ y:50,opacity: 0 }}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
             onClick={closeModal}
           >
             <motion.div
               className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl mx-auto mt-24 mb-10 p-8 relative"
-              initial={{ y: 40, opacity: 0 , scale: 0.98 }}
-              animate={{ y: 0, opacity: 1 , scale: 1}}
-              exit={{ y: 40, opacity: 0, scale: 0.98, transition: { duration: 0.15 }  }}
+              initial={{ y: 40, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{
+                y: 40,
+                opacity: 0,
+                scale: 0.98,
+                transition: { duration: 0.15 },
+              }}
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -276,7 +279,10 @@ const Careers = () => {
                       onClick={closeModal}
                       className="absolute top-8 right-4 p-2 text-gray-500 hover:text-gray-800"
                     >
-                      <XMarkIcon className="w-6 h-6" style={{ color: "white"}} />
+                      <XMarkIcon
+                        className="w-6 h-6"
+                        style={{ color: "white" }}
+                      />
                     </button>
 
                     <div className="w-full flex justify-center">
@@ -299,8 +305,10 @@ const Careers = () => {
                                         selectedJob._id || selectedJob.id
                                       }`,
                                       {
-                                        state: { title: selectedJob.title, type: selectedJob.type},
-                                        
+                                        state: {
+                                          title: selectedJob.title,
+                                          type: selectedJob.type,
+                                        },
                                       }
                                     )
                                   }
@@ -316,12 +324,17 @@ const Careers = () => {
                                       setShareMenu((prev) => !prev)
                                     }
                                   >
-                                    <ShareIcon className="w-5 h-5 text-gray-600" style={{ color: 'white'}}/>
+                                    <ShareIcon
+                                      className="w-5 h-5 text-gray-600"
+                                      style={{ color: "white" }}
+                                    />
                                   </button>
 
                                   {shareMenu && (
-                                    <div style={{ backgroundColor: 'white'}} 
-                                    className="absolute right-0 mt-2 border rounded-lg shadow-lg w-48 p-2 z-50">
+                                    <div
+                                      style={{ backgroundColor: "white" }}
+                                      className="absolute right-0 mt-2 border rounded-lg shadow-lg w-48 p-2 z-50"
+                                    >
                                       <button
                                         className="w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 rounded"
                                         onClick={handleWhatsAppShare}
@@ -332,7 +345,8 @@ const Careers = () => {
                                           className="w-5 h-5"
                                         />
                                         <span>Share on WhatsApp</span>
-                                      </button><br/>
+                                      </button>
+                                      <br />
 
                                       <button
                                         className="w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 rounded"
@@ -379,23 +393,9 @@ const Careers = () => {
                                 </span>
                               )}
 
-                              {selectedJob.department && (
-                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
-                                  {selectedJob.department}
-                                </span>
-                              )}
-
                               {selectedJob.type && (
                                 <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
                                   {selectedJob.type}
-                                </span>
-                              )}
-
-                              {selectedJob.visibility && (
-                                <span className="flex items-center gap-1 border border-black rounded-full px-3 py-1">
-                                  {selectedJob.visibility === "public"
-                                    ? "Public"
-                                    : "Private"}
                                 </span>
                               )}
                             </div>
@@ -657,6 +657,16 @@ const Careers = () => {
                                       </ul>
                                     </div>
                                   )}
+                                {selectedJob.courseDetails.internshipId && (
+                                  <div className="mt-4">
+                                    <h4 className="font-medium text-gray-800 mb-2">
+                                      Internship ID:
+                                    </h4>
+                                    <p className="text-gray-700">
+                                      {selectedJob.courseDetails.internshipId}
+                                    </p>
+                                  </div>
+                                )}
                               </div>
                             )}
 
