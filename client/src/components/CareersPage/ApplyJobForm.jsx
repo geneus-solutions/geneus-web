@@ -31,17 +31,13 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
 
   if (type) {
     const selectedType = type.toLowerCase().trim();
-
     if (selectedType === "course") {
       noteMessage =
         "After registration, our team will reach out to you within 2–5 working days for the enrollment and payment process.";
-    } else if (selectedType === "job") {
+    } else  {
       noteMessage =
         "Our team will reach out to you within 2–5 business days.";
-    } else if (selectedType === "internship") {
-      noteMessage =
-        "Our team will reach out to you within 2–5 business days.";
-    }
+    } 
   }
 
   const initialForm = useMemo(() => initialFormFactory(), []);
