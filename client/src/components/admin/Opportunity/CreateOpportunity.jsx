@@ -15,7 +15,7 @@ import {
   FaHome,
   FaGlobe,
 } from "react-icons/fa";
-import { usePostpaidjobMutation } from "../../features/careers/opportunitySlice";
+import { usePostpaidjobMutation } from "../../../features/careers/opportunitySlice";
 
 const OpportunityForm = () => {
   const [postPaidJob, { isLoading, isError, isSuccess, error }] =
@@ -903,6 +903,41 @@ const OpportunityForm = () => {
                   />
                 </div>
               </div>
+
+               <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Last Date to Apply
+                  </label>
+                  <div className="relative">
+                    <FaCalendarAlt className="absolute right-3 top-3 w-4 h-4 text-gray-400 z-10" />
+
+                    <input
+                      type="date"
+                      name="lastDateToApply"
+                      value={formData.lastDateToApply}
+                      onChange={handleInputChange}
+                      className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
+             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+             text-gray-700"
+                    />
+                  </div>
+                </div>
+
+                  <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Start Date
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="startFrom"
+                      value={formData.startFrom}
+                      onChange={handleInputChange}
+                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      placeholder="Start Date"
+                    />
+                  </div>
+                </div>
             </div>
 
             {formData.type === "job" && (
@@ -1025,40 +1060,7 @@ const OpportunityForm = () => {
                   </button>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Date to Apply
-                  </label>
-                  <div className="relative">
-                    <FaCalendarAlt className="absolute right-3 top-3 w-4 h-4 text-gray-400 z-10" />
-
-                    <input
-                      type="date"
-                      name="jobDetails.lastDateToApply"
-                      value={formData.lastDateToApply}
-                      onChange={handleInputChange}
-                      className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
-             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-             text-gray-700"
-                    />
-                  </div>
-                </div>
-
-                  <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Start Date
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="jobDetails.startFrom"
-                      value={formData.startFrom}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="Start Date"
-                    />
-                  </div>
-                </div>
+               
               </div>
             )}
 
@@ -1171,40 +1173,7 @@ const OpportunityForm = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Date to Apply
-                  </label>
-                  <div className="relative">
-                    <FaCalendarAlt className="absolute right-3 top-3 w-4 h-4 text-gray-400 z-10" />
-
-                    <input
-                      type="date"
-                      name="courseDetails.lastDateToApply"
-                      value={formData.lastDateToApply}
-                      onChange={handleInputChange}
-                      className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
-             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-             text-gray-700"
-                    />
-                  </div>
-                </div>
-
-                  <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Start Date
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="courseDetails.startFrom"
-                      value={formData.startFrom}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="Start Date"
-                    />
-                  </div>
-                </div>
+              
               </div>
             )}
 
@@ -1236,41 +1205,6 @@ const OpportunityForm = () => {
                       />
                     </div>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Date to Apply
-                    </label>
-                    <div className="relative">
-                      <FaCalendarAlt className="absolute right-3 top-3 w-4 h-4 text-gray-400 z-10" />
-
-                      <input
-                        type="date"
-                        name="internshipDetails.lastDateToApply"
-                        value={formData.lastDateToApply}
-                        onChange={handleInputChange}
-                        className="w-full pl-16 pr-4 py-2.5 border border-gray-300 rounded-lg 
-             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-             text-gray-700"
-                      />
-                    </div>
-                  </div>
-
-                   <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Start Date
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="internshipDetails.startFrom"
-                      value={formData.startFrom}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="Start Date"
-                    />
-                  </div>
-                </div>
                 </div>
 
                 <div>

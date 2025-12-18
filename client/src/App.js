@@ -53,7 +53,7 @@ import SubscribeToNutriApp from "./Pages/SubscribeToNutriApp";
 import StockTable from "./Pages/Finance_Portfolio/FinancePortfolio";
 import StockData from "./Pages/Finance_Portfolio/StockData";
 import ApplyJobForm from "./components/CareersPage/ApplyJobForm";
-import PaidJobForm from "./components/CareersPage/PaidJobForm";
+import CreateOpportunityPage from "./Pages/adminPages/Opportunity/CreateOpportunitypage";
 import QuizPage from "./Pages/quiz-page";
 import AddQuizPage from "./Pages/adminPages/AddQuiz/AddQuizPage";
 import MernProgramForm from './components/CareersPage/MernProgramForm';
@@ -124,7 +124,7 @@ function App() {
           <Route path="contact" element={<ContactUs />} />
           <Route path="careers" element={<Careers />} />
          <Route path="apply-job/:id" element={<ApplyJobForm />} />
-          <Route path="create-job" element={<PaidJobForm />} />
+          <Route path="create-job" element={<CreateOpportunityPage/>} />
          <Route path="mern-program/apply" element={<MernProgramForm />}/>
          <Route path="mern-program" element={<MernProgram />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

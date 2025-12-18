@@ -31,6 +31,7 @@ const Careers = () => {
   const [selectedJob, setSelectedJob] = React.useState(null);
   const [shareMenu, setShareMenu] = useState(false);
 
+
   const categories = [
     "All",
     "Job",
@@ -298,7 +299,8 @@ const Careers = () => {
                                         selectedJob._id || selectedJob.id
                                       }`,
                                       {
-                                        state: { title: selectedJob.title },
+                                        state: { title: selectedJob.title, type: selectedJob.type},
+                                        
                                       }
                                     )
                                   }
