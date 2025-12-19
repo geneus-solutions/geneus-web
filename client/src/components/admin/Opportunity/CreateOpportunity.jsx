@@ -241,7 +241,7 @@ const OpportunityForm = () => {
     if (formData.type === "job") {
       submissionData.jobDetails = {
         salary: formData.jobDetails.salary
-          ? Number(formData.jobDetails.salary)
+          ? formData.jobDetails.salary
           : undefined,
         responsibilities: filteredResponsibilities,
         requirements: filteredRequirements,
@@ -958,8 +958,8 @@ const OpportunityForm = () => {
                   </label>
                   <div className="relative">
                     <FaRupeeSign className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                    <input
-                      type="number"
+                    <input 
+                      type="text"
                       name="jobDetails.salary"
                       value={formData.jobDetails.salary}
                       onChange={handleInputChange}

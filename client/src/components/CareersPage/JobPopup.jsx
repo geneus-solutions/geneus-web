@@ -366,10 +366,10 @@ const JobPopup = ({
                                     </span>
                                     {selectedJob.internshipDetails
                                       .stipendType === "fixed"
-                                      ? `₹${selectedJob.internshipDetails.stipendAmount?.toLocaleString()}/month`
+                                      ? `₹${selectedJob.internshipDetails.stipendAmount?.toLocaleString()}`
                                       : selectedJob.internshipDetails
                                           .stipendType === "range"
-                                      ? `₹${selectedJob.internshipDetails.stipendRange?.min?.toLocaleString()} - ₹${selectedJob.internshipDetails.stipendRange?.max?.toLocaleString()}/month`
+                                      ? `₹${selectedJob.internshipDetails.stipendRange?.min?.toLocaleString()} - ₹${selectedJob.internshipDetails.stipendRange?.max?.toLocaleString()}`
                                       : "Unpaid"}
                                   </div>
                                 )}
@@ -499,12 +499,12 @@ const JobPopup = ({
                                             {selectedJob.courseDetails
                                               .internshipId.internshipDetails
                                               .stipendType === "fixed"
-                                              ? `₹${selectedJob.courseDetails.internshipId.internshipDetails.stipendAmount?.toLocaleString()}/month`
+                                              ? `₹${selectedJob.courseDetails.internshipId.internshipDetails.stipendAmount?.toLocaleString()}`
                                               : selectedJob.courseDetails
                                                   .internshipId
                                                   .internshipDetails
                                                   .stipendType === "range"
-                                              ? `₹${selectedJob.courseDetails.internshipId.internshipDetails.stipendRange?.min?.toLocaleString()} - ₹${selectedJob.courseDetails.internshipId.internshipDetails.stipendRange?.max?.toLocaleString()}/month`
+                                              ? `₹${selectedJob.courseDetails.internshipId.internshipDetails.stipendRange?.min?.toLocaleString()} - ₹${selectedJob.courseDetails.internshipId.internshipDetails.stipendRange?.max?.toLocaleString()}`
                                               : "Unpaid"}
                                           </span>
                                         </div>

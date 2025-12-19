@@ -190,7 +190,7 @@ const Careers = () => {
               <h3 className="text-lg font-semibold mb-1 text-gray-900">
                 {job.title || "Untitled Position"}
               </h3>
-              <p className="text-gray-600 mb-3">
+              <p className="text-gray-600 mb-3 mr-5 text-md">
                 {job.desc || job.description || "No description available"}
               </p>
               <div className="flex gap-3 text-sm text-gray-700">
