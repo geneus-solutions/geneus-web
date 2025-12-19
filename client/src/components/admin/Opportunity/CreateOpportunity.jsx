@@ -269,14 +269,14 @@ const OpportunityForm = () => {
         duration: formData.internshipDetails.duration || undefined,
         stipendType: formData.internshipDetails.stipendType,
         stipendAmount: formData.internshipDetails.stipendAmount
-          ? Number(formData.internshipDetails.stipendAmount)
+          ? formData.internshipDetails.stipendAmount
           : undefined,
         stipendRange:
           formData.internshipDetails.stipendRange.min &&
           formData.internshipDetails.stipendRange.max
             ? {
-                min: Number(formData.internshipDetails.stipendRange.min),
-                max: Number(formData.internshipDetails.stipendRange.max),
+                min: formData.internshipDetails.stipendRange.min,
+                max: formData.internshipDetails.stipendRange.max,
               }
             : undefined,
         lastDateToApply:
@@ -1244,7 +1244,7 @@ const OpportunityForm = () => {
                     <div className="relative">
                       <FaRupeeSign className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                       <input
-                        type="number"
+                        type="text"
                         name="internshipDetails.stipendAmount"
                         value={formData.internshipDetails.stipendAmount}
                         onChange={handleInputChange}
@@ -1264,7 +1264,7 @@ const OpportunityForm = () => {
                       <div className="relative">
                         <FaRupeeSign className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                         <input
-                          type="number"
+                          type="text"
                           value={formData.internshipDetails.stipendRange.min}
                           onChange={(e) =>
                             handleNestedInputChange(
@@ -1287,7 +1287,7 @@ const OpportunityForm = () => {
                       <div className="relative">
                         <FaRupeeSign className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                         <input
-                          type="number"
+                          type="text"
                           value={formData.internshipDetails.stipendRange.max}
                           onChange={(e) =>
                             handleNestedInputChange(
