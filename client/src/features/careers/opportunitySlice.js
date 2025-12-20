@@ -11,16 +11,20 @@ const paidjobApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Opportunities"],
     }),
 
-   
    getopportunities: builder.query({
       query: () => ({
         url: '/getOpportunity?visibility=public', 
       }),
       providesTags: ['Opportunities'],
     }),
-  }),
 
+    getprivateopportunities: builder.query({
+    query: () => ({
+      url: '/getOpportunity?visibility=private'
+    }),
+    providesTags: ['Opportunities'],
+  })
+  }),
 });
 
-
-export const { usePostpaidjobMutation, useGetopportunitiesQuery } = paidjobApiSlice;
+export const { usePostpaidjobMutation, useGetopportunitiesQuery, useGetprivateopportunitiesQuery } = paidjobApiSlice;
