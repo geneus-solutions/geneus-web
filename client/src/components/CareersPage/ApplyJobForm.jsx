@@ -40,6 +40,8 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
     } 
   }
 
+  const isInternship = type?.toLowerCase().includes("internship");
+
   const initialForm = useMemo(() => initialFormFactory(), []);
   const [formData, setFormData] = useState(initialForm);
   const [fieldErrors, setFieldErrors] = useState({});
@@ -58,7 +60,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       errs.phone = "Enter a valid phone number";
     if (!data.degreeBranch.trim()) errs.degreeBranch = "Required";
     if (!data.college.trim()) errs.college = "Required";
-    if (!data.currentSemester.trim()) errs.currentSemester = "Required";
+    if (isInternship && !data.currentSemester.trim()) errs.currentSemester = "Required";
 
     if (!data.resume) {
       errs.resume = "Upload your resume";
@@ -140,7 +142,9 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       label: "Degree / Branch (e.g., BE/B.Tech / BCA / MCA / BSc)",
     },
     { name: "college", label: "College / University" },
-    { name: "currentSemester", label: "Graduation Year", type: "select" },
+    ...(isInternship ? [
+    { name: "currentSemester", label: "Graduation Year", type: "select" }
+  ] : [])
   ];
 
   return (
