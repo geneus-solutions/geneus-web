@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import "./DigitalLearning.css";
+import SocialProofCarousel from "./SocialProofCarousel"
 import hero1 from "../../assets/homeimage.png";
 import hero2 from "../../assets/NutriImage.png";
 import { useNavigate } from "react-router-dom";
@@ -99,6 +100,7 @@ const DigitalLearning = () => {
           </div>
         ))}
       </Slider>
+      <SocialProofCarousel/>
     </div>
   );
 };
