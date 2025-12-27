@@ -27,13 +27,13 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
   const location = useLocation() || {};
   const { title, type } = location.state || {};
 
-  let noteMessage = "Our team will reach out to you within 2–5 working days.";
+  let noteMessage = "We will contact shortlisted interested candidates if a batch is planned..";
 
   if (type) {
     const selectedType = type.toLowerCase().trim();
     if (selectedType === "course") {
       noteMessage =
-        "After registration, our team will reach out to you within 2–5 working days for the enrollment and payment process.";
+        "After registration, our team will contact shortlisted interested candidates if a batch is planned.";
     } else  {
       noteMessage =
         "Our team will reach out to you within 2–5 business days.";
@@ -165,13 +165,11 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
       {isMernProgram ? (
         <div className="mb-5 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-gray-900">
-            MERN Full Stack Developer Training + Internship
+            MERN Full Stack Developer Training +  Project-Based Internship
           </h2>
 
           <p className="text-gray-600 mt-2 text-[15px] max-w-xl mx-auto">
-            A practical, beginner-friendly MERN program with real projects,
-            mentor support, and a 3-month internship letter. Ideal for freshers,
-            students & job-seekers.
+           A practical, beginner-friendly MERN program with real-world projects, mentor guidance, and up to 3 months of guided internship exposure. Ideal for students and freshers looking to build hands-on development skills
           </p>
 
           {/* Fees + Duration */}
@@ -188,15 +186,13 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
             </p>
 
             <div className="pt-1">
-              <p className="text-gray-900 font-semibold">
-                Training Fee:{" "}
-                <span className="line-through text-red-500">₹7,000</span>
-              </p>
+            
               <p className="text-green-700 font-bold text-lg">
-                You Pay Only: ₹3,000
+                Program Fee: ₹3,000
               </p>
               <p className="text-xs text-green-600 font-medium">
-                (Limited-Time Student Offer)
+                (Applicable only if a batch is formed.
+No payment required at the registration/interest stage.)
               </p>
             </div>
           </div>
@@ -226,13 +222,14 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
               <li>✔ Build a Real Industry-Level Project</li>
               <li>✔ Learn Directly from Industry Developers & Mentors</li>
               <li>✔ Course Completion Certificate</li>
-              <li>✔ 3-Month Internship Letter + Weekly Evaluations</li>
+              <li>✔ Up to 3 months of guided project exposure (performance-based)</li>
               <li>✔ 100% Practical Training, Beginner Friendly</li>
-              <li>✔ Mock Interviews with Detailed Feedback</li>
+              <li>✔ Guided project-based internship exposure</li>
+              <li>✔ Interview preparation guidance (no placement guarantee)</li>
             </ul>
           </div>
 
-          <div className="mt-3">
+         {/* <div className="mt-3">
             <a
               href="https://www.geneussolutions.in/course/68f9afe3e867ddc118adcfe6"
               target="_blank"
@@ -245,9 +242,9 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
               (Main course page shows original fee ₹7,000. You will pay only
               ₹3,000 under the student offer.)
             </p>
-          </div>
+          </div> */}
 
-          {/* 🌱 Past Students Section */}
+          {/* 🌱 Past Students Section 
           <div className="bg-white border border-green-200 rounded-xl p-5 text-left mt-6 shadow-sm">
             <h3 className="font-semibold text-green-700 mb-3 text-lg">
               🌱 Our Past Students (Who Completed Internship & Later Got Jobs)
@@ -300,7 +297,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div>*/}
         </div>
       ) : (
         <h2 className="text-2xl font-bold mb-6 text-center">
@@ -323,7 +320,7 @@ const ApplyJobForm = ({ isMernProgram = false }) => {
         >
           🎉 <b>Your application is submitted!</b>
           <br />
-          Our team will reach out within <b>2–5 working days</b>.
+         We will contact shortlisted interested candidates if a batch is planned.
         </motion.div>
       )}
 
