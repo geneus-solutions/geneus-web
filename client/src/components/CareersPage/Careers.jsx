@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams  } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowUpRightIcon,
@@ -13,6 +13,8 @@ import JobPopup from "./JobPopup";
 
 const Careers = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const jobIdFromUrl = searchParams.get("jobId");
 
   const { data: jobsData, isLoading, isError } = useGetopportunitiesQuery();
 
@@ -66,7 +68,7 @@ const Careers = () => {
     setSelectedJob(job);
     console.log("Selected job:", job);
     setShowModal(true);
-    navigate(`/careers?job=${encodeURIComponent(job.title)}`, {
+    navigate(`/careers?jobId=${job._id}`, {
       replace: false,
     });
   };
@@ -74,9 +76,19 @@ const Careers = () => {
   const closeModal = () => {
     setShowModal(false);
     setSelectedJob(null);
+    navigate("/careers", { replace: true});
   };
 
   useEffect(() => {
+
+    if(!jobIdFromUrl || !jobs.length) return;
+
+    const matchedJob = jobs.find((job) => job._id === jobIdFromUrl);
+
+    if(matchedJob) {
+      setSelectedJob(matchedJob);
+      setShowModal(true);
+    }
     if (jobsData) {
       console.log("Jobs data received:", jobsData);
       console.log("Number of jobs:", jobs.length);
