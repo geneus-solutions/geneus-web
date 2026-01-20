@@ -12,6 +12,9 @@ import {
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import dipendraImg from "../../assets/Dipendra.jpg"
+import deepakImg from "../../assets/Deepak.jpg"
+import sonaliImg from "../../assets/Sonali.png"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -22,7 +25,7 @@ const profiles = [
     program: "Completed Full Stack Program",
     designation: "Junior Software Engineer",
     company: "Protiviti",
-    image:"https://media.licdn.com/dms/image/v2/C4D03AQHnMeYZLVTbpA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1650721763105?e=1768435200&v=beta&t=9gaAL8GN6nbJL4hbuTrZ4icrBWV1FPvxG-r8rqAo4T0",
+    image:dipendraImg,
     linkedin: "https://www.linkedin.com/in/dipendra-kumar-bm5/",
   },
   {
@@ -30,7 +33,7 @@ const profiles = [
     program: "Completed Full Stack Program",
     designation: "Full-stack Developer",
     company: "Tigris Mobility Pvt Ltd",
-    image:"https://media.licdn.com/dms/image/v2/D5603AQF6MPEJ4I8mJw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1714464098361?e=1768435200&v=beta&t=3iNorjzP3KRo5sp14YgVz6ywQPQCCfVTINdRaR7rzog",
+    image:deepakImg,
     linkedin: "https://www.linkedin.com/in/deepakgupta21/",
   },
   {
@@ -38,7 +41,7 @@ const profiles = [
     program: "Completed Full Stack Program",
     designation: "Full Stack Developer",
     company: "TechStack",
-    image:"https://media.licdn.com/dms/image/v2/D5603AQH-CbD1QSiiTw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1714917159590?e=1768435200&v=beta&t=xvx7-SRun2QOh8g1jbdkl2LsWO3qIpKCKiEWr8snaQQ",
+    image:sonaliImg,
     linkedin: "https://www.linkedin.com/in/sonali-kumari-114a03204/",
   },
 ];
