@@ -124,7 +124,7 @@ function App() {
           <Route path="contact" element={<ContactUs />} />
           <Route path="careers" element={<Careers />} />
          <Route path="apply-job/:id" element={<ApplyJobForm />} />
-          <Route path="create-job" element={<CreateOpportunityPage/>} />
+         
          <Route path="mern-program/apply" element={<MernProgramForm />}/>
          <Route path="mern-program" element={<MernProgram />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -159,6 +159,7 @@ function App() {
 
               {/* Add here your admin specific route */}
               <Route path="visitor-data" element={<VisitorData/>}/>
+               <Route path="create-job" element={<CreateOpportunityPage/>} />
               <Route path="add-course" element={<AddCourse />} />
               <Route path="add-quiz" element={<AddQuizPage />} />
               <Route path="add-product" element={<AddProduct />} />
