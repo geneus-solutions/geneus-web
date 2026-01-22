@@ -6,21 +6,22 @@ import { useGetQuizzesQuery } from "../../features/quiz/quizApiSlice";
 import "../../styles/MyLearningCourseDetails.css";
 
 const MyLearningCourseDetails = ({ data }) => {
-
   const [courseData, setCourseData] = useState({});
   const [selectedTab, setSelectedTab] = useState("Overview");
 
-  
   const location = useLocation();
   const courseId = location.state?.courseId;
   const currentContent = location.state?.content;
-  
-  const { data: quizzesData } = useGetQuizzesQuery({
-    courseId: courseData?._id,
-    title: currentContent?.contentTitle,
-  },{
-    skip: !courseData?._id && !currentContent?.contentTitle, // Skip if courseData is not set
-  });
+
+  const { data: quizzesData } = useGetQuizzesQuery(
+    {
+      courseId: courseData?._id,
+      title: currentContent?.contentTitle,
+    },
+    {
+      skip: !courseData?._id && !currentContent?.contentTitle, // Skip if courseData is not set
+    },
+  );
 
   useEffect(() => {
     if (data?.courses) {
@@ -49,17 +50,22 @@ const MyLearningCourseDetails = ({ data }) => {
           ></iframe>
         </div>
         <div className="tabs">
-          {["Notes", "Overview", "Requirements", "Learnings" , "Quizzes"].map(
-            (tab) => (
-              <button
-                key={tab}
-                className={selectedTab === tab ? "active" : ""}
-                onClick={() => setSelectedTab(tab)}
-              >
-                {tab}
-              </button>
-            )
-          )}
+          {[
+            "Notes",
+            "Overview",
+            "Requirements",
+            "Learnings",
+            "Assignment",
+            "Quizzes",
+          ].map((tab) => (
+            <button
+              key={tab}
+              className={selectedTab === tab ? "active" : ""}
+              onClick={() => setSelectedTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
 
         <div className="tab-content">
@@ -136,6 +142,20 @@ const MyLearningCourseDetails = ({ data }) => {
               ))}
             </div>
           )}
+          {selectedTab === "Assignment" && (
+            <div className="assignment-section">
+              <h2>Assignment</h2>
+
+              {currentContent?.assignment ? (
+                <div className="assignment-card">
+                  <p>{currentContent.assignment}</p>
+                </div>
+              ) : (
+                <p>No assignment available for this lesson.</p>
+              )}
+            </div>
+          )}
+
           {selectedTab === "Quizzes" && (
             <div className="reviews-section">
               <h2>Play Quizze</h2>

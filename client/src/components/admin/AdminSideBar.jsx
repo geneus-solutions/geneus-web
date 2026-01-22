@@ -8,7 +8,7 @@ import {
   // FaCog,
   FaSignOutAlt,
   FaAppleAlt,
-  FaUserFriends,
+  FaUserFriends
 } from "react-icons/fa";
 import { SiGooglebigquery } from "react-icons/si";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi"; // Unique Icons
@@ -104,6 +104,19 @@ const AdminSideBar = () => {
             {!isCollapsed && <span>Add Course</span>}
           </li>
         </Link>
+
+        <Link
+          to="create-job"
+          className={`admin-sidebar-link ${
+            location.pathname === "/admin-dashboard/create-job" ? "active" : ""
+          }`}
+        >
+          <li className="admin-sidebar-item">
+            <FaPlusSquare />
+            {!isCollapsed && <span>Add Opportunity</span>}
+          </li>
+        </Link>
+
         <Link
           to="add-product"
           className={`admin-sidebar-link ${
